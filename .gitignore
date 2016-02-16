@@ -1,0 +1,7 @@
+*.suo
+*.pdb
+
+bin/
+obj/
+W3CTestSuite/
+Nuget/
