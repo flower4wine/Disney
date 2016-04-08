@@ -5,3 +5,11 @@ bin/
 obj/
 W3CTestSuite/
 Nuget/
+server/disney/target/classes/c3p0.properties
+*.class
+target/
+.settings/
+server/disney/.classpath
+server/disney/.mymetadata
+server/disney/.project
+server/disney/.myumldata

@@ -1,0 +1,165 @@
+@CHARSET "UTF-8";
+
+img {
+	width: 100%;
+}
+
+.clear {
+	clear: both;
+}
+
+.idx_top {
+	border-bottom: solid 1px #363B54;
+}
+
+.idx_top_bg {
+	margin-bottom: -15px;
+}
+
+.idx_top .items {
+	color: white;
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+	bottom: 15px;
+}
+
+.idx_top .item {
+	float: left;
+	text-align: center;
+	width: 25%;
+}
+
+.idx_top .item_circle {
+	border-radius: 50%;
+	width: 60%;
+	margin: 0 auto;
+}
+
+.idx_top .item_text {
+	margin: 10px 10%;
+}
+
+.idx_top .item_bot_col1 {
+	border-bottom: solid 2px #4C8ED7;
+}
+
+.idx_top .item_bot_col2 {
+	border-bottom: solid 2px #D23F5A;
+}
+
+.idx_top .item_bot_col3 {
+	border-bottom: solid 2px #DDAD04;
+}
+
+.idx_top .item_bot_col4 {
+	border-bottom: solid 2px #13AD68;
+}
+
+.idx_top .item_img {
+	padding: 20% 0;
+	width: 60%;
+}
+
+.idx_top .item_col1 {
+	background-color: #4C8ED7;
+}
+
+.idx_top .item_col2 {
+	background-color: #D23F5A;
+}
+
+.idx_top .item_col3 {
+	background-color: #DDAD04;
+}
+
+.idx_top .item_col4 {
+	background-color: #13AD68;
+}
+
+.idx_center .unslider .next,
+.idx_center .unslider .prev,
+.idx_center .unslider-nav {
+	display: none;
+}
+
+.idx_slider .slider_item {
+	padding: 10px;
+}
+
+.idx_slider .slider_item .text {
+	color: white;
+	border-left: solid 3px #4C8ED7;
+	padding-left: 10px;
+}
+
+.idx_slider .slider_item .img {
+	width: 90%;
+	margin: 0px auto;
+	padding-top: 8px;
+}
+
+.idx_bot {
+	background-color: #AE2A03;
+	position:absolute;
+	bottom:0;
+	width:100%;
+}
+
+.idx_bot .img {
+	width: 60%;
+	margin: 0 auto;
+	padding: 8px 0px;
+}
+
+/****/
+.otl-head {
+	color: white;
+	text-align: center;
+	letter-spacing: 2px;
+	font-size: 150%;
+}
+
+.otl-head div{
+	padding:12px 0;
+}
+
+.otl-content{
+	height: 800px;	
+}
+
+.otl-content-grid {
+	text-align: center;
+	margin: 1% 2%;
+	height:50%;
+}
+
+.otl-content-grid-item {
+	background: url(../images/outlet.jpg) no-repeat;
+	background-size: cover;
+	margin: 1%;
+	width: 48%;
+	float: left;
+	border-radius: 2%;
+	height:100%;
+	position:relative;
+}
+
+.otl-content-grid-item .top-txt {
+    background-color: rgba(7,7,7,0.3);
+    margin: 20px;
+    border-radius: 6px;
+    padding: 5px 0px;
+    font-size:120%;
+}
+
+.otl-content-grid-item .bot-txt {
+	position: absolute;
+	width: 80%;
+	bottom: 10px;
+	left: 10%;
+	background-color: red;
+	padding: 8px 0px;
+	font-size:130%;
+	border-radius:4px;
+}
