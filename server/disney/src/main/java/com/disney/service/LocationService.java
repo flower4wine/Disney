@@ -14,5 +14,5 @@ public interface LocationService {
 	public LoToLoBO loadLoToLoBO(String from,String to);
 	
 	
-/*	public void saveLoToLoBO(LoToLoBO bo);*/
+	public void saveLoToLoBO(LoToLoBO bo);
 }
