@@ -13,7 +13,7 @@
   </head>
   
   <body>
-  	<jsp:forward page="index.html" />
+  	<jsp:forward page="disney.html" />
   </body>
   
 </html>

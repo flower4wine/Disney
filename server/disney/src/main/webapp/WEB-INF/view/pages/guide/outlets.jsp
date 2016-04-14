@@ -80,7 +80,8 @@
 		$(".otl-content").animate({height:contentHeight});
 		
 		$(".otl-content-grid-item .bot-txt").on('click',function(){
-			window.location = '/disney/parkGuide/outlet.html';
+			var url = '/disney/pg/toLocation.html?from=a&to=b';
+			window.location = url;
 		});
 		
 	</script>
