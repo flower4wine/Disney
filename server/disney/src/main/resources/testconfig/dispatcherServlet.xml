@@ -20,15 +20,6 @@
 		<context:include-filter expression="org.springframework.stereotype.Controller"
 			type="annotation" />
 	</context:component-scan> 
-	
-	
-	 <mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/index.html" />
-			<mvc:mapping path="/pg/*.html" />
-			<bean class="com.disney.interceptor.LoginInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors> 
 
 	<bean id="configViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/pages" />

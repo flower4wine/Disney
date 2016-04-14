@@ -3,6 +3,7 @@ package com.disney.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,12 +12,18 @@ import com.disney.bo.LoToLoBO;
 import com.disney.bo.LoToLoStepBO;
 import com.disney.bo.QrCodeBO;
 import com.disney.constant.Lo2LoStepType;
+import com.disney.dao.FromToOptimizeDao;
 import com.disney.dao.LoToLoDao;
 import com.disney.dao.LoToLoStepDao;
 import com.disney.dao.LocationDao;
+import com.disney.dao.QrCodeDao;
+import com.disney.dao.UserLocationDao;
+import com.disney.model.FromToOptimize;
 import com.disney.model.LoToLo;
 import com.disney.model.LoToLoStep;
 import com.disney.model.Location;
+import com.disney.model.QrCode;
+import com.disney.model.UserLocation;
 import com.disney.service.LocationService;
 
 @Service
@@ -31,6 +38,16 @@ public class LocationServiceImpl implements LocationService {
 	
 	@Autowired
 	private LoToLoStepDao loToLoStepDao;
+	
+	
+	@Autowired
+	private QrCodeDao qrCodeDao;
+	
+	@Autowired
+	private FromToOptimizeDao fromToOptimizeDao;
+	
+	@Autowired
+	private UserLocationDao userLocationDao;
 
 	@Override
 	public List<Location> findAll() {
@@ -41,7 +58,7 @@ public class LocationServiceImpl implements LocationService {
 	public LoToLoBO loadLoToLoBO(String from,String to){
 		
 		Location locFrom = locationDao.find(from);
-		Location locTo = locationDao.find(to);
+		Location locTo = locationDao.find(to.substring(0,7));
 		
 		LoToLo lo2lo = loToLoDao.find(from, to);
 		
@@ -92,6 +109,115 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public Location find(String qrCode) {
 		return locationDao.find(qrCode);
+	}
+
+	@Override
+	public void saveLoToLoBO(LoToLoBO bo) {
+		
+		String from = bo.getFrom().getQrode();
+		String to = bo.getTo().getQrode();
+		
+		/*Location f = locationDao.find(from);
+		Location t = locationDao.find(to);*/
+		
+		LoToLo lo2lo = loToLoDao.find(from, to);
+		
+		if(lo2lo == null){
+			lo2lo = new LoToLo();
+			lo2lo.setToQrCode(to);
+			lo2lo.setFromQrCode(from);
+			
+			lo2lo.setInnerUrl(bo.getInnerUrl());
+			lo2lo.setOutUrl(bo.getOutUrl());
+			
+			lo2lo.setTime(bo.getTime());
+			lo2lo.setDistince(bo.getDistince());
+			loToLoDao.save(lo2lo);
+		}else{
+			return;
+		}
+		
+		Long loToLoId = lo2lo.getId();
+		
+		LoToLoStep lo2lostep = null;
+		
+		List<LoToLoStepBO> innerSteps = bo.getInnerSteps();
+		for (LoToLoStepBO loToLoStepBO : innerSteps) {
+			
+			lo2lostep = new LoToLoStep();
+			lo2lostep.setLoToLoId(loToLoId);	
+			
+			lo2lostep.setType(Lo2LoStepType.IN);
+			lo2lostep.setStep(loToLoStepBO.getStep());
+			lo2lostep.setRemark(loToLoStepBO.getRemark());
+			loToLoStepDao.save(lo2lostep);
+		}
+		
+		List<LoToLoStepBO> outSteps = bo.getOutSteps();
+		
+		for (LoToLoStepBO loToLoStepBO : outSteps) {
+			
+			lo2lostep = new LoToLoStep();
+			lo2lostep.setLoToLoId(loToLoId);	
+			
+			lo2lostep.setType(Lo2LoStepType.OUT);
+			lo2lostep.setStep(loToLoStepBO.getStep());
+			lo2lostep.setRemark(loToLoStepBO.getRemark());
+			loToLoStepDao.save(lo2lostep);
+		}
+		
+	}
+
+	@Override
+	public void addQrCode(String code, String name,boolean isInout) {
+		
+		if(StringUtils.isNotEmpty(code) && code.length()==12 && qrCodeDao.find(code) == null){
+
+			Location parent = locationDao.find(code.substring(0,7));
+			
+			if(parent != null){
+				Location child = new Location();
+				
+				child.setLocation(code);
+				child.setName(name);
+				child.setQrCodeLocation(true);
+				child.setType(parent.getType());
+				child.setEntrance(isInout);
+				
+				locationDao.save(child);
+				
+				QrCode qr = new QrCode();
+				
+				qr.setLocationId(child.getId());
+				qr.setQrCode(code);
+				
+				qrCodeDao.save(qr);
+			}
+		}
+	}
+
+	@Override
+	public void addFromTo(String from, String to) {
+		
+		if(fromToOptimizeDao.find(from, to) == null){
+			FromToOptimize entity = new FromToOptimize();
+			
+			entity.setFromCode(from);
+			entity.setToCode(to);
+			
+			fromToOptimizeDao.save(entity);
+		}
+		
+	}
+
+	@Override
+	public UserLocation findUserLocation(String userOpenId) {
+		return userLocationDao.find(userOpenId);
+	}
+
+	@Override
+	public void saveUserLocation(UserLocation userLocation) {
+		userLocationDao.saveOrUpdate(userLocation);
 	}
 	
 }

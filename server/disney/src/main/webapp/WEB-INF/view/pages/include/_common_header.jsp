@@ -7,6 +7,7 @@
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <link rel="shortcut icon" href="<c:url value='/resources/images/parking.png'/>" type="image/x-icon">
 <link rel="stylesheet" href="<c:url value='/resources/css/style.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/thirdparty/weui/dist/style/weui.min.css' />" />
