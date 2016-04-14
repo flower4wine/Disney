@@ -9,15 +9,16 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
+import com.disney.util.WeChatAuthUtil;
 import com.disney.util.WeChatBaseUtil;
 
 @Service
 public class WeChatHandlerImpl implements WeChatHandler {
 
 	private WxTokenGenerate generator = null;
-
 	private WxChatConfigBO config;
-
+	private String domain;
+	
 
 	@PostConstruct  
 	public void init() throws Exception {
@@ -25,7 +26,13 @@ public class WeChatHandlerImpl implements WeChatHandler {
 
 		this.config = loadConfig(p);
 		this.generator = loadGenerator(this.config);
+		this.domain = p.getProperty("weixin.domain");
 
+	}
+	
+	
+	public String getDomain(){
+		return this.domain;
 	}
 
 	private boolean isNeedReset(WxTokenGenerate tor){
@@ -77,6 +84,8 @@ public class WeChatHandlerImpl implements WeChatHandler {
 
 		bo.setAppId(p.getProperty("weixin.appId"));
 		bo.setAppSecret(p.getProperty("weixin.secret"));
+		bo.setAuthRedirectUrl(p.getProperty("weixin.authRedirectUrl"));
+		bo.setDebug(new Boolean(p.getProperty("weixin.debug")));
 
 		return bo;
 	}
@@ -125,6 +134,28 @@ public class WeChatHandlerImpl implements WeChatHandler {
 	public String appId() {
 		String appId = this.config.getAppId();
 		return appId;
+	}
+	
+	/**
+	 * 获取登录授权URL
+	 */
+	@Override
+	public String getWXBaseAuthUrl(){
+		return WeChatAuthUtil.getWXBaseAuthUrl(this.appId(),this.config.getAuthRedirectUrl());
+	}
+	
+	
+	/**
+	 * 微信登录回调获取微信用户OpenId
+	 */
+	@Override
+	public Map<String,Object> getAuthInfo(String code){
+		return WeChatAuthUtil.getOauth2AccessToken(this.config.getAppId(), this.config.getAppSecret(), code);
+	}
+
+	@Override
+	public boolean isDebug() {
+		return this.config.isDebug();
 	}
 
 }

@@ -8,7 +8,8 @@ html,body {
 }
 
 body {
-	background-color: #1A1F35;
+	/* background-color: #1A1F35; */
+	background-color: #FFF;
 	height: 100%;
 	color: white;
 }
@@ -20,6 +21,11 @@ body {
 ul,li {
 	list-style-type: none;
 }
+
+.bg-color-black {
+	background-color: #1A1F35;
+}
+
 
 .disney-bg-full {
 	height: 100%;
@@ -44,7 +50,7 @@ ul,li {
 }
 
 .bg-color_red {
-	background-color: #D23F5A;
+	background-color: #D23F5A!important;
 }
 
 .bg-color_gray {
@@ -482,6 +488,33 @@ ul,li {
 }
 
 
+/**********scan************/
+.scan-wechat {
+	background-color: white;
+	margin: 0 auto;
+	width: 100%;
+	padding-top: 50%;
+}
 
+.scan-wechat .scan-remark {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding: 6px 0px 6px 10px;
+	letter-spacing: 0.8px;
+}
+
+.scan-wechat .scan-img {
+	margin: 0 auto;
+	width: 35px;
+	padding: 20px;
+	border: solid 1px #CCC;
+}
+
+.scan-wechat .scan-btn {
+	width: 70%;
+	margin: 20px auto;
+	letter-spacing: 5px;
+}
 
 
