@@ -1,3 +1,7 @@
+function loading(){
+	$("#loadingToast").show();
+}
+
 function isWeiXin(){
     var ua = window.navigator.userAgent.toLowerCase();
     if(ua.match(/MicroMessenger/i) == 'micromessenger'){
@@ -30,3 +34,4 @@ function clientWidth(){
 function scrollHeight(){
 	return document.body.scrollHeight;
 }
+
