@@ -10,19 +10,26 @@ namespace testAStar
     [DataContract]
     public class Cell
     {
+        public Cell()
+        {
+            this.Name = string.Empty;
+        }
         public Cell(string name = "")
         {
-            this.Name = name;
+            if(!string.IsNullOrEmpty(name))
+                this.Name = name;
         }
         public Cell(Point location,string name= "")
         {
             this.Location = location;
-            this.Name = name;
+            if (!string.IsNullOrEmpty(name))
+                this.Name = name;
         }
         public Cell(int x, int y, string name = "")
         {
             this.Location = new Point(x, y);
-            this.Name = name;
+            if (!string.IsNullOrEmpty(name))
+                this.Name = name;
         }
         [DataMember (Name ="n")]
         public string Name { set; get; }
@@ -31,6 +38,9 @@ namespace testAStar
         /// </summary>
         [DataMember(Name = "p")]
         public Point Location { get; set; }
+
+        [DataMember(Name = "r")]
+        public string Remark { set; get; }
 
 
         /// <summary>
@@ -43,18 +53,18 @@ namespace testAStar
         /// 到起始点的实际代价
         /// </summary>
         [IgnoreDataMember]
-        public int RealDistance { get; set; }
+        public float RealDistance { get; set; }
 
         /// <summary>
         /// 估计代价
         /// </summary>
         [IgnoreDataMember]
-        public int EvaluateDistance { get; set; }
+        public float EvaluateDistance { get; set; }
 
         /// <summary>
         ///  最终代价
         /// </summary>
-        public int FinalDistance { get; set; }
+        public float FinalDistance { get; set; }
         /// <summary>
         /// 父亲节点
         /// </summary>

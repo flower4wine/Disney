@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -39,16 +40,19 @@ namespace testAStar
 
             this.MAP_HEIGHT = mapHeight;
             this.CELL_HEIGHT_COUNT = this.MAP_HEIGHT / this.CELL_WIDTH;
+
             this.GIDTempBmp = new Bitmap(this.MAP_WIDTH, this.MAP_HEIGHT);
 
             this.MapControl = mapControl;
 
             this.StoneCells = new List<Cell>();
             this.KeyCells = new List<Cell>();
+            this.SceneryCells=new List<Cell>();
+            this.StationCells = new List<Cell>();
             this.OpenList = new List<Cell>();
             this.ClosedList = new List<Cell>();
             this.BestLoad = new List<Cell>();
-            this.SVGLocation = new List<Point>();
+            this.PathPoint = new List<Point>();
         }
         public APathFind(int mapWidth, int mapHeight, Control mapControl = null)
             : this(1.0F, 10, 400, 400, mapControl)
@@ -77,9 +81,17 @@ namespace testAStar
         /// </summary>
         public List<Cell> StoneCells { private set; get; }
         /// <summary>
-        /// 关键点(有名字)
+        /// 停车区域(有名字)
         /// </summary>
         public List<Cell> KeyCells { private set; get; }
+        /// <summary>
+        /// 站点
+        /// </summary>
+        public List<Cell> StationCells { private set; get; }
+        /// <summary>
+        /// 景点
+        /// </summary>
+        public List<Cell> SceneryCells { private set; get; }
         /// <summary>
         /// Open列表集合
         /// </summary>
@@ -98,7 +110,10 @@ namespace testAStar
         /// </summary>
         public Cell GoalCell { private set; get; }
         public List<Cell> BestLoad { private set; get; }
-        public List<Point> SVGLocation { private set; get; }
+        /// <summary>
+        /// 途径的转折点
+        /// </summary>
+        public List<Point> PathPoint { private set; get; }
 
         public Control MapControl { set; get; }
 
@@ -167,18 +182,32 @@ namespace testAStar
         public void SetStartCell(int mouseX, int mouseY)
         {
             StartCell = new Cell((mouseX / CELL_WIDTH) * CELL_WIDTH, (mouseY / CELL_WIDTH) * CELL_WIDTH);
-            StartCell.Name = "起点";
-            MapBmpFillRectangle(StartCell, Color.Purple);
+            StartCell.Name = "起点-起点";
+            MapBmpFillRectangle(StartCell, this.Purple);
         }
+        public void SetStartCell(Cell cell)
+        {
+            StartCell = cell;
+            MapBmpFillRectangle(StartCell, this.Purple);
+        }
+
+        private Color Purple = Color.FromArgb(100, 128, 0, 128);
         /// <summary>
         /// 设置终点
         /// </summary>
         public void SetGoalCell(int mouseX, int mouseY)
         {
             GoalCell = new Cell((mouseX / CELL_WIDTH) * CELL_WIDTH, (mouseY / CELL_WIDTH) * CELL_WIDTH);
-            GoalCell.Name = "终点";
-            MapBmpFillRectangle(GoalCell, Color.Yellow);
+            GoalCell.Name = "终点-终点";
+            GoalCell.Remark = "s-2;e-3;f-4;g-5;gh-6";
+            MapBmpFillRectangle(GoalCell, this.Yellow);
         }
+        public void SetGoalCell(Cell cell)
+        {
+            GoalCell = cell;
+            MapBmpFillRectangle(GoalCell, this.Yellow);
+        }
+        private Color Yellow = Color.FromArgb(100, 255, 255, 0);
         /// <summary>
         /// 画石头（障碍物）
         /// </summary>
@@ -189,19 +218,65 @@ namespace testAStar
         public void AddRangeStoneCells(IEnumerable<Cell> stoneCells)
         {
             this.StoneCells.AddRange(stoneCells);
-            MapBmpFillRectangles(stoneCells.ToList(),Color.Red);
+            MapBmpFillRectangles(stoneCells.ToList(), this.Red);
         }
+
+        private Color Red = Color.FromArgb(100, 255, 0, 0);
         public void ReLoadStoneCells(IEnumerable<Cell> stoneCells)
         {
             this.StoneCells.Clear();
             this.StoneCells.AddRange(stoneCells);
-            MapBmpFillRectangles(stoneCells.ToList(), Color.Red);
+            MapBmpFillRectangles(stoneCells.ToList(), this.Red);
         }
-        public void SetKeyeCell(int mouseX, int mouseY)
+        public void SetKeyCell(int mouseX, int mouseY, string name = "")
         {
-            //this.DrawStone(new Point((mouseX / CELL_WIDTH) * CELL_WIDTH, (mouseY / CELL_WIDTH) * CELL_WIDTH));
-            this.KeyCells.Add(new Cell((mouseX / CELL_WIDTH) * CELL_WIDTH, (mouseY / CELL_WIDTH) * CELL_WIDTH));
+            SetKeyCell(new Cell(mouseX / CELL_WIDTH * CELL_WIDTH, mouseY / CELL_WIDTH * CELL_WIDTH, name));
         }
+
+        public void SetKeyCell(Cell cell)
+        {
+            Cell cellFind = KeyCells.FirstOrDefault(record => record.Location.Equals(cell.Location));
+            if (cellFind == null)
+            {
+                this.KeyCells.Add(cell);
+                MapBmpFillRectangle(cell, Color.DarkSlateBlue);
+            }
+            else
+            {
+                cellFind.Name = cell.Name;
+            }
+        }
+
+        public string GetKeyCellName(int mouseX, int mouseY)
+        {
+            Cell cell = KeyCells.FirstOrDefault(record => record.Location.Equals(new Point(mouseX / this.CELL_WIDTH * CELL_WIDTH, mouseY / this.CELL_WIDTH * CELL_WIDTH)));
+            return cell == null ? string.Empty : cell.Name;
+        }
+        public Cell GetKeyCell(int mouseX, int mouseY)
+        {
+            return KeyCells.FirstOrDefault(record => record.Location.Equals(new Point(mouseX / this.CELL_WIDTH * CELL_WIDTH, mouseY / this.CELL_WIDTH * CELL_WIDTH)));
+        }
+
+        public void RemoveKeyCell(Cell cell)
+        {
+            KeyCells.Remove(cell);
+            MapBmpFillRectangle(cell, Color.Azure);
+        }
+        public void SetKeyCellSuffix()
+        {
+            //KeyCells = KeyCells.OrderBy(record => record.Location.X).ThenBy(record => record.Location.Y).ToList();
+            int num = 1;
+
+            foreach (Cell keyCell in KeyCells)
+            {
+                if (keyCell.Name.Length < 12)
+                {
+                    keyCell.Name += "-" + num.ToString().PadLeft(4, '0');
+                    num++;
+                }
+            }
+        }
+
         public void AddKeyCells(IEnumerable<Cell> keyCells)
         {
             this.KeyCells.AddRange(keyCells);
@@ -211,8 +286,104 @@ namespace testAStar
         {
             this.KeyCells.Clear();
             this.KeyCells.AddRange(keyCells);
+            MapBmpFillRectangles(KeyCells, Color.DarkSlateBlue);
             ///TODO
         }
+        public void SetSceneryCell(int mouseX, int mouseY, string name = "")
+        {
+            SetSceneryCell(new Cell(mouseX / CELL_WIDTH * CELL_WIDTH, mouseY / CELL_WIDTH * CELL_WIDTH, name));
+        }
+
+        public void SetSceneryCell(Cell cell)
+        {
+            Cell cellFind = SceneryCells.FirstOrDefault(record => record.Location.Equals(cell.Location));
+            if (cellFind == null)
+            {
+                this.SceneryCells.Add(cell);
+                MapBmpFillRectangle(cell, Color.Goldenrod);
+            }
+            else
+            {
+                cellFind.Name = cell.Name;
+            }
+        }
+
+        public string GetSceneryCellName(int mouseX, int mouseY)
+        {
+            Cell cell = SceneryCells.FirstOrDefault(record => record.Location.Equals(new Point(mouseX / this.CELL_WIDTH * CELL_WIDTH, mouseY / this.CELL_WIDTH * CELL_WIDTH)));
+            return cell == null ? string.Empty : cell.Name;
+        }
+        public Cell GetSceneryCell(int mouseX, int mouseY)
+        {
+            return SceneryCells.FirstOrDefault(record => record.Location.Equals(new Point(mouseX / this.CELL_WIDTH * CELL_WIDTH, mouseY / this.CELL_WIDTH * CELL_WIDTH)));
+        }
+
+        public void RemoveSceneryCell(Cell cell)
+        {
+            SceneryCells.Remove(cell);
+            MapBmpFillRectangle(cell, Color.Azure);
+        }
+
+        public void AddSceneryCells(IEnumerable<Cell> cells)
+        {
+            this.SceneryCells.AddRange(cells);
+            ///TODO
+        }
+        public void ReLoadSceneryCells(IEnumerable<Cell> cells)
+        {
+            this.SceneryCells.Clear();
+            this.SceneryCells.AddRange(cells);
+            MapBmpFillRectangles(SceneryCells, Color.Goldenrod);
+            ///TODO
+        }
+        public void SetStationCell(int mouseX, int mouseY, string name = "")
+        {
+            SetStationCell(new Cell(mouseX / CELL_WIDTH * CELL_WIDTH, mouseY / CELL_WIDTH * CELL_WIDTH, name));
+        }
+
+        public void SetStationCell(Cell cell)
+        {
+            Cell cellFind = StationCells.FirstOrDefault(record => record.Location.Equals(cell.Location));
+            if (cellFind == null)
+            {
+                this.StationCells.Add(cell);
+                MapBmpFillRectangle(cell, Color.Pink);
+            }
+            else
+            {
+                cellFind.Name = cell.Name;
+            }
+        }
+
+        public string GetStationCellName(int mouseX, int mouseY)
+        {
+            Cell cell = StationCells.FirstOrDefault(record => record.Location.Equals(new Point(mouseX / this.CELL_WIDTH * CELL_WIDTH, mouseY / this.CELL_WIDTH * CELL_WIDTH)));
+            return cell == null ? string.Empty : cell.Name;
+        }
+        public Cell GetStationCell(int mouseX, int mouseY)
+        {
+            return StationCells.FirstOrDefault(record => record.Location.Equals(new Point(mouseX / this.CELL_WIDTH * CELL_WIDTH, mouseY / this.CELL_WIDTH * CELL_WIDTH)));
+        }
+        public void RemoveStationCell(Cell cell)
+        {
+            StationCells.Remove(cell);
+            MapBmpFillRectangle(cell, Color.Azure);
+        }
+
+        public void AddStationCells(IEnumerable<Cell> cells)
+        {
+            this.StationCells.AddRange(cells);
+            ///TODO
+        }
+        public void ReLoadStationCells(IEnumerable<Cell> cells)
+        {
+            this.StationCells.Clear();
+            this.StationCells.AddRange(cells);
+            MapBmpFillRectangles(StationCells, Color.Pink);
+            ///TODO
+        }
+
+        private Color WhiteSmoke = Color.FromArgb(100, 245, 245, 245);
         /// <summary>
         /// 重置
         /// </summary>
@@ -220,22 +391,22 @@ namespace testAStar
         {
             if (StartCell != null)
             {
-                MapBmpFillRectangle(StartCell, Color.WhiteSmoke);
+                MapBmpFillRectangle(StartCell, this.WhiteSmoke);
                 StartCell = null;
             }
             if (GoalCell != null)
             {
-                MapBmpFillRectangle(GoalCell, Color.WhiteSmoke);
+                MapBmpFillRectangle(GoalCell, this.WhiteSmoke);
                 GoalCell = null;
             }
 
-            MapBmpFillRectangles(StoneCells, Color.WhiteSmoke);
+            MapBmpFillRectangles(StoneCells, this.WhiteSmoke);
             StoneCells.Clear();
 
-            MapBmpFillRectangles(ClosedList, Color.WhiteSmoke);
+            MapBmpFillRectangles(ClosedList, this.WhiteSmoke);
             ClosedList.Clear();
-            
-            MapBmpFillRectangles(OpenList, Color.WhiteSmoke);
+
+            MapBmpFillRectangles(OpenList, this.WhiteSmoke);
             OpenList.Clear();
         }
 
@@ -249,7 +420,7 @@ namespace testAStar
                 cells.Add(stoneCell);
             }
             this.StoneCells.AddRange(cells.ToArray());
-            MapBmpFillRectangles(cells, Color.Red);
+            MapBmpFillRectangles(cells, this.Red);
         }
 
         /// <summary>
@@ -261,7 +432,7 @@ namespace testAStar
             {
                 Cell stoneCell = new Cell();
                 stoneCell.Location = pt;
-                MapBmpFillRectangle(stoneCell, Color.Red);
+                MapBmpFillRectangle(stoneCell, this.Red);
                 this.StoneCells.Add(stoneCell);
             }
         }
@@ -282,17 +453,19 @@ namespace testAStar
         }
         private void MapBmpFillRectangles(IList<Cell> cells, Color brushColor)
         {
-            Graphics g = Graphics.FromImage(GIDTempBmp);
-            SolidBrush solidBrush = new SolidBrush(brushColor);
-            foreach (Cell cell in cells)
+            using (Graphics g = Graphics.FromImage(GIDTempBmp))
             {
-                if(brushColor==Color.Empty)
+                SolidBrush solidBrush = new SolidBrush(brushColor);
+                foreach (Cell cell in cells)
                 {
-                    g.FillRectangle(new SolidBrush(cell.CellColor), cell.Location.X + CELL_HALF_LINE_WIDTH, cell.Location.Y + CELL_HALF_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH);
-                }
-                else
-                {
-                    g.FillRectangle(solidBrush, cell.Location.X + CELL_HALF_LINE_WIDTH, cell.Location.Y + CELL_HALF_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH);
+                    if (brushColor == Color.Empty)
+                    {
+                        g.FillRectangle(new SolidBrush(cell.CellColor), cell.Location.X + CELL_HALF_LINE_WIDTH, cell.Location.Y + CELL_HALF_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH);
+                    }
+                    else
+                    {
+                        g.FillRectangle(solidBrush, cell.Location.X + CELL_HALF_LINE_WIDTH, cell.Location.Y + CELL_HALF_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH);
+                    }
                 }
             }
         }
@@ -306,14 +479,18 @@ namespace testAStar
         }
         private void MapBmpFillRectangle(Cell cell, Color brushColor)
         {
-            Graphics g = Graphics.FromImage(GIDTempBmp);
-            if (brushColor == Color.Empty)
+            using (Graphics g = Graphics.FromImage(GIDTempBmp))
             {
-                g.FillRectangle(new SolidBrush(cell.CellColor), cell.Location.X + CELL_HALF_LINE_WIDTH, cell.Location.Y + CELL_HALF_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH);
-            }
-            else
-            {
-                g.FillRectangle(new SolidBrush(brushColor), cell.Location.X + CELL_HALF_LINE_WIDTH, cell.Location.Y + CELL_HALF_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH);
+                if (brushColor == Color.Empty)
+                {
+                    g.FillRectangle(new SolidBrush(cell.CellColor), cell.Location.X + CELL_HALF_LINE_WIDTH,
+                        cell.Location.Y + CELL_HALF_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH);
+                }
+                else
+                {
+                    g.FillRectangle(new SolidBrush(brushColor), cell.Location.X + CELL_HALF_LINE_WIDTH,
+                        cell.Location.Y + CELL_HALF_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH, CELL_WIDTH_M_INT_LINE_WIDTH);
+                }
             }
         }
 
@@ -362,6 +539,7 @@ namespace testAStar
         }
 
         #region 寻找路径估计消耗最小的格子
+        
         private bool SearchBestCell()
         {
             //为起始节点初始化上下左右方格
@@ -406,8 +584,8 @@ namespace testAStar
             }
             List<Cell> minCells = new List<Cell>();
             List<Cell> minestCells = new List<Cell>();
-            int min = int.MaxValue;
-            int n = int.MaxValue;
+            float min = float.MaxValue;
+            float n = float.MaxValue;
             //在open集合中找出最小的f(n)值
             foreach (Cell cell in OpenList)
             {
@@ -419,7 +597,7 @@ namespace testAStar
             //找出f(n)值最小的格子
             foreach (Cell openCell in this.OpenList)
             {
-                if (openCell.FinalDistance == min)
+                if (Math.Abs(openCell.FinalDistance - min) < 0.00001)
                 {
                     minCells.Add(openCell);
                 }
@@ -466,6 +644,8 @@ namespace testAStar
         #endregion
 
         #region 开始搜索
+        int lastGoalSearchWay = 0;
+        int lastStartSearchWay = 0;
         public bool BeginSearch()
         {
             if (Cell.IsSampleCell(this.StartCell, this.GoalCell))
@@ -482,69 +662,264 @@ namespace testAStar
             {
                 if (!this.SearchBestCell())
                 {
-                    MessageBox.Show("苦海无边，回头是岸！");
+                    //MessageBox.Show("苦海无边，回头是岸！");
                     return false;
                 }
                 Cell closedCell = this.ClosedList[ClosedList.Count - 1];
-                Cell _upCell = new Cell();
-                Cell _downCell = new Cell();
-                Cell _rightCell = new Cell();
-                Cell _leftCell = new Cell();
-                _upCell.Location = new Point(closedCell.Location.X, closedCell.Location.Y + CELL_WIDTH);
-                _downCell.Location = new Point(closedCell.Location.X, closedCell.Location.Y - CELL_WIDTH);
-                _rightCell.Location = new Point(closedCell.Location.X + CELL_WIDTH, closedCell.Location.Y);
-                _leftCell.Location = new Point(closedCell.Location.X - CELL_WIDTH, closedCell.Location.Y);
+                Cell _upCell = new Cell(new Point(closedCell.Location.X, closedCell.Location.Y + CELL_WIDTH));
+                Cell _downCell = new Cell(new Point(closedCell.Location.X, closedCell.Location.Y - CELL_WIDTH));
+                Cell _rightCell = new Cell(new Point(closedCell.Location.X + CELL_WIDTH, closedCell.Location.Y));
+                Cell _leftCell = new Cell(new Point(closedCell.Location.X - CELL_WIDTH, closedCell.Location.Y));
+                //_upCell.Location = new Point(closedCell.Location.X, closedCell.Location.Y + CELL_WIDTH);
+                //_downCell.Location = new Point(closedCell.Location.X, closedCell.Location.Y - CELL_WIDTH);
+                //_rightCell.Location = new Point(closedCell.Location.X + CELL_WIDTH, closedCell.Location.Y);
+                //_leftCell.Location = new Point(closedCell.Location.X - CELL_WIDTH, closedCell.Location.Y);
 
+                #region 
                 if (Cell.IsSampleCell(_upCell, StartCell))
                 {
-                    //StartCell.DownCell = closedCell;
                     closedCell.UpCell = StartCell;
                 }
                 else if (Cell.IsSampleCell(_downCell, StartCell))
                 {
-                    //StartCell.UpCell = closedCell;
                     closedCell.DownCell = StartCell;
                 }
                 else if (Cell.IsSampleCell(_rightCell, StartCell))
                 {
-                    //StartCell.LeftCell = closedCell;
                     closedCell.RightCell = StartCell;
                 }
                 else if (Cell.IsSampleCell(_leftCell, StartCell))
                 {
-                    //StartCell.RightCell = closedCell;
                     closedCell.LeftCell = StartCell;
                 }
+                //switch (lastStartSearchWay)
+                //{
+                //    case 0:
+                //        if (Cell.IsSampleCell(_upCell, StartCell))
+                //        {
+                //            closedCell.UpCell = StartCell;
+                //            lastStartSearchWay = 0;
+                //        }
+                //        else if (Cell.IsSampleCell(_downCell, StartCell))
+                //        {
+                //            closedCell.DownCell = StartCell;
+                //            lastStartSearchWay = 1;
+                //        }
+                //        else if (Cell.IsSampleCell(_rightCell, StartCell))
+                //        {
+                //            closedCell.RightCell = StartCell;
+                //            lastStartSearchWay = 2;
+                //        }
+                //        else if (Cell.IsSampleCell(_leftCell, StartCell))
+                //        {
+                //            closedCell.LeftCell = StartCell;
+                //            lastStartSearchWay = 3;
+                //        }
+                //        break;
+                //    case 1:
+                //        if (Cell.IsSampleCell(_downCell, StartCell))
+                //        {
+                //            closedCell.DownCell = StartCell;
+                //            lastStartSearchWay = 1;
+                //        }
+                //        else if (Cell.IsSampleCell(_rightCell, StartCell))
+                //        {
+                //            closedCell.RightCell = StartCell;
+                //            lastStartSearchWay = 2;
+                //        }
+                //        else if (Cell.IsSampleCell(_leftCell, StartCell))
+                //        {
+                //            closedCell.LeftCell = StartCell;
+                //            lastStartSearchWay = 3;
+                //        }
+                //        else if (Cell.IsSampleCell(_upCell, StartCell))
+                //        {
+                //            closedCell.UpCell = StartCell;
+                //            lastStartSearchWay = 0;
+                //        }
+                //        break;
+                //    case 2:
+                //        if (Cell.IsSampleCell(_rightCell, StartCell))
+                //        {
+                //            lastStartSearchWay = 2;
+                //            closedCell.RightCell = StartCell;
+                //        }
+                //        else if (Cell.IsSampleCell(_leftCell, StartCell))
+                //        {
+                //            lastStartSearchWay = 3;
+                //            closedCell.LeftCell = StartCell;
+                //        }
+                //        else if (Cell.IsSampleCell(_upCell, StartCell))
+                //        {
+                //            closedCell.UpCell = StartCell;
+                //            lastStartSearchWay = 0;
+                //        }
+                //        else if (Cell.IsSampleCell(_downCell, StartCell))
+                //        {
+                //            closedCell.DownCell = StartCell;
+                //            lastStartSearchWay = 1;
+                //        }
+                //        break;
+                //    case 3:
+                //        if (Cell.IsSampleCell(_leftCell, StartCell))
+                //        {
+                //            closedCell.LeftCell = StartCell;
+                //            lastStartSearchWay = 3;
+                //        }
+                //        else if (Cell.IsSampleCell(_upCell, StartCell))
+                //        {
+                //            closedCell.UpCell = StartCell;
+                //            lastStartSearchWay = 0;
+                //        }
+                //        else if (Cell.IsSampleCell(_downCell, StartCell))
+                //        {
+                //            closedCell.DownCell = StartCell;
+                //            lastStartSearchWay = 1;
+                //        }
+                //        else if (Cell.IsSampleCell(_rightCell, StartCell))
+                //        {
+                //            closedCell.RightCell = StartCell;
+                //            lastStartSearchWay = 2;
+                //        }
+                //        break;
+                //}
+                #endregion
 
+                #region 
                 if (Cell.IsSampleCell(_upCell, GoalCell))
                 {
-                    //closedCell.UpCell = GoalCell;
                     GoalCell.DownCell = closedCell;
                     break;
                 }
                 if (Cell.IsSampleCell(_downCell, GoalCell))
                 {
-                    //closedCell.DownCell = GoalCell;
                     GoalCell.UpCell = closedCell;
                     break;
                 }
                 if (Cell.IsSampleCell(_rightCell, GoalCell))
                 {
-                    //closedCell.RightCell = GoalCell;
                     GoalCell.LeftCell = closedCell;
                     break;
                 }
                 if (Cell.IsSampleCell(_leftCell, GoalCell))
                 {
-                    //closedCell.LeftCell = GoalCell;
                     GoalCell.RightCell = closedCell;
                     break;
                 }
+                //if (lastGoalSearchWay == 0)
+                //{
+                //    if (Cell.IsSampleCell(_upCell, GoalCell))
+                //    {
+                //        GoalCell.DownCell = closedCell;
+                //        lastGoalSearchWay = 0;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_downCell, GoalCell))
+                //    {
+                //        GoalCell.UpCell = closedCell;
+                //        lastGoalSearchWay = 1;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_rightCell, GoalCell))
+                //    {
+                //        GoalCell.LeftCell = closedCell;
+                //        lastGoalSearchWay = 2;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_leftCell, GoalCell))
+                //    {
+                //        GoalCell.RightCell = closedCell;
+                //        lastGoalSearchWay = 3;
+                //        break;
+                //    }
+                //}
+                //else if (lastGoalSearchWay == 1)
+                //{
+                //    if (Cell.IsSampleCell(_downCell, GoalCell))
+                //    {
+                //        GoalCell.UpCell = closedCell;
+                //        lastGoalSearchWay = 1;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_rightCell, GoalCell))
+                //    {
+                //        GoalCell.LeftCell = closedCell;
+                //        lastGoalSearchWay = 2;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_leftCell, GoalCell))
+                //    {
+                //        GoalCell.RightCell = closedCell;
+                //        lastGoalSearchWay = 3;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_upCell, GoalCell))
+                //    {
+                //        GoalCell.DownCell = closedCell;
+                //        lastGoalSearchWay = 0;
+                //        break;
+                //    }
+                //}
+                //else if (lastGoalSearchWay == 2)
+                //{
+                //    if (Cell.IsSampleCell(_rightCell, GoalCell))
+                //    {
+                //        GoalCell.LeftCell = closedCell;
+                //        lastGoalSearchWay = 2;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_leftCell, GoalCell))
+                //    {
+                //        GoalCell.RightCell = closedCell;
+                //        lastGoalSearchWay = 3;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_upCell, GoalCell))
+                //    {
+                //        GoalCell.DownCell = closedCell;
+                //        lastGoalSearchWay = 0;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_downCell, GoalCell))
+                //    {
+                //        GoalCell.UpCell = closedCell;
+                //        lastGoalSearchWay = 1;
+                //        break;
+                //    }
+                //}
+                //else if (lastGoalSearchWay == 3)
+                //{
+                //    if (Cell.IsSampleCell(_leftCell, GoalCell))
+                //    {
+                //        GoalCell.RightCell = closedCell;
+                //        lastGoalSearchWay = 3;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_upCell, GoalCell))
+                //    {
+                //        GoalCell.DownCell = closedCell;
+                //        lastGoalSearchWay = 0;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_downCell, GoalCell))
+                //    {
+                //        GoalCell.UpCell = closedCell;
+                //        lastGoalSearchWay = 1;
+                //        break;
+                //    }
+                //    if (Cell.IsSampleCell(_rightCell, GoalCell))
+                //    {
+                //        GoalCell.LeftCell = closedCell;
+                //        lastGoalSearchWay = 2;
+                //        break;
+                //    }
+                //}
+                #endregion
             }
 
             List<Cell> BestLoad = new List<Cell>();
             Cell lastClosedCell = new Cell();
-            int n = int.MaxValue;
+            float n = float.MaxValue;
             for (int i = 0; i < this.ClosedList.Count; i++)
             {
                 if (this.ClosedList[i].EvaluateDistance <= n)
@@ -554,7 +929,7 @@ namespace testAStar
             }
             for (int i = 0; i < this.ClosedList.Count; i++)
             {
-                if (this.ClosedList[i].EvaluateDistance == n)
+                if (Math.Abs( this.ClosedList[i].EvaluateDistance-n)<0.00001)
                 {
                     lastClosedCell = this.ClosedList[i];
                     break;
@@ -611,20 +986,21 @@ namespace testAStar
                         BestLoad[i].LeftCell = BestLoad[i + 1];
                     }
                 }
-                else
-                {
-
-                }
             }
             MapBmpFillRectangles(BestLoad, Color.Blue);
-            
-            SVGLocation = new List<Point>();
-            SVGLocation.Add(GoalCell.Location);
 
-            Cell activeCheckCell=GoalCell;
+            PathPoint = new List<Point>();
+            PathPoint.Add(GoalCell.Location);
+
+            Cell activeCheckCell = GoalCell;
             do
             {
-
+                if ( KeyCells.FindIndex(record=>record.Location.Equals(activeCheckCell.Location))>-1)
+                {
+                    activeCheckCell = activeCheckCell.ParentCell;
+                    PathPoint.Add(activeCheckCell.Location);
+                    continue;
+                }
                 if (activeCheckCell.LeftCell != null)
                 {
                     if (activeCheckCell.ParentCell.LeftCell != null)
@@ -632,12 +1008,9 @@ namespace testAStar
                         activeCheckCell = activeCheckCell.ParentCell;
                         continue;
                     }
-                    else
-                    {
-                        activeCheckCell = activeCheckCell.ParentCell;
-                        SVGLocation.Add(activeCheckCell.Location);
-                        continue;
-                    }
+                    activeCheckCell = activeCheckCell.ParentCell;
+                    PathPoint.Add(activeCheckCell.Location);
+                    continue;
                 }
                 else if (activeCheckCell.RightCell != null)
                 {
@@ -646,12 +1019,9 @@ namespace testAStar
                         activeCheckCell = activeCheckCell.ParentCell;
                         continue;
                     }
-                    else
-                    {
-                        activeCheckCell = activeCheckCell.ParentCell;
-                        SVGLocation.Add(activeCheckCell.Location);
-                        continue;
-                    }
+                    activeCheckCell = activeCheckCell.ParentCell;
+                    PathPoint.Add(activeCheckCell.Location);
+                    continue;
                 }
                 else if (activeCheckCell.UpCell != null)
                 {
@@ -660,12 +1030,9 @@ namespace testAStar
                         activeCheckCell = activeCheckCell.ParentCell;
                         continue;
                     }
-                    else
-                    {
-                        activeCheckCell = activeCheckCell.ParentCell;
-                        SVGLocation.Add(activeCheckCell.Location);
-                        continue;
-                    }
+                    activeCheckCell = activeCheckCell.ParentCell;
+                    PathPoint.Add(activeCheckCell.Location);
+                    continue;
                 }
                 else if (activeCheckCell.DownCell != null)
                 {
@@ -674,20 +1041,12 @@ namespace testAStar
                         activeCheckCell = activeCheckCell.ParentCell;
                         continue;
                     }
-                    else
-                    {
-                        activeCheckCell = activeCheckCell.ParentCell;
-                        SVGLocation.Add(activeCheckCell.Location);
-                        continue;
-                    }
+                    activeCheckCell = activeCheckCell.ParentCell;
+                    PathPoint.Add(activeCheckCell.Location);
+                    continue;
                 }
             } while (activeCheckCell != null && activeCheckCell.ParentCell != null);
 
-            //for (int i = SVGLocation.Count - 1; i >= 0; i--)
-            //{
-            //    Graphics g = Graphics.FromImage(GIDTempBmp);
-            //    g.DrawString((SVGLocation.Count - i).ToString(), new Font("宋体", 10), new SolidBrush(Color.Red), SVGLocation[i]);
-            //}
             return true;
         }
         #endregion
