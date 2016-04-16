@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.Serialization;
 
 namespace testAStar
@@ -92,7 +88,7 @@ namespace testAStar
 
         /// <summary>
         /// 下方格子
-        /// </summary
+        /// </summary>
         [IgnoreDataMember]
         public Cell LeftCell { get; set; }
 
@@ -101,12 +97,6 @@ namespace testAStar
         /// </summary>
         [IgnoreDataMember]
         public Color CellColor { get; set; }
-
-        /// <summary>
-        /// 格子的状态
-        /// </summary>
-        [IgnoreDataMember]
-        public cellState CellState { get; set; }
 
         /// <summary>
         /// 判断是否有Cell
@@ -142,16 +132,7 @@ namespace testAStar
         {
             return string.Format("{0} Location: X={1} Y={2} {3} "
                 , string.IsNullOrEmpty(this.Name) ? string.Empty : "Name:"+this.Name, this.Location.X, this.Location.Y
-                , this.ParentCell == null ? string.Empty : " Parent:{" + this.ParentCell.ToString() + "}");
+                , this.ParentCell == null ? string.Empty : " Parent:{" + this.ParentCell + "}");
         }
-    }
-    public enum cellState
-    {
-        Bus=1,
-        Walk,
-        起点, 
-        终点, 
-        石头,
-        通路
     }
 }

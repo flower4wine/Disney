@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace testAStar
@@ -21,13 +18,13 @@ namespace testAStar
             if (lineWidth > 0.1F)
             {
                 this.FLOAT_LINE_WIDTH = lineWidth;
-                this.CELL_HALF_LINE_WIDTH = Convert.ToInt32(Math.Ceiling(this.FLOAT_LINE_WIDTH / 2)); ;
+                this.CELL_HALF_LINE_WIDTH = Convert.ToInt32(Math.Ceiling(this.FLOAT_LINE_WIDTH / 2)); 
                 this.INT_LINE_WIDTH = Convert.ToInt32(this.FLOAT_LINE_WIDTH);
             }
             else
             {
                 this.FLOAT_LINE_WIDTH = 0.0F;
-                this.CELL_HALF_LINE_WIDTH = 0; ;
+                this.CELL_HALF_LINE_WIDTH = 0; 
                 this.INT_LINE_WIDTH = 0;
             }
 
@@ -117,13 +114,18 @@ namespace testAStar
 
         public Control MapControl { set; get; }
 
+        private readonly Color _whiteSmoke = Color.FromArgb(100, 245, 245, 245);
+        private readonly Color _red = Color.FromArgb(100, 255, 0, 0);
+        private readonly Color _purple = Color.FromArgb(100, 128, 0, 128);
+        private readonly Color _yellow = Color.FromArgb(100, 255, 255, 0);
+
         /// <summary>
         /// 画网格
         /// </summary>
         public void DrawMapGrid()
         {
-            Point pt1;
-            Point pt2;
+            Point pt1 =Point.Empty;
+            Point pt2 = Point.Empty;
 
             Graphics g = Graphics.FromImage(GIDTempBmp);
 
@@ -131,7 +133,7 @@ namespace testAStar
             {
                 Pen pen = new Pen(Color.Black, this.FLOAT_LINE_WIDTH);
 
-                ///画横线
+                // 画横线
                 for (int i = 0; i <= this.CELL_HEIGHT_COUNT; i++)
                 {
                     pt1 = new Point(0, i * this.CELL_WIDTH);
@@ -139,7 +141,7 @@ namespace testAStar
                     g.DrawLine(pen, pt1, pt2);
                 }
 
-                ///画竖线
+                // 画竖线
                 for (int i = 0; i <= this.CELL_WIDTH_COUNT; i++)
                 {
                     pt1 = new Point(i * this.CELL_WIDTH, 0);
@@ -164,9 +166,11 @@ namespace testAStar
             {
                 int j = rd.Next(this.CELL_WIDTH_COUNT);
                 int k = rd.Next(this.CELL_HEIGHT_COUNT);
-                Point pt = new Point();
-                pt.X = j * this.CELL_WIDTH;
-                pt.Y = k * this.CELL_WIDTH;
+                Point pt = new Point
+                {
+                    X = j*this.CELL_WIDTH,
+                    Y = k*this.CELL_WIDTH
+                };
 
                 if (StoneCells.FindIndex(record => record.Location.Equals(pt)) == -1)
                 {
@@ -181,33 +185,33 @@ namespace testAStar
         /// </summary>
         public void SetStartCell(int mouseX, int mouseY)
         {
-            StartCell = new Cell((mouseX / CELL_WIDTH) * CELL_WIDTH, (mouseY / CELL_WIDTH) * CELL_WIDTH);
-            StartCell.Name = "起点-起点";
-            MapBmpFillRectangle(StartCell, this.Purple);
+            StartCell = new Cell((mouseX/CELL_WIDTH)*CELL_WIDTH, (mouseY/CELL_WIDTH)*CELL_WIDTH) {Name = "起点-起点"};
+            MapBmpFillRectangle(StartCell, this._purple);
         }
+
         public void SetStartCell(Cell cell)
         {
             StartCell = cell;
-            MapBmpFillRectangle(StartCell, this.Purple);
+            MapBmpFillRectangle(StartCell, this._purple);
         }
 
-        private Color Purple = Color.FromArgb(100, 128, 0, 128);
         /// <summary>
         /// 设置终点
         /// </summary>
         public void SetGoalCell(int mouseX, int mouseY)
         {
-            GoalCell = new Cell((mouseX / CELL_WIDTH) * CELL_WIDTH, (mouseY / CELL_WIDTH) * CELL_WIDTH);
-            GoalCell.Name = "终点-终点";
-            GoalCell.Remark = "s-2;e-3;f-4;g-5;gh-6";
-            MapBmpFillRectangle(GoalCell, this.Yellow);
+            GoalCell = new Cell((mouseX/CELL_WIDTH)*CELL_WIDTH, (mouseY/CELL_WIDTH)*CELL_WIDTH)
+            {
+                Name = "终点-终点",
+                Remark = "s-2;e-3;f-4;g-5;gh-6"
+            };
+            MapBmpFillRectangle(GoalCell, this._yellow);
         }
         public void SetGoalCell(Cell cell)
         {
             GoalCell = cell;
-            MapBmpFillRectangle(GoalCell, this.Yellow);
+            MapBmpFillRectangle(GoalCell, this._yellow);
         }
-        private Color Yellow = Color.FromArgb(100, 255, 255, 0);
         /// <summary>
         /// 画石头（障碍物）
         /// </summary>
@@ -218,15 +222,14 @@ namespace testAStar
         public void AddRangeStoneCells(IEnumerable<Cell> stoneCells)
         {
             this.StoneCells.AddRange(stoneCells);
-            MapBmpFillRectangles(stoneCells.ToList(), this.Red);
+            MapBmpFillRectangles(stoneCells.ToList(), this._red);
         }
 
-        private Color Red = Color.FromArgb(100, 255, 0, 0);
         public void ReLoadStoneCells(IEnumerable<Cell> stoneCells)
         {
             this.StoneCells.Clear();
             this.StoneCells.AddRange(stoneCells);
-            MapBmpFillRectangles(stoneCells.ToList(), this.Red);
+            MapBmpFillRectangles(stoneCells.ToList(), this._red);
         }
         public void SetKeyCell(int mouseX, int mouseY, string name = "")
         {
@@ -280,14 +283,12 @@ namespace testAStar
         public void AddKeyCells(IEnumerable<Cell> keyCells)
         {
             this.KeyCells.AddRange(keyCells);
-            ///TODO
         }
         public void ReLoadKeyCells(IEnumerable<Cell> keyCells)
         {
             this.KeyCells.Clear();
             this.KeyCells.AddRange(keyCells);
             MapBmpFillRectangles(KeyCells, Color.DarkSlateBlue);
-            ///TODO
         }
         public void SetSceneryCell(int mouseX, int mouseY, string name = "")
         {
@@ -327,14 +328,12 @@ namespace testAStar
         public void AddSceneryCells(IEnumerable<Cell> cells)
         {
             this.SceneryCells.AddRange(cells);
-            ///TODO
         }
         public void ReLoadSceneryCells(IEnumerable<Cell> cells)
         {
             this.SceneryCells.Clear();
             this.SceneryCells.AddRange(cells);
             MapBmpFillRectangles(SceneryCells, Color.Goldenrod);
-            ///TODO
         }
         public void SetStationCell(int mouseX, int mouseY, string name = "")
         {
@@ -373,17 +372,14 @@ namespace testAStar
         public void AddStationCells(IEnumerable<Cell> cells)
         {
             this.StationCells.AddRange(cells);
-            ///TODO
         }
         public void ReLoadStationCells(IEnumerable<Cell> cells)
         {
             this.StationCells.Clear();
             this.StationCells.AddRange(cells);
             MapBmpFillRectangles(StationCells, Color.Pink);
-            ///TODO
         }
 
-        private Color WhiteSmoke = Color.FromArgb(100, 245, 245, 245);
         /// <summary>
         /// 重置
         /// </summary>
@@ -391,22 +387,22 @@ namespace testAStar
         {
             if (StartCell != null)
             {
-                MapBmpFillRectangle(StartCell, this.WhiteSmoke);
+                MapBmpFillRectangle(StartCell, this._whiteSmoke);
                 StartCell = null;
             }
             if (GoalCell != null)
             {
-                MapBmpFillRectangle(GoalCell, this.WhiteSmoke);
+                MapBmpFillRectangle(GoalCell, this._whiteSmoke);
                 GoalCell = null;
             }
 
-            MapBmpFillRectangles(StoneCells, this.WhiteSmoke);
+            MapBmpFillRectangles(StoneCells, this._whiteSmoke);
             StoneCells.Clear();
 
-            MapBmpFillRectangles(ClosedList, this.WhiteSmoke);
+            MapBmpFillRectangles(ClosedList, this._whiteSmoke);
             ClosedList.Clear();
 
-            MapBmpFillRectangles(OpenList, this.WhiteSmoke);
+            MapBmpFillRectangles(OpenList, this._whiteSmoke);
             OpenList.Clear();
         }
 
@@ -415,12 +411,11 @@ namespace testAStar
             IList<Cell> cells = new List<Cell>();
             foreach (Point pt in pts)
             {
-                Cell stoneCell = new Cell();
-                stoneCell.Location = pt;
+                Cell stoneCell = new Cell {Location = pt};
                 cells.Add(stoneCell);
             }
             this.StoneCells.AddRange(cells.ToArray());
-            MapBmpFillRectangles(cells, this.Red);
+            MapBmpFillRectangles(cells, this._red);
         }
 
         /// <summary>
@@ -430,9 +425,8 @@ namespace testAStar
         {
             if (!IsInStone(pt))
             {
-                Cell stoneCell = new Cell();
-                stoneCell.Location = pt;
-                MapBmpFillRectangle(stoneCell, this.Red);
+                Cell stoneCell = new Cell {Location = pt};
+                MapBmpFillRectangle(stoneCell, this._red);
                 this.StoneCells.Add(stoneCell);
             }
         }
@@ -510,25 +504,13 @@ namespace testAStar
         {
             return StoneCells.FindIndex(record => record.Location.Equals(cellPt)) != -1;
         }
-        private bool IsStoneOrOutWord(Point cellPt)
-        {
-            if (cellPt.X < 0 || cellPt.X > MAP_WIDTH
-                || cellPt.Y < 0 || cellPt.Y > MAP_HEIGHT)
-            {
-                return false;
-            }
-            else
-            {
-                return IsInStone(cellPt);
-            }
-        }
         private bool IsStoneOrOutWord(Cell cell)
         {
             if (cell.Location.X >= 0 && cell.Location.X < MAP_WIDTH && cell.Location.Y >= 0 && cell.Location.Y < MAP_HEIGHT)
             {
-                for (int i = 0; i < this.StoneCells.Count; i++)
+                foreach (Cell stoneCell in this.StoneCells)
                 {
-                    if (Cell.IsSampleCell(cell, this.StoneCells[i]))
+                    if (Cell.IsSampleCell(cell, stoneCell))
                     {
                         return false;
                     }
@@ -594,7 +576,7 @@ namespace testAStar
                     min = cell.FinalDistance;
                 }
             }
-            //找出f(n)值最小的格子
+            // 找出f(n)值最小的格子
             foreach (Cell openCell in this.OpenList)
             {
                 if (Math.Abs(openCell.FinalDistance - min) < 0.00001)
@@ -602,20 +584,20 @@ namespace testAStar
                     minCells.Add(openCell);
                 }
             }
-            //在f(n)值最小的格子集合中找出最小的g(n)值
-            for (int i = 0; i < minCells.Count; i++)
+            // 在f(n)值最小的格子集合中找出最小的g(n)值
+            foreach (Cell minCell in minCells)
             {
-                if (minCells[i].EvaluateDistance <= n)
+                if (minCell.EvaluateDistance <= n)
                 {
-                    n = minCells[i].EvaluateDistance;
+                    n = minCell.EvaluateDistance;
                 }
             }
-            ///在f(n)值最小的格子集合中找出g(n)值最小的格子
-            for (int i = 0; i < minCells.Count; i++)
+            // 在f(n)值最小的格子集合中找出g(n)值最小的格子
+            foreach (Cell minCell in minCells)
             {
-                if (minCells[i].EvaluateDistance == n)
+                if (minCell.EvaluateDistance - n <0.000001)
                 {
-                    minestCells.Add(minCells[i]);
+                    minestCells.Add(minCell);
                 }
             }
             Random rd = new Random();
@@ -644,8 +626,6 @@ namespace testAStar
         #endregion
 
         #region 开始搜索
-        int lastGoalSearchWay = 0;
-        int lastStartSearchWay = 0;
         public bool BeginSearch()
         {
             if (Cell.IsSampleCell(this.StartCell, this.GoalCell))
@@ -917,21 +897,21 @@ namespace testAStar
                 #endregion
             }
 
-            List<Cell> BestLoad = new List<Cell>();
+            List<Cell> bestLoad = new List<Cell>();
             Cell lastClosedCell = new Cell();
             float n = float.MaxValue;
-            for (int i = 0; i < this.ClosedList.Count; i++)
+            foreach (Cell closedCell in this.ClosedList)
             {
-                if (this.ClosedList[i].EvaluateDistance <= n)
+                if (closedCell.EvaluateDistance <= n)
                 {
-                    n = this.ClosedList[i].EvaluateDistance;
+                    n = closedCell.EvaluateDistance;
                 }
             }
-            for (int i = 0; i < this.ClosedList.Count; i++)
+            foreach (Cell closedCell in this.ClosedList)
             {
-                if (Math.Abs( this.ClosedList[i].EvaluateDistance-n)<0.00001)
+                if (Math.Abs( closedCell.EvaluateDistance-n)<0.00001)
                 {
-                    lastClosedCell = this.ClosedList[i];
+                    lastClosedCell = closedCell;
                     break;
                 }
             }
@@ -939,58 +919,57 @@ namespace testAStar
             {
                 if (Cell.IsSampleCell(lastClosedCell.ParentCell, StartCell))
                 {
-                    BestLoad.Add(lastClosedCell);
+                    bestLoad.Add(lastClosedCell);
                     break;
                 }
                 else
                 {
-                    BestLoad.Add(lastClosedCell);
+                    bestLoad.Add(lastClosedCell);
                     lastClosedCell = lastClosedCell.ParentCell;
                 }
             }
-            for (int i = 0; i < BestLoad.Count; i++)
+            for (int i = 0; i < bestLoad.Count; i++)
             {
                 if (i == 0)
                 {
-                    GoalCell.ParentCell = BestLoad[i];
+                    GoalCell.ParentCell = bestLoad[i];
                 }
                 else
                 {
-                    BestLoad[i - 1].ParentCell = BestLoad[i];
+                    bestLoad[i - 1].ParentCell = bestLoad[i];
                 }
-                if (i < BestLoad.Count - 1)
+                if (i < bestLoad.Count - 1)
                 {
                     Cell _upCell = new Cell();
                     Cell _downCell = new Cell();
                     Cell _rightCell = new Cell();
                     Cell _leftCell = new Cell();
-                    _upCell.Location = new Point(BestLoad[i].Location.X, BestLoad[i].Location.Y + CELL_WIDTH);
-                    _downCell.Location = new Point(BestLoad[i].Location.X, BestLoad[i].Location.Y - CELL_WIDTH);
-                    _rightCell.Location = new Point(BestLoad[i].Location.X + CELL_WIDTH, BestLoad[i].Location.Y);
-                    _leftCell.Location = new Point(BestLoad[i].Location.X - CELL_WIDTH, BestLoad[i].Location.Y);
+                    _upCell.Location = new Point(bestLoad[i].Location.X, bestLoad[i].Location.Y + CELL_WIDTH);
+                    _downCell.Location = new Point(bestLoad[i].Location.X, bestLoad[i].Location.Y - CELL_WIDTH);
+                    _rightCell.Location = new Point(bestLoad[i].Location.X + CELL_WIDTH, bestLoad[i].Location.Y);
+                    _leftCell.Location = new Point(bestLoad[i].Location.X - CELL_WIDTH, bestLoad[i].Location.Y);
 
-                    if (Cell.IsSampleCell(_upCell, BestLoad[i + 1]))
+                    if (Cell.IsSampleCell(_upCell, bestLoad[i + 1]))
                     {
-                        BestLoad[i].UpCell = BestLoad[i + 1];
+                        bestLoad[i].UpCell = bestLoad[i + 1];
                     }
-                    else if (Cell.IsSampleCell(_downCell, BestLoad[i + 1]))
+                    else if (Cell.IsSampleCell(_downCell, bestLoad[i + 1]))
                     {
-                        BestLoad[i].DownCell = BestLoad[i + 1];
+                        bestLoad[i].DownCell = bestLoad[i + 1];
                     }
-                    else if (Cell.IsSampleCell(_rightCell, BestLoad[i + 1]))
+                    else if (Cell.IsSampleCell(_rightCell, bestLoad[i + 1]))
                     {
-                        BestLoad[i].RightCell = BestLoad[i + 1];
+                        bestLoad[i].RightCell = bestLoad[i + 1];
                     }
-                    else if (Cell.IsSampleCell(_leftCell, BestLoad[i + 1]))
+                    else if (Cell.IsSampleCell(_leftCell, bestLoad[i + 1]))
                     {
-                        BestLoad[i].LeftCell = BestLoad[i + 1];
+                        bestLoad[i].LeftCell = bestLoad[i + 1];
                     }
                 }
             }
-            MapBmpFillRectangles(BestLoad, Color.Blue);
+            MapBmpFillRectangles(bestLoad, Color.Blue);
 
-            PathPoint = new List<Point>();
-            PathPoint.Add(GoalCell.Location);
+            PathPoint = new List<Point> {GoalCell.Location};
 
             Cell activeCheckCell = GoalCell;
             do
