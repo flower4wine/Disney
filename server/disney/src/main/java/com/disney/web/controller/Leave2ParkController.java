@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,18 +20,19 @@ import com.disney.model.FromToOptimize;
 import com.disney.model.Location;
 import com.disney.model.UserLocation;
 import com.disney.service.LocationService;
+import com.disney.util.DateUtils;
 import com.disney.util.ViewUtil;
 import com.disney.util.WeChatBaseUtil;
 import com.disney.web.vo.GuideVO;
 import com.disney.web.vo.LocationVO;
 
 @Controller
-@RequestMapping("/pg")
-public class ParkGuideController {
-	
+@RequestMapping("/le")
+public class Leave2ParkController {
+
 	@Autowired
 	private WeChatHandler weChatHandler;
-
+	
 	@Autowired
 	private LocationService locationService;
 	
@@ -38,14 +40,14 @@ public class ParkGuideController {
 	public ModelAndView parkLocation(HttpServletRequest request,String co) throws Exception {
 		//Validate check error
 		if(StringUtils.isEmpty(co) || co.length()!=12){
-			//03-0001-0001 二维码格式不正确
+			//01-0001-0001 二维码格式不正确
 			
 		}
 		
 		Location parent = locationService.find(co.substring(0,7));
 		Location child = locationService.find(co);
 		
-		String name = "/guide/location";
+		String name = "/leave/location";
 		ModelAndView view = ViewUtil.view(name);
 		LocationVO vo = new LocationVO();
 		
@@ -58,7 +60,7 @@ public class ParkGuideController {
 			vo.setRemark(parent.getName());
 			vo.setLocationImg(parent.getLocationImg());
 		}
-		
+
 		//Get WeXin info
 		String url =  weChatHandler.getDomain() + request.getRequestURI();  
 		String queryString = request.getQueryString();
@@ -73,7 +75,7 @@ public class ParkGuideController {
 		view.addObject("timestamp", timestamp);
 		view.addObject("nonceStr", nonceStr);
 		view.addObject("signature", signature);
-
+				
 		view.addObject("location", vo);
 		return view;
 	}
@@ -81,57 +83,75 @@ public class ParkGuideController {
 	@RequestMapping("/loConfirm")
 	public ModelAndView locationConfirm(HttpSession session, String code) throws Exception {
 		String userOpenId = SessionHelper.getLoginUserOpenId(session);
-		
 		UserLocation ul = locationService.findUserLocation(userOpenId);
 		
 		if(ul==null){
 			ul = new UserLocation();
 			ul.setOpenId(userOpenId);
+		}else{
+			//过期清除原 停车地点
+			Date now = DateUtils.getStartDate(new Date());
+			if(DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) != 0){
+				ul.setParkLocation("");
+			}
 		}
-		
 		ul.setCreatedAt(new Date());
 		
 		if(StringUtils.isNotEmpty(code) && code.length() == 12){
-			ul.setParkLocation(code);
+			ul.setLeaveLocation(code);
 		}
 		locationService.saveUserLocation(ul);
 		
-		String name = "redirect:/pg/locations.html";
-		ModelAndView view = ViewUtil.view(name);
+		String name = "redirect:/le/queryPark.html";
 		
+		if(StringUtils.isNotEmpty(ul.getParkLocation()) && ul.getParkLocation().length()==12){
+			name = "redirect:/le/toLocation.html";
+		}
+		
+		ModelAndView view = ViewUtil.view(name);
 		return view;
 	}
 	
-	@RequestMapping("/locations")
-	public ModelAndView outlets(HttpServletRequest request) throws Exception {
-		String name = "/guide/locations";
+	@RequestMapping("/queryPark")
+	public ModelAndView queryPark(@CookieValue(value = "firstCarNo", defaultValue = "") String firstCarNo,
+			@CookieValue(value = "secondCarNo", defaultValue = "") String secondCarNo){
+		
+		String name = "/leave/queryPark";
+
 		ModelAndView view = ViewUtil.view(name);
+/*
+		view.addObject("firstCarNo", Base64Util.decodeString(firstCarNo));
+		view.addObject("secondCarNo", Base64Util.decodeString(secondCarNo));
+
+*/		view.addObject("firstCarNo", "苏F124AB");
+		view.addObject("secondCarNo", "");
+		
 		return view;
 	}
 	
 	
 	@RequestMapping("/toLocation")
-	public ModelAndView outlet(HttpServletRequest request,String toLocation) throws Exception {
-		String name = "/guide/toLocation";
+	public ModelAndView outlet(HttpServletRequest request,String parkLocation) throws Exception {
+		String name = "/leave/toLocation";
 		ModelAndView view = ViewUtil.view(name);
-		
-		if(StringUtils.isEmpty(toLocation) || toLocation.length()!=12){
-			//03-0001-0001 二维码格式不正确
-			
-		}
 		
 		String userOpenId = SessionHelper.getLoginUserOpenId(request.getSession());
 		UserLocation ul = locationService.findUserLocation(userOpenId);
 		
-		if(ul!=null && StringUtils.isNotEmpty(ul.getParkLocation()) && ul.getParkLocation().length()==12){
-			//选择性路线 选取唯一路线
-			FromToOptimize fromTo = locationService.getFromTo(ul.getParkLocation().substring(0, 7), toLocation.substring(0, 7));
+		if(ul!=null){
 			
-			LoToLoBO bo = locationService.loadLoToLoBO(ul.getParkLocation(),fromTo.getToCode());
-			view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.OUT));
+			if(StringUtils.isNotEmpty(ul.getParkLocation()) && ul.getParkLocation().length()==12){
+				parkLocation = ul.getParkLocation();
+			}
+			
+			//选择性路线 选取唯一路线
+			FromToOptimize fromTo = locationService.getFromTo(ul.getLeaveLocation().substring(0, 7), parkLocation.substring(0, 7));
+			
+			LoToLoBO bo = locationService.loadLoToLoBO(fromTo.getFromCode(),parkLocation);
+			view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.IN));
 			
 		}else{
-			//未记录位置信息 如何处理  
+			//未记录位置信息 如何处理  返回首页
 			
 			
 		}

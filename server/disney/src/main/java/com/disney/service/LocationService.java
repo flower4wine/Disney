@@ -3,12 +3,24 @@ package com.disney.service;
 import java.util.List;
 
 import com.disney.bo.LoToLoBO;
+import com.disney.model.FromToOptimize;
+import com.disney.model.LoToLo;
+import com.disney.model.LoToLoStep;
 import com.disney.model.Location;
 import com.disney.model.UserLocation;
 
 public interface LocationService {
 	
+	public void cleanData();
+	
 	public List<Location> findAll();
+	
+	/**
+	 * 保存
+	 * @param location
+	 * @return
+	 */
+	public void save(Location location);
 	
 	/**
 	 * 查询位置
@@ -29,16 +41,19 @@ public interface LocationService {
 	
 	/**
 	 * 存储导览路线
-	 * @param bo
+	 * @param lo2lo
+	 * @param out
+	 * @param inner
 	 */
-	public void saveLoToLoBO(LoToLoBO bo);
+	public void saveLo2Lo(LoToLo lo2lo,List<LoToLoStep> steps);
 	
 	/**
 	 * 增加二维码
 	 * @param code
 	 * @param name
+	 * @param qrCodeType
 	 */
-	public void addQrCode(String code,String name,boolean isInout);
+	public void addQrCode(String code, String name,Integer qrCodeType);
 	
 	/**
 	 * 停车场 到 景点 可导览最优路径
@@ -46,6 +61,14 @@ public interface LocationService {
 	 * @param to
 	 */
 	public void addFromTo(String from,String to);
+	
+	/**
+	 * 
+	 * @param from
+	 * @param to
+	 * @return
+	 */
+	public FromToOptimize getFromTo(String from,String to);
 	
 	/**
 	 * 

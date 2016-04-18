@@ -26,5 +26,22 @@ public class FromToOptimizeDaoImpl extends BaseDaoImpl<FromToOptimize> implement
 		
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public FromToOptimize find1(String from, String to) {
+		String hql = "from FromToOptimize where fromCode like :from and toCode like :to";
+		
+		List<FromToOptimize> list = this.getCurrentSession().createQuery(hql)
+				.setString("from", from+"%")
+				.setString("to", to+"%")
+				.list();
+		
+		if(list!=null && list.size()>0){
+			return list.get(0);
+		}
+		
+		return null;
+	}
 	
 }

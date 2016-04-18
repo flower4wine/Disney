@@ -20,6 +20,10 @@ public class QrCode implements Serializable {
 	private String qrCode;
 	private Long locationId;
 	
+	private String orderNo;
+	private String qrUrl;
+	private Integer qrCodeType;
+	
     @Id
   	@GeneratedValue(strategy = IDENTITY)
   	@Column(name = "id", unique = true, nullable = false)
@@ -44,6 +48,30 @@ public class QrCode implements Serializable {
 	}
 	public void setLocationId(Long locationId) {
 		this.locationId = locationId;
+	}
+	
+	@Column
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	
+	@Column
+	public String getQrUrl() {
+		return qrUrl;
+	}
+	public void setQrUrl(String qrUrl) {
+		this.qrUrl = qrUrl;
+	}
+	
+	@Column
+	public Integer getQrCodeType() {
+		return qrCodeType;
+	}
+	public void setQrCodeType(Integer qrCodeType) {
+		this.qrCodeType = qrCodeType;
 	}
 	
 
