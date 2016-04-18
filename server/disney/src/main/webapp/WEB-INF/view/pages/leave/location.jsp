@@ -6,8 +6,7 @@
 
 <body>
 
-
-	<div  class="guide-map" >
+	<div class="guide-map" >
 		<div class="guide-map-container" >
 			<table >
 				<tr>
@@ -25,7 +24,7 @@
 			<div class="guide-loc-info-left" >
 				<div class="title" >位置信息</div>
 				<div class="position" ><i class="fa fa-map-marker"></i> ${location.remark }</div>
-				<div class="note" >记录停车位置，便于返程寻车定位</div>
+				<div class="note" >确认当前位置,便于寻车导览</div>
 			</div>
 			
 			<div class="guide-loc-info-right" >
@@ -39,7 +38,7 @@
 			<div class="clear"></div>
 		</div>
 		<div class="guide-loc-confirm"  >
-			<span  onclick="window.location='/disney/pg/loConfirm.html?code=${location.code}';">确认当前位置</span>
+			<span  onclick="window.location='/disney/le/loConfirm.html?code=${location.code}';">确认当前位置</span>
 		</div>
 	</div>
 	
@@ -62,7 +61,6 @@
 		<input type="hidden" id="appId" value="${appId}" />
 		<input type="hidden" id="code" value="${code}" />
 	</form>
-	
 	
 	<script type="text/javascript">
 	
@@ -100,7 +98,7 @@
 		$(".btn_minus_pos").toggle();
 		$(".btn_plus_pos").toggle();
 		
-		// $(".guide-map .guide-map-container").animate({width:clientWidth()});
+		//$(".guide-map .guide-map-container").animate({width:clientWidth()});
 		
 		$('.guide-ab-bottom').toggle();
 		
@@ -147,7 +145,6 @@
 			});
 		});
 	}
-	
 	
 	function resetGuideMap(){
 		var height = clientHeight();

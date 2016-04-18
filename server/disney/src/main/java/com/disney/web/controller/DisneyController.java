@@ -59,7 +59,7 @@ public class DisneyController {
 		UserLocation ul = locationService.findUserLocation(userOpenId);
 		Date now = DateUtils.getStartDate(new Date());
 		
-		if(ul!=null && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
+		if(ul!=null && StringUtils.isNotEmpty(ul.getParkLocation()) && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
 			view.addObject("code", ul.getParkLocation());
 		}else{
 			view.addObject("code", "");
@@ -68,14 +68,6 @@ public class DisneyController {
 		return view;
 	}
 
-	
-	@RequestMapping("/leave/queryPark")
-	public String queryPark() {
-
-		String name = "/leave/queryPark";
-
-		return name;
-	}
 	
 	@RequestMapping("/parkpay/queryParkPay")
 	public String queryParkPay() {

@@ -26,8 +26,23 @@
 				</div>
 			</div>
 			
-			<div class="leave-select-park">
+			<c:if test="${(not empty firstCarNo ) || (not empty secondCarNo ) }">
+				<div class="his-cookies">
+					<div class="his-cars">
+						<ul>
+							<c:if test="${not empty firstCarNo }">
+								<li ><div class="car-no">${firstCarNo }</div></li> 
+							</c:if>
+							
+							<c:if test="${not empty secondCarNo }">
+								<li ><div class="car-no">${secondCarNo }</div></li>
+							</c:if>
+						</ul>
+					</div>
+				</div>
+			</c:if>
 				
+			<div class="leave-select-park">
 				<div class="leave-select-tip">或选择停车场</div>
 				
 				<ul class="leave-park">
@@ -48,6 +63,7 @@
 			$(".leave-top-message").hide();
 			$(".leave-input").val("");
 			$(".leave-park li").removeClass("selected");
+			$(".his-cars .car-no").removeClass("checked");
 			$(this).addClass("selected");
 		});
 		
@@ -55,19 +71,30 @@
 			var car = $(".leave-input").val();
 			
 			if(car!=''){
-				
 				$(".leave-top-message").show();
-				
 			}else{
 				var selected = $(".leave-park li.selected");
 				
 				if(selected.length>0){
 					var park = $(selected).find("div").html();
-					alert(park);
+					//alert(park);
 				}
 				
 			}
 		});
+		
+		
+		$(".his-cars .car-no").on('click',function(){
+		
+			$(".his-cars .car-no").removeClass("checked");
+			$(".leave-park li").removeClass("selected");
+			
+			$(this).addClass("checked");
+			$(".leave-input").val($(this).html());
+			
+		});
+		
+		
 	</script>
 
 </body>

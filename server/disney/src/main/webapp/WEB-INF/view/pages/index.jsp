@@ -164,14 +164,19 @@ window.onload = function() {
 	
 	
 	$(".item-parkguide").on("click",function(){
-		
 		var code = $("#code").val();
 		if(code!='' && code.length==12){
 			window.location = '/disney/pg/lo.html?co='+code;
 			return;
 		}
 		
-		onScan();
+		if(!isWeiXin()){
+			window.location = '/disney/pg/lo.html?co=03-0001-0001';
+			return;
+		}else{
+			onScan();
+		}
+		
 	});
 	
 	
@@ -184,18 +189,16 @@ window.onload = function() {
 	});
 	
 	$(".item-parkleave").on("click",function(){
-		onScan();
+		if(!isWeiXin()){
+			window.location = '/disney/le/lo.html?co=01-0002-0001';
+		}else{
+			onScan();
+		}
 	});
-	
-	
 }
 
+
 function onScan(){
-	if(!isWeiXin()){
-		window.location = '/disney/pg/lo.html?co=03-0001-0001';
-		return;
-	}
-	
 	wx.ready(function(){
 		//点击扫描按钮，扫描二维码并返回结果
 		wx.scanQRCode({

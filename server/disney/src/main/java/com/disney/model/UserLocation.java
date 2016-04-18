@@ -18,7 +18,13 @@ public class UserLocation implements Serializable {
 
 	private Long id;
 	private String openId;
-	private String parkLocation;
+	
+	private String scanLocation = "";
+	
+	private String parkLocation = "";
+	private String leaveLocation = "";
+	
+	
 	private Date createdAt = new Date();
 
 	@Id
@@ -53,6 +59,23 @@ public class UserLocation implements Serializable {
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	@Column
+	public String getLeaveLocation() {
+		return leaveLocation;
+	}
+	public void setLeaveLocation(String leaveLocation) {
+		this.leaveLocation = leaveLocation;
+	}
+	
+	@Column
+	public String getScanLocation() {
+		return scanLocation;
+	}
+	
+	public void setScanLocation(String scanLocation) {
+		this.scanLocation = scanLocation;
 	}
 
 }
