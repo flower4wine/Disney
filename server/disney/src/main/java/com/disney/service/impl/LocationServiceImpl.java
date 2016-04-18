@@ -12,6 +12,7 @@ import com.disney.bo.LoToLoBO;
 import com.disney.bo.LoToLoStepBO;
 import com.disney.bo.QrCodeBO;
 import com.disney.constant.Lo2LoStepType;
+import com.disney.constant.QrCodeType;
 import com.disney.dao.FromToOptimizeDao;
 import com.disney.dao.LoToLoDao;
 import com.disney.dao.LoToLoStepDao;
@@ -111,14 +112,14 @@ public class LocationServiceImpl implements LocationService {
 		return locationDao.find(qrCode);
 	}
 
-	@Override
+	/*@Override
 	public void saveLoToLoBO(LoToLoBO bo) {
 		
 		String from = bo.getFrom().getQrode();
 		String to = bo.getTo().getQrode();
 		
-		/*Location f = locationDao.find(from);
-		Location t = locationDao.find(to);*/
+		Location f = locationDao.find(from);
+		Location t = locationDao.find(to);
 		
 		LoToLo lo2lo = loToLoDao.find(from, to);
 		
@@ -166,10 +167,10 @@ public class LocationServiceImpl implements LocationService {
 			loToLoStepDao.save(lo2lostep);
 		}
 		
-	}
+	}*/
 
 	@Override
-	public void addQrCode(String code, String name,boolean isInout) {
+	public void addQrCode(String code, String name,Integer qrCodeType) {
 		
 		if(StringUtils.isNotEmpty(code) && code.length()==12 && qrCodeDao.find(code) == null){
 
@@ -182,7 +183,6 @@ public class LocationServiceImpl implements LocationService {
 				child.setName(name);
 				child.setQrCodeLocation(true);
 				child.setType(parent.getType());
-				child.setEntrance(isInout);
 				
 				locationDao.save(child);
 				
@@ -191,9 +191,27 @@ public class LocationServiceImpl implements LocationService {
 				qr.setLocationId(child.getId());
 				qr.setQrCode(code);
 				
+				qr.setQrCodeType(qrCodeType);
+				
+				qr.setOrderNo(getOrderNo());
+				
+				if(qrCodeType == QrCodeType.PARK_ENTRANCE){
+					qr.setQrUrl("");
+				}else if(qrCodeType == QrCodeType.PARK_INNER){
+					qr.setQrUrl("/pg/lo?co="+qr.getQrCode());
+				}else{
+					qr.setQrUrl("/le/lo?co="+qr.getQrCode());
+				}
+				
 				qrCodeDao.save(qr);
 			}
 		}
+	}
+	
+	private String getOrderNo(){
+		int num = qrCodeDao.count()+1;
+		String str = "0000"+num;
+		return str.substring(str.length()-4, str.length());
 	}
 
 	@Override
@@ -218,6 +236,51 @@ public class LocationServiceImpl implements LocationService {
 	@Override
 	public void saveUserLocation(UserLocation userLocation) {
 		userLocationDao.saveOrUpdate(userLocation);
+	}
+
+	@Override
+	public void save(Location location) {
+		
+		if(find(location.getLocation())==null){
+			locationDao.saveOrUpdate(location);
+		}
+		
+	}
+	
+	public void cleanData(){
+		
+		for(QrCode code:qrCodeDao.findAll()){
+			qrCodeDao.delete(code);
+		}
+		
+		for(Location location:locationDao.findAll()){
+			locationDao.delete(location);
+		}
+		
+		
+	}
+
+	@Override
+	public FromToOptimize getFromTo(String from, String to) {
+		return fromToOptimizeDao.find1(from, to);
+	}
+
+	@Override
+	public void saveLo2Lo(LoToLo lo2lo, List<LoToLoStep> steps) {
+		
+		LoToLo orgin = loToLoDao.find(lo2lo.getFromQrCode(), lo2lo.getToQrCode());
+		
+		if(orgin!=null){
+			return;
+		}
+		
+		loToLoDao.save(lo2lo);
+		
+		for(LoToLoStep step:steps){
+			step.setLoToLoId(lo2lo.getId());
+			loToLoStepDao.save(step);
+		}
+		
 	}
 	
 }

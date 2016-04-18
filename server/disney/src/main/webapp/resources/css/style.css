@@ -304,14 +304,24 @@ ul,li {
 }
 
 .guide-toggle {
-	position: relative;
+	position: fixed;
 	float: right;
-	bottom: 25px;
-	padding: 2px 5px;
-	background-color: black;
+	top: 15px;
+	right: 20px;
+	padding: 8px 12px;
+	background-color: white;
+	border:solid 1px #ccc;
 	color: white;
-	border-radius: 4px;
-	right: 10px;
+	border-radius: 3px;
+	
+}
+
+.guide-toggle i{
+	color:green;
+}
+
+.guide-toggle span{
+	color:#777;
 }
 
 /***********guide location***************/
@@ -414,7 +424,7 @@ ul,li {
 
 .leave-tip-input {
 	font-size: 180%;
-	padding: 30px 0 10px 0;
+	padding: 12px 0 10px 0;
 	letter-spacing: 2px;
 }
 
@@ -424,7 +434,7 @@ ul,li {
 }
 
 .leave-input {
-	height: 60px;
+	height: 50px;
 	width: 80%;
 	padding: 15px;
 	font-size: 180%;
@@ -435,13 +445,13 @@ ul,li {
 }
 
 .leave-btn-border {
-	padding: 20px 0;
+	padding-top: 15px;
 }
 
 .leave-btn {
 	width: 80%;
 	margin: 0 auto;
-	padding: 12px 0px;
+	padding: 6px 0px;
 	border-radius: 4px;
 	font-size: 180%;
 	letter-spacing: 4px;
@@ -451,7 +461,7 @@ ul,li {
 	width: 80%;
 	text-align: left;
 	font-size: 150%;
-	margin: 0 auto;
+	margin: 10px auto;
 }
 
 .leave-select-tip {
@@ -517,4 +527,41 @@ ul,li {
 	letter-spacing: 5px;
 }
 
+/*************************************************************/
+.his-cookies {
+	color: #777;
+	text-align: left;
+	padding-top: 5px;
+	padding-left: 5px;
+	height:60px;
+}
 
+.his-cookies ul{
+	width:80%;
+	margin:8px auto;	
+}
+
+.his-cookies li{
+	float:left;
+	width:50%;
+}
+
+
+.his-title {
+	padding-top: 5px;
+}
+
+.his-cars .car-no {
+	border: solid 1px white;
+	padding: 5px 20px;
+	margin: 10px 0px;
+	border-radius: 4px;
+	width:70px;
+	background-color: #eee;
+}
+
+.his-cars .checked {
+	color: white;
+	background-color: #D23F5A;
+	border: solid 1px #eee;
+}

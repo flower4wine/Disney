@@ -9,6 +9,10 @@
 
 <body>
 	
+	<div class="guide-toggle" >
+		<i class="fa fa-refresh" aria-hidden="true"></i> <span>停车场内部导览</span>
+	</div>
+			
 	<div  class="guide-map" >
 		<div class="guide-map-container" >
 			<table >
@@ -35,10 +39,8 @@
 				<span>推荐路线</span>
 			</div>
 			
-			<div class="guide-toggle" >内</div>
-			
 			<div class="guide-detail-info" >当前位置  -> ${guide.destName }</div>
-			<div class="guide-detail-time" >${guide.time } | ${guide.distince }</div>
+			<div class="guide-detail-time" >${guide.time }分钟 | ${guide.distince }米</div>
 		</div>
 		
 		
@@ -118,7 +120,7 @@
 			$(".btn_minus_pos").toggle();
 			$(".btn_plus_pos").toggle();
 			
-			$(".guide-map .guide-map-container").animate({width:clientWidth()});
+			//$(".guide-map .guide-map-container").animate({width:clientWidth()});
 			
 		});
 		
@@ -155,10 +157,10 @@
 			
 			if(src == o){
 				 $(".guide-map img").attr("src",i);
-				 $(this).html("内");
+				 $(this).html('<i class="fa fa-refresh" aria-hidden="true"></i> <span>停车场内部导览</span>');
 			}else{
 				 $(".guide-map img").attr("src",o);
-				 $(this).html("外");
+				 $(this).html('<i class="fa fa-refresh" aria-hidden="true"></i> <span>停车场外部导览</span>');
 			}
 		});
 		

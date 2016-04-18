@@ -3,6 +3,10 @@ package com.disney.web.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.disney.bo.LoToLoBO;
+import com.disney.bo.LoToLoStepBO;
+import com.disney.constant.Lo2LoStepType;
+
 public class GuideVO {
 	
 	private String destName;
@@ -48,5 +52,36 @@ public class GuideVO {
 	}
 	public void setOutPic(String outPic) {
 		this.outPic = outPic;
+	}
+	
+	
+	public static GuideVO boToVo(LoToLoBO bo,Integer type){
+		GuideVO vo = new GuideVO();
+		
+		vo.setDestName(bo.getTo().getQrLocationName());
+		
+		
+		List<LoToLoStepBO> steps = new ArrayList<LoToLoStepBO>();
+		
+		if(type == Lo2LoStepType.OUT){
+			steps.addAll(bo.getInnerSteps());
+			steps.addAll(bo.getOutSteps());
+		}else{
+			steps.addAll(bo.getOutSteps());
+			steps.addAll(bo.getInnerSteps());
+		}
+				
+		
+		
+		for(LoToLoStepBO step:steps){
+			vo.getSteps().add(step.getRemark());
+		}
+		
+		vo.setTime(bo.getTime());
+		vo.setDistince(bo.getDistince());
+		vo.setOutPic(bo.getOutUrl());
+		vo.setInnerPic(bo.getInnerUrl());
+		
+		return vo;
 	}
 }

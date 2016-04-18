@@ -20,6 +20,10 @@ public class FromToOptimize  implements java.io.Serializable {
 	private Long id;
 	private String fromCode;
 	private String toCode;
+	private Boolean bus;
+	private String fromBus;
+	private String toBus;
+	private Boolean inside;
 	
     @Id
   	@GeneratedValue(strategy = IDENTITY)
@@ -47,8 +51,36 @@ public class FromToOptimize  implements java.io.Serializable {
 		this.toCode = toCode;
 	}
 	
+	@Column
+	public Boolean getBus() {
+		return bus;
+	}
+	public void setBus(Boolean bus) {
+		this.bus = bus;
+	}
 	
+	@Column
+	public String getFromBus() {
+		return fromBus;
+	}
+	public void setFromBus(String fromBus) {
+		this.fromBus = fromBus;
+	}
 	
+	@Column
+	public String getToBus() {
+		return toBus;
+	}
+	public void setToBus(String toBus) {
+		this.toBus = toBus;
+	}
 	
+	@Column
+	public Boolean getInside() {
+		return inside;
+	}
+	public void setInside(Boolean inside) {
+		this.inside = inside;
+	}
 
 }

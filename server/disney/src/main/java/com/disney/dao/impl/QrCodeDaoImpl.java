@@ -29,4 +29,17 @@ public class QrCodeDaoImpl extends BaseDaoImpl<QrCode> implements QrCodeDao {
 		
 	}
 
+	@Override
+	public int count() {
+		
+		String hql = "from QrCode";
+		
+		@SuppressWarnings("unchecked")
+		List<QrCode> list =  this.getCurrentSession()
+				.createQuery(hql)
+				.list();
+		
+		return (list == null) ? 0 : list.size();
+	}
+
 }

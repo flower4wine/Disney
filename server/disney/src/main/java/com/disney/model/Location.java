@@ -20,7 +20,6 @@ public class Location  implements java.io.Serializable {
 	private String name;
 	private Integer type;
 	private Boolean qrCodeLocation = false;
-	private Boolean entrance = false;
 	private String locationImg;
 	
     @Id
@@ -63,14 +62,6 @@ public class Location  implements java.io.Serializable {
 	}
 	public void setQrCodeLocation(Boolean qrCodeLocation) {
 		this.qrCodeLocation = qrCodeLocation;
-	}
-	
-	@Column
-	public Boolean getEntrance() {
-		return entrance;
-	}
-	public void setEntrance(Boolean entrance) {
-		this.entrance = entrance;
 	}
 	
 	@Column
