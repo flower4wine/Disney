@@ -8,15 +8,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<link rel="shortcut icon" href="<c:url value='/resources/images/parking.png'/>" type="image/x-icon">
+
 <link rel="stylesheet" href="<c:url value='/resources/css/style.css' />" />
+
 <link rel="stylesheet" href="<c:url value='/resources/thirdparty/weui/dist/style/weui.min.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/thirdparty/awesome/css/font-awesome.min.css' />" />
+<link rel="stylesheet" type="text/css" href="<c:url value= '/resources/css/unslider.css'/>">
 
-<link rel="stylesheet" type="text/css" href="<c:url value= '/resources/css/idx.css'/>">
-
-<script type="text/javascript"
-	src="<c:url value= '/resources/script/jquery-1.9.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value= '/resources/script/jquery-1.9.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value= '/resources/script/unslider-min.js'/>"></script>
+<script type="text/javascript" src="<c:url value= '/resources/script/jquery.touchSwipe.min.js'/>"></script>
 	
 <script type="text/javascript" src="<c:url value= '/resources/script/common.js'/>"></script>
 

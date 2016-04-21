@@ -27,17 +27,16 @@ import com.disney.util.JsonUtil;
 @ContextConfiguration(locations = {"classpath:testconfig/applicationContext.xml", 
 		"classpath:testconfig/dispatcherServlet.xml"})  
 @Transactional
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class LoadDataTest {
 
 	@Autowired
 	private LocationService locationService;
   
-    @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test  
     public void testAdd() {
     	
-    	List<LinkedHashMap<String, Object>> all = laodDataFromFile("E:/t-data.json");
+    	/*List<LinkedHashMap<String, Object>> all = laodDataFromFile("E:/t-data.json");
     	List<LinkedHashMap<String, Object>> p1 = laodDataFromFile("E:/p1-data.json");
     	List<LinkedHashMap<String, Object>> p2 = laodDataFromFile("E:/p2-data.json");
     	
@@ -47,12 +46,12 @@ public class LoadDataTest {
     	
     	for(Map map: p2){
     		createLo2lo(map,all);
-    	}
+    	}*/
     	
     }
     
    
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 	private void createLo2lo(Map<String,Object> inner,List all){
     	
     	String from = (String) inner.get("from");
@@ -111,6 +110,9 @@ public class LoadDataTest {
     		s.setRemark("从"+to.getName()+"步行到停车区域");
     	}
     	
+    	s.setStepType(Lo2LoStepType.WALK);
+    	
+    	
     	List<LoToLoStep> list = new ArrayList<LoToLoStep>();
     	list.add(s);
     	return list;
@@ -132,6 +134,7 @@ public class LoadDataTest {
         	s.setStep(1);
         	s.setType(Lo2LoStepType.OUT);
         	s.setRemark("从"+from.getName()+"步行到"+fromBus.getName());
+        	s.setStepType(Lo2LoStepType.WALK);
         	
         	list.add(s);
         	
@@ -140,6 +143,7 @@ public class LoadDataTest {
          	s.setType(Lo2LoStepType.OUT);
          	s.setRemark("乘坐接驳车"+(fromTo.getInside()?"内圈":"外圈")+"环线" +
          	"从"+fromBus.getName()+"上车,到"+toBus.getName()+"下车");
+         	s.setStepType(Lo2LoStepType.BUS);
          	
          	list.add(s);
          	
@@ -147,6 +151,7 @@ public class LoadDataTest {
          	s.setStep(3);
          	s.setType(Lo2LoStepType.OUT);
          	s.setRemark("从"+toBus.getName()+"步行到"+to.getName());
+         	s.setStepType(Lo2LoStepType.WALK);
          	list.add(s);
     		
     	}else{
@@ -154,18 +159,14 @@ public class LoadDataTest {
         	
         	s.setStep(1);
         	s.setType(Lo2LoStepType.OUT);
-        	
         	s.setRemark("从"+from.getName()+"步行到"+to.getName());
+        	s.setStepType(Lo2LoStepType.WALK);
         
         	list.add(s);
-        	
     	}
     	
     	return list;
-    	
     }
-    
-    
     
     private Integer getIntegerFromMap(Map<String,Object> map,String key){
     	int value = Integer.valueOf(map.get(key).toString());
@@ -188,7 +189,8 @@ public class LoadDataTest {
     
     
     
-    private List<LinkedHashMap<String, Object>> laodDataFromFile(String path){
+    @SuppressWarnings("unused")
+	private List<LinkedHashMap<String, Object>> laodDataFromFile(String path){
     	
     	String json;
 		try {

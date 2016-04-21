@@ -54,9 +54,10 @@ public class ParkGuideController {
 			
 			
 		}else{
+			vo.setName(parent.getName());
 			vo.setCode(co);
-			vo.setRemark(parent.getName());
-			vo.setLocationImg(parent.getLocationImg());
+			vo.setRemark(child.getName());
+			vo.setLocationImg(child.getLocationImg());
 		}
 		
 		//Get WeXin info

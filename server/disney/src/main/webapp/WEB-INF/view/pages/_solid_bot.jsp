@@ -2,7 +2,7 @@
 
 <%--   --%>
 <li>
-	<div class="slider_item">
+	<div class="slider_item slider_item_show">
 		<div class="text">湖泊公园鸟瞰图</div>
 		<div class="img">
 			<img alt="" src="<c:url value= '/resources/images/slider_1.png' />">

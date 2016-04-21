@@ -46,12 +46,10 @@
 				<div class="leave-select-tip">或选择停车场</div>
 				
 				<ul class="leave-park">
-					<li>
-						<div class="leave-park-first">P1</div>
-					</li>
-					<li><div class="bor-left-none">P2</div></li>
-					<li><div class="bor-left-none">P3</div></li>
-					<li><div class="bor-left-none leave-park-last" >P4</div></li>
+					<li data-code="03-0001"><div class="leave-park-first">P1</div></li>
+					<li data-code="03-0002"><div class="bor-left-none">P2</div></li>
+					<li data-code="03-0003"><div class="bor-left-none">P3</div></li>
+					<li data-code="03-0004"><div class="bor-left-none leave-park-last" >P4</div></li>
 				</ul>
 			</div>
 		
@@ -71,15 +69,22 @@
 			var car = $(".leave-input").val();
 			
 			if(car!=''){
-				$(".leave-top-message").show();
+				//To Send request to server
+				tmsAsynchGet('/le/checkCarNo.html?carNo='+car,function(response){
+					if(response.data && response.data!='' && response.data.length == 7){
+						window.location = '/disney/le/toParkEntrance.html?parkLocation='+response.data;
+					}else{
+						$(".leave-top-message").show();
+					}
+				});
+				
 			}else{
 				var selected = $(".leave-park li.selected");
 				
 				if(selected.length>0){
-					var park = $(selected).find("div").html();
-					//alert(park);
+					var code = $(selected).data("code");
+					window.location = '/disney/le/toParkEntrance.html?parkLocation='+code;
 				}
-				
 			}
 		});
 		

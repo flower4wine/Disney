@@ -16,7 +16,7 @@ import com.disney.service.LocationService;
 @ContextConfiguration(locations = {"classpath:testconfig/applicationContext.xml", 
 		"classpath:testconfig/dispatcherServlet.xml"})  
 @Transactional
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class CreateDataTest {
 
 	@Autowired
@@ -37,7 +37,8 @@ public class CreateDataTest {
     	//createFromToData();
     }
     
-    private void createFromToData(){
+    @SuppressWarnings("unused")
+	private void createFromToData(){
     	
     	//P1  
     	//03-0001-000A:01-0001-0001;01-0002-0001;02-0004-0001;04-0001-0001;06-0002-0001      
@@ -78,7 +79,8 @@ public class CreateDataTest {
     	}
     }
     
-    private void createQrCodeData(){
+    @SuppressWarnings("unused")
+	private void createQrCodeData(){
     	
     	//01-0001 迪斯尼乐园酒店
     	locationService.addQrCode("01-0001-0001", "迪斯尼乐园酒店入口A",QrCodeType.VIEW_ENTRANCE);
@@ -181,7 +183,8 @@ public class CreateDataTest {
     
     
     
-    private void createLocationData(){
+    @SuppressWarnings("unused")
+	private void createLocationData(){
     	//01 住：迪士尼乐园酒店、玩具总动员酒店
     	locationService.save(getLocation("上海迪斯尼乐园酒店","01-0001",1));
     	locationService.save(getLocation("玩具总动员酒店","01-0002",1));
