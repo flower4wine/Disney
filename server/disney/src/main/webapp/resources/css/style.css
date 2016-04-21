@@ -14,6 +14,12 @@ body {
 	color: white;
 }
 
+img{
+	width:100%;
+ }
+ 
+input{outline:none} 
+
 * {
 	font-family: Arial, Microsoft YaHei, tahoma, serif, simsun, fantasy;
 }
@@ -56,32 +62,117 @@ ul,li {
 .bg-color_gray {
 	background-color: #777;
 }
+/**************index****************/
 
-.btn_handler {
-	background-color: #ccc;
-	color: #D23F5A;
-	position: fixed;
-	bottom: 10px;
-	padding: 12px;
-	font-size: 150%;
+
+ 
+.clear {
+	clear: both;
+}
+
+.idx_top {
+	border-bottom: solid 1px #363B54;
+}
+
+.idx_top_bg {
+	margin-bottom: -15px;
+}
+
+.idx_top .items {
+	color: white;
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+	bottom: 15px;
+}
+
+.idx_top .item {
+	float: left;
+	text-align: center;
+	width: 25%;
+}
+
+.idx_top .item_circle {
 	border-radius: 50%;
-	width:18px;
-	height:18px;
+	width: 60%;
+	margin: 0 auto;
 }
 
-.btn_toggle_pos {
-	right: 10px;
+.idx_top .item_text {
+	margin: 10px 10%;
 }
 
-.btn_minus_pos {
-	right: 100px;
+.idx_top .item_bot_col1 {
+	border-bottom: solid 2px #4C8ED7;
+}
+
+.idx_top .item_bot_col2 {
+	border-bottom: solid 2px #D23F5A;
+}
+
+.idx_top .item_bot_col3 {
+	border-bottom: solid 2px #DDAD04;
+}
+
+.idx_top .item_bot_col4 {
+	border-bottom: solid 2px #13AD68;
+}
+
+.idx_top .item_img {
+	padding: 20% 0;
+	width: 60%;
+}
+
+.idx_top .item_col1 {
+	background-color: #4C8ED7;
+}
+
+.idx_top .item_col2 {
+	background-color: #D23F5A;
+}
+
+.idx_top .item_col3 {
+	background-color: #DDAD04;
+}
+
+.idx_top .item_col4 {
+	background-color: #13AD68;
+}
+
+.idx_center .unslider .next,
+.idx_center .unslider .prev,
+.idx_center .unslider-nav {
 	display: none;
 }
 
-.btn_plus_pos {
-	right: 190px;
-	display: none;
+.idx_slider .slider_item {
+	padding: 10px;
 }
+
+.idx_slider .slider_item .text {
+	color: white;
+	border-left: solid 3px #4C8ED7;
+	padding-left: 10px;
+}
+
+.idx_slider .slider_item .img {
+	width: 90%;
+	margin: 0px auto;
+	padding-top: 8px;
+}
+
+.idx_bot {
+	background-color: #AE2A03;
+	position:absolute;
+	bottom:0;
+	width:100%;
+}
+
+.idx_bot .img {
+	margin: 0 auto;
+	padding: 8px 0px;
+}
+
 
 /************************park****/
 .park-p-items {
@@ -166,10 +257,9 @@ ul,li {
 }
 
 .park-info {
-	position: relative;
-	width: 200px;
+	position: absolute;
+	width: 130px;
 	margin: 0 auto;
-	top: 100px;
 	z-index: 4;
 	color: red;
 	text-align: center;
@@ -180,13 +270,13 @@ ul,li {
 .park-info-name{
 	color: white;
 	padding: 8px 0;
-	font-size: 150%;
+	font-size: 130%;
 	letter-spacing: 1px;
-	border-radius:5px 5px 0px 0px;
+	border-radius:3px 3px 0px 0px;
 }
 
 .park-info-tip{
-	padding-top:10px;
+	padding-top:5px;
 	letter-spacing: 3px;
 }
 
@@ -197,8 +287,8 @@ ul,li {
 
 .park-info-num{
 	color: #23B823;
-	margin-top:-15px;
-	font-size: 500%;
+	margin-top:-5px;
+	font-size: 250%;
 }
 
 /*********guide************************/
@@ -207,6 +297,31 @@ ul,li {
 	background-color: white;
 	margin: 0 auto;
 	overflow:auto;
+	text-align: center;;
+}
+
+.btn_handler {
+	background-color: #ccc;
+	color: #D23F5A;
+	position: fixed;
+	top: 10px;
+	padding: 12px;
+	font-size: 150%;
+	border-radius: 50%;
+	width:18px;
+	height:18px;
+}
+
+.btn_minus_pos {
+	left: 80px;
+}
+
+.btn_plus_pos {
+	left: 20px;
+}
+
+.guide-map-container{
+	overflow: auto;
 }
 
 .guide-map table {
@@ -217,6 +332,7 @@ ul,li {
 	background-color: #eee;
 	overflow: auto;
 }
+
 
 .guide-ab-bottom {
 	position: absolute;
@@ -238,13 +354,21 @@ ul,li {
 }
 
 .guide-step-detail ul {
-	padding: 30px 0;
+	padding: 15px 0;
 	height: 120px;
 	overflow:auto;
 }
 
 .guide-step-detail ul li {
 	padding: 5px 0px;
+}
+
+.guide-step-detail .step-walk i{
+	color:#777;
+}
+
+.guide-step-detail .step-bus i{
+	color:green;
 }
 
 .guide-detail {
@@ -306,23 +430,16 @@ ul,li {
 .guide-toggle {
 	position: fixed;
 	float: right;
-	top: 15px;
-	right: 20px;
+	top: 12px;
+	right: 10px;
 	padding: 8px 12px;
-	background-color: white;
+	background-color: #D23F5A;
 	border:solid 1px #ccc;
 	color: white;
-	border-radius: 3px;
+	border-radius: 4px;
 	
 }
 
-.guide-toggle i{
-	color:green;
-}
-
-.guide-toggle span{
-	color:#777;
-}
 
 /***********guide location***************/
 .guide-loc-info {
@@ -336,7 +453,7 @@ ul,li {
 
 .guide-loc-info-left {
 	float: left;
-	width: 65%;
+	width: 70%;
 }
 
 .guide-loc-info-left .title {
@@ -346,7 +463,7 @@ ul,li {
 }
 
 .guide-loc-info-left .position {
-	font-size: 130%;
+	font-size: 120%;
 	color: #777;
 	padding: 2px 10px;
 }
@@ -359,12 +476,13 @@ ul,li {
 
 .guide-loc-info-right {
 	float: left;
-	width: 35%;
+	width: 30%;
 }
 
 .guide-loc-info-right .rescan-border {
 	border: solid 1px #CCC;
 	text-align: center;
+	margin-top:6px;
 }
 
 .guide-loc-info-right .rescan {
@@ -376,7 +494,7 @@ ul,li {
 	margin: 5px 0;
 	color: #777;
 	letter-spacing: 1px;
-	font-size: 130%;
+	font-size: 120%;
 }
 
 .guide-loc-confirm {
@@ -564,4 +682,60 @@ ul,li {
 	color: white;
 	background-color: #D23F5A;
 	border: solid 1px #eee;
+}
+
+/*****************locations****************/
+.loc-view-info {
+	padding: 0px 10px;
+}
+
+.lov-view-title {
+	color: #777;
+	font-size: 130%;
+	text-align: center;
+	padding: 10px;
+}
+
+.loc-view-img {
+	padding: 5px 0px;
+	height: 140px;
+}
+
+.loc-view-img img {
+	height: 140px;
+}
+
+.loc-view-img .txt {
+	text-align: right;
+	position: relative;
+	color: white;
+	bottom: 35px;
+	font-size: 130%;
+	background-color: rgba(7, 7, 7, 0.3);
+	padding: 0 10px;
+}
+
+.loc-search {
+	border-bottom: solid 1px #ccc;
+	padding: 20px;
+}
+
+.loc-search-bg {
+	color: white;
+	background-color: #777;
+	border-radius: 4px;
+	font-size: 130%;
+	padding: 5px;
+}
+
+.loc-search i {
+	padding: 0 12px;
+}
+
+.loc-search input {
+	padding: 5px 0px;
+	background-color: rgba(7, 7, 7, 0);
+	border: none;
+	width: 80%;
+	color: white;
 }

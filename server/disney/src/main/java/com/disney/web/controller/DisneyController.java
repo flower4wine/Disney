@@ -54,15 +54,17 @@ public class DisneyController {
 		view.addObject("nonceStr", nonceStr);
 		view.addObject("signature", signature);
 		
-		
 		String userOpenId = SessionHelper.getLoginUserOpenId(request.getSession());
 		UserLocation ul = locationService.findUserLocation(userOpenId);
 		Date now = DateUtils.getStartDate(new Date());
 		
-		if(ul!=null && StringUtils.isNotEmpty(ul.getParkLocation()) && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
-			view.addObject("code", ul.getParkLocation());
+		if(ul!=null && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
+			view.addObject("parkCode", ul.getParkLocation());
+			view.addObject("leaveCode", ul.getLeaveLocation());
+			
 		}else{
-			view.addObject("code", "");
+			view.addObject("parkCode", "");
+			view.addObject("leaveCode", "");
 		}
 		
 		return view;

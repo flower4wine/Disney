@@ -19,7 +19,7 @@ public class LoToLoStep implements Serializable {
 	private Long loToLoId;
 	private Integer type;
 	private Integer step;
-	private Long locationId;//如果为空表示 不是重要的途经点
+	private Integer stepType;
 	private String remark;
 	
     @Id
@@ -58,20 +58,19 @@ public class LoToLoStep implements Serializable {
 	}
 	
 	@Column
-	public Long getLocationId() {
-		return locationId;
-	}
-	
-	public void setLocationId(Long locationId) {
-		this.locationId = locationId;
-	}
-	
-	@Column
 	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	
+	@Column
+	public Integer getStepType() {
+		return stepType;
+	}
+	public void setStepType(Integer stepType) {
+		this.stepType = stepType;
 	}
 
 }
