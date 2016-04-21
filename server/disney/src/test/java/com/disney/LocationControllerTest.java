@@ -3,8 +3,6 @@ package com.disney;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,10 @@ import com.disney.service.LocationService;
 @ContextConfiguration(locations = {"classpath:testconfig/applicationContext.xml", 
 		"classpath:testconfig/dispatcherServlet.xml"})  
 @Transactional
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class LocationControllerTest {
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private LocationService locationService;
   
@@ -41,7 +40,8 @@ public class LocationControllerTest {
     	
     }
     
-    private LoToLoBO getLoToLoBO(String fromC,String toC){
+    @SuppressWarnings("unused")
+	private LoToLoBO getLoToLoBO(String fromC,String toC){
     	
     	LoToLoBO bo = new LoToLoBO();
     	

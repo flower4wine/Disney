@@ -9,17 +9,12 @@
 
 <body>
 	
-	<div class="guide-toggle" >
-		<i class="fa fa-refresh" aria-hidden="true"></i> <span>内部导览</span>
-	</div>
-			
 	<div  class="guide-map" >
 		<div class="guide-map-container" >
 			<table >
 				<tr>
 					<td>
-						<img class="pre-view" alt="" data-out-url="<c:url value= '${guide.outPic }' />"  
-							data-in-url="<c:url value= '${guide.innerPic }' />"  src="<c:url value= '${guide.innerPic }' />" 	  > 
+						<img class="pre-view" alt=""  src="<c:url value= '${guide.outPic }' />" 	  > 
 					</td>
 				</tr>
 			</table>
@@ -113,10 +108,6 @@
 		
 		$(".btn_minus_pos").on('click',minGuideMapImg);
 		$(".btn_plus_pos").on('click',maxGuideMapImg);
-					
-		$(".guide-toggle").on("click",function(){
-			toggleGuideInOutImg($(this))
-		});
 		
 		$("img.pre-view").on("click", function(){
 			wxPreViewImg($(this));

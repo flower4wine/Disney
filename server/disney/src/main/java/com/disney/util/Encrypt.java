@@ -90,8 +90,9 @@ public class Encrypt {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String encrypt = Encrypt.md5AndSha(md5("thomas")).toUpperCase();
+		String encrypt =md5("thomas").toUpperCase();
 		System.out.println(encrypt);
+		System.out.println(encrypt.length());
 	}
 
 }

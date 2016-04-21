@@ -7,10 +7,14 @@ import com.disney.model.FromToOptimize;
 import com.disney.model.LoToLo;
 import com.disney.model.LoToLoStep;
 import com.disney.model.Location;
+import com.disney.model.QrCode;
 import com.disney.model.UserLocation;
 
 public interface LocationService {
 	
+	/**
+	 * 数据清理 
+	 */
 	public void cleanData();
 	
 	public List<Location> findAll();
@@ -82,5 +86,10 @@ public interface LocationService {
 	 * @param userLocation
 	 */
 	public void saveUserLocation(UserLocation userLocation);
+
+	void updateQrCode(QrCode code);
+
+	List<QrCode> allQrCodes();
+	
 	
 }

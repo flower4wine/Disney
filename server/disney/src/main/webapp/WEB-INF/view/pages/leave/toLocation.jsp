@@ -10,7 +10,7 @@
 <body>
 	
 	<div class="guide-toggle" >
-		<i class="fa fa-refresh" aria-hidden="true"></i> <span>停车场内部导览</span>
+		<i class="fa fa-refresh" aria-hidden="true"></i> <span>内部导览</span>
 	</div>
 			
 	<div  class="guide-map" >
@@ -18,9 +18,8 @@
 			<table >
 				<tr>
 					<td>
-						<img alt="" data-out-url="<c:url value= '${guide.outPic }' />"  
-							data-in-url="<c:url value= '${guide.innerPic }' />"
-						  src="<c:url value= '${guide.innerPic }' />" 	  > 
+						<img class="pre-view" alt="" data-out-url="<c:url value= '${guide.outPic }' />"  
+							data-in-url="<c:url value= '${guide.innerPic }' />"  src="<c:url value= '${guide.innerPic }' />" 	  > 
 					</td>
 				</tr>
 			</table>
@@ -63,13 +62,16 @@
 				</li>
 				
 				<c:forEach items="${guide.steps }" var="item">
-					<li>
+					
+					<c:if test="${item.stepType eq 0 }"><li class="step-walk"></c:if>
+					<c:if test="${!(item.stepType eq 0) }"><li class="step-bus" ></c:if>
+					
 						<div class="guide-step-tag">
 							<i class="fa fa-circle-o" ></i> 
 						</div>
 						
 						<div class="guide-step-txt">
-							${item }
+							${item.remark }
 						</div>
 						
 						<div class="clear"></div>
@@ -92,10 +94,6 @@
 		</div>
 	</div>
 	
-	<div  class="btn_handler btn_toggle_pos">
-		<i class="fa fa-arrow-down"></i>
-	</div>
-	
 	<div  class="btn_handler btn_minus_pos">
 		<i class="fa fa-minus"></i>
 	</div>
@@ -110,61 +108,20 @@
 </style>
 
 	<script type="text/javascript">
-		$(".btn_toggle_pos").on('click',function(){
-			
-			$('.guide-ab-bottom').toggle();
-			
-			$(this).find('.fa-arrow-down').toggleClass("fa-arrow-up");
-			$(this).find('.fa-arrow-up').toggleClass("fa-arrow-down");
-			
-			$(".btn_minus_pos").toggle();
-			$(".btn_plus_pos").toggle();
-			
-			//$(".guide-map .guide-map-container").animate({width:clientWidth()});
-			
-		});
-		
-		$(".btn_minus_pos").on('click',function(){
-			var w = parseInt($(".guide-map .guide-map-container").css("width"))*0.8;
-			if( w > clientWidth()){
-				$(".guide-map .guide-map-container").animate({width:w});
-			}else{
-				$(".guide-map .guide-map-container").animate({width:clientWidth()});
-			}
-		});
-		
-		
-		$(".btn_plus_pos").on('click',function(){
-			var w = parseInt($(".guide-map .guide-map-container").css("width"))*1.2;
-			$(".guide-map .guide-map-container").animate({width:w});
-		});
-		
-		
-		function resetGuideMap(){
-			var height = clientHeight();
-			var headHeight = parseInt($(".guide-ab-bottom").css("height"))+20;
-			
-			var contentHeight = (height - headHeight) + "px";
-			$(".guide-map .guide-map-container").animate({height:contentHeight});
-		}
-		
+	window.onload = function() {
 		resetGuideMap();
 		
+		$(".btn_minus_pos").on('click',minGuideMapImg);
+		$(".btn_plus_pos").on('click',maxGuideMapImg);
+					
 		$(".guide-toggle").on("click",function(){
-			var o = $(".guide-map img").data("out-url");
-			var i = $(".guide-map img").data("in-url");
-			var src = $(".guide-map img").attr("src");
-			
-			if(src == o){
-				 $(".guide-map img").attr("src",i);
-				 $(this).html('<i class="fa fa-refresh" aria-hidden="true"></i> <span>停车场内部导览</span>');
-			}else{
-				 $(".guide-map img").attr("src",o);
-				 $(this).html('<i class="fa fa-refresh" aria-hidden="true"></i> <span>停车场外部导览</span>');
-			}
+			toggleGuideInOutImg($(this))
 		});
 		
-		
+		$("img.pre-view").on("click", function(){
+			wxPreViewImg($(this));
+		});
+	}
 	</script>
 
 </body>

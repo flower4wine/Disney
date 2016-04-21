@@ -1,9 +1,8 @@
-package com.disney.bo;
+package com.disney.web.vo;
 
-public class LoToLoStepBO {
+public class GuideStepVO {
 	
 	private String remark;
-	private Integer step;
 	private Integer stepType;
 	
 	public String getRemark() {
@@ -12,17 +11,11 @@ public class LoToLoStepBO {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public Integer getStep() {
-		return step;
-	}
-	public void setStep(Integer step) {
-		this.step = step;
-	}
 	public Integer getStepType() {
 		return stepType;
 	}
 	public void setStepType(Integer stepType) {
 		this.stepType = stepType;
 	}
-	
+
 }
