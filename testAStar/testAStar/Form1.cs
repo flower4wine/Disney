@@ -623,8 +623,17 @@ namespace testAStar
         }
         private void buttonAddName_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBoxMapName.Text))
+            {
+                MessageBox.Show(@"输入地图名称");
+                return;
+            }
             _aPathFind.SetKeyCellSuffix();
 
+            if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + "/QRLocation/"))
+            {
+                Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + "/QRLocation/");
+            }
             using (Bitmap bitmap = new Bitmap(panelMap.Width, panelMap.Height))
             {
                 panelMap.DrawToBitmap(bitmap, panelMap.Bounds);
@@ -643,10 +652,21 @@ namespace testAStar
                         stringLocation.X += CELL_WIDTH + 1;
                         g.DrawString(keyCell.Name.Substring(keyCell.Name.LastIndexOf('-') + 1).Trim('0'), font, colorBrush,
                             stringLocation);
+
+                        using (Bitmap bitmap2 = new Bitmap(panelMap.Width, panelMap.Height))
+                        {
+                            panelMap.DrawToBitmap(bitmap2, panelMap.Bounds);
+                            using (Graphics g2 = Graphics.FromImage(bitmap2))
+                            {
+                                g2.DrawImage(Properties.Resources.star, keyCell.Location - new Size(16,16));
+                            }
+                            bitmap2.Save(@"./Save/" + textBoxMapName.Text + "/QRLocation/" + keyCell.Name + ".jpg", ImageFormat.Jpeg);
+                        }
                     }
                 }
-                bitmap.Save(@".\Data\MapIndex.png", ImageFormat.Png);
+                bitmap.Save(@"./Save/" + textBoxMapName.Text + "/ MapIndex.png", ImageFormat.Png);
             }
+            MessageBox.Show(@"导出二维码坐标信息完成");
         }
 
         private void buttonSetGoalCells_Click(object sender, EventArgs e)
@@ -770,11 +790,11 @@ namespace testAStar
                                 };
                                 wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
 
-                                if (!Directory.Exists(@"./Save" + wayInfo.InnerDirPath))
+                                if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
                                 {
-                                    Directory.CreateDirectory(@"./Save" + wayInfo.InnerDirPath);
+                                    Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save" + wayInfo.Inner);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -808,11 +828,11 @@ namespace testAStar
                                 };
                                 wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
 
-                                if (!Directory.Exists(@"./Save" + wayInfo.InnerDirPath))
+                                if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
                                 {
-                                    Directory.CreateDirectory(@"./Save" + wayInfo.InnerDirPath);
+                                    Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save" + wayInfo.Inner);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -1024,11 +1044,11 @@ namespace testAStar
                                     };
                                     wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
 
-                                    if (!Directory.Exists(@"./Save" + wayInfo.OutDirPath))
+                                    if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath))
                                     {
-                                        Directory.CreateDirectory(@"./Save" + wayInfo.OutDirPath);
+                                        Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                     }
-                                    bitmapTemp.Save(@"./Save" + wayInfo.Out,ImageFormat.Jpeg);
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Png);
                                     bitmapTemp.Dispose();
 
                                     if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -1063,11 +1083,11 @@ namespace testAStar
                                     };
                                     wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
 
-                                    if (!Directory.Exists(@"./Save" + wayInfo.OutDirPath))
+                                    if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath))
                                     {
-                                        Directory.CreateDirectory(@"./Save" + wayInfo.OutDirPath);
+                                        Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                     }
-                                    bitmapTemp.Save(@"./Save" + wayInfo.Out, ImageFormat.Jpeg);
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out, ImageFormat.Png);
                                     bitmapTemp.Dispose();
 
                                     if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -1226,11 +1246,11 @@ namespace testAStar
                                 };
                                 wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown1.Value);
 
-                                if (!Directory.Exists(@"./Save" + wayInfo.OutDirPath))
+                                if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath))
                                 {
-                                    Directory.CreateDirectory(@"./Save" + wayInfo.OutDirPath);
+                                    Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save" + wayInfo.Out,ImageFormat.Jpeg);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Png);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(parkingCell.Remark))
@@ -1267,11 +1287,11 @@ namespace testAStar
                                 };
                                 wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown1.Value);
 
-                                if (!Directory.Exists(@"./Save" + wayInfo.OutDirPath))
+                                if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath))
                                 {
-                                    Directory.CreateDirectory(@"./Save" + wayInfo.OutDirPath);
+                                    Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save" + wayInfo.Out,ImageFormat.Jpeg);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Png);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(parkingCell.Remark))
@@ -1311,6 +1331,11 @@ namespace testAStar
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBoxMapName.Text))
+            {
+                MessageBox.Show(@"输入地图名称");
+                return;
+            }
             SaveMapInfoButton_Click(sender, e);
 
             _shThread = new Thread(this.BeginSearchMany);
