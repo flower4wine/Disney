@@ -31,23 +31,6 @@ public class WeChatCreateQrCodeUtil {
 	
 	public static void main(String[] args) throws Exception{
 		
-		/*weixin.appId=wx7fd96db16363e281
-		weixin.secret=268ebd1126a4cee787ba4de89ce9b945*/
-		
-		Map<String,Object> map = WeChatBaseUtil.getToken("wx7fd96db16363e281","268ebd1126a4cee787ba4de89ce9b945");
-		String accessToken = (String) map.get("access_token");
-		
-		try {
-			
-			String a= createQrCode(accessToken,"01-0001-0001");
-			String b= createQrCode(accessToken,"03-0001-0001");
-			
-			System.out.println(a);
-			System.out.println(b);
-			
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

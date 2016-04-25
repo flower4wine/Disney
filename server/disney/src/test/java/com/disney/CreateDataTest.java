@@ -9,6 +9,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.disney.constant.QrCodeType;
+import com.disney.model.FromToOptimize;
 import com.disney.model.Location;
 import com.disney.service.LocationService;
 
@@ -40,43 +41,65 @@ public class CreateDataTest {
     @SuppressWarnings("unused")
 	private void createFromToData(){
     	
-    	//P1  
-    	//03-0001-000A:01-0001-0001;01-0002-0001;02-0004-0001;04-0001-0001;06-0002-0001      
-    	//03-0001-000B:04-0002-0001;04-0003-0001;04-0004-0001;05-0001-0001;02-0005-0001;06-0001-0002
+    	//P1 03-0001-000C
+    	// 05-0001-0001(默认)
+    	//P1去购物村 全部从03-0001-000C出入口走  外圈 南公交枢纽 坐2站到购物村站(外圈)
     	
-    	//03-0002-000A:01-0001-0002;01-0002-0001;02-0004-0001;02-0005-0001;04-0001-0001;04-0002-0001;04-0003-0001;04-0004-0001;06-0001-0002;06-0002-0001
-    	//03-0002-000B:05-0001-0001
     	
-    	//03-0003-000A:04-0001-0001;04-0004-0001;04-0005-0001;04-0002-0001
-    	//03-0003-000C:01-0001-0002;01-0002-0001;02-0004-0001;02-0005-0001;06-0001-0002;06-0002-0001
-    	//03-0003-000F:05-0001-0002
+    	//P2 03-0002-000B
+    	// 05-0001-0001(默认)
+    	//P2去购物村 全部从03-0002-000B 出入口走  到 购物村对应出入口
     	
-    	//03-0004-000A:04-0001-0001;04-0003-0001
-    	//03-0004-000B:04-0002-0001;04-0004-0001;05-0001-0003;06-0002-0001;06-0001-0001;01-0001-0002;01-0002-0001;02-0004-0001;02-0005-0001
     	
-    	addFromTo("03-0001-000A:01-0001-0001;01-0002-0001;02-0004-0001;04-0001-0001;06-0002-0001 ");
-    	addFromTo("03-0001-000B:04-0002-0001;04-0003-0001;04-0004-0001;05-0001-0001;02-0005-0001;06-0001-0002");
-    	addFromTo("03-0002-000A:01-0001-0002;01-0002-0001;02-0004-0001;02-0005-0001;04-0001-0001;04-0002-0001;04-0003-0001;04-0004-0001;06-0001-0002;06-0002-0001");
-    	addFromTo("03-0002-000B:05-0001-0001");
+    	//P3  03-0003-000D 03-0003-000E 03-0003-000F
+    	// 05-0001-0001(默认) 
+    	//P3去购物村  有三种方案
+    	//A.   03-0003-000D   1-25车位                                                                 05-0001-0003
+    	//B.   03-0003-000E  26-54 61 62 65 66 67	   05-0001-0003
+    	//C.   03-0003-000F  55-60 63 64 68 			05-0001-0002
+    	 //出入口走  到 购物村对应出入口
     	
-    	addFromTo("03-0003-000A:04-0001-0001;04-0003-0001;04-0004-0001;04-0002-0001");
-    	addFromTo("03-0003-000C:01-0001-0002;01-0002-0001;02-0004-0001;02-0005-0001;06-0001-0002;06-0002-0001");
+    	//P4 03-0004-000C       03-0004-000D
+    	//1.  03-0004-000C 05-0001-0003
+    	//2.  03-0004-000D 05-0001-0003
+    	// 出入口走  到 购物村对应出入口
     	
-    	addFromTo("03-0003-000F:05-0001-0002");
-    	addFromTo("03-0004-000A:04-0001-0001;04-0003-0001");
-    	addFromTo("03-0004-000B:04-0002-0001;04-0004-0001;05-0001-0003;06-0002-0001;06-0001-0001;01-0001-0002;01-0002-0001;02-0004-0001;02-0005-0001");
+    	
+    	//从外到内 有14条路线
+    	addFromTo("03-0001-000C", "05-0001-0001", true, false, "02-0001-0011", "02-0001-0008", 2);
+    	addFromTo("05-0001-0001", "03-0001-000C", true, true, "02-0001-0001", "02-0001-0003", 2);
+    	
+    	
+    	addFromTo("03-0002-000B", "05-0001-0001", false, false, null, null, 0);
+    	addFromTo("05-0001-0001", "03-0002-000B", false, false, null, null, 0);
+    	
+    	addFromTo("03-0003-000D", "05-0001-0003", false, false, null, null, 0);
+    	addFromTo("03-0003-000E", "05-0001-0003", false, false, null, null, 0);
+    	addFromTo("03-0003-000F", "05-0001-0002", false, false, null, null, 0);
+    	addFromTo("05-0001-0003", "03-0003-000D", false, false, null, null, 0);
+    	addFromTo("05-0001-0003", "03-0003-000E", false, false, null, null, 0);
+    	addFromTo("05-0001-0002", "03-0003-000F", false, false, null, null, 0);
+    	
+    	addFromTo("03-0004-000C", "05-0001-0003", false, false, null, null, 0);
+    	addFromTo("03-0004-000D", "05-0001-0003", false, false, null, null, 0);
+    	addFromTo("05-0001-0003", "03-0004-000C", false, false, null, null, 0);
+    	addFromTo("05-0001-0003", "03-0004-000D", false, false, null, null, 0);
     	
     }
     
-    private void addFromTo(String str){
+    private void addFromTo(String from,String to,boolean bus,boolean inside,String fromBus,String toBus,int busStationNum){
     	
-    	String[] arr1 = str.split(":");
-    	String from = arr1[0];
+    	FromToOptimize ft = new FromToOptimize();
     	
-    	for(String to :arr1[1].split(";")){
-    		locationService.addFromTo(from, to);
-    		locationService.addFromTo(to, from);
-    	}
+    	ft.setFromCode(from);
+    	ft.setToCode(to);
+    	ft.setFromBus(fromBus);
+    	ft.setToBus(toBus);
+    	ft.setBus(bus);
+    	ft.setInside(inside);
+    	ft.setBusStationNum(busStationNum);
+    	
+    	locationService.addFromTo(ft);
     }
     
     @SuppressWarnings("unused")

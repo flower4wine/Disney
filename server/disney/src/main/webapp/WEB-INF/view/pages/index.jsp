@@ -123,7 +123,9 @@ window.onload = function() {
 			window.location = '/disney/pg/lo.html?co='+code;
 			return;
 		}
-		wxOnScan();
+		wxOnScan(function(code){
+					window.location = '/disney/pg/lo.html?co='+code;
+				});
 	});
 	
 	
@@ -134,7 +136,9 @@ window.onload = function() {
 			window.location = '/disney/le/lo.html?co='+code;
 			return;
 		}
-		wxOnScan();
+		wxOnScan(function(code){
+					window.location = '/disney/le/lo.html?co='+code;
+				});
 	});
 	
 	

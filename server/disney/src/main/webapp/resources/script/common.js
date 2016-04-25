@@ -124,7 +124,7 @@ function wxPreViewImg(imgsrc){
 }
 
 
-function wxOnScan(){
+function wxOnScan(handler){
 	if (!isWeiXin()) {
 		tmsError('请在微信中使用当前功能！');
 		return;
@@ -133,12 +133,16 @@ function wxOnScan(){
 	wx.ready(function(){
 		//点击扫描按钮，扫描二维码并返回结果
 		wx.scanQRCode({
-			needResult : 0,
+			needResult : 1,
 			desc : 'scanQRCode desc',
 			success : function(res) {
-				//扫码后获取结果参数:htpp://xxx.com/c/?6123，截取到url中的防伪码后，赋值给Input
-				//window.location = '/disney/pg/lo.html?co='+res.resultStr;
-				console.log(res);
+				tmsAsynchGet('/getScanCode.html?scanResult='+res.resultStr, function(res){
+					if(res.data && res.data!=''){
+						handler(res.data);
+					}else{
+						tmsError('二维码格式不正确，无法正确解析。');
+					}
+				});
 			},
 			fail:function(res){
 				tmsError('执行扫码出错。');
@@ -198,11 +202,6 @@ function clientWidth(){
 function scrollHeight(){
 	return document.body.scrollHeight;
 }
-
-
-
-
-
 
 function tmsAppPath(){
 	return "/disney";

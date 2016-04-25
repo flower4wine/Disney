@@ -59,12 +59,8 @@ public interface LocationService {
 	 */
 	public void addQrCode(String code, String name,Integer qrCodeType);
 	
-	/**
-	 * 停车场 到 景点 可导览最优路径
-	 * @param from
-	 * @param to
-	 */
-	public void addFromTo(String from,String to);
+
+	public void addFromTo(FromToOptimize fromTo); 
 	
 	/**
 	 * 
@@ -87,9 +83,11 @@ public interface LocationService {
 	 */
 	public void saveUserLocation(UserLocation userLocation);
 
-	void updateQrCode(QrCode code);
+/*	void updateQrCode(QrCode code);
 
-	List<QrCode> allQrCodes();
+	List<QrCode> allQrCodes();*/
+	
+	public QrCode findQrCode(String qrCodeUrl);
 	
 	
 }
