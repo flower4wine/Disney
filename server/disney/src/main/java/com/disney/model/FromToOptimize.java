@@ -24,6 +24,7 @@ public class FromToOptimize  implements java.io.Serializable {
 	private String fromBus;
 	private String toBus;
 	private Boolean inside;
+	private int busStationNum = 0;
 	
     @Id
   	@GeneratedValue(strategy = IDENTITY)
@@ -81,6 +82,14 @@ public class FromToOptimize  implements java.io.Serializable {
 	}
 	public void setInside(Boolean inside) {
 		this.inside = inside;
+	}
+	
+	@Column
+	public int getBusStationNum() {
+		return busStationNum;
+	}
+	public void setBusStationNum(int busStationNum) {
+		this.busStationNum = busStationNum;
 	}
 
 }
