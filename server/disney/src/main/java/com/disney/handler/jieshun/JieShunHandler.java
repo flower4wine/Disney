@@ -31,12 +31,6 @@ public class JieShunHandler {
 		CloseableHttpClient httpclient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
 		CloseableHttpResponse response = null;
 		
-		System.out.println("cid:"+cid);
-		System.out.println("user:"+user);
-		System.out.println("pwd:"+password);
-		System.out.println("v:"+version);
-		System.out.println("Login url:"+url);
-		
 		try {
 
 			ArrayList<NameValuePair> list = new ArrayList<NameValuePair>();
@@ -58,11 +52,11 @@ public class JieShunHandler {
 
 				String results = EntityUtils.toString(response.getEntity());
 				JsonObject json=new JsonParser().parse(results).getAsJsonObject();
+				
 				int resultCode=json.get("resultCode").getAsInt();
 
 				if(resultCode==0){
 					returnStr =  json.get("token").getAsString();
-					
 				}else{
 					
 					throw new JSApiException("登录失败,错误信息：\tresultCode:"+resultCode+"\tmessage:"+json.get("message").getAsString());
