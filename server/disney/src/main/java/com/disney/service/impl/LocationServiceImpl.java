@@ -172,13 +172,17 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public void addFromTo(String from, String to) {
+	public void addFromTo(FromToOptimize fromTo) {
 
-		if(fromToOptimizeDao.find(from, to) == null){
+		if(fromToOptimizeDao.find(fromTo.getFromCode(), fromTo.getToCode()) == null){
 			FromToOptimize entity = new FromToOptimize();
 
-			entity.setFromCode(from);
-			entity.setToCode(to);
+			entity.setFromCode(fromTo.getFromCode());
+			entity.setToCode(fromTo.getToCode());
+			entity.setBus(fromTo.getBus());
+			entity.setInside(fromTo.getInside());
+			entity.setFromBus(fromTo.getFromBus());
+			entity.setToBus(fromTo.getToBus());
 
 			fromToOptimizeDao.save(entity);
 		}
@@ -247,31 +251,12 @@ public class LocationServiceImpl implements LocationService {
 		}
 
 	}
-	
-	
 
 	@Override
-	public List<QrCode> allQrCodes(){
-		return qrCodeDao.findAll();
+	public QrCode findQrCode(String qrCodeUrl) {
+		return qrCodeDao.findByUrl(qrCodeUrl);
 	}
 	
-	@Override
-	public void updateQrCode(QrCode code) {
-		if(code.getQrCodeType() == QrCodeType.PARK_ENTRANCE){
-			code.setQrUrl("");
-		}else{
-			//生成场景二维码地址
-			try {
-				String url = WeChatCreateQrCodeUtil.createQrCode(weChatHandler.accessToken(), code.getQrCode());
-				System.out.println(url);
-				code.setQrUrl(url);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		qrCodeDao.update(code);
-	}
+	
 
 }

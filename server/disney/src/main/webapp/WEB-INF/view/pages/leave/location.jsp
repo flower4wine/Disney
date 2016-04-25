@@ -74,7 +74,9 @@
 			wxConfig(timestamp, nonceStr, signature, appId);
 
 			$(".rescan").on("click", function() {
-				wxOnScan();
+				wxOnScan(function(code){
+					window.location = '/disney/pg/le.html?co='+code;
+				});
 			});
 
 			$("img.pre-view").on("click", function() {

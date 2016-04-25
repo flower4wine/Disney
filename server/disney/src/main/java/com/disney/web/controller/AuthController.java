@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.disney.bo.wx.TextMessage;
+import com.disney.constant.QrCodeFix;
 import com.disney.handler.config.SessionHelper;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.Location;
@@ -32,12 +33,12 @@ import com.disney.wx.MessageUtil;
 
 @Controller
 public class AuthController {
-	
+
 	private static Logger log = LoggerFactory.getLogger(AuthController.class);
 
 	@Autowired
 	WeChatHandler wxHandler;
-	
+
 	@Autowired
 	LocationService locationService;
 
@@ -89,7 +90,7 @@ public class AuthController {
 		// 将请求、响应的编码均设置为UTF-8（防止中文乱码）
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
+
 		//这里进行签名认证
 		if(!SignUtil.checkSignature(request.getParameter("signature"),
 				request.getParameter("timestamp"),
@@ -100,78 +101,106 @@ public class AuthController {
 		PrintWriter out = response.getWriter();
 
 		Map<String, String> requestMap = MessageUtil.parseXml(request);
-		
+
 		if(requestMap!=null && ("SCAN".equalsIgnoreCase(requestMap.get("Event")) ||"subscribe".equalsIgnoreCase( requestMap.get("Event")))){
 			String key = requestMap.get("EventKey");
-			
+
 			if("subscribe".equalsIgnoreCase( requestMap.get("Event") ) && key.length()>=12 ){
 				key = key.substring(key.length()-12, key.length());
 			}
-			
-			// 发送方帐号
-			String fromUserName = requestMap.get("FromUserName");
-			// 开发者微信号
-			String toUserName = requestMap.get("ToUserName");
-			
-			
-			//Save scan location
-			UserLocation ul = locationService.findUserLocation(fromUserName);
-			//过期清除原 停车地点
-			Date now = DateUtils.getStartDate(new Date());
-			
-			if(ul==null){
-				ul = new UserLocation();
-				
-				boolean isDebug = wxHandler.isDebug();
-				
-				if(isDebug){
-					ul.setOpenId("test");
-				}else{
-					ul.setOpenId(fromUserName);
-				}
-				
+
+			//通过场景二维码 判断需要进行的操作  
+			String content = "";
+
+			if(key.equals(QrCodeFix.LANDSCAPE_BRIDGE)){
+				content = landscapeBridgeView();
+			}else{
+				content = qrCodeScan(requestMap, key);
 			}
 			
-			//判断最后一次生成时间 是不是今天
-			if(DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) != 0){
-				ul.setParkLocation("");
-				ul.setLeaveLocation("");
-				ul.setCreatedAt(now);
-			}
-			
-			if(StringUtils.isNotEmpty(key) && key.length() == 12){
-				ul.setScanLocation(key);
-				
-				if(key.startsWith("03-")){
-					ul.setParkLocation(key);
-				}else{
-					ul.setLeaveLocation(key);
-				}
-			}
-			
-			locationService.saveUserLocation(ul);
-			
-			String respXml = "";
-			
-			Location parent = locationService.find(key.substring(0,7));
-			Location location = locationService.find(key);
+
 			TextMessage msg = new TextMessage();
-			msg.setToUserName(fromUserName);
-			msg.setFromUserName(toUserName);
+			msg.setToUserName(requestMap.get("FromUserName"));
+			msg.setFromUserName(requestMap.get("ToUserName"));
+			
 			msg.setCreateTime(new Date().getTime());
 			msg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-			
-			msg.setContent("欢迎您访问迪斯尼智慧停车平台,您扫描的二维码为："+parent.getName()+"," +location.getName()+",<a href='http://disney.digirogar.com/disney'>请点击菜单进行操作。</a>");
-			
+
+			msg.setContent(content);
+
+			String respXml = "";
 			respXml = MessageUtil.messageToXml(msg);
 			out.print(respXml);
-			
+
 		}
-		
+
 		out.close();
 		out = null;
 	}
-	
+
+	private String landscapeBridgeView(){
+		return "欢迎您访问迪斯尼智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，<a href='#'>点击了解详情</a>";
+	}
+
+	private String qrCodeScan(Map<String, String> requestMap,String key){
+
+		//Save scan location
+		UserLocation ul = locationService.findUserLocation(requestMap.get("FromUserName"));
+		//过期清除原 停车地点
+		Date now = DateUtils.getStartDate(new Date());
+
+		if(ul==null){
+			ul = new UserLocation();
+
+			boolean isDebug = wxHandler.isDebug();
+
+			if(isDebug){
+				ul.setOpenId("test");
+			}else{
+				ul.setOpenId(requestMap.get("FromUserName"));
+			}
+
+		}
+
+		//判断最后一次生成时间 是不是今天
+		if(DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) != 0){
+			ul.setParkLocation("");
+			ul.setLeaveLocation("");
+			ul.setCreatedAt(now);
+		}
+
+		if(StringUtils.isNotEmpty(key) && key.length() == 12){
+			ul.setScanLocation(key);
+
+			if(key.startsWith("03-")){
+				ul.setParkLocation(key);
+			}else{
+				ul.setLeaveLocation(key);
+			}
+		}
+
+		locationService.saveUserLocation(ul);
+
+		Location parent = locationService.find(key.substring(0,7));
+		Location location = locationService.find(key);
+
+		return "欢迎您访问迪斯尼智慧停车平台,您扫描的二维码为："+parent.getName()+"," +location.getName()+",<a href='http://disney.digirogar.com/disney'>请点击菜单进行操作。</a>";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	@RequestMapping(value="/receive",method=RequestMethod.GET)
 	@ResponseBody
