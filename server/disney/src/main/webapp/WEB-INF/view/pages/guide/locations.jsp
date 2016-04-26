@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	
-	<div class="loc-view-info" >
+	<%-- <div class="loc-view-info" >
 		<div class="lov-view-title">其他景点</div>
 		
 		<div class="loc-view-img" data-code="01-0001-0002">
@@ -34,7 +34,7 @@
 			<img alt="" src="<c:url value = '/resources/images/shop4.jpg'/>">
 			<div class="txt" >玩具总动员酒店入口</div>
 		</div>
-	</div>
+	</div> --%>
 	
 
 	<script type="text/javascript">

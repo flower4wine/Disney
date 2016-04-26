@@ -75,7 +75,7 @@
 
 			$(".rescan").on("click", function() {
 				wxOnScan(function(code){
-					window.location = '/disney/pg/le.html?co='+code;
+					window.location = '/disney/le/lo.html?co='+code;
 				});
 			});
 
