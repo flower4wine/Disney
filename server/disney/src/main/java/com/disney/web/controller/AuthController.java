@@ -118,6 +118,8 @@ public class AuthController {
 				content = qrCodeScan(requestMap, key);
 			}
 			
+			//公众号OpenId  
+			//用户微信OpenId  requestMap.get("FromUserName")
 
 			TextMessage msg = new TextMessage();
 			msg.setToUserName(requestMap.get("FromUserName"));
@@ -184,22 +186,8 @@ public class AuthController {
 		Location parent = locationService.find(key.substring(0,7));
 		Location location = locationService.find(key);
 
-		return "欢迎您访问迪斯尼智慧停车平台,您扫描的二维码为："+parent.getName()+"," +location.getName()+",<a href='http://disney.digirogar.com/disney'>请点击菜单进行操作。</a>";
+		return "欢迎您访问迪斯尼智慧停车平台,您扫描的二维码为："+parent.getName()+"," +location.getName()+",<a href='"+wxHandler.getDomain()+"/disney'>请点击菜单进行操作。</a>";
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	@RequestMapping(value="/receive",method=RequestMethod.GET)
@@ -223,6 +211,7 @@ public class AuthController {
 
 		out.close();
 		out = null;
+		
 		return "";
 	}
 

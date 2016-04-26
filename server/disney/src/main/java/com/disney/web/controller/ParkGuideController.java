@@ -28,6 +28,8 @@ import com.disney.web.vo.LocationVO;
 @RequestMapping("/pg")
 public class ParkGuideController {
 	
+	//private static Logger log = LoggerFactory.getLogger(ParkGuideController.class);
+	
 	@Autowired
 	private WeChatHandler weChatHandler;
 
