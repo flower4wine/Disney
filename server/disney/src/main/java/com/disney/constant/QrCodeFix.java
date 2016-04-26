@@ -28,8 +28,27 @@ public class QrCodeFix {
 	}
 	
 	public static void main(String[] args) throws Exception{
-		//http://weixin.qq.com/q/PkQcuBvlwCO50poD8Wz3
-		getUrl();
+
+		Map<String,Object> map = WeChatBaseUtil.getToken("wxe5f6cefc92c343e6","f9e7063044526e7b88f1daa4a8e309ba");
+		String accessToken = (String) map.get("access_token");
+		
+		try {
+			
+			String a= WeChatCreateQrCodeUtil.createQrCode(accessToken,"03-0001-0017");
+			System.out.println(a);
+			
+			a= WeChatCreateQrCodeUtil.createQrCode(accessToken,"03-0002-0001");
+			System.out.println(a);
+			
+			a= WeChatCreateQrCodeUtil.createQrCode(accessToken,"05-0001-0001");
+			System.out.println(a);
+			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 
 }

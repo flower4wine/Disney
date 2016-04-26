@@ -171,8 +171,17 @@ ul,li {
 .idx_bot .img {
 	margin: 0 auto;
 	padding: 8px 0px;
+	text-align: center;
 }
 
+.idx_bot .english{
+	font-size: 90%;
+	letter-spacing 0.5px; 
+}
+
+.idx_bot .zh{
+	font-size: 110%;
+}
 
 /************************park****/
 .park-p-items {
@@ -265,6 +274,7 @@ ul,li {
 	text-align: center;
 	background: white;
 	border-radius:5px;
+	display:none;
 }
 
 .park-info-name{
