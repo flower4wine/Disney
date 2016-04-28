@@ -26,7 +26,7 @@ public class JieShunServiceImpl implements JieShunService{
 	}
 
 	@Override
-	public Map<String,Object> queryParkSpace() throws JSApiException {
+	public JsonObject queryParkSpace() throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
 		apiBO.setServiceId("3c.park.queryparkspace");
@@ -46,22 +46,22 @@ public class JieShunServiceImpl implements JieShunService{
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 
-		Map<String, Object> returnMap = new HashMap<String,Object>();
+		//Map<String, Object> returnMap = new HashMap<String,Object>();
 		
 		JsonObject json=new JsonParser().parse(result.getReturnObject().toString()).getAsJsonObject();
 		
-		returnMap.put("parkCode", json.get("parkCode"));
+/*		returnMap.put("parkCode", json.get("parkCode"));
 		returnMap.put("parkName", json.get("parkName"));
 		returnMap.put("totalSpace", json.get("totalSpace"));
-		returnMap.put("restSpace", json.get("restSpace"));
+		returnMap.put("restSpace", json.get("restSpace"));*/
 		
-		return returnMap;
+		return json;
 
 
 	}
 
 	@Override
-	public Map<String,Object> queryCarByCarno() throws JSApiException {
+	public JsonObject queryCarByCarno() throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
 		apiBO.setServiceId("3c.pay.querycarbycarno");
@@ -69,7 +69,6 @@ public class JieShunServiceImpl implements JieShunService{
 
 		Map<String,String> param = new HashMap<String,String>();
 
-		param.put("parkCodes", "000000223");
 		param.put("parkCodes", "000000223");
 
 		apiBO.setAttrs(param);
@@ -81,10 +80,11 @@ public class JieShunServiceImpl implements JieShunService{
 		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		System.out.println(result);
 
-		Map<String, Object> returnMap = new HashMap<String,Object>();
+		/*Map<String, Object> returnMap = new HashMap<String,Object>();*/
 		
-		return returnMap;
+		return (JsonObject)result.getReturnObject();
 	}
 
 	@Override
