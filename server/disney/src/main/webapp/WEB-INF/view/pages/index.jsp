@@ -14,11 +14,6 @@
 
 		<div>
 			<img alt="" src="<c:url value= '/resources/images/index_bg.jpg' />">
-			
-			<!-- <div style="text-align: center;position: absolute;top: 30px;width: 100%;">
-				<div style="font-size:200%;font-weight: bold;letter-spacing: 1px;">Welcome</div>
-				<div style="font-size: 120%;">上海国际旅游度假村欢迎您！</div>
-			</div> -->
 		</div>
 
 		<div class="items">
@@ -81,12 +76,7 @@
 		<div class="clear"></div>
 	</div>
 
-	<div class="idx_bot">
-		<div class="img">
-			<div style="font-size: 90%;letter-spacing0.5px; text-align: center;">Shanghai International Tourism & Resorts Zone</div>
-			<div style="font-size: 110%;text-align: center;">-&nbsp;上海国际旅游度假区&nbsp;-</div>
-		</div>
-	</div>
+	<%@ include file="./include/_bottom_footer.jsp" %>
 	
 	<form>
 		<input type="hidden" id="timestamp" value="${timestamp}" /> 

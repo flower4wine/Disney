@@ -5,7 +5,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+
+<link rel="shortcut icon" href="<c:url value='/resources/images/favicon.ico' />" />
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 

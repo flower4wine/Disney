@@ -6,6 +6,19 @@
 
 <body>
 
+	<%-- <div class="loc-mark-single">
+		<table >
+			<tr>
+				<td>
+					<img class="loc-mark-img" alt="" src="<c:url value= '/resources/images/mark-xing.png' />" >
+				</td>
+				<td class="loc-mark-single-txt">
+					 景点位置
+				</td>
+			</tr>
+		</table>
+	</div> --%>
+	
 	<div class="guide-map" >
 		<div class="guide-map-container" >
 			<table >
@@ -20,11 +33,39 @@
 	
 	<div class="guide-ab-bottom">
 		<div class="guide-loc-info" >
+		
 			<div class="guide-loc-info-left" >
-				<div class="title" >位置信息</div>
+				<%-- <div class="title" >位置信息</div>
 				<div class="position" ><i class="fa fa-map-marker"></i> ${location.remark }</div>
-				<div class="note" >确认当前位置,便于寻车导览</div>
+				<div class="note" >确认当前位置,便于寻车导览</div> --%>
+				
+				<table>
+					<tr class="title" >
+						<td class="left"><i class="fa fa-map-marker"></i></td>
+						<td>位置信息</td>
+					</tr>
+					<tr>
+						<td class="left">
+							<img  alt="" src="<c:url value= '/resources/images/mark-xing.png' />" >
+						</td>
+						<td class="loc-mark-single-txt">
+							${location.remark }
+						</td>
+					</tr>
+					<tr class="note">
+						<td class="left"><i class="fa fa-asterisk" aria-hidden="true"></i></td>
+						<td>确认当前位置,寻车导览</td>
+					</tr>
+				</table>
+				
 			</div>
+			
+			
+			
+			
+			
+			
+			
 			
 			<div class="guide-loc-info-right" >
 				<div class="rescan-border" >
@@ -41,13 +82,13 @@
 		</div>
 	</div>
 	
-	<div  class="btn_handler btn_minus_pos">
+<!-- 	<div  class="btn_handler btn_minus_pos">
 		<i class="fa fa-minus"></i>
 	</div>
 	
 	<div  class="btn_handler btn_plus_pos">
 		<i class="fa fa-plus"></i>
-	</div>
+	</div> -->
 	
 	<form>
 		<input type="hidden" id="timestamp" value="${timestamp}" /> 
@@ -63,9 +104,9 @@
 		
 			resetGuideMap();
 			
-			$(".btn_minus_pos").on('click',minGuideMapImg);
+		/* 	$(".btn_minus_pos").on('click',minGuideMapImg);
 			$(".btn_plus_pos").on('click',maxGuideMapImg);
-			
+			 */
 			var timestamp = $("#timestamp").val();//时间戳
 			var nonceStr = $("#nonceStr").val();//随机串
 			var signature = $("#signature").val();//签名
