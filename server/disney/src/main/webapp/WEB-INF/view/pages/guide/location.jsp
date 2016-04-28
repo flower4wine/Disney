@@ -11,25 +11,38 @@
 			<table >
 				<tr>
 					<td>
-						<img class="pre-view"  alt="" src="<c:url value= '${location.locationImg }' />" 	  > 
+						<img class="pre-view"  alt="" src="<c:url value= '${location.locationImg }' />" > 
 					</td>
 				</tr>
 			</table>
 		</div> 
+		
+		
 	</div>
 	
 	<div class="guide-ab-bottom">
 		<div class="guide-loc-info" >
 			<div class="guide-loc-info-left" >
-				<div class="title" ><i class="fa fa-map-marker"></i> ${location.name }</div>
-				<div class="position" >
-					
-					<div>
-						${location.remark }
-					</div>
-					
-				</div>
-				<div class="note" >记录停车位置，便于返程寻车定位</div>
+				
+				<table>
+					<tr class="title" >
+						<td class="left"><i class="fa fa-map-marker"></i></td>
+						<td>${location.name }</td>
+					</tr>
+					<tr>
+						<td class="left">
+							<img  alt="" src="<c:url value= '/resources/images/mark-xing.png' />" >
+						</td>
+						<td class="loc-mark-single-txt">
+							${location.remark }
+						</td>
+					</tr>
+					<tr class="note">
+						<td class="left"><i class="fa fa-asterisk" aria-hidden="true"></i></td>
+						<td>记录停车位置,离园寻车</td>
+					</tr>
+				</table>
+				
 			</div>
 			
 			<div class="guide-loc-info-right" >
@@ -40,6 +53,7 @@
 					<div class="rescan-note" >重新定位</div>
 				</div>
 			</div>
+			
 			<div class="clear"></div>
 		</div>
 		<div class="guide-loc-confirm"  >
@@ -48,13 +62,13 @@
 	</div>
 	
 	
-	<div  class="btn_handler btn_minus_pos">
+	<!-- <div  class="btn_handler btn_minus_pos">
 		<i class="fa fa-minus"></i>
 	</div>
 	
 	<div  class="btn_handler btn_plus_pos">
 		<i class="fa fa-plus"></i>
-	</div>
+	</div> -->
 	
 	
 	<form>
@@ -68,8 +82,8 @@
 	<script type="text/javascript">
 		window.onload = function() {
 			resetGuideMap();
-			$(".btn_minus_pos").on('click',minGuideMapImg);
-			$(".btn_plus_pos").on('click',maxGuideMapImg);
+			/* $(".btn_minus_pos").on('click',minGuideMapImg);
+			$(".btn_plus_pos").on('click',maxGuideMapImg); */
 			
 			var timestamp = $("#timestamp").val();//时间戳
 			var nonceStr = $("#nonceStr").val();//随机串

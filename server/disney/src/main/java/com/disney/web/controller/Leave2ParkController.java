@@ -42,9 +42,6 @@ public class Leave2ParkController {
 	@Autowired
 	private LocationService locationService;
 	
-	
-	
-	
 	@RequestMapping("/lo")
 	public ModelAndView parkLocation(HttpServletRequest request,String co) throws Exception {
 		//Validate check error
@@ -213,10 +210,18 @@ public class Leave2ParkController {
 			FromToOptimize fromTo = locationService.getFromTo(ul.getLeaveLocation().substring(0, 7), parkLocation.substring(0, 7));
 			
 			LoToLoBO bo = locationService.loadLoToLoBO(fromTo.getFromCode(),parkLocation);
-			view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.IN));
+			
+			if(bo!=null){
+				view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.IN));
+			}else{
+				view.addObject("guide", null);
+			}
 			
 		}else{
 			//未记录位置信息 如何处理  返回首页
+			
+			
+			
 		}
 		
 		return view;

@@ -27,9 +27,9 @@ import com.disney.model.Location;
 import com.disney.model.UserLocation;
 import com.disney.service.LocationService;
 import com.disney.util.DateUtils;
+import com.disney.util.MessageUtil;
 import com.disney.util.SignUtil;
 import com.disney.util.ViewUtil;
-import com.disney.wx.MessageUtil;
 
 @Controller
 public class AuthController {
@@ -37,10 +37,10 @@ public class AuthController {
 	private static Logger log = LoggerFactory.getLogger(AuthController.class);
 
 	@Autowired
-	WeChatHandler wxHandler;
+	private WeChatHandler wxHandler;
 
 	@Autowired
-	LocationService locationService;
+	private LocationService locationService;
 
 	@RequestMapping("/auth")
 	public ModelAndView auth() {

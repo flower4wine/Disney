@@ -9,8 +9,40 @@
 
 <body>
 	
+	<div class="loc-mark">
+		<table >
+			<tr>
+				<td>
+					<img class="loc-mark-img" src="<c:url value= '/resources/images/mark-start.png' />" >
+				</td>
+				<td class="loc-mark-text" >
+					 导览起点
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img class="loc-mark-img"   src="<c:url value= '/resources/images/mark-bus.png' />" >
+				</td>
+				<td class="loc-mark-text" >
+					 接驳车站
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img class="loc-mark-img"   src="<c:url value= '/resources/images/mark-end.png' />" >
+				</td>
+				<td class="loc-mark-text" >
+					 导览终点
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
 	<div class="guide-toggle" >
-		<i class="fa fa-refresh" aria-hidden="true"></i> <span>内部导览</span>
+		<div>
+			<img alt="" src="<c:url value= '${guide.innerPic }' />">
+		</div>
 	</div>
 			
 	<div  class="guide-map" >
@@ -19,11 +51,16 @@
 				<tr>
 					<td>
 						<img class="pre-view" alt="" data-out-url="<c:url value= '${guide.outPic }' />"  
-							data-in-url="<c:url value= '${guide.innerPic }' />"  src="<c:url value= '${guide.innerPic }' />" 	  > 
+							data-in-url="<c:url value= '${guide.innerPic }' />"  src="<c:url value= '${guide.outPic }' />" 	  > 
 					</td>
 				</tr>
 			</table>
 		</div> 
+		
+		<div class="guide-map-remark">
+			* 点击导览图看大图
+		</div>
+		
 	</div>
 	
 	<div class="guide-ab-bottom">
@@ -94,13 +131,13 @@
 		</div>
 	</div>
 	
-	<div  class="btn_handler btn_minus_pos">
+	<!-- <div  class="btn_handler btn_minus_pos">
 		<i class="fa fa-minus"></i>
 	</div>
 	
 	<div  class="btn_handler btn_plus_pos">
 		<i class="fa fa-plus"></i>
-	</div>
+	</div> -->
 	
 	
 <style>
@@ -111,8 +148,8 @@
 	window.onload = function() {
 		resetGuideMap();
 		
-		$(".btn_minus_pos").on('click',minGuideMapImg);
-		$(".btn_plus_pos").on('click',maxGuideMapImg);
+	/* 	$(".btn_minus_pos").on('click',minGuideMapImg);
+		$(".btn_plus_pos").on('click',maxGuideMapImg); */
 					
 		$(".guide-toggle").on("click",function(){
 			toggleGuideInOutImg($(this))

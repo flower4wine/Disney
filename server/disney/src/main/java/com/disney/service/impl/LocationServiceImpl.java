@@ -256,6 +256,23 @@ public class LocationServiceImpl implements LocationService {
 	public QrCode findQrCode(String qrCodeUrl) {
 		return qrCodeDao.findByUrl(qrCodeUrl);
 	}
+
+	@Override
+	public void updateQrCode(QrCode code) {
+		//更新
+		qrCodeDao.saveOrUpdate(code);
+	}
+
+	@Override
+	public List<QrCode> allQrCodes() {
+		//查询所有
+		return qrCodeDao.findAll();
+	}
+
+	@Override
+	public void update(Location location) {
+		locationDao.update(location);
+	}
 	
 	
 
