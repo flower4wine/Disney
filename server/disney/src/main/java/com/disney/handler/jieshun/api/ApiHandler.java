@@ -20,12 +20,16 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.disney.exception.JSApiException;
+import com.disney.util.JsonUtil;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class ApiHandler{    
+	
+	private static Logger log = LoggerFactory.getLogger(ApiHandler.class);
 
 	private static  HttpEntity constructHttpEntity(String param,JSLoginBO loginBo)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -96,16 +100,17 @@ public class ApiHandler{
 			if (statusCode == HttpStatus.SC_OK) {//成功调用
 				
 				String results = EntityUtils.toString(response.getEntity());
-				JsonObject json=new JsonParser().parse(results).getAsJsonObject();
 				
-				int resultCode=json.get("resultCode").getAsInt();
+				log.debug(results);
+				
+				Map<String,Object> resultMap = JsonUtil.readJson2Map(results);
+				int resultCode=(Integer) resultMap.get("resultCode");
 				
 				if(resultCode==0){
-					//JsonElement dataItems=json.get("dataItems");
-					return new JSApiResultBO(json);
+					return new JSApiResultBO(resultMap);
 					
 				}else{
-					throw new JSApiException("调用捷顺API调用异常!"+"\tresultCode:"+resultCode+"\tmessage:"+json.get("message"));
+					throw new JSApiException("调用捷顺API调用异常!"+"\tresultCode:"+resultCode+"\tmessage:"+resultMap.get("message"));
 				}
 			} else {
 				throw new JSApiException("调用捷顺API执行失败！"+"\tstatusCode:"+statusCode);

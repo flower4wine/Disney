@@ -12,7 +12,6 @@ import com.disney.handler.jieshun.api.JSApiResultBO;
 import com.disney.handler.jieshun.api.JSLoginBO;
 import com.disney.handler.jieshun.constant.LoginUser;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 @Service
 public class JieShunServiceImpl implements JieShunService{
@@ -48,7 +47,7 @@ public class JieShunServiceImpl implements JieShunService{
 
 		//Map<String, Object> returnMap = new HashMap<String,Object>();
 		
-		JsonObject json=new JsonParser().parse(result.getReturnObject().toString()).getAsJsonObject();
+		JsonObject json = (JsonObject) result.getReturnObject();
 		
 /*		returnMap.put("parkCode", json.get("parkCode"));
 		returnMap.put("parkName", json.get("parkName"));
