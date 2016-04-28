@@ -10,80 +10,93 @@ import com.disney.handler.jieshun.api.ApiHandler;
 import com.disney.handler.jieshun.api.JSApiRequestApiBO;
 import com.disney.handler.jieshun.api.JSApiResultBO;
 import com.disney.handler.jieshun.api.JSLoginBO;
+import com.disney.handler.jieshun.constant.LoginUser;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @Service
 public class JieShunServiceImpl implements JieShunService{
 
 	@Override
 	public String getLoginToken(String cid, String user, String password,String version) throws JSApiException {
-		
+
 		String url = "http://preapi.jslife.net/jsaims/login";	
 		return  JieShunHandler.getLoginToken(cid, user, password,version, url);
-		
+
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
-	public Map<String,Object> queryParkSpace() throws JSApiException {
-	/*	JSApiResultBO execute = QueryParkSpace.execute(apiBO, loginBo);
-		execute.getReturnObject();
-		//修改返回数据类型
-		Map<String, Object> returnObject = (Map<String, Object>) execute.getReturnObject();
-		return returnObject;*/
+	public JsonObject queryParkSpace() throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
-		
-		apiBO.setServiceId("");
-		apiBO.setRequestType("");
-		
+
+		apiBO.setServiceId("3c.park.queryparkspace");
+		apiBO.setRequestType("DATA");
+
 		Map<String,String> param = new HashMap<String,String>();
-		
-		
-		param.put("", "");
-		
+
+		param.put("parkCodes", "000000223");
+
 		apiBO.setAttrs(param);
-		
-		
+
 		JSLoginBO loginBo = new JSLoginBO();
-		
-		
-		
-		loginBo.setCid("");
-		loginBo.setVersion("");
-		loginBo.setLoginToken(getLoginToken("","","",""));
-		
-		
-		
-		
-		
-		
+
+		loginBo.setCid(LoginUser.cid);
+		loginBo.setVersion(LoginUser.version);
+		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
+
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+
+		//Map<String, Object> returnMap = new HashMap<String,Object>();
 		
+		JsonObject json=new JsonParser().parse(result.getReturnObject().toString()).getAsJsonObject();
 		
+/*		returnMap.put("parkCode", json.get("parkCode"));
+		returnMap.put("parkName", json.get("parkName"));
+		returnMap.put("totalSpace", json.get("totalSpace"));
+		returnMap.put("restSpace", json.get("restSpace"));*/
 		
-		return null;
-		
-		
-	}
-	
-	/*@Override
-	public Map<String,Object> queryCarByCarno(JSApiRequestApiBO apiBO) throws JSApiException {
-		
-		QueryParkSpace queryparkspace=new QueryParkSpace();
-		JSApiResultBO execute = queryparkspace.execute(apiBO, null);
-		execute.getReturnObject();
-		return null;
+		return json;
+
+
 	}
 
 	@Override
-	public void queryCarInfoByCarno(JSApiRequestApiBO apiBO) throws JSApiException {
-		// TODO Auto-generated method stub
+	public JsonObject queryCarByCarno() throws JSApiException {
+		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
+
+		apiBO.setServiceId("3c.pay.querycarbycarno");
+		apiBO.setRequestType("DATA");
+
+		Map<String,String> param = new HashMap<String,String>();
+
+		param.put("parkCodes", "000000223");
+
+		apiBO.setAttrs(param);
+
+		JSLoginBO loginBo = new JSLoginBO();
+
+		loginBo.setCid(LoginUser.cid);
+		loginBo.setVersion(LoginUser.version);
+		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
+
+		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		System.out.println(result);
+
+		/*Map<String, Object> returnMap = new HashMap<String,Object>();*/
 		
+		return (JsonObject)result.getReturnObject();
 	}
 
 	@Override
-	public void payByCarno(JSApiRequestApiBO apiBO) throws JSApiException {
+	public void queryCarInfoByCarno() throws JSApiException {
 		// TODO Auto-generated method stub
-		
-	}*/
+
+	}
+
+	@Override
+	public void payByCarno() throws JSApiException {
+		// TODO Auto-generated method stub
+
+	}
 
 }
