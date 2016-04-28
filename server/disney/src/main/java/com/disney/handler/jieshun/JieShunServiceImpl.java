@@ -11,7 +11,6 @@ import com.disney.handler.jieshun.api.JSApiRequestApiBO;
 import com.disney.handler.jieshun.api.JSApiResultBO;
 import com.disney.handler.jieshun.api.JSLoginBO;
 import com.disney.handler.jieshun.constant.LoginUser;
-import com.google.gson.JsonObject;
 
 @Service
 public class JieShunServiceImpl implements JieShunService{
@@ -25,7 +24,7 @@ public class JieShunServiceImpl implements JieShunService{
 	}
 
 	@Override
-	public JsonObject queryParkSpace() throws JSApiException {
+	public Map<String,Object> queryParkSpace() throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
 		apiBO.setServiceId("3c.park.queryparkspace");
@@ -45,22 +44,13 @@ public class JieShunServiceImpl implements JieShunService{
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 
-		//Map<String, Object> returnMap = new HashMap<String,Object>();
-		
-		JsonObject json = (JsonObject) result.getReturnObject();
-		
-/*		returnMap.put("parkCode", json.get("parkCode"));
-		returnMap.put("parkName", json.get("parkName"));
-		returnMap.put("totalSpace", json.get("totalSpace"));
-		returnMap.put("restSpace", json.get("restSpace"));*/
-		
+		Map<String,Object> json =  result.getReturnObject();
 		return json;
-
 
 	}
 
 	@Override
-	public JsonObject queryCarByCarno() throws JSApiException {
+	public Map<String,Object> queryCarByCarno() throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
 		apiBO.setServiceId("3c.pay.querycarbycarno");
@@ -79,11 +69,8 @@ public class JieShunServiceImpl implements JieShunService{
 		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
-		System.out.println(result);
-
-		/*Map<String, Object> returnMap = new HashMap<String,Object>();*/
-		
-		return (JsonObject)result.getReturnObject();
+		Map<String,Object> json =  result.getReturnObject();
+		return json;
 	}
 
 	@Override
