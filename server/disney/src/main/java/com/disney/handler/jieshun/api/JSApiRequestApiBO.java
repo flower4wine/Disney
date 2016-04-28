@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSApiRequestApiBO {
-
+	
+	private String loginToken;
+	
 	private String serviceId;
 	private String requestType;
 	private Map<String,String> attrs = new HashMap<String,String>();
@@ -27,5 +29,14 @@ public class JSApiRequestApiBO {
 	public void setAttrs(Map<String, String> attrs) {
 		this.attrs = attrs;
 	}
+
+	public String getLoginToken() {
+		return loginToken;
+	}
+	public void setLoginToken(String loginToken) {
+		this.loginToken = loginToken;
+	}
+	
+	
 	
 }
