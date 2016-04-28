@@ -1,14 +1,15 @@
 package com.disney.handler.jieshun;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.disney.exception.JSApiException;
+import com.disney.handler.jieshun.api.ApiHandler;
 import com.disney.handler.jieshun.api.JSApiRequestApiBO;
 import com.disney.handler.jieshun.api.JSApiResultBO;
 import com.disney.handler.jieshun.api.JSLoginBO;
-import com.disney.handler.jieshun.api.service.QueryParkSpace;
 
 @Service
 public class JieShunServiceImpl implements JieShunService{
@@ -23,12 +24,45 @@ public class JieShunServiceImpl implements JieShunService{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String,Object> queryParkSpace(JSApiRequestApiBO apiBO,JSLoginBO loginBo) throws JSApiException {
-		JSApiResultBO execute = QueryParkSpace.execute(apiBO, loginBo);
+	public Map<String,Object> queryParkSpace() throws JSApiException {
+	/*	JSApiResultBO execute = QueryParkSpace.execute(apiBO, loginBo);
 		execute.getReturnObject();
 		//修改返回数据类型
 		Map<String, Object> returnObject = (Map<String, Object>) execute.getReturnObject();
-		return returnObject;
+		return returnObject;*/
+		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
+		
+		apiBO.setServiceId("");
+		apiBO.setRequestType("");
+		
+		Map<String,String> param = new HashMap<String,String>();
+		
+		
+		param.put("", "");
+		
+		apiBO.setAttrs(param);
+		
+		
+		JSLoginBO loginBo = new JSLoginBO();
+		
+		
+		
+		loginBo.setCid("");
+		loginBo.setVersion("");
+		loginBo.setLoginToken(getLoginToken("","","",""));
+		
+		
+		
+		
+		
+		
+		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		
+		
+		
+		return null;
+		
+		
 	}
 	
 	/*@Override
