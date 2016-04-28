@@ -8,7 +8,7 @@ function endLoading(){
 }
 
 function domain(){
-	return "http://disney.digirogar.com/";
+	return "http://jsdisney.digirogar.com/";
 }
 
 
@@ -73,7 +73,7 @@ function resetGuideMap() {
 	});
 }
 
-function minGuideMapImg(){
+/*function minGuideMapImg(){
 	var w = parseInt($(".guide-map .guide-map-container").css("width"))*0.8;
 	
 	if( w > clientWidth()){
@@ -86,7 +86,7 @@ function minGuideMapImg(){
 function maxGuideMapImg(){
 	var w = parseInt($(".guide-map .guide-map-container").css("width"))*1.2;
 	$(".guide-map .guide-map-container").animate({width:w});
-}
+}*/
 
 function toggleGuideInOutImg(domItem){
 	var o = $(".guide-map img").data("out-url");
@@ -95,10 +95,14 @@ function toggleGuideInOutImg(domItem){
 	
 	if(src == o){
 		 $(".guide-map img").attr("src",i);
-		 $(domItem).html('<i class="fa fa-refresh" aria-hidden="true"></i> <span>内部导览</span>');
+		 /*$(domItem).html('<i class="fa fa-refresh" aria-hidden="true"></i> <span>外部导览</span>');*/
+		 
+		 $(domItem).find("img").attr("src",o);
+		 
 	}else{
 		 $(".guide-map img").attr("src",o);
-		 $(domItem).html('<i class="fa fa-refresh" aria-hidden="true"></i> <span>外部导览</span>');
+		 $(domItem).find("img").attr("src",i);
+		 /*$(domItem).html('<i class="fa fa-refresh" aria-hidden="true"></i> <span>内部导览</span>');*/
 	}
 }	
 /**********Guide Map********/
@@ -136,9 +140,9 @@ function wxOnScan(handler){
 			needResult : 1,
 			desc : 'scanQRCode desc',
 			success : function(res) {
-				tmsAsynchGet('/getScanCode.html?scanResult='+res.resultStr, function(res){
-					if(res.data && res.data!=''){
-						handler(res.data);
+				tmsAsynchGet('/getScanCode.html?scanResult='+res.resultStr, function(response){
+					if(response.data && response.data!=''){
+						handler(response.data);
 					}else{
 						tmsError('二维码格式不正确，无法正确解析。');
 					}

@@ -1,4 +1,4 @@
-package com.disney.wx;
+package com.disney.util;
 
 import java.io.InputStream;
 import java.io.Writer;

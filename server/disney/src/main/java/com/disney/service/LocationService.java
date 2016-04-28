@@ -27,6 +27,13 @@ public interface LocationService {
 	public void save(Location location);
 	
 	/**
+	 * 保存
+	 * @param location
+	 * @return
+	 */
+	public void update(Location location);
+	
+	/**
 	 * 查询位置
 	 * @param qrCode
 	 * @return
@@ -83,11 +90,17 @@ public interface LocationService {
 	 */
 	public void saveUserLocation(UserLocation userLocation);
 
-/*	void updateQrCode(QrCode code);
-
-	List<QrCode> allQrCodes();*/
-	
+	/**
+	 * 根据场景二维码URL 查找二维码
+	 * @param qrCodeUrl
+	 * @return
+	 */
 	public QrCode findQrCode(String qrCodeUrl);
+	
+	
+	void updateQrCode(QrCode code);
+
+	List<QrCode> allQrCodes();
 	
 	
 }
