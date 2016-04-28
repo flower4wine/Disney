@@ -1,8 +1,14 @@
 package com.disney.handler.jieshun;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.disney.exception.JSApiException;
+import com.disney.handler.jieshun.api.JSApiRequestApiBO;
+import com.disney.handler.jieshun.api.JSApiResultBO;
+import com.disney.handler.jieshun.api.JSLoginBO;
+import com.disney.handler.jieshun.api.service.QueryParkSpace;
 
 @Service
 public class JieShunServiceImpl implements JieShunService{
@@ -14,5 +20,36 @@ public class JieShunServiceImpl implements JieShunService{
 		return  JieShunHandler.getLoginToken(cid, user, password,version, url);
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String,Object> queryParkSpace(JSApiRequestApiBO apiBO,JSLoginBO loginBo) throws JSApiException {
+		JSApiResultBO execute = QueryParkSpace.execute(apiBO, loginBo);
+		execute.getReturnObject();
+		//修改返回数据类型
+		Map<String, Object> returnObject = (Map<String, Object>) execute.getReturnObject();
+		return returnObject;
+	}
+	
+	/*@Override
+	public Map<String,Object> queryCarByCarno(JSApiRequestApiBO apiBO) throws JSApiException {
+		
+		QueryParkSpace queryparkspace=new QueryParkSpace();
+		JSApiResultBO execute = queryparkspace.execute(apiBO, null);
+		execute.getReturnObject();
+		return null;
+	}
+
+	@Override
+	public void queryCarInfoByCarno(JSApiRequestApiBO apiBO) throws JSApiException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void payByCarno(JSApiRequestApiBO apiBO) throws JSApiException {
+		// TODO Auto-generated method stub
+		
+	}*/
 
 }
