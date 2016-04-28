@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class JSApiRequestApiBO {
 	
-	private String loginToken;
+	/*private String loginToken;*/
 	
 	private String serviceId;
 	private String requestType;
@@ -30,13 +30,13 @@ public class JSApiRequestApiBO {
 		this.attrs = attrs;
 	}
 
-	public String getLoginToken() {
+/*	public String getLoginToken() {
 		return loginToken;
 	}
 	public void setLoginToken(String loginToken) {
 		this.loginToken = loginToken;
 	}
-	
+	*/
 	
 	
 }

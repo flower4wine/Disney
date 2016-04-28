@@ -39,15 +39,15 @@ public class JieShunApiController {
 
 	@RequestMapping("/queryParkSpace")
 	@ResponseBody
-	public Map<String, Object> queryParkSpace(@RequestBody JSApiRequestApiBO apiBO) throws Exception {
+	public Map<String, Object> queryParkSpace() throws Exception {
 
-		JSLoginBO bo = new JSLoginBO();
+		/*JSLoginBO bo = new JSLoginBO();
 		bo.setCid("880002101002155");
 		bo.setVersion("2");
 		bo.setLoginToken(apiBO.getLoginToken());
-		Map<String, Object> queryParkSpace = jieShunService.queryParkSpace(apiBO, bo);
+		Map<String, Object> queryParkSpace = jieShunService.queryParkSpace(apiBO, bo);*/
 
-		return Ajax.getSuccessReturnMapWithData(queryParkSpace);
+		return Ajax.getSuccessReturnMapWithData(null);
 	}
 
 	/*
