@@ -37,7 +37,6 @@ public class JieShunApiController {
 	@RequestMapping("/queryParkSpace")
 	@ResponseBody
 	public Map<String, Object> queryParkSpace() throws Exception {
-
 		return Ajax.getSuccessReturnMapWithData(jieShunService.queryParkSpace());
 	}
 
