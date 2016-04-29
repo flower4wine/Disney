@@ -32,7 +32,7 @@ public class JieShunServiceImpl implements JieShunService{
 
 		Map<String,String> param = new HashMap<String,String>();
 
-		param.put("parkCodes", "000000223");
+		param.put("parkCodes", "0000002236");
 
 		apiBO.setAttrs(param);
 
@@ -58,7 +58,9 @@ public class JieShunServiceImpl implements JieShunService{
 
 		Map<String,String> param = new HashMap<String,String>();
 
-		param.put("parkCodes", "000000223");
+		param.put("parkCodes", "0000002236");
+		param.put("carNo", "沪AXE213");
+		param.put("isCallBack", "0");
 
 		apiBO.setAttrs(param);
 
