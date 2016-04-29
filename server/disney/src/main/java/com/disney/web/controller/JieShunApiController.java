@@ -44,43 +44,18 @@ public class JieShunApiController {
 	@RequestMapping("/queryCarByCarno")
 	@ResponseBody 
 	public Map<String,Object> queryCarByCarno() throws Exception{
-
-		/*String parkCodes="000000223"; String carNo="";
-
-		Map<String, String> attrs = apiBO.getAttrs(); attrs.put("parkCodes",
-				parkCodes); attrs.put("carNo",carNo);
-
-				jieShunService.queryCarByCarno(apiBO);*/
-
-		return Ajax.getSuccessReturnMapWithData(null); 
+		return Ajax.getSuccessReturnMapWithData(jieShunService.queryCarByCarno()); 
 	}
 
 	@RequestMapping("/queryCarInfoByCarno")
 	@ResponseBody 
 	public Map<String,Object>	queryCarInfoByCarno() throws Exception{
-
-		/*String parkCodes="000000223"; String carNo="";
-
-		Map<String, String> attrs = apiBO.getAttrs(); attrs.put("parkCodes",
-				parkCodes); attrs.put("carNo",carNo);
-
-				jieShunService.queryCarInfoByCarno(apiBO);*/
-
 		return Ajax.getSuccessReturnMapWithData(null); 
 	}
 
-	@RequestMapping("/payByCarno")
+	@RequestMapping("/queryResultsByCarno")
 	@ResponseBody 
-	public Map<String,Object> payByCarno() throws Exception{
-
-		/*String parkCodes="000000223"; String carNo=""; String orderNo = "";
-		Double serviceFee = 0.0;
-
-		Map<String, String> attrs = apiBO.getAttrs(); attrs.put("parkCodes",
-				parkCodes); attrs.put("carNo",carNo); attrs.put("orderNo",orderNo);
-				attrs.put("serviceFee",serviceFee.toString());
-
-				jieShunService.payByCarno(apiBO);*/
+	public Map<String,Object> queryResultsByCarno() throws Exception{
 
 		return Ajax.getSuccessReturnMapWithData(null); 
 	}
