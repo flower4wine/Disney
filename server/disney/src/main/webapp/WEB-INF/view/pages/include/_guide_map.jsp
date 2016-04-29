@@ -19,13 +19,13 @@
 
 <div class="guide-ab-bottom">
 	
-	<div class="guide-top" onclick="$('#detailStep').toggle();">详情</div>
+	<!-- <div class="guide-top" onclick="$('#detailStep').toggle();">详情</div> -->
 	
 	<div class="clear"></div>
 	
 	<div class="guide-detail" >
 		
-		<div class="guide-detail-title" >
+		<div class="guide-detail-title" onclick="$('#detailStep').toggle();">
 			<span>推荐路线</span>
 		</div>
 		
