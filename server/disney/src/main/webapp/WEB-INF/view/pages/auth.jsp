@@ -1,11 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <%@ include file="./include/_common_header.jsp" %>
-  </head>
+<%@ include file="./include/_common_header.jsp"%>
+</head>
+
   
   <body>
   

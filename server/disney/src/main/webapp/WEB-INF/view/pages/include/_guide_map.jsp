@@ -19,8 +19,6 @@
 
 <div class="guide-ab-bottom">
 	
-	<!-- <div class="guide-top" onclick="$('#detailStep').toggle();">详情</div> -->
-	
 	<div class="clear"></div>
 	
 	<div class="guide-detail" >

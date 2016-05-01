@@ -34,6 +34,9 @@
 		<property name="properties" ref="property" />
 	</bean>
 
+
+	<bean id="exceptionHandler" class="com.disney.handler.message.MyExceptionHandler"/>  
+
 	<import resource="datasource.xml" />
 	<import resource="hibernate.xml" />
 
