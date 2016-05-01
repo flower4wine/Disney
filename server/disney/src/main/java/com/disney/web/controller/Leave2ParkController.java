@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.disney.bo.LoToLoBO;
 import com.disney.constant.Lo2LoStepType;
 import com.disney.handler.config.SessionHelper;
+import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.FromToOptimize;
 import com.disney.model.Location;
@@ -28,7 +29,6 @@ import com.disney.util.Ajax;
 import com.disney.util.Base64Util;
 import com.disney.util.DateUtils;
 import com.disney.util.ViewUtil;
-import com.disney.util.WeChatBaseUtil;
 import com.disney.web.vo.GuideVO;
 import com.disney.web.vo.LocationVO;
 
@@ -42,11 +42,19 @@ public class Leave2ParkController {
 	@Autowired
 	private LocationService locationService;
 	
+	@Autowired
+	private MessageHandler messageHandler;
+
+	
 	@RequestMapping("/lo")
 	public ModelAndView parkLocation(HttpServletRequest request,String co) throws Exception {
 		//Validate check error
 		if(StringUtils.isEmpty(co) || co.length()!=12){
-			//01-0001-0001 二维码格式不正确
+			return ViewUtil.error("10001");
+		}
+		
+		if(co.startsWith("03")){
+			return ViewUtil.error("10003");
 		}
 		
 		Location parent = locationService.find(co.substring(0,7));
@@ -58,28 +66,15 @@ public class Leave2ParkController {
 		
 		if(parent==null || child==null){
 			//位置信息不存在
-			
-			
-		}else{
-			vo.setCode(co);
-			vo.setRemark(parent.getName());
-			vo.setLocationImg(parent.getLocationImg());
+			return ViewUtil.error("10005");
 		}
+		
+		vo.setCode(co);
+		vo.setRemark(parent.getName());
+		vo.setLocationImg(parent.getLocationImg());
 
 		//Get WeXin info
-		String url =  weChatHandler.getDomain() + request.getRequestURI();  
-		String queryString = request.getQueryString();
-		String localUrl = url + (StringUtils.isEmpty(queryString) ? "" : "?" + queryString);
-		String jsTicket =  weChatHandler.jsTicket();
-		
-		String nonceStr =  WeChatBaseUtil.getNonceStr();
-		String timestamp = WeChatBaseUtil.getTimestamp();
-		String signature = WeChatBaseUtil.getSignature(nonceStr, timestamp, jsTicket, localUrl);
-
-		view.addObject("appId", weChatHandler.appId());
-		view.addObject("timestamp", timestamp);
-		view.addObject("nonceStr", nonceStr);
-		view.addObject("signature", signature);
+		ViewUtil.getWeChatInfo(view, weChatHandler, request);
 				
 		view.addObject("location", vo);
 		return view;
@@ -138,6 +133,7 @@ public class Leave2ParkController {
 		
 		if(StringUtils.isEmpty(carNo)){
 			
+			return Ajax.buildErrorResult(messageHandler.getErrorMessage("10006"));
 			
 		}else{
 			
@@ -181,11 +177,21 @@ public class Leave2ParkController {
 			//选择性路线 选取唯一路线
 			FromToOptimize fromTo = locationService.getFromTo(ul.getLeaveLocation().substring(0, 7), parkLocation.substring(0, 7));
 			
+			if(fromTo == null){
+				return ViewUtil.error("10004");
+			}
+			
 			LoToLoBO bo = locationService.loadLoToLoBO(fromTo.getFromCode(),parkLocation);
+			
+			if(bo==null){
+				return ViewUtil.error("10004");
+			}
+			
 			view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.IN,true));
 			
 		}else{
 			//未记录位置信息 如何处理  返回首页
+			return ViewUtil.error("10007");
 		}
 		
 		return view;
@@ -209,19 +215,23 @@ public class Leave2ParkController {
 			//选择性路线 选取唯一路线
 			FromToOptimize fromTo = locationService.getFromTo(ul.getLeaveLocation().substring(0, 7), parkLocation.substring(0, 7));
 			
+			if(fromTo == null){
+				return ViewUtil.error("10004");
+			}
+			
 			LoToLoBO bo = locationService.loadLoToLoBO(fromTo.getFromCode(),parkLocation);
+			
+			if(bo==null){
+				return ViewUtil.error("10004");
+			}
 			
 			if(bo!=null){
 				view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.IN));
-			}else{
-				view.addObject("guide", null);
 			}
 			
 		}else{
 			//未记录位置信息 如何处理  返回首页
-			
-			
-			
+			return ViewUtil.error("10007");
 		}
 		
 		return view;

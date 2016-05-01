@@ -20,7 +20,6 @@ import com.disney.model.Location;
 import com.disney.model.UserLocation;
 import com.disney.service.LocationService;
 import com.disney.util.ViewUtil;
-import com.disney.util.WeChatBaseUtil;
 import com.disney.web.vo.GuideVO;
 import com.disney.web.vo.LocationVO;
 
@@ -38,44 +37,37 @@ public class ParkGuideController {
 	
 	@RequestMapping("/lo")
 	public ModelAndView parkLocation(HttpServletRequest request,String co) throws Exception {
+		
 		//Validate check error
 		if(StringUtils.isEmpty(co) || co.length()!=12){
-			//03-0001-0001 二维码格式不正确
-			
+			return ViewUtil.error("10001");
+		}
+		
+		if(!co.startsWith("03")){
+			return ViewUtil.error("10002");
 		}
 		
 		Location parent = locationService.find(co.substring(0,7));
 		Location child = locationService.find(co);
 		
 		String name = "/guide/location";
+		
 		ModelAndView view = ViewUtil.view(name);
 		LocationVO vo = new LocationVO();
 		
 		if(parent==null || child==null){
 			//位置信息不存在
-			
-			
-		}else{
-			vo.setName(parent.getName());
-			vo.setCode(co);
-			vo.setRemark(child.getName());
-			vo.setLocationImg(child.getLocationImg());
+			return ViewUtil.error("10005");
 		}
 		
-		//Get WeXin info
-		String url =  weChatHandler.getDomain() + request.getRequestURI();  
-		String queryString = request.getQueryString();
-		String localUrl = url + (StringUtils.isEmpty(queryString) ? "" : "?" + queryString);
-		String jsTicket =  weChatHandler.jsTicket();
 		
-		String nonceStr =  WeChatBaseUtil.getNonceStr();
-		String timestamp = WeChatBaseUtil.getTimestamp();
-		String signature = WeChatBaseUtil.getSignature(nonceStr, timestamp, jsTicket, localUrl);
-
-		view.addObject("appId", weChatHandler.appId());
-		view.addObject("timestamp", timestamp);
-		view.addObject("nonceStr", nonceStr);
-		view.addObject("signature", signature);
+		vo.setName(parent.getName());
+		vo.setCode(co);
+		vo.setRemark(child.getName());
+		vo.setLocationImg(child.getLocationImg());
+	
+		//Get WeXin info
+		ViewUtil.getWeChatInfo(view, weChatHandler, request);
 
 		view.addObject("location", vo);
 		return view;
@@ -120,7 +112,7 @@ public class ParkGuideController {
 		
 		if(StringUtils.isEmpty(toLocation) || toLocation.length()!=12){
 			//03-0001-0001 二维码格式不正确
-			
+			return ViewUtil.error("10001");
 		}
 		
 		String userOpenId = SessionHelper.getLoginUserOpenId(request.getSession());
@@ -130,13 +122,21 @@ public class ParkGuideController {
 			//选择性路线 选取唯一路线
 			FromToOptimize fromTo = locationService.getFromTo(ul.getParkLocation().substring(0, 7), toLocation.substring(0, 7));
 			
+			if(fromTo == null){
+				return ViewUtil.error("10004");
+			}
+			
 			LoToLoBO bo = locationService.loadLoToLoBO(ul.getParkLocation(),fromTo.getToCode());
+			
+			if(bo == null){
+				return ViewUtil.error("10004");
+			}
+			
 			view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.OUT));
 			
 		}else{
 			//未记录位置信息 如何处理  
-			
-			
+			return ViewUtil.error("10007");
 		}
 		
 		return view;

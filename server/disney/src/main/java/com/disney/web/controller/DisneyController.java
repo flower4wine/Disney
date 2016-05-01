@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.disney.handler.config.SessionHelper;
+import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.QrCode;
 import com.disney.model.UserLocation;
@@ -30,6 +31,9 @@ public class DisneyController {
 
 	@Autowired
 	private LocationService locationService;
+	
+	@Autowired
+	private MessageHandler messageHandler;
 
 
 	@RequestMapping("/disney")
@@ -86,7 +90,32 @@ public class DisneyController {
 
 		return Ajax.getSuccessReturnMapWithData(returnCode);
 	}
-
+	
+	
+	
+	
+	@RequestMapping("/error")
+	public ModelAndView error(String errorCode,String errorMessage){
+		
+		ModelAndView view = ViewUtil.view("/error");
+		
+		if(StringUtils.isNotEmpty(errorMessage)){
+			view.addObject("errorMessage", errorMessage);
+		}else{
+			view.addObject("errorMessage", messageHandler.getErrorMessage(errorCode));
+		}
+		
+		return view;
+	}
+	
+	
+	@RequestMapping("/errorAsyn")
+	@ResponseBody
+	public String errorAsyn(String errorCode){
+		return messageHandler.getErrorMessage(errorCode);
+	}
+	
+	
 	@RequestMapping("/parkpay/queryParkPay")
 	public String queryParkPay() {
 
