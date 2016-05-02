@@ -103,12 +103,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MapEnd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MapStart.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\0.png" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +122,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MapStart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MapEnd.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

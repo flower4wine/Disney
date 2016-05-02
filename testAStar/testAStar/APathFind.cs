@@ -986,19 +986,19 @@ namespace testAStar
                         continue;
                     }
                     activeCheckCell = activeCheckCell.ParentCell;
-                    if (PathPoint.Count > 2)
-                    {
-                        Point p1 = PathPoint[PathPoint.Count - 2];
-                        Point p2 = PathPoint[PathPoint.Count - 1];
-                        if ((Math.Abs( p1.X - p2.X) <= CELL_WIDTH 
-                            &&Math.Abs( p1.Y -p2.Y )<= CELL_WIDTH)
-                            && (Math.Abs(activeCheckCell.Location.X - p2.X) <= CELL_WIDTH
-                            && Math.Abs(activeCheckCell.Location.Y - p2.Y) <= CELL_WIDTH)
-                            )
-                        {
-                            PathPoint.RemoveAt(PathPoint.Count - 1);
-                        }
-                    }
+                    //if (PathPoint.Count > 2)
+                    //{
+                    //    Point p1 = PathPoint[PathPoint.Count - 2];
+                    //    Point p2 = PathPoint[PathPoint.Count - 1];
+                    //    if ((Math.Abs( p1.X - p2.X) <= CELL_WIDTH 
+                    //        &&Math.Abs( p1.Y -p2.Y )<= CELL_WIDTH)
+                    //        && (Math.Abs(activeCheckCell.Location.X - p2.X) <= CELL_WIDTH
+                    //        && Math.Abs(activeCheckCell.Location.Y - p2.Y) <= CELL_WIDTH)
+                    //        )
+                    //    {
+                    //        PathPoint.RemoveAt(PathPoint.Count - 1);
+                    //    }
+                    //}
                     PathPoint.Add(activeCheckCell.Location);
                     continue;
                 }
@@ -1010,19 +1010,19 @@ namespace testAStar
                         continue;
                     }
                     activeCheckCell = activeCheckCell.ParentCell;
-                    if (PathPoint.Count > 2)
-                    {
-                        Point p1 = PathPoint[PathPoint.Count - 2];
-                        Point p2 = PathPoint[PathPoint.Count - 1];
-                        if ((Math.Abs(p1.X - p2.X) <= CELL_WIDTH
-                            && Math.Abs(p1.Y - p2.Y) <= CELL_WIDTH)
-                            && (Math.Abs(activeCheckCell.Location.X - p2.X) <= CELL_WIDTH
-                            && Math.Abs(activeCheckCell.Location.Y - p2.Y) <= CELL_WIDTH)
-                            )
-                        {
-                            PathPoint.RemoveAt(PathPoint.Count - 1);
-                        }
-                    }
+                    //if (PathPoint.Count > 2)
+                    //{
+                    //    Point p1 = PathPoint[PathPoint.Count - 2];
+                    //    Point p2 = PathPoint[PathPoint.Count - 1];
+                    //    if ((Math.Abs(p1.X - p2.X) <= CELL_WIDTH
+                    //        && Math.Abs(p1.Y - p2.Y) <= CELL_WIDTH)
+                    //        && (Math.Abs(activeCheckCell.Location.X - p2.X) <= CELL_WIDTH
+                    //        && Math.Abs(activeCheckCell.Location.Y - p2.Y) <= CELL_WIDTH)
+                    //        )
+                    //    {
+                    //        PathPoint.RemoveAt(PathPoint.Count - 1);
+                    //    }
+                    //}
                     PathPoint.Add(activeCheckCell.Location);
                     continue;
                 }
@@ -1034,19 +1034,19 @@ namespace testAStar
                         continue;
                     }
                     activeCheckCell = activeCheckCell.ParentCell;
-                    if (PathPoint.Count > 2)
-                    {
-                        Point p1 = PathPoint[PathPoint.Count - 2];
-                        Point p2 = PathPoint[PathPoint.Count - 1];
-                        if ((Math.Abs(p1.X - p2.X) <= CELL_WIDTH
-                            && Math.Abs(p1.Y - p2.Y) <= CELL_WIDTH)
-                            && (Math.Abs(activeCheckCell.Location.X - p2.X) <= CELL_WIDTH
-                            && Math.Abs(activeCheckCell.Location.Y - p2.Y) <= CELL_WIDTH)
-                            )
-                        {
-                            PathPoint.RemoveAt(PathPoint.Count - 1);
-                        }
-                    }
+                    //if (PathPoint.Count > 2)
+                    //{
+                    //    Point p1 = PathPoint[PathPoint.Count - 2];
+                    //    Point p2 = PathPoint[PathPoint.Count - 1];
+                    //    if ((Math.Abs(p1.X - p2.X) <= CELL_WIDTH
+                    //        && Math.Abs(p1.Y - p2.Y) <= CELL_WIDTH)
+                    //        && (Math.Abs(activeCheckCell.Location.X - p2.X) <= CELL_WIDTH
+                    //        && Math.Abs(activeCheckCell.Location.Y - p2.Y) <= CELL_WIDTH)
+                    //        )
+                    //    {
+                    //        PathPoint.RemoveAt(PathPoint.Count - 1);
+                    //    }
+                    //}
                     PathPoint.Add(activeCheckCell.Location);
                     continue;
                 }
@@ -1058,19 +1058,19 @@ namespace testAStar
                         continue;
                     }
                     activeCheckCell = activeCheckCell.ParentCell;
-                    if (PathPoint.Count > 2)
-                    {
-                        Point p1 = PathPoint[PathPoint.Count - 2];
-                        Point p2 = PathPoint[PathPoint.Count - 1];
-                        if ((Math.Abs(p1.X - p2.X) <= CELL_WIDTH
-                            && Math.Abs(p1.Y - p2.Y) <= CELL_WIDTH)
-                            && (Math.Abs(activeCheckCell.Location.X - p2.X) <= CELL_WIDTH
-                            && Math.Abs(activeCheckCell.Location.Y - p2.Y) <= CELL_WIDTH)
-                            )
-                        {
-                            PathPoint.RemoveAt(PathPoint.Count - 1);
-                        }
-                    }
+                    //if (PathPoint.Count > 2)
+                    //{
+                    //    Point p1 = PathPoint[PathPoint.Count - 2];
+                    //    Point p2 = PathPoint[PathPoint.Count - 1];
+                    //    if ((Math.Abs(p1.X - p2.X) <= CELL_WIDTH
+                    //        && Math.Abs(p1.Y - p2.Y) <= CELL_WIDTH)
+                    //        && (Math.Abs(activeCheckCell.Location.X - p2.X) <= CELL_WIDTH
+                    //        && Math.Abs(activeCheckCell.Location.Y - p2.Y) <= CELL_WIDTH)
+                    //        )
+                    //    {
+                    //        PathPoint.RemoveAt(PathPoint.Count - 1);
+                    //    }
+                    //}
                     PathPoint.Add(activeCheckCell.Location);
                     continue;
                 }

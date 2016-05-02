@@ -710,6 +710,7 @@ namespace testAStar
 
             if (!checkBoxIsAll.Checked)
             {
+                int lineWidth = 12;
                 #region 库内
                 foreach (Cell goalCell in this._goalCells)
                 {
@@ -735,40 +736,73 @@ namespace testAStar
                             using (bitmap)
                             {
                                 double length = 0d;
-                                Point point1 = Point.Empty;
-                                Point point2 = Point.Empty;
+                                PointF point1 = PointF.Empty;
+                                PointF point2 = PointF.Empty;
                                 using (Graphics g = Graphics.FromImage(bitmap))
                                 {
                                     #region 绘制路线
-                                    using (Pen p = new Pen(Color.FromArgb(0xff, 0x48, 0xA2, 0x7C), CELL_WIDTH))
+                                    using (Pen p = new Pen(Color.Red, lineWidth))
                                     {
                                         p.StartCap = LineCap.Round;
                                         p.EndCap = LineCap.Round;
                                         p.LineJoin = LineJoin.Round;
-                                        Point? startPoint = null;
-                                        foreach (Point location in _aPathFind.PathPoint)
+                                        
+
+                                        if (_aPathFind.PathPoint.Count == 0)
                                         {
-                                            if (startPoint.HasValue)
+                                            // no
+                                        }
+                                        else if (_aPathFind.PathPoint.Count == 1)
+                                        {
+                                            point1 = new PointF(Convert.ToSingle(_aPathFind.PathPoint[0].X) + Convert.ToSingle(lineWidth) / 2.0F
+                                                            , Convert.ToSingle(_aPathFind.PathPoint[0].Y) + Convert.ToSingle(lineWidth) / 2.0F);
+                                            point2 = new PointF(Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].X) + Convert.ToSingle(lineWidth) / 2.0F
+                                                            , Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].Y) + Convert.ToSingle(lineWidth) / 2.0F);
+
+                                            g.FillEllipse(Brushes.Green, new RectangleF(point1, new Size(lineWidth, lineWidth)));
+                                        }
+                                        else if (_aPathFind.PathPoint.Count == 2)
+                                        {
+                                            point1 = new PointF(Convert.ToSingle(_aPathFind.PathPoint[0].X) + Convert.ToSingle(lineWidth) / 2.0F
+                                                            , Convert.ToSingle(_aPathFind.PathPoint[0].Y) + Convert.ToSingle(lineWidth) / 2.0F);
+                                            point2 = new PointF(Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].X) + Convert.ToSingle(lineWidth) / 2.0F
+                                                            , Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].Y) + Convert.ToSingle(lineWidth) / 2.0F);
+
+                                            g.DrawLine(p, point1, point2);
+                                        }
+                                        else if (_aPathFind.PathPoint.Count >= 3)
+                                        {
+                                            point1 = new PointF(Convert.ToSingle(_aPathFind.PathPoint[0].X) + Convert.ToSingle(lineWidth) / 2.0F
+                                                            , Convert.ToSingle(_aPathFind.PathPoint[0].Y) + Convert.ToSingle(lineWidth) / 2.0F);
+                                            point2 = new PointF(Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].X) + Convert.ToSingle(lineWidth) / 2.0F
+                                                            , Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].Y) + Convert.ToSingle(lineWidth) / 2.0F);
+
+                                            PointF lastPoint = point1;
+
+                                            Point[] pathPoints = _aPathFind.PathPoint.ToArray();
+
+                                            for (int i = 2; i < pathPoints.Length; i++)
                                             {
-                                                length += GetPointLength(startPoint.Value, location);
-                                                Point p1 = new Point(startPoint.Value.X + CELL_WIDTH / 2, startPoint.Value.Y + CELL_WIDTH / 2);
-                                                Point p2 = new Point(location.X + CELL_WIDTH / 2, location.Y + CELL_WIDTH / 2);
-                                                if (startPoint.Value.Y - location.Y > CELL_WIDTH * 2
-                                                    || startPoint.Value.X - location.X > CELL_WIDTH * 2)
+                                                PointF nowPoint = new PointF(Convert.ToSingle(pathPoints[i - 1].X) + Convert.ToSingle(lineWidth) / 2.0F
+                                                                    , Convert.ToSingle(pathPoints[i - 1].Y) + Convert.ToSingle(lineWidth )/ 2.0F);
+                                                PointF nextPoint = new PointF(Convert.ToSingle(pathPoints[i].X) + Convert.ToSingle(lineWidth) / 2.0F
+                                                                    , Convert.ToSingle(pathPoints[i].Y) + Convert.ToSingle(lineWidth) / 2.0F);
+
+                                                if ((Math.Abs(lastPoint.X - nowPoint.X) <= CELL_WIDTH
+                                                    && Math.Abs(lastPoint.Y - nowPoint.Y) <= CELL_WIDTH)
+                                                    && (Math.Abs(nextPoint.X - nowPoint.X) <= CELL_WIDTH
+                                                    && Math.Abs(nextPoint.Y - nowPoint.Y) <= CELL_WIDTH)
+                                                    )
                                                 {
-                                                    g.DrawLine(p, p1, p2);
+                                                    continue;
                                                 }
                                                 else
                                                 {
-                                                    g.DrawCurve(p, new[] { p1, p2 });
+                                                    g.DrawLine(p, lastPoint, nowPoint);
+                                                    lastPoint = nowPoint;
                                                 }
-                                                point2 = p2;
                                             }
-                                            else
-                                            {
-                                                point1 = new Point(location.X + CELL_WIDTH / 2, location.Y + CELL_WIDTH / 2);
-                                            }
-                                            startPoint = location;
+                                            g.DrawLine(p, lastPoint, point2);
                                         }
                                     }
                                     #endregion
@@ -777,8 +811,10 @@ namespace testAStar
                                 Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
                                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                                 {
-                                    Point startImgPoint = new Point(point1.X - Properties.Resources.MapStart.Width / 2, point1.Y - Properties.Resources.MapStart.Height - CELL_WIDTH);
-                                    Point endImgPoint = new Point(point2.X - Properties.Resources.MapEnd.Width / 2, point2.Y - Properties.Resources.MapEnd.Height - CELL_WIDTH);
+                                    PointF startImgPoint = new PointF(point1.X - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F// - 5.0F
+                                                            , point1.Y - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);// - 3.0F);
+                                    PointF endImgPoint = new PointF(point2.X - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F// - 5.0F
+                                                            , point2.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);// - 3.0F);
                                     g.DrawImage(Properties.Resources.MapStart, startImgPoint);
                                     g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
                                 }
@@ -815,8 +851,11 @@ namespace testAStar
                                 bitmapTemp = (Bitmap)bitmap.Clone();
                                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                                 {
-                                    Point startImgPoint = new Point(point2.X - Properties.Resources.MapStart.Width / 2, point2.Y - Properties.Resources.MapStart.Height - CELL_WIDTH);
-                                    Point endImgPoint = new Point(point1.X - Properties.Resources.MapEnd.Width / 2, point1.Y - Properties.Resources.MapEnd.Height - CELL_WIDTH);
+                                    PointF startImgPoint = new PointF(point2.X - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F
+                                                            , point2.Y - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);
+                                    PointF endImgPoint = new PointF(point1.X - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F
+                                                            , point1.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);
+                                    
                                     g.DrawImage(Properties.Resources.MapStart, startImgPoint);
                                     g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
                                 }
