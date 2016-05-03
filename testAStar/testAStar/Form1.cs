@@ -355,7 +355,7 @@ namespace testAStar
                 }
                 WayInfo wayInfo = new WayInfo
                 {
-                    PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + ".png",
+                    PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + ".jpg",
                     From = _aPathFind.StartCell.Name,
                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                 };
@@ -393,7 +393,7 @@ namespace testAStar
                 }
                 wayInfo = new WayInfo
                 {
-                    PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + ".png",
+                    PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + ".jpg",
                     To = _aPathFind.StartCell.Name,
                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                 };
@@ -820,7 +820,7 @@ namespace testAStar
                                 }
                                 WayInfo wayInfo = new WayInfo
                                 {
-                                    PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + ".png",
+                                    PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + ".jpg",
                                     From = _aPathFind.StartCell.Name,
                                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                                 };
@@ -830,7 +830,7 @@ namespace testAStar
                                 {
                                     Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -861,7 +861,7 @@ namespace testAStar
                                 }
                                 wayInfo = new WayInfo
                                 {
-                                    PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + ".png",
+                                    PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + ".jpg",
                                     To = _aPathFind.StartCell.Name,
                                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                                 };
@@ -871,7 +871,7 @@ namespace testAStar
                                 {
                                     Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -1087,7 +1087,7 @@ namespace testAStar
                                     {
                                         Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                     }
-                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Png);
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Jpeg);
                                     bitmapTemp.Dispose();
 
                                     if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -1126,7 +1126,7 @@ namespace testAStar
                                     {
                                         Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                     }
-                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out, ImageFormat.Png);
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out, ImageFormat.Jpeg);
                                     bitmapTemp.Dispose();
 
                                     if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -1289,7 +1289,7 @@ namespace testAStar
                                 {
                                     Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Png);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Jpeg);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(parkingCell.Remark))
@@ -1330,7 +1330,7 @@ namespace testAStar
                                 {
                                     Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Png);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Jpeg);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(parkingCell.Remark))
