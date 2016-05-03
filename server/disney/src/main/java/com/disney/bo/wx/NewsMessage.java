@@ -4,7 +4,7 @@ import java.util.List;
 
 public class NewsMessage extends BaseMessage {
 	private int ArticleCount;
-	private int funcFlag;
+	private int FuncFlag=0;
 	private List<Article> Articles;
 
 	public int getArticleCount() {
@@ -24,11 +24,12 @@ public class NewsMessage extends BaseMessage {
 	}
 
 	public int getFuncFlag() {
-		return funcFlag;
+		return FuncFlag;
 	}
 
 	public void setFuncFlag(int funcFlag) {
-		this.funcFlag = funcFlag;
+		FuncFlag = funcFlag;
 	}
+
 	
 }
