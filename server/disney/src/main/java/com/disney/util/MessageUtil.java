@@ -2,7 +2,7 @@ package com.disney.util;
 
 import java.io.InputStream;
 import java.io.Writer;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,21 +155,25 @@ public class MessageUtil {
 	
 	
 	public static void main(String[] args){
-		// 发送方帐号
-		String fromUserName = "FromUserName";
-		// 开发者微信号
-		String toUserName = "ToUserName";
+		NewsMessage msg = new NewsMessage();
 		
-		String code = "";
+		Article article = new Article();
+		article.setDescription("欢迎您访问迪斯尼智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。");
+		article.setPicUrl("");
+		article.setTitle("景观桥介绍测试");
+		article.setUrl("http://localhost/disney");
 		
-		TextMessage textMessage = new TextMessage();
-		textMessage.setToUserName(fromUserName);
-		textMessage.setFromUserName(toUserName);
-		textMessage.setCreateTime(new Date().getTime());
-		textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-		textMessage.setContent("欢迎您访问迪斯尼智慧停车平台,您当前扫描的二维码为："+code+",请点击菜单进入操作。");
+		List<Article> articles = new ArrayList<Article>();
+		articles.add(article);
+
 		
-		String message = messageToXml(textMessage);
-		System.out.println(message);
+		msg.setArticles(articles);
+		msg.setArticleCount(msg.getArticles().size());
+		
+		
+		msg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+		String respXml = MessageUtil.messageToXml(msg);
+		
+		System.out.println(respXml);
 	}
 }

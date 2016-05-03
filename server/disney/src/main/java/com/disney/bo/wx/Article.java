@@ -7,13 +7,9 @@ package com.disney.bo.wx;
  * @date 2013-09-11
  */
 public class Article {
-	// ͼ����Ϣ���
 	private String Title;
-	// ͼ����Ϣ����
 	private String Description;
-	// ͼƬ���ӣ�֧��JPG��PNG��ʽ���Ϻõ�Ч��Ϊ��ͼ640*320��Сͼ80*80
 	private String PicUrl;
-	// ���ͼ����Ϣ��ת����
 	private String Url;
 
 	public String getTitle() {
