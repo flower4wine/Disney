@@ -19,16 +19,10 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
 		
 		model.put("errorMessage", ex.getMessage());  
 
-		// 根据不同错误转向不同页面  
-	/*	if(ex instanceof BusinessException) {  
-			return new ModelAndView("error-business", model);  
-		}else if(ex instanceof ParameterException) {  
-			return new ModelAndView("error-parameter", model);  
-		} else {  
-			
-		}  */
+		//TODO TO LOGGER
+		ex.printStackTrace();
 		
-		return new ModelAndView("error", model);  
+		return new ModelAndView("/error", model);  
 	}
 
 }

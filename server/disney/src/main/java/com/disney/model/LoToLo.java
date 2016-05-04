@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.disney.constant.Lo2LoType;
+
 @Entity
 @Table(name="lotolo",catalog="disney")
 public class LoToLo  implements Serializable {
@@ -25,6 +27,8 @@ public class LoToLo  implements Serializable {
 	
 	private String time;
 	private String distince;
+	
+	private Integer lo2loType = Lo2LoType.PARKINNER_2_VIEW;
 	
     @Id
   	@GeneratedValue(strategy = IDENTITY)
@@ -82,10 +86,18 @@ public class LoToLo  implements Serializable {
 	public String getDistince() {
 		return distince;
 	}
+	
 	public void setDistince(String distince) {
 		this.distince = distince;
 	}
 	
+	@Column
+	public Integer getLo2loType() {
+		return lo2loType;
+	}
 	
+	public void setLo2loType(Integer lo2loType) {
+		this.lo2loType = lo2loType;
+	}
 
 }

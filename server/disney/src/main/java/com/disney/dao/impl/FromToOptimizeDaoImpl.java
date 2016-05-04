@@ -29,7 +29,7 @@ public class FromToOptimizeDaoImpl extends BaseDaoImpl<FromToOptimize> implement
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public FromToOptimize find1(String from, String to) {
+	public FromToOptimize findStartWith(String from, String to) {
 		String hql = "from FromToOptimize where fromCode like :from and toCode like :to";
 		
 		List<FromToOptimize> list = this.getCurrentSession().createQuery(hql)

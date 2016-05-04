@@ -8,7 +8,7 @@ function endLoading(){
 }
 
 function domain(){
-	return "http://jsdisney.digirogar.com/";
+	return "http://js.digirogar.com/";
 }
 
 
@@ -73,20 +73,6 @@ function resetGuideMap() {
 	});
 }
 
-/*function minGuideMapImg(){
-	var w = parseInt($(".guide-map .guide-map-container").css("width"))*0.8;
-	
-	if( w > clientWidth()){
-		$(".guide-map .guide-map-container").animate({width:w});
-	}else{
-		$(".guide-map .guide-map-container").animate({width:clientWidth()});
-	}
-}
-
-function maxGuideMapImg(){
-	var w = parseInt($(".guide-map .guide-map-container").css("width"))*1.2;
-	$(".guide-map .guide-map-container").animate({width:w});
-}*/
 
 function toggleGuideInOutImg(domItem){
 	var o = $(".guide-map img").data("out-url");
