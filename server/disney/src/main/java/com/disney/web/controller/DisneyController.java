@@ -28,7 +28,7 @@ public class DisneyController {
 
 	@Autowired
 	private WeChatHandler weChatHandler;
-
+	
 	@Autowired
 	private LocationService locationService;
 	
@@ -71,8 +71,14 @@ public class DisneyController {
 			view.addObject("leaveCode", ul.getLeaveLocation());
 
 		}else{
-			view.addObject("parkCode", "");
-			view.addObject("leaveCode", "");
+			
+			if(weChatHandler.isDebug()){
+				view.addObject("parkCode", "03-0001-0001");
+				view.addObject("leaveCode", "05-0001-0001");
+			}else{
+				view.addObject("parkCode", "");
+				view.addObject("leaveCode", "");
+			}
 		}
 
 		return view;
@@ -90,9 +96,6 @@ public class DisneyController {
 
 		return Ajax.getSuccessReturnMapWithData(returnCode);
 	}
-	
-	
-	
 	
 	@RequestMapping("/error")
 	public ModelAndView error(String errorCode,String errorMessage){
