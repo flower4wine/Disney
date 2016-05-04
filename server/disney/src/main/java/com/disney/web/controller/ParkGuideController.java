@@ -15,9 +15,9 @@ import com.disney.bo.LoToLoBO;
 import com.disney.constant.Lo2LoStepType;
 import com.disney.handler.config.SessionHelper;
 import com.disney.handler.wechat.WeChatHandler;
-import com.disney.model.FromToOptimize;
 import com.disney.model.Location;
 import com.disney.model.UserLocation;
+import com.disney.service.Lo2loService;
 import com.disney.service.LocationService;
 import com.disney.util.ViewUtil;
 import com.disney.web.vo.GuideVO;
@@ -34,6 +34,9 @@ public class ParkGuideController {
 
 	@Autowired
 	private LocationService locationService;
+	
+	@Autowired
+	private Lo2loService lo2loService;
 	
 	@RequestMapping("/lo")
 	public ModelAndView parkLocation(HttpServletRequest request,String co) throws Exception {
@@ -119,14 +122,8 @@ public class ParkGuideController {
 		UserLocation ul = locationService.findUserLocation(userOpenId);
 		
 		if(ul!=null && StringUtils.isNotEmpty(ul.getParkLocation()) && ul.getParkLocation().length()==12){
-			//选择性路线 选取唯一路线
-			FromToOptimize fromTo = locationService.getFromTo(ul.getParkLocation().substring(0, 7), toLocation.substring(0, 7));
 			
-			if(fromTo == null){
-				return ViewUtil.error("10004");
-			}
-			
-			LoToLoBO bo = locationService.loadLoToLoBO(ul.getParkLocation(),fromTo.getToCode());
+			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getParkLocation(),toLocation);
 			
 			if(bo == null){
 				return ViewUtil.error("10004");

@@ -21,9 +21,9 @@ import com.disney.constant.Lo2LoStepType;
 import com.disney.handler.config.SessionHelper;
 import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
-import com.disney.model.FromToOptimize;
 import com.disney.model.Location;
 import com.disney.model.UserLocation;
+import com.disney.service.Lo2loService;
 import com.disney.service.LocationService;
 import com.disney.util.Ajax;
 import com.disney.util.Base64Util;
@@ -44,6 +44,9 @@ public class Leave2ParkController {
 	
 	@Autowired
 	private MessageHandler messageHandler;
+	
+	@Autowired
+	private Lo2loService lo2loService;
 
 	
 	@RequestMapping("/lo")
@@ -174,14 +177,7 @@ public class Leave2ParkController {
 				parkLocation = parkLocation + "-0001";
 			}
 			
-			//选择性路线 选取唯一路线
-			FromToOptimize fromTo = locationService.getFromTo(ul.getLeaveLocation().substring(0, 7), parkLocation.substring(0, 7));
-			
-			if(fromTo == null){
-				return ViewUtil.error("10004");
-			}
-			
-			LoToLoBO bo = locationService.loadLoToLoBO(fromTo.getFromCode(),parkLocation);
+			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getLeaveLocation(),parkLocation);
 			
 			if(bo==null){
 				return ViewUtil.error("10004");
@@ -212,14 +208,7 @@ public class Leave2ParkController {
 				parkLocation = ul.getParkLocation();
 			}
 			
-			//选择性路线 选取唯一路线
-			FromToOptimize fromTo = locationService.getFromTo(ul.getLeaveLocation().substring(0, 7), parkLocation.substring(0, 7));
-			
-			if(fromTo == null){
-				return ViewUtil.error("10004");
-			}
-			
-			LoToLoBO bo = locationService.loadLoToLoBO(fromTo.getFromCode(),parkLocation);
+			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getLeaveLocation(),parkLocation);
 			
 			if(bo==null){
 				return ViewUtil.error("10004");

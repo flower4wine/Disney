@@ -32,6 +32,10 @@ public class WeChatCreateQrCodeUtil {
 	
 	public static void main(String[] args) throws Exception{
 		
+		Map<String,Object> map = WeChatBaseUtil.getToken("wxe5f6cefc92c343e6","f9e7063044526e7b88f1daa4a8e309ba");
+		String accessToken = (String) map.get("access_token");
+		
+		createQrCode(accessToken,"01-0001-0001");
 	}
 
 }
