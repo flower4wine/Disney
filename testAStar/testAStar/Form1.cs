@@ -493,14 +493,27 @@ namespace testAStar
             //panelMap.BackgroundImage = new Bitmap(@".\Data\Map.png");
         }
 
+        string suffixStr = @".png";
+
         private void UseSavedMapInfoButton_Click(object sender, EventArgs e)
         {
-            //if (File.Exists(MPA_SAVE_PATH))
+            string path=String.Empty;
+
             if (File.Exists(@".\Data\Map.png"))
+            {
+                path = @".\Data\Map.png";
+                suffixStr = @".png";
+            }
+            if (File.Exists(@".\Data\Map.jpg"))
+            {
+                path = @".\Data\Map.jpg";
+                suffixStr = @".jpg";
+            }
+            if (!string.IsNullOrEmpty(path))
             {
                 //_svgDoc = SvgDocument.Open(MPA_SAVE_PATH);
                 _imgPath = @".\Data\Map.png";
-                this.panelMap.BackgroundImage = new Bitmap(@".\Data\Map.png");
+                this.panelMap.BackgroundImage = new Bitmap(path);
                 this.panelMap.Size = this.panelMap.BackgroundImage.Size;
                 ReSet();
                 if (File.Exists(StoneCells_SAVE_PATH))
@@ -740,6 +753,10 @@ namespace testAStar
                                 PointF point2 = PointF.Empty;
                                 using (Graphics g = Graphics.FromImage(bitmap))
                                 {
+                                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+
+                                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
                                     #region 绘制路线
                                     using (Pen p = new Pen(Color.Red, lineWidth))
                                     {
@@ -811,6 +828,10 @@ namespace testAStar
                                 Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
                                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                                 {
+                                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+
+                                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
                                     PointF startImgPoint = new PointF(point1.X - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F// - 5.0F
                                                             , point1.Y - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);// - 3.0F);
                                     PointF endImgPoint = new PointF(point2.X - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F// - 5.0F
@@ -820,7 +841,7 @@ namespace testAStar
                                 }
                                 WayInfo wayInfo = new WayInfo
                                 {
-                                    PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + ".jpg",
+                                    PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + suffixStr,
                                     From = _aPathFind.StartCell.Name,
                                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                                 };
@@ -830,7 +851,14 @@ namespace testAStar
                                 {
                                     Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
+                                if (suffixStr == @".jpg")
+                                {
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
+                                }
+                                else
+                                {
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
+                                }
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -851,6 +879,10 @@ namespace testAStar
                                 bitmapTemp = (Bitmap)bitmap.Clone();
                                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                                 {
+                                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+
+                                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
                                     PointF startImgPoint = new PointF(point2.X - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F
                                                             , point2.Y - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);
                                     PointF endImgPoint = new PointF(point1.X - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F
@@ -861,7 +893,7 @@ namespace testAStar
                                 }
                                 wayInfo = new WayInfo
                                 {
-                                    PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + ".jpg",
+                                    PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + suffixStr,
                                     To = _aPathFind.StartCell.Name,
                                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                                 };
@@ -871,7 +903,14 @@ namespace testAStar
                                 {
                                     Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
+                                if (suffixStr == @".jpg")
+                                {
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
+                                }
+                                else
+                                {
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
+                                }
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
