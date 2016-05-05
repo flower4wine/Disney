@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.disney.bo.LoToLoBO;
 import com.disney.constant.Lo2LoStepType;
+import com.disney.exception.JSApiException;
 import com.disney.handler.config.SessionHelper;
+import com.disney.handler.jieshun.JieShunService;
 import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.Location;
@@ -47,6 +49,9 @@ public class Leave2ParkController {
 	
 	@Autowired
 	private Lo2loService lo2loService;
+	
+	@Autowired
+	private JieShunService jieShunService;
 
 	
 	@RequestMapping("/lo")
@@ -132,8 +137,8 @@ public class Leave2ParkController {
 	@RequestMapping("/checkCarNo")
 	@ResponseBody
 	public Map<String,Object> checkCarNo(@CookieValue(value = "firstCarNo", defaultValue = "") String firstCarNo,
-			@CookieValue(value = "secondCarNo", defaultValue = "") String secondCarNo,String carNo,HttpServletResponse response){
-		
+			@CookieValue(value = "secondCarNo", defaultValue = "") String secondCarNo,String carNo,HttpServletResponse response) throws JSApiException{
+		String parkPlaceCode =  null;
 		if(StringUtils.isEmpty(carNo)){
 			
 			return Ajax.buildErrorResult(messageHandler.getErrorMessage("10006"));
@@ -149,9 +154,18 @@ public class Leave2ParkController {
 				response.addCookie(first);
 				response.addCookie(second);
 			}
+			
+			Map<String, Object> queryCarByCarno = jieShunService.queryCarStopByCarno(carNo);
+			if(queryCarByCarno.isEmpty() || queryCarByCarno.size() <= 0){
+				return Ajax.buildErrorResult("查找不到对应的车辆位置。");
+			}
+			parkPlaceCode = (String) queryCarByCarno.get("parkPlaceCode");
+			
 		}
-		
-		
+		//判断code对应的停车场编号，返回对应的停车场二维码
+		if(parkPlaceCode.equals("0000002236")){
+			return Ajax.getSuccessReturnMapWithData("03-0002");
+		}
 		return Ajax.getSuccessReturnMapWithData("03-0001");
 	}
 	

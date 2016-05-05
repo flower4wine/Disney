@@ -10,9 +10,15 @@ public interface JieShunService {
 	
 	public Map<String,Object> queryParkSpace() throws JSApiException;
 	
-	public Map<String,Object> queryCarByCarno() throws JSApiException;
+	public Map<String,Object> queryCarStopByCarno(String carNo) throws JSApiException;
+	
+	public Map<String,Object> queryCarInfoByCarno(String carNo) throws JSApiException;
 
-	public void queryCarInfoByCarno() throws JSApiException;
+	public Map<String,Object> payByCarno(String carNo) throws JSApiException;
+	
+	public String createOrderByCarno(String carNo) throws JSApiException;
+	
+	public Map<String,Object> queryOrder(String orderNo) throws JSApiException;
 
-	public void payByCarno() throws JSApiException;
+	public Map<String, Object> queryOrderByCarNo(String carNo) throws JSApiException;
 }

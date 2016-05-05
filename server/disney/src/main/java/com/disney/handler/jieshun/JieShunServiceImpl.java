@@ -45,22 +45,22 @@ public class JieShunServiceImpl implements JieShunService{
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 
 		Map<String,Object> json =  result.getReturnObject();
+		
 		return json;
 
 	}
 
 	@Override
-	public Map<String,Object> queryCarByCarno() throws JSApiException {
+	public Map<String,Object> queryCarStopByCarno(String carNo) throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
-		apiBO.setServiceId("3c.pay.querycarbycarno");
+		apiBO.setServiceId("3c.park.querycarparkingspot");
 		apiBO.setRequestType("DATA");
 
 		Map<String,String> param = new HashMap<String,String>();
 
 		param.put("parkCodes", "0000002236");
-		param.put("carNo", "沪AXE213");
-		param.put("isCallBack", "0");
+		param.put("carNo", carNo);
 
 		apiBO.setAttrs(param);
 
@@ -76,15 +76,93 @@ public class JieShunServiceImpl implements JieShunService{
 	}
 
 	@Override
-	public void queryCarInfoByCarno() throws JSApiException {
-		// TODO Auto-generated method stub
-
+	public Map<String,Object> queryCarInfoByCarno(String carNo) throws JSApiException {
+		
+		Map<String, Object> querryOrderByCarNo = this.queryOrderByCarNo(carNo);
+		
+		return querryOrderByCarNo;
+		
 	}
 
 	@Override
-	public void payByCarno() throws JSApiException {
-		// TODO Auto-generated method stub
+	public Map<String, Object> queryOrderByCarNo(String carNo) throws JSApiException {
+		Map<String, Object> queryOrder = new HashMap<String,Object>();
+		Map<String, Object> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
+		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size()>0){
+			String orderNo = this.createOrderByCarno(carNo);
+			queryOrder =  this.queryOrder(orderNo);
+		}
+		return queryOrder;
+	}
 
+	@Override
+	public Map<String,Object> payByCarno(String carNo) throws JSApiException {
+		
+		Map<String, Object> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
+		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size()>0){
+			String orderNo = this.createOrderByCarno(carNo);
+			Map<String, Object> queryOrder = this.queryOrder(orderNo);
+			queryOrder.get("");
+		}
+		
+		return null;
+	}
+
+	@Override
+	public String createOrderByCarno(String carNo) throws JSApiException {
+		String r = null;
+		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
+
+		apiBO.setServiceId("3c.pay.createorderbycarno");
+		apiBO.setRequestType("DATA");
+
+		Map<String,String> param = new HashMap<String,String>();
+
+		param.put("parkCodes", "0000002236");
+		param.put("businesserCode", "880002101002155");
+		param.put("orderType", "VNP");
+		param.put("carNo", carNo);
+
+		apiBO.setAttrs(param);
+
+		JSLoginBO loginBo = new JSLoginBO();
+
+		loginBo.setCid(LoginUser.cid);
+		loginBo.setVersion(LoginUser.version);
+		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
+
+		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		Map<String,Object> json =  result.getReturnObject();
+		if(!json.isEmpty() && json.size()>0){
+			r = "创建订单失败";
+		}else{
+			r = (String) json.get("orderNo");
+		}
+		return r;
+	}
+
+	@Override
+	public Map<String, Object> queryOrder(String orderNo) throws JSApiException {
+		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
+
+		apiBO.setServiceId("3c.pay.queryorder");
+		apiBO.setRequestType("DATA");
+
+		Map<String,String> param = new HashMap<String,String>();
+
+		param.put("orderNo", orderNo);
+
+		apiBO.setAttrs(param);
+
+		JSLoginBO loginBo = new JSLoginBO();
+
+		loginBo.setCid(LoginUser.cid);
+		loginBo.setVersion(LoginUser.version);
+		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
+
+		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		Map<String,Object> json =  result.getReturnObject();
+		return json;
 	}
 
 }

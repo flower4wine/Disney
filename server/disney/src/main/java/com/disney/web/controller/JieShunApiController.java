@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.disney.handler.jieshun.JieShunService;
 import com.disney.util.Ajax;
 
+@RequestMapping("/jieshun")
 @Controller
 public class JieShunApiController {
 
 	@Autowired
 	private JieShunService jieShunService;
 
-	@RequestMapping("/jstest")
+	@RequestMapping("/jslogin")
 	@ResponseBody
 	public Map<String, Object> jstest() throws Exception {
 
@@ -37,26 +38,29 @@ public class JieShunApiController {
 	@RequestMapping("/queryParkSpace")
 	@ResponseBody
 	public Map<String, Object> queryParkSpace() throws Exception {
-		return Ajax.getSuccessReturnMapWithData(jieShunService.queryParkSpace());
+		Map<String, Object> queryParkSpace = jieShunService.queryParkSpace();
+		return Ajax.getSuccessReturnMapWithData(queryParkSpace.get("dataItems"));
 	}
 
 
 	@RequestMapping("/queryCarByCarno")
 	@ResponseBody 
 	public Map<String,Object> queryCarByCarno() throws Exception{
-		return Ajax.getSuccessReturnMapWithData(jieShunService.queryCarByCarno()); 
+		String carNo = "沪-CT1299";
+		return Ajax.getSuccessReturnMapWithData(jieShunService.queryCarStopByCarno(carNo)); 
 	}
 
 	@RequestMapping("/queryCarInfoByCarno")
 	@ResponseBody 
-	public Map<String,Object>	queryCarInfoByCarno() throws Exception{
-		return Ajax.getSuccessReturnMapWithData(null); 
+	public Map<String,Object> queryCarInfoByCarno() throws Exception{
+		String carNo = "沪-CT1299";
+		return Ajax.getSuccessReturnMapWithData(jieShunService.queryCarInfoByCarno(carNo)); 
 	}
 
 	@RequestMapping("/queryResultsByCarno")
 	@ResponseBody 
 	public Map<String,Object> queryResultsByCarno() throws Exception{
-
+		
 		return Ajax.getSuccessReturnMapWithData(null); 
 	}
 
