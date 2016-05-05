@@ -69,6 +69,9 @@
 			var car = $(".leave-input").val();
 			
 			if(car!=''){
+				tmsAsynchGet('/jieshun/queryCarByCarno.html'+car,function(response){
+					
+				});
 				//To Send request to server
 				tmsAsynchGet('/le/checkCarNo.html?carNo='+car,function(response){
 					if(response.data && response.data!='' && response.data.length == 7){
