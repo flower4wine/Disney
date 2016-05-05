@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.disney.exception.JSApiException;
 import com.disney.handler.config.SessionHelper;
+import com.disney.handler.jieshun.JieShunService;
 import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.QrCode;
@@ -34,6 +36,9 @@ public class DisneyController {
 	
 	@Autowired
 	private MessageHandler messageHandler;
+	
+	@Autowired
+	private JieShunService jieShunService;
 
 
 	@RequestMapping("/disney")
@@ -129,11 +134,17 @@ public class DisneyController {
 
 
 	@RequestMapping("/parkpay/parkpay")
-	public String parkpay() {
+	public ModelAndView parkpay(String carNo) throws JSApiException {
 
 		String name = "/parkpay/parkPay";
-
-		return name;
+		
+		ModelAndView view = ViewUtil.view(name);
+		
+		Map<String, Object> queryOrderByCarNo = jieShunService.queryOrderByCarNo(carNo);
+		
+		view.addObject("queryOrderByCarNo", queryOrderByCarNo);
+		
+		return view;
 	}
 
 }
