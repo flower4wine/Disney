@@ -11,7 +11,7 @@
 	
 		<div class="park-p-items" >
 
-				<!-- <div class="park-p-item" >
+				<div class="park-p-item" >
 					
 					<div class="park-p-item-info bor-right" >
 						
@@ -71,23 +71,8 @@
 					
 					</div>
 					
-				</div> -->
+				</div>
 				
-				<c:forEach items="${}" var="item">
-		      		<div class="park-p-item" >
-						<div class="park-p-item-info bor-top bor-right" >
-							<div class="item">
-								<div class="name" >${item.parkName }</div>
-								<div class="price">单价：15元/小时</div>
-								<div class="note">- 剩余车位 -</div>
-								<div class="num">${item.restSpace }</div>
-								<div class="location" data-code="03-0003">车库位置  &nbsp;<i class="fa fa-chevron-right"></i></div>
-							</div>
-						</div>
-					</div>
-	      		</c:forEach>
-				
-						
 		</div>
 	</div>
 	
@@ -106,7 +91,6 @@
 			var code = $(this).data("code");
 			window.location = '/disney/carport/park.html?code='+code;
 		});
-	
 	
 	</script>
 

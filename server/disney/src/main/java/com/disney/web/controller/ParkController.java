@@ -24,7 +24,7 @@ public class ParkController {
 		String name = "/park/parks";
 		ModelAndView view = ViewUtil.view(name);
 		Map<String, Object> queryParkSpace = jieShunService.queryParkSpace();
-		view.addObject("parks", queryParkSpace.get("dataItems"));
+		view.addObject("parks", queryParkSpace);
 		return view;
 	}
 

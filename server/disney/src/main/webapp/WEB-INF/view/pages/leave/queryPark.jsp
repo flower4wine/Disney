@@ -26,6 +26,7 @@
 				</div>
 			</div>
 			
+			
 			<c:if test="${(not empty firstCarNo ) || (not empty secondCarNo ) }">
 				<div class="his-cookies">
 					<div class="his-cars">
@@ -69,9 +70,6 @@
 			var car = $(".leave-input").val();
 			
 			if(car!=''){
-				tmsAsynchGet('/jieshun/queryCarByCarno.html'+car,function(response){
-					
-				});
 				//To Send request to server
 				tmsAsynchGet('/le/checkCarNo.html?carNo='+car,function(response){
 					if(response.data && response.data!='' && response.data.length == 7){
