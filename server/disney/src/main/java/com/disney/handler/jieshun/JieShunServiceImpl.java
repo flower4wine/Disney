@@ -23,6 +23,7 @@ public class JieShunServiceImpl implements JieShunService{
 
 	}
 
+
 	@Override
 	public Map<String,Object> queryParkSpace() throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
@@ -59,7 +60,7 @@ public class JieShunServiceImpl implements JieShunService{
 
 		Map<String,String> param = new HashMap<String,String>();
 
-		param.put("parkCodes", "0000002236");
+		param.put("parkCode", "0000002236");
 		param.put("carNo", carNo);
 
 		apiBO.setAttrs(param);
@@ -102,10 +103,11 @@ public class JieShunServiceImpl implements JieShunService{
 		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size()>0){
 			String orderNo = this.createOrderByCarno(carNo);
 			Map<String, Object> queryOrder = this.queryOrder(orderNo);
-			queryOrder.get("");
+			Double serviceFee = (Double) queryOrder.get("serviceFee");
+			//添加微信支付
 		}
 		
-		return null;
+		return queryCarStopByCarno;
 	}
 
 	@Override
@@ -118,7 +120,7 @@ public class JieShunServiceImpl implements JieShunService{
 
 		Map<String,String> param = new HashMap<String,String>();
 
-		param.put("parkCodes", "0000002236");
+		param.put("parkCode", "0000002236");
 		param.put("businesserCode", "880002101002155");
 		param.put("orderType", "VNP");
 		param.put("carNo", carNo);

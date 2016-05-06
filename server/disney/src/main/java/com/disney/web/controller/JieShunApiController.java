@@ -39,29 +39,29 @@ public class JieShunApiController {
 	@ResponseBody
 	public Map<String, Object> queryParkSpace() throws Exception {
 		Map<String, Object> queryParkSpace = jieShunService.queryParkSpace();
-		return Ajax.getSuccessReturnMapWithData(queryParkSpace.get("dataItems"));
+		return Ajax.getSuccessReturnMapWithData(queryParkSpace);
 	}
 
 
 	@RequestMapping("/queryCarByCarno")
 	@ResponseBody 
 	public Map<String,Object> queryCarByCarno() throws Exception{
-		String carNo = "沪-CT1299";
+		String carNo = "沪-M69129蓝";
 		return Ajax.getSuccessReturnMapWithData(jieShunService.queryCarStopByCarno(carNo)); 
 	}
 
 	@RequestMapping("/queryCarInfoByCarno")
 	@ResponseBody 
 	public Map<String,Object> queryCarInfoByCarno() throws Exception{
-		String carNo = "沪-CT1299";
+		String carNo = "沪-M69129蓝";
 		return Ajax.getSuccessReturnMapWithData(jieShunService.queryCarInfoByCarno(carNo)); 
 	}
 
 	@RequestMapping("/queryResultsByCarno")
 	@ResponseBody 
 	public Map<String,Object> queryResultsByCarno() throws Exception{
-		
-		return Ajax.getSuccessReturnMapWithData(null); 
+		String carNo = "沪-M69129蓝";
+		return Ajax.getSuccessReturnMapWithData(jieShunService.payByCarno(carNo)); 
 	}
 
 
