@@ -17,10 +17,10 @@ import com.disney.handler.jieshun.api.JSApiResultBO;
 import com.disney.handler.jieshun.api.JSLoginBO;
 import com.disney.handler.jieshun.constant.LoginUser;
 import com.disney.model.Location;
-import com.disney.web.vo.JieShunApiVO.QueryCarByCarnoVO;
-import com.disney.web.vo.JieShunApiVO.QueryCarInfoByCarnoVO;
-import com.disney.web.vo.JieShunApiVO.QueryOrderVO;
-import com.disney.web.vo.JieShunApiVO.QueryParkVO;
+import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
+import com.disney.web.vo.jieshunapivo.QueryCarInfoByCarnoVO;
+import com.disney.web.vo.jieshunapivo.QueryOrderVO;
+import com.disney.web.vo.jieshunapivo.QueryParkVO;
 
 @Service
 public class JieShunServiceImpl implements JieShunService{

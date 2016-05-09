@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.disney.exception.JSApiException;
-import com.disney.web.vo.JieShunApiVO.QueryCarByCarnoVO;
-import com.disney.web.vo.JieShunApiVO.QueryCarInfoByCarnoVO;
-import com.disney.web.vo.JieShunApiVO.QueryOrderVO;
-import com.disney.web.vo.JieShunApiVO.QueryParkVO;
+import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
+import com.disney.web.vo.jieshunapivo.QueryCarInfoByCarnoVO;
+import com.disney.web.vo.jieshunapivo.QueryOrderVO;
+import com.disney.web.vo.jieshunapivo.QueryParkVO;
 
 public interface JieShunService {
 

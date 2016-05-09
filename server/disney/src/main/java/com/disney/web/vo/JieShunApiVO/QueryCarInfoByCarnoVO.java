@@ -1,4 +1,4 @@
-package com.disney.web.vo.JieShunApiVO;
+package com.disney.web.vo.jieshunapivo;
 
 public class QueryCarInfoByCarnoVO {
 	
