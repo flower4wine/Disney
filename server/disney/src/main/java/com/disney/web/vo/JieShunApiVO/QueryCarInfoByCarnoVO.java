@@ -12,7 +12,7 @@ public class QueryCarInfoByCarnoVO {
 	private String inParkingCode;
 	
 	//停车时长
-	private String stopTime;
+	private int stopTime;
 	
 	//是否需要支付费用
 	private boolean needPay = false;
@@ -47,11 +47,11 @@ public class QueryCarInfoByCarnoVO {
 		this.inParkingCode = inParkingCode;
 	}
 
-	public String getStopTime() {
+	public int getStopTime() {
 		return stopTime;
 	}
 
-	public void setStopTime(String stopTime) {
+	public void setStopTime(int stopTime) {
 		this.stopTime = stopTime;
 	}
 

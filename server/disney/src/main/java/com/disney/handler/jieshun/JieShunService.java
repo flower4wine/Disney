@@ -66,5 +66,5 @@ public interface JieShunService {
 	 * @return
 	 * @throws JSApiException
 	 */
-	public Map<String, Object> queryOrderByCarNo(String carNo) throws JSApiException;
+	public List<QueryOrderVO> queryOrderByCarNo(String carNo) throws JSApiException;
 }

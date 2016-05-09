@@ -136,78 +136,48 @@ public class JieShunServiceImpl implements JieShunService{
 	@Override
 	public List<QueryCarInfoByCarnoVO> queryCarInfoByCarno(String carNo) throws JSApiException {
 		
-		Map<String, Object> querryOrderByCarNo = this.queryOrderByCarNo(carNo);
-		
-		return mapToQueryCarInfoByCarnoVO(querryOrderByCarNo);
-		
-	}
-	
-	@SuppressWarnings("unchecked")
-	private List<QueryCarInfoByCarnoVO> mapToQueryCarInfoByCarnoVO(Map<String, Object> map){
-		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
+		List<QueryOrderVO> queryOrderByCarNo = this.queryOrderByCarNo(carNo);
 		List<QueryCarInfoByCarnoVO> voList = new ArrayList<QueryCarInfoByCarnoVO>();
-		for(Map<String, Object> car:list){
-			Map<String,Object> attrs = (Map<String,Object>) car.get("attributes");
+		for (QueryOrderVO queryOrderVO : queryOrderByCarNo) {
 			QueryCarInfoByCarnoVO vo = new QueryCarInfoByCarnoVO();
-			if(attrs.isEmpty() || attrs.size() <= 0){
-				continue;
-			}
-			
 			vo.setInParkingState(true);
-			String inParkingCode = (String) attrs.get("parkCode");
+			String inParkingCode = "";
 			vo.setInParkingCode(inParkingCode);
-			vo.setCarNo((String) attrs.get("carNo"));
-			vo.setStopTime(attrs.get("serviceTime").toString());
-			Double charges = Double.valueOf(attrs.get("serviceFee").toString());
+			vo.setCarNo(queryOrderVO.getCarNo());
+			vo.setStopTime(queryOrderVO.getServiceTime());
+			Double charges = queryOrderVO.getServiceFee();
 			vo.setCharges(charges);
-			Double paidFees = Double.valueOf(attrs.get("totalFee").toString());
+			Double paidFees = queryOrderVO.getTotal();
 			vo.setPaidFees(paidFees);
 			if(new BigDecimal(paidFees).compareTo(new BigDecimal(charges)) < 0){
 				vo.setNeedPay(true);
 			}
 			voList.add(vo);
-			System.out.println(attrs);
+			System.out.println(vo);
 		}
+		
 		return voList;
+		
 	}
-
+	
 	@Override
 	public List<QueryOrderVO> queryOrderByCarNo(String carNo) throws JSApiException {
-		Map<String, Object> queryOrder = new HashMap<String,Object>();
+		List<QueryOrderVO>  queryOrder = new ArrayList<QueryOrderVO>();
 		List<QueryCarByCarnoVO> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
 		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size() > 0){
 			String orderNo = this.createOrderByCarno(carNo);
-			queryOrder =  this.queryOrder(orderNo);
+			 queryOrder = this.queryOrder(orderNo);
 		}
-		return mapToQueryOrderVO(queryOrder);
+		return queryOrder;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private List<QueryOrderVO> mapToQueryOrderVO(Map<String, Object> map){
-		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
-		List<QueryOrderVO> voList = new ArrayList<QueryOrderVO>();
-		for(Map<String, Object> car:list){
-			Map<String,Object> attrs = (Map<String,Object>) car.get("attributes");
-			QueryOrderVO vo = new QueryOrderVO();
-			if(attrs.isEmpty() || attrs.size() <= 0){
-				continue;
-			}
-			
-			
-			voList.add(vo);
-			System.out.println(attrs);
-		}
-		return voList;
-	}
-
 	@Override
 	public Map<String,Object> payByCarno(String carNo) throws JSApiException {
 		
 		List<QueryCarByCarnoVO> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
 		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size()>0){
 			String orderNo = this.createOrderByCarno(carNo);
-			Map<String, Object> queryOrder = this.queryOrder(orderNo);
-			Double serviceFee = (Double) queryOrder.get("serviceFee");
+			List<QueryOrderVO> queryOrder = this.queryOrder(orderNo);
 			//添加微信支付
 		}
 		
@@ -248,7 +218,7 @@ public class JieShunServiceImpl implements JieShunService{
 	}
 
 	@Override
-	public Map<String, Object> queryOrder(String orderNo) throws JSApiException {
+	public List<QueryOrderVO> queryOrder(String orderNo) throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
 		apiBO.setServiceId("3c.pay.queryorder");
@@ -268,9 +238,25 @@ public class JieShunServiceImpl implements JieShunService{
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 		Map<String,Object> json =  result.getReturnObject();
-		return json;
+		return mapToQueryOrderVO(json);
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	private List<QueryOrderVO> mapToQueryOrderVO(Map<String, Object> map){
+		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
+		List<QueryOrderVO> voList = new ArrayList<QueryOrderVO>();
+		for(Map<String, Object> car:list){
+			Map<String,Object> attrs = (Map<String,Object>) car.get("attributes");
+			QueryOrderVO vo = new QueryOrderVO();
+			if(attrs.isEmpty() || attrs.size() <= 0){
+				continue;
+			}
+			
+			
+			voList.add(vo);
+			System.out.println(attrs);
+		}
+		return voList;
+	}
 
 }
