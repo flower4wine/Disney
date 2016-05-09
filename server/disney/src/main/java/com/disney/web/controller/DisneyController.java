@@ -1,6 +1,7 @@
 package com.disney.web.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import com.disney.util.Ajax;
 import com.disney.util.DateUtils;
 import com.disney.util.ViewUtil;
 import com.disney.util.WeChatBaseUtil;
+import com.disney.web.vo.JieShunApiVO.QueryOrderVO;
 
 @Controller
 public class DisneyController {
@@ -140,7 +142,7 @@ public class DisneyController {
 		
 		ModelAndView view = ViewUtil.view(name);
 		
-		Map<String, Object> queryOrderByCarNo = jieShunService.queryOrderByCarNo(carNo);
+		List<QueryOrderVO> queryOrderByCarNo = jieShunService.queryOrderByCarNo(carNo);
 		
 		view.addObject("queryOrderByCarNo", queryOrderByCarNo);
 		
