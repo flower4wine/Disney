@@ -1,20 +1,32 @@
 package com.disney.handler.jieshun;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.disney.dao.LocationDao;
 import com.disney.exception.JSApiException;
 import com.disney.handler.jieshun.api.ApiHandler;
 import com.disney.handler.jieshun.api.JSApiRequestApiBO;
 import com.disney.handler.jieshun.api.JSApiResultBO;
 import com.disney.handler.jieshun.api.JSLoginBO;
 import com.disney.handler.jieshun.constant.LoginUser;
+import com.disney.model.Location;
+import com.disney.web.vo.JieShunApiVO.QueryCarByCarnoVO;
+import com.disney.web.vo.JieShunApiVO.QueryCarInfoByCarnoVO;
+import com.disney.web.vo.JieShunApiVO.QueryOrderVO;
+import com.disney.web.vo.JieShunApiVO.QueryParkVO;
 
 @Service
 public class JieShunServiceImpl implements JieShunService{
-
+	@Autowired
+	private LocationDao lo;
+	
 	@Override
 	public String getLoginToken(String cid, String user, String password,String version) throws JSApiException {
 
@@ -25,7 +37,7 @@ public class JieShunServiceImpl implements JieShunService{
 
 
 	@Override
-	public Map<String,Object> queryParkSpace() throws JSApiException {
+	public List<QueryParkVO> queryParkSpace() throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
 		apiBO.setServiceId("3c.park.queryparkspace");
@@ -47,12 +59,33 @@ public class JieShunServiceImpl implements JieShunService{
 
 		Map<String,Object> json =  result.getReturnObject();
 		
-		return json;
+		return mapToQueryParkVO(json);
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<QueryParkVO> mapToQueryParkVO(Map<String, Object> map){
+		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
+		List<QueryParkVO> voList = new ArrayList<QueryParkVO>();
+		for(Map<String, Object> park:list){
+			Map<String,Object> attrs = (Map<String,Object>) park.get("attributes");
+			QueryParkVO vo = new QueryParkVO();
+			vo.setTotalSpace(Integer.valueOf(attrs.get("totalSpace").toString()));
+			vo.setParkingName((String) attrs.get("parkName"));
+			vo.setRestSpace(Integer.valueOf(attrs.get("restSpace").toString()));
+			
+			String parkCode = (String) attrs.get("parkCode");
+			if(parkCode.equals("0000002236")){
+				vo.setParkCode("03-0003");
+			}
+			voList.add(vo);
+			System.out.println(attrs);
+		}
+		return voList;
 	}
 
 	@Override
-	public Map<String,Object> queryCarStopByCarno(String carNo) throws JSApiException {
+	public List<QueryCarByCarnoVO> queryCarStopByCarno(String carNo) throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
 		apiBO.setServiceId("3c.park.querycarparkingspot");
@@ -73,33 +106,104 @@ public class JieShunServiceImpl implements JieShunService{
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 		Map<String,Object> json =  result.getReturnObject();
-		return json;
+		return mapToQueryCarByCarnoVO(json);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<QueryCarByCarnoVO> mapToQueryCarByCarnoVO(Map<String, Object> map){
+		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
+		List<QueryCarByCarnoVO> voList = new ArrayList<QueryCarByCarnoVO>();
+		for(Map<String, Object> car:list){
+			Map<String,Object> attrs = (Map<String,Object>) car.get("attributes");
+			QueryCarByCarnoVO vo = new QueryCarByCarnoVO();
+			if(attrs.isEmpty() || attrs.size() <= 0){
+				continue;
+			}
+			String parkingCode = (String) attrs.get("parkPlaceCode");
+			if(parkingCode.equals("0000002236")){
+				vo.setParkingCode("03-0001");
+			}
+			Location location = lo.find(vo.getParkingCode());
+			vo.setParkingName(location.getName());
+			vo.setCarNo((String) attrs.get("carNo"));
+			vo.setInParkingState(true);
+			voList.add(vo);
+			System.out.println(attrs);
+		}
+		return voList;
 	}
 
 	@Override
-	public Map<String,Object> queryCarInfoByCarno(String carNo) throws JSApiException {
+	public List<QueryCarInfoByCarnoVO> queryCarInfoByCarno(String carNo) throws JSApiException {
 		
 		Map<String, Object> querryOrderByCarNo = this.queryOrderByCarNo(carNo);
 		
-		return querryOrderByCarNo;
+		return mapToQueryCarInfoByCarnoVO(querryOrderByCarNo);
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<QueryCarInfoByCarnoVO> mapToQueryCarInfoByCarnoVO(Map<String, Object> map){
+		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
+		List<QueryCarInfoByCarnoVO> voList = new ArrayList<QueryCarInfoByCarnoVO>();
+		for(Map<String, Object> car:list){
+			Map<String,Object> attrs = (Map<String,Object>) car.get("attributes");
+			QueryCarInfoByCarnoVO vo = new QueryCarInfoByCarnoVO();
+			if(attrs.isEmpty() || attrs.size() <= 0){
+				continue;
+			}
+			
+			vo.setInParkingState(true);
+			String inParkingCode = (String) attrs.get("parkCode");
+			vo.setInParkingCode(inParkingCode);
+			vo.setCarNo((String) attrs.get("carNo"));
+			vo.setStopTime(attrs.get("serviceTime").toString());
+			Double charges = Double.valueOf(attrs.get("serviceFee").toString());
+			vo.setCharges(charges);
+			Double paidFees = Double.valueOf(attrs.get("totalFee").toString());
+			vo.setPaidFees(paidFees);
+			if(new BigDecimal(paidFees).compareTo(new BigDecimal(charges)) < 0){
+				vo.setNeedPay(true);
+			}
+			voList.add(vo);
+			System.out.println(attrs);
+		}
+		return voList;
 	}
 
 	@Override
-	public Map<String, Object> queryOrderByCarNo(String carNo) throws JSApiException {
+	public List<QueryOrderVO> queryOrderByCarNo(String carNo) throws JSApiException {
 		Map<String, Object> queryOrder = new HashMap<String,Object>();
-		Map<String, Object> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
-		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size()>0){
+		List<QueryCarByCarnoVO> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
+		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size() > 0){
 			String orderNo = this.createOrderByCarno(carNo);
 			queryOrder =  this.queryOrder(orderNo);
 		}
-		return queryOrder;
+		return mapToQueryOrderVO(queryOrder);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<QueryOrderVO> mapToQueryOrderVO(Map<String, Object> map){
+		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
+		List<QueryOrderVO> voList = new ArrayList<QueryOrderVO>();
+		for(Map<String, Object> car:list){
+			Map<String,Object> attrs = (Map<String,Object>) car.get("attributes");
+			QueryOrderVO vo = new QueryOrderVO();
+			if(attrs.isEmpty() || attrs.size() <= 0){
+				continue;
+			}
+			
+			
+			voList.add(vo);
+			System.out.println(attrs);
+		}
+		return voList;
 	}
 
 	@Override
 	public Map<String,Object> payByCarno(String carNo) throws JSApiException {
 		
-		Map<String, Object> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
+		List<QueryCarByCarnoVO> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
 		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size()>0){
 			String orderNo = this.createOrderByCarno(carNo);
 			Map<String, Object> queryOrder = this.queryOrder(orderNo);
@@ -107,7 +211,7 @@ public class JieShunServiceImpl implements JieShunService{
 			//添加微信支付
 		}
 		
-		return queryCarStopByCarno;
+		return null;
 	}
 
 	@Override
@@ -166,5 +270,7 @@ public class JieShunServiceImpl implements JieShunService{
 		Map<String,Object> json =  result.getReturnObject();
 		return json;
 	}
+	
+	
 
 }
