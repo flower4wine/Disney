@@ -1,6 +1,7 @@
 package com.disney.web.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -33,6 +34,7 @@ import com.disney.util.DateUtils;
 import com.disney.util.ViewUtil;
 import com.disney.web.vo.GuideVO;
 import com.disney.web.vo.LocationVO;
+import com.disney.web.vo.JieShunApiVO.QueryCarByCarnoVO;
 
 @Controller
 @RequestMapping("/le")
@@ -155,18 +157,16 @@ public class Leave2ParkController {
 				response.addCookie(second);
 			}
 			
-			Map<String, Object> queryCarByCarno = jieShunService.queryCarStopByCarno(carNo);
-			if(queryCarByCarno.isEmpty() || queryCarByCarno.size() <= 0){
+			List<QueryCarByCarnoVO> queryCarStopByCarno = jieShunService.queryCarStopByCarno(carNo);
+			if(queryCarStopByCarno.isEmpty() || queryCarStopByCarno.size() <= 0){
 				return Ajax.buildErrorResult("查找不到对应的车辆位置。");
 			}
-			parkPlaceCode = (String) queryCarByCarno.get("parkPlaceCode");
-			
+			for (QueryCarByCarnoVO vo : queryCarStopByCarno) {
+				parkPlaceCode = vo.getParkingCode();
+			}
 		}
-		//判断code对应的停车场编号，返回对应的停车场二维码
-		if(parkPlaceCode.equals("0000002236")){
-			return Ajax.getSuccessReturnMapWithData("03-0002");
-		}
-		return Ajax.getSuccessReturnMapWithData("03-0001");
+		
+		return Ajax.getSuccessReturnMapWithData(parkPlaceCode);
 	}
 	
 	

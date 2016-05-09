@@ -1,5 +1,6 @@
 package com.disney.web.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.disney.handler.jieshun.JieShunService;
 import com.disney.util.Ajax;
+import com.disney.web.vo.JieShunApiVO.QueryParkVO;
 
 @RequestMapping("/jieshun")
 @Controller
@@ -38,7 +40,7 @@ public class JieShunApiController {
 	@RequestMapping("/queryParkSpace")
 	@ResponseBody
 	public Map<String, Object> queryParkSpace() throws Exception {
-		Map<String, Object> queryParkSpace = jieShunService.queryParkSpace();
+		List<QueryParkVO> queryParkSpace = jieShunService.queryParkSpace();
 		return Ajax.getSuccessReturnMapWithData(queryParkSpace);
 	}
 

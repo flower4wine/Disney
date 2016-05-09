@@ -6,7 +6,7 @@ public class QueryCarInfoByCarnoVO {
 	private String carNo;
 	
 	//车辆是否在停车场
-	private String inParkingState;
+	private boolean inParkingState;
 	
 	//车辆所在停车场
 	private String inParkingCode;
@@ -15,7 +15,7 @@ public class QueryCarInfoByCarnoVO {
 	private String stopTime;
 	
 	//是否需要支付费用
-	private double needPay;
+	private boolean needPay = false;
 	
 	//停车应付费用
 	private double charges;
@@ -31,11 +31,11 @@ public class QueryCarInfoByCarnoVO {
 		this.carNo = carNo;
 	}
 
-	public String getInParkingState() {
+	public boolean isInParkingState() {
 		return inParkingState;
 	}
 
-	public void setInParkingState(String inParkingState) {
+	public void setInParkingState(boolean inParkingState) {
 		this.inParkingState = inParkingState;
 	}
 
@@ -55,11 +55,11 @@ public class QueryCarInfoByCarnoVO {
 		this.stopTime = stopTime;
 	}
 
-	public double getNeedPay() {
+	public boolean isNeedPay() {
 		return needPay;
 	}
 
-	public void setNeedPay(double needPay) {
+	public void setNeedPay(boolean needPay) {
 		this.needPay = needPay;
 	}
 

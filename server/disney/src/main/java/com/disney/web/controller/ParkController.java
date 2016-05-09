@@ -1,6 +1,5 @@
 package com.disney.web.controller;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,11 +22,10 @@ public class ParkController {
 	public ModelAndView parks() throws JSApiException {
 		String name = "/park/parks";
 		ModelAndView view = ViewUtil.view(name);
-		Map<String, Object> queryParkSpace = jieShunService.queryParkSpace();
-		view.addObject("parks", queryParkSpace);
+		view.addObject("parks", jieShunService.queryParkSpace());
 		return view;
 	}
-
+	
 	@RequestMapping("/carport/park")
 	public ModelAndView park(String code) {
 		String name = "/park/park";
