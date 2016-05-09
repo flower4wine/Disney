@@ -1,19 +1,17 @@
 package com.disney.handler.wechat;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
+import com.disney.handler.config.ConfigHelper;
 import com.disney.util.WeChatAuthUtil;
 import com.disney.util.WeChatBaseUtil;
 
 @Service
-public class WeChatHandlerImpl implements WeChatHandler {
+public class WeChatHandlerImpl extends ConfigHelper implements WeChatHandler {
 
 	private WxTokenGenerate generator = null;
 	private WxChatConfigBO config;
@@ -22,11 +20,11 @@ public class WeChatHandlerImpl implements WeChatHandler {
 
 	@PostConstruct  
 	public void init() throws Exception {
-		Properties p = loadProperties("weixin.properties");
+		loadProperties("weixin.properties");
 
-		this.config = loadConfig(p);
+		this.config = loadConfig();
 		this.generator = loadGenerator(this.config);
-		this.domain = p.getProperty("weixin.domain");
+		this.domain = value("weixin.domain");
 
 	}
 	
@@ -79,33 +77,17 @@ public class WeChatHandlerImpl implements WeChatHandler {
 		return generate;
 	}
 
-	private WxChatConfigBO loadConfig(Properties p){
+	private WxChatConfigBO loadConfig(){
 		WxChatConfigBO bo = new WxChatConfigBO();
 
-		bo.setAppId(p.getProperty("weixin.appId"));
-		bo.setAppSecret(p.getProperty("weixin.secret"));
-		bo.setAuthRedirectUrl(p.getProperty("weixin.authRedirectUrl"));
-		bo.setDebug(new Boolean(p.getProperty("weixin.debug")));
+		bo.setAppId(value("weixin.appId"));
+		bo.setAppSecret(value("weixin.secret"));
+		bo.setAuthRedirectUrl(value("weixin.authRedirectUrl"));
+		bo.setDebug(new Boolean(value("weixin.debug")));
 
 		return bo;
 	}
 
-	private Properties loadProperties(String file){
-		Properties p = null;
-		try{
-
-			p = new Properties();
-
-			InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(file);
-			p.load(inputStream);
-
-
-		} catch (IOException e1){
-			e1.printStackTrace();
-		}
-
-		return p;
-	}
 
 	@Override
 	public String accessToken() throws Exception {
