@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.disney.handler.jieshun.JieShunService;
 import com.disney.util.Ajax;
-import com.disney.web.vo.JieShunApiVO.QueryParkVO;
+import com.disney.web.vo.jieshunapivo.QueryParkVO;
 
 @RequestMapping("/jieshun")
 @Controller

@@ -34,7 +34,7 @@ import com.disney.util.DateUtils;
 import com.disney.util.ViewUtil;
 import com.disney.web.vo.GuideVO;
 import com.disney.web.vo.LocationVO;
-import com.disney.web.vo.JieShunApiVO.QueryCarByCarnoVO;
+import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
 
 @Controller
 @RequestMapping("/le")
