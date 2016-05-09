@@ -6,7 +6,7 @@ public class QueryCarByCarnoVO {
 	private String carNo;
 	
 	//是否在停车场
-	private String inParkingState;
+	private boolean inParkingState = false;
 	
 	//停车场编号
 	private String parkingCode;
@@ -22,11 +22,11 @@ public class QueryCarByCarnoVO {
 		this.carNo = carNo;
 	}
 
-	public String getInParkingState() {
+	public boolean isInParkingState() {
 		return inParkingState;
 	}
 
-	public void setInParkingState(String inParkingState) {
+	public void setInParkingState(boolean inParkingState) {
 		this.inParkingState = inParkingState;
 	}
 
