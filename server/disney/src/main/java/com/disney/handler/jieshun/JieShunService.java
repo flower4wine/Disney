@@ -1,13 +1,8 @@
 package com.disney.handler.jieshun;
 
-import java.util.List;
 import java.util.Map;
 
 import com.disney.exception.JSApiException;
-import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
-import com.disney.web.vo.jieshunapivo.QueryCarInfoByCarnoVO;
-import com.disney.web.vo.jieshunapivo.QueryOrderVO;
-import com.disney.web.vo.jieshunapivo.QueryParkVO;
 
 public interface JieShunService {
 
@@ -18,7 +13,7 @@ public interface JieShunService {
 	 * @return
 	 * @throws JSApiException
 	 */
-	public List<QueryParkVO> queryParkSpace() throws JSApiException;
+	public Map<String, Object> queryParkSpace() throws JSApiException;
 	
 	/**
 	 * 根据车牌号查询停车位置
@@ -26,7 +21,7 @@ public interface JieShunService {
 	 * @return
 	 * @throws JSApiException
 	 */
-	public List<QueryCarByCarnoVO> queryCarStopByCarno(String carNo) throws JSApiException;
+	public Map<String, Object> queryCarStopByCarno(String carNo) throws JSApiException;
 	
 	/**
 	 * 根据车牌查询车辆停车信息
@@ -34,7 +29,7 @@ public interface JieShunService {
 	 * @return
 	 * @throws JSApiException
 	 */
-	public List<QueryCarInfoByCarnoVO> queryCarInfoByCarno(String carNo) throws JSApiException;
+	public Map<String, Object> queryCarInfoByCarno(String carNo) throws JSApiException;
 
 	/**
 	 * 根据车牌号支付
@@ -58,7 +53,7 @@ public interface JieShunService {
 	 * @return
 	 * @throws JSApiException
 	 */
-	public List<QueryOrderVO> queryOrder(String orderNo) throws JSApiException;
+	public Map<String,Object> queryOrder(String orderNo) throws JSApiException;
 
 	/**
 	 * 根据车牌号查询订单
@@ -66,5 +61,5 @@ public interface JieShunService {
 	 * @return
 	 * @throws JSApiException
 	 */
-	public List<QueryOrderVO> queryOrderByCarNo(String carNo) throws JSApiException;
+	public Map<String, Object> queryOrderByCarNo(String carNo) throws JSApiException;
 }

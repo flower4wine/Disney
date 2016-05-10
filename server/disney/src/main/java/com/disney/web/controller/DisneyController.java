@@ -25,6 +25,7 @@ import com.disney.util.Ajax;
 import com.disney.util.DateUtils;
 import com.disney.util.ViewUtil;
 import com.disney.util.WeChatBaseUtil;
+import com.disney.web.controller.util.MapToVOUtil;
 import com.disney.web.vo.jieshunapivo.QueryOrderVO;
 
 @Controller
@@ -142,7 +143,9 @@ public class DisneyController {
 		
 		ModelAndView view = ViewUtil.view(name);
 		
-		List<QueryOrderVO> queryOrderByCarNo = jieShunService.queryOrderByCarNo(carNo);
+		Map<String, Object> query = jieShunService.queryOrderByCarNo(carNo);
+		
+		List<QueryOrderVO> queryOrderByCarNo = MapToVOUtil.mapToQueryOrderVO(query);
 		
 		view.addObject("queryOrderByCarNo", queryOrderByCarNo);
 		

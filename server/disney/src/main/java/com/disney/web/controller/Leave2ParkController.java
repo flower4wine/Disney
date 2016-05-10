@@ -32,6 +32,7 @@ import com.disney.util.Ajax;
 import com.disney.util.Base64Util;
 import com.disney.util.DateUtils;
 import com.disney.util.ViewUtil;
+import com.disney.web.controller.util.MapToVOUtil;
 import com.disney.web.vo.GuideVO;
 import com.disney.web.vo.LocationVO;
 import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
@@ -157,7 +158,10 @@ public class Leave2ParkController {
 				response.addCookie(second);
 			}
 			
-			List<QueryCarByCarnoVO> queryCarStopByCarno = jieShunService.queryCarStopByCarno(carNo);
+			Map<String, Object> query = jieShunService.queryCarStopByCarno(carNo);
+			
+			
+			List<QueryCarByCarnoVO> queryCarStopByCarno = MapToVOUtil.mapToQueryCarByCarnoVO(query);
 			if(queryCarStopByCarno.isEmpty() || queryCarStopByCarno.size() <= 0){
 				return Ajax.buildErrorResult("查找不到对应的车辆位置。");
 			}
