@@ -1,4 +1,4 @@
-package com.disney.web.controller.util;
+package com.disney.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.disney.dao.LocationDao;
+import com.disney.dao.ParkDao;
 import com.disney.model.Location;
+import com.disney.model.Park;
+import com.disney.web.vo.ParkVO;
 import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
 import com.disney.web.vo.jieshunapivo.QueryOrderVO;
 import com.disney.web.vo.jieshunapivo.QueryParkVO;
@@ -16,6 +19,9 @@ public class MapToVOUtil {
 	
 	@Autowired
 	private static LocationDao lo;
+	
+	@Autowired
+	private static ParkDao parkDao;
 	
 	@SuppressWarnings("unchecked")
 	public static List<QueryOrderVO> mapToQueryOrderVO(Map<String, Object> map){
@@ -72,6 +78,28 @@ public class MapToVOUtil {
 			vo.setParkingName(location.getName());
 			vo.setCarNo((String) attrs.get("carNo"));
 			vo.setInParkingState(true);
+			voList.add(vo);
+			System.out.println(attrs);
+		}
+		return voList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<ParkVO> mapToParkVO(List<Map<String, Object>> list){
+		List<ParkVO> voList = new ArrayList<ParkVO>();
+		for(Map<String, Object> map:list){
+			Map<String,Object> attrs = (Map<String,Object>) map.get("attributes");
+			ParkVO vo = new ParkVO();
+			
+			vo.setTotalSpace(Integer.valueOf(attrs.get("totalSpace").toString()));
+			vo.setParkName((String) attrs.get("parkName"));
+			vo.setRestSpace(Integer.valueOf(attrs.get("restSpace").toString()));
+			vo.setJsCode((String) attrs.get("parkCode"));
+			Park park =parkDao.findByJsCode(vo.getJsCode());
+			vo.setQrCode(park.getQrCode());
+			vo.setPrice(park.getPrice());
+			vo.setStatus(park.getStatus());
+			
 			voList.add(vo);
 			System.out.println(attrs);
 		}
