@@ -1,7 +1,6 @@
 package com.disney.web.controller;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -21,21 +20,20 @@ import com.disney.bo.LoToLoBO;
 import com.disney.constant.Lo2LoStepType;
 import com.disney.exception.JSApiException;
 import com.disney.handler.config.SessionHelper;
-import com.disney.handler.jieshun.JieShunService;
 import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.Location;
+import com.disney.model.Park;
 import com.disney.model.UserLocation;
 import com.disney.service.Lo2loService;
 import com.disney.service.LocationService;
+import com.disney.service.ParkService;
 import com.disney.util.Ajax;
 import com.disney.util.Base64Util;
 import com.disney.util.DateUtils;
-import com.disney.util.MapToVOUtil;
 import com.disney.util.ViewUtil;
 import com.disney.web.vo.GuideVO;
 import com.disney.web.vo.LocationVO;
-import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
 
 @Controller
 @RequestMapping("/le")
@@ -54,7 +52,7 @@ public class Leave2ParkController {
 	private Lo2loService lo2loService;
 	
 	@Autowired
-	private JieShunService jieShunService;
+	private ParkService parkService;
 
 	
 	@RequestMapping("/lo")
@@ -158,16 +156,8 @@ public class Leave2ParkController {
 				response.addCookie(second);
 			}
 			
-			Map<String, Object> query = jieShunService.queryCarStopByCarno(carNo);
-			
-			
-			List<QueryCarByCarnoVO> queryCarStopByCarno = MapToVOUtil.mapToQueryCarByCarnoVO(query);
-			if(queryCarStopByCarno.isEmpty() || queryCarStopByCarno.size() <= 0){
-				return Ajax.buildErrorResult("查找不到对应的车辆位置。");
-			}
-			for (QueryCarByCarnoVO vo : queryCarStopByCarno) {
-				parkPlaceCode = vo.getParkingCode();
-			}
+			Park query = parkService.queryCarInPark(carNo);
+			parkPlaceCode = query.getQrCode();
 		}
 		
 		return Ajax.getSuccessReturnMapWithData(parkPlaceCode);
@@ -229,7 +219,7 @@ public class Leave2ParkController {
 			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getLeaveLocation(),parkLocation);
 			
 			if(bo==null){
-				return ViewUtil.error("10004");
+				return ViewUtil.error("10004");	
 			}
 			
 			if(bo!=null){

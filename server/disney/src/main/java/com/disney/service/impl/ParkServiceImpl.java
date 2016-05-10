@@ -68,4 +68,16 @@ public class ParkServiceImpl implements ParkService {
 		}
 		return attrs;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> queryOrder(String carNo) throws JSApiException {
+		Map<String, Object> queryOrderByCarNo = jieShunService.queryOrderByCarNo(carNo);
+		List<Map<String,Object>> list = (List<Map<String, Object>>) queryOrderByCarNo.get("dataItems");
+		Map<String, Object> attrs = new HashMap<String, Object>();
+		for (Map<String, Object> map : list) {
+			attrs = (Map<String,Object>) map.get("attributes");
+		}
+		return attrs;
+	}
 }

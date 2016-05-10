@@ -12,13 +12,10 @@ public class QueryOrderVO {
 	private String startTime;
 	
 	//停留时间
-	private int serviceTime;
+	private String serviceTime;
 	
-	//需付费用
+	//应付费用
 	private double serviceFee;
-	
-	//总共支付费用
-	private double total;
 
 	public String getOrderNo() {
 		return orderNo;
@@ -44,11 +41,11 @@ public class QueryOrderVO {
 		this.startTime = startTime;
 	}
 
-	public int getServiceTime() {
+	public String getServiceTime() {
 		return serviceTime;
 	}
 
-	public void setServiceTime(int serviceTime) {
+	public void setServiceTime(String serviceTime) {
 		this.serviceTime = serviceTime;
 	}
 
@@ -60,12 +57,4 @@ public class QueryOrderVO {
 		this.serviceFee = serviceFee;
 	}
 
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-	
 }

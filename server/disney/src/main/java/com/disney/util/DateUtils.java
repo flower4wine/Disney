@@ -33,6 +33,36 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
 		System.out.println(DateUtils.nextMonth(start));*/
 	}
 	
+	//整数(秒数)转换为时分格式(xx小时xx分钟)
+	 public static String secToTime(int time) {  
+	        String timeStr = null;  
+	        int hour = 0;  
+	        int minute = 0;  
+	        if (time <= 0)  
+	            return "0分钟";  
+	        else {  
+	            minute = time / 60;  
+	            if (minute < 60) {  
+	                timeStr = unitFormat(minute) + "分钟";  
+	            } else {  
+	                hour = minute / 60;  
+	                if (hour > 99)  
+	                    return "99:59:59";  
+	                minute = minute % 60;  
+	                timeStr = unitFormat(hour) + "小时" + unitFormat(minute) + "分钟";  
+	            }  
+	        }  
+	        return timeStr;  
+	 }
+	 
+	 public static String unitFormat(int i) {  
+	        String retStr = null;  
+	        if (i >= 0 && i < 10)  
+	            retStr = "0" + Integer.toString(i);  
+	        else  
+	            retStr = "" + i;  
+	        return retStr;  
+	 }  
 	
 	
 	public static Timestamp getNowTimestamp(){
