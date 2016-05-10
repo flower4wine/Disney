@@ -4,62 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.disney.dao.LocationDao;
-import com.disney.dao.ParkDao;
-import com.disney.model.Location;
-import com.disney.model.Park;
 import com.disney.web.vo.ParkVO;
 import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
 import com.disney.web.vo.jieshunapivo.QueryOrderVO;
-import com.disney.web.vo.jieshunapivo.QueryParkVO;
 
 public class MapToVOUtil {
-	
-	@Autowired
-	private static LocationDao lo;
-	
-	@Autowired
-	private static ParkDao parkDao;
-	
+
 	@SuppressWarnings("unchecked")
-	public static List<QueryOrderVO> mapToQueryOrderVO(Map<String, Object> map){
-		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
-		List<QueryOrderVO> voList = new ArrayList<QueryOrderVO>();
-		for(Map<String, Object> car:list){
-			Map<String,Object> attrs = (Map<String,Object>) car.get("attributes");
-			QueryOrderVO vo = new QueryOrderVO();
-			if(attrs.isEmpty() || attrs.size() <= 0){
-				continue;
-			}
-			voList.add(vo);
-			System.out.println(attrs);
-		}
-		return voList;
+	public static QueryOrderVO mapToQueryOrderVO(Map<String, Object> map){
+
+		Map<String,Object> order = (Map<String,Object>) map.get("attributes");
+
+		QueryOrderVO vo = new QueryOrderVO();
+
+		vo.setCarNo((String) order.get("carNo"));
+		vo.setOrderNo((String) order.get("orderNo"));
+		vo.setStartTime((String) order.get("startTime"));
+		Integer serviceTime = Integer.valueOf(order.get("serviceTime").toString());
+		vo.setServiceTime(DateUtils.secToTime(serviceTime));
+		vo.setServiceFee(Double.valueOf(order.get("serviceFee").toString()));
+
+		return vo;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static List<QueryParkVO> mapToQueryParkVO(Map<String, Object> map){
-		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
-		List<QueryParkVO> voList = new ArrayList<QueryParkVO>();
-		for(Map<String, Object> park:list){
-			Map<String,Object> attrs = (Map<String,Object>) park.get("attributes");
-			QueryParkVO vo = new QueryParkVO();
-			vo.setTotalSpace(Integer.valueOf(attrs.get("totalSpace").toString()));
-			vo.setParkingName((String) attrs.get("parkName"));
-			vo.setRestSpace(Integer.valueOf(attrs.get("restSpace").toString()));
-			
-			String parkCode = (String) attrs.get("parkCode");
-			if(parkCode.equals("0000002236")){
-				vo.setParkCode("03-0003");
-			}
-			voList.add(vo);
-			System.out.println(attrs);
-		}
-		return voList;
-	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static List<QueryCarByCarnoVO> mapToQueryCarByCarnoVO(Map<String, Object> map){
 		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
@@ -70,12 +37,7 @@ public class MapToVOUtil {
 			if(attrs.isEmpty() || attrs.size() <= 0){
 				continue;
 			}
-			String parkingCode = (String) attrs.get("parkPlaceCode");
-			if(parkingCode.equals("0000002236")){
-				vo.setParkingCode("03-0001");
-			}
-			Location location = lo.find(vo.getParkingCode());
-			vo.setParkingName(location.getName());
+			vo.setParkingCode((String) attrs.get("parkPlaceCode"));
 			vo.setCarNo((String) attrs.get("carNo"));
 			vo.setInParkingState(true);
 			voList.add(vo);
@@ -83,27 +45,23 @@ public class MapToVOUtil {
 		}
 		return voList;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static List<ParkVO> mapToParkVO(List<Map<String, Object>> list){
 		List<ParkVO> voList = new ArrayList<ParkVO>();
 		for(Map<String, Object> map:list){
 			Map<String,Object> attrs = (Map<String,Object>) map.get("attributes");
+			System.out.println(attrs);
 			ParkVO vo = new ParkVO();
-			
+
 			vo.setTotalSpace(Integer.valueOf(attrs.get("totalSpace").toString()));
 			vo.setParkName((String) attrs.get("parkName"));
 			vo.setRestSpace(Integer.valueOf(attrs.get("restSpace").toString()));
 			vo.setJsCode((String) attrs.get("parkCode"));
-			Park park =parkDao.findByJsCode(vo.getJsCode());
-			vo.setQrCode(park.getQrCode());
-			vo.setPrice(park.getPrice());
-			vo.setStatus(park.getStatus());
-			
 			voList.add(vo);
-			System.out.println(attrs);
+
 		}
 		return voList;
 	}
-	
+
 }

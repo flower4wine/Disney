@@ -1,7 +1,6 @@
 package com.disney.web.controller;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.disney.exception.JSApiException;
 import com.disney.handler.config.SessionHelper;
-import com.disney.handler.jieshun.JieShunService;
 import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.QrCode;
 import com.disney.model.UserLocation;
 import com.disney.service.LocationService;
+import com.disney.service.ParkService;
 import com.disney.util.Ajax;
 import com.disney.util.DateUtils;
 import com.disney.util.MapToVOUtil;
@@ -41,7 +40,7 @@ public class DisneyController {
 	private MessageHandler messageHandler;
 	
 	@Autowired
-	private JieShunService jieShunService;
+	private ParkService parkService;
 
 
 	@RequestMapping("/disney")
@@ -143,11 +142,11 @@ public class DisneyController {
 		
 		ModelAndView view = ViewUtil.view(name);
 		
-		Map<String, Object> query = jieShunService.queryOrderByCarNo(carNo);
+		Map<String, Object> query = parkService.queryOrder(carNo);
 		
-		List<QueryOrderVO> queryOrderByCarNo = MapToVOUtil.mapToQueryOrderVO(query);
+		QueryOrderVO orderVO = MapToVOUtil.mapToQueryOrderVO(query);
 		
-		view.addObject("queryOrderByCarNo", queryOrderByCarNo);
+		view.addObject("order", orderVO);
 		
 		return view;
 	}
