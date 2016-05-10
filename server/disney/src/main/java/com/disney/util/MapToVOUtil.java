@@ -41,7 +41,6 @@ public class MapToVOUtil {
 			vo.setCarNo((String) attrs.get("carNo"));
 			vo.setInParkingState(true);
 			voList.add(vo);
-			System.out.println(attrs);
 		}
 		return voList;
 	}
@@ -59,7 +58,6 @@ public class MapToVOUtil {
 			vo.setRestSpace(Integer.valueOf(attrs.get("restSpace").toString()));
 			vo.setJsCode((String) attrs.get("parkCode"));
 			voList.add(vo);
-
 		}
 		return voList;
 	}
