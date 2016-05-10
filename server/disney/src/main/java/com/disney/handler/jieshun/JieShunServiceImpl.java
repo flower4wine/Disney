@@ -3,6 +3,7 @@ package com.disney.handler.jieshun;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.disney.exception.JSApiException;
@@ -10,15 +11,18 @@ import com.disney.handler.jieshun.api.ApiHandler;
 import com.disney.handler.jieshun.api.JSApiRequestApiBO;
 import com.disney.handler.jieshun.api.JSApiResultBO;
 import com.disney.handler.jieshun.api.JSLoginBO;
-import com.disney.handler.jieshun.constant.LoginUser;
+import com.disney.handler.jieshun.constant.JSConfigKey;
 
 @Service
 public class JieShunServiceImpl implements JieShunService{
 	
+	@Autowired
+	private JieShunConfigHandler jieShunConfigHandler;
+	
 	@Override
 	public String getLoginToken(String cid, String user, String password,String version) throws JSApiException {
 
-		String url = "http://preapi.jslife.net/jsaims/login";	
+		String url = jieShunConfigHandler.getConfigValue(JSConfigKey.URL);
 		return  JieShunHandler.getLoginToken(cid, user, password,version, url);
 
 	}
@@ -28,20 +32,23 @@ public class JieShunServiceImpl implements JieShunService{
 	public Map<String, Object> queryParkSpace() throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
-		apiBO.setServiceId("3c.park.queryparkspace");
-		apiBO.setRequestType("DATA");
+		apiBO.setServiceId(jieShunConfigHandler.getConfigValue(JSConfigKey.QUERYPARKSPACE));
+		apiBO.setRequestType(jieShunConfigHandler.getConfigValue(JSConfigKey.REQUESTTYPE));
 
 		Map<String,String> param = new HashMap<String,String>();
 
-		param.put("parkCodes", "0000002236");
+		param.put("parkCodes", jieShunConfigHandler.getConfigValue(JSConfigKey.PARKCODES));
 
 		apiBO.setAttrs(param);
 
 		JSLoginBO loginBo = new JSLoginBO();
 
-		loginBo.setCid(LoginUser.cid);
-		loginBo.setVersion(LoginUser.version);
-		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
+		loginBo.setCid(jieShunConfigHandler.getConfigValue(JSConfigKey.CID));
+		loginBo.setVersion(jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION));
+		loginBo.setLoginToken(getLoginToken(jieShunConfigHandler.getConfigValue(JSConfigKey.CID),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.USER),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.PWD),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION)));
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 
@@ -55,21 +62,24 @@ public class JieShunServiceImpl implements JieShunService{
 	public Map<String, Object> queryCarStopByCarno(String carNo) throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
-		apiBO.setServiceId("3c.park.querycarparkingspot");
-		apiBO.setRequestType("DATA");
+		apiBO.setServiceId(jieShunConfigHandler.getConfigValue(JSConfigKey.QUERYCARSTOPBYCARNO));
+		apiBO.setRequestType(jieShunConfigHandler.getConfigValue(JSConfigKey.REQUESTTYPE));
 
 		Map<String,String> param = new HashMap<String,String>();
 
-		param.put("parkCode", "0000002236");
+		param.put("parkCode", jieShunConfigHandler.getConfigValue(JSConfigKey.PARKCODE));
 		param.put("carNo", carNo);
 
 		apiBO.setAttrs(param);
 
 		JSLoginBO loginBo = new JSLoginBO();
 
-		loginBo.setCid(LoginUser.cid);
-		loginBo.setVersion(LoginUser.version);
-		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
+		loginBo.setCid(jieShunConfigHandler.getConfigValue(JSConfigKey.CID));
+		loginBo.setVersion(jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION));
+		loginBo.setLoginToken(getLoginToken(jieShunConfigHandler.getConfigValue(JSConfigKey.CID),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.USER),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.PWD),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION)));
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 		Map<String,Object> json =  result.getReturnObject();
@@ -115,23 +125,26 @@ public class JieShunServiceImpl implements JieShunService{
 		String r = null;
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
-		apiBO.setServiceId("3c.pay.createorderbycarno");
-		apiBO.setRequestType("DATA");
+		apiBO.setServiceId(jieShunConfigHandler.getConfigValue(JSConfigKey.CREATEORDERBYCARNO));
+		apiBO.setRequestType(jieShunConfigHandler.getConfigValue(JSConfigKey.REQUESTTYPE));
 
 		Map<String,String> param = new HashMap<String,String>();
 
-		param.put("parkCode", "0000002236");
-		param.put("businesserCode", "880002101002155");
-		param.put("orderType", "VNP");
+		param.put("parkCode", jieShunConfigHandler.getConfigValue(JSConfigKey.PARKCODE));
+		param.put("businesserCode", jieShunConfigHandler.getConfigValue(JSConfigKey.BUSINESSERCODE));
+		param.put("orderType", jieShunConfigHandler.getConfigValue(JSConfigKey.ORDERTYPE));
 		param.put("carNo", carNo);
 
 		apiBO.setAttrs(param);
 
 		JSLoginBO loginBo = new JSLoginBO();
 
-		loginBo.setCid(LoginUser.cid);
-		loginBo.setVersion(LoginUser.version);
-		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
+		loginBo.setCid(jieShunConfigHandler.getConfigValue(JSConfigKey.CID));
+		loginBo.setVersion(jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION));
+		loginBo.setLoginToken(getLoginToken(jieShunConfigHandler.getConfigValue(JSConfigKey.CID),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.USER),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.PWD),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION)));
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 		Map<String,Object> json =  result.getReturnObject();
@@ -147,8 +160,8 @@ public class JieShunServiceImpl implements JieShunService{
 	public Map<String,Object> queryOrder(String orderNo) throws JSApiException {
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
-		apiBO.setServiceId("3c.pay.queryorder");
-		apiBO.setRequestType("DATA");
+		apiBO.setServiceId(jieShunConfigHandler.getConfigValue(JSConfigKey.QUERYORDER));
+		apiBO.setRequestType(jieShunConfigHandler.getConfigValue(JSConfigKey.REQUESTTYPE));
 
 		Map<String,String> param = new HashMap<String,String>();
 
@@ -158,9 +171,12 @@ public class JieShunServiceImpl implements JieShunService{
 
 		JSLoginBO loginBo = new JSLoginBO();
 
-		loginBo.setCid(LoginUser.cid);
-		loginBo.setVersion(LoginUser.version);
-		loginBo.setLoginToken(getLoginToken(LoginUser.cid,LoginUser.user,LoginUser.password,LoginUser.version));
+		loginBo.setCid(jieShunConfigHandler.getConfigValue(JSConfigKey.CID));
+		loginBo.setVersion(jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION));
+		loginBo.setLoginToken(getLoginToken(jieShunConfigHandler.getConfigValue(JSConfigKey.CID),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.USER),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.PWD),
+				jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION)));
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 		Map<String,Object> json =  result.getReturnObject();

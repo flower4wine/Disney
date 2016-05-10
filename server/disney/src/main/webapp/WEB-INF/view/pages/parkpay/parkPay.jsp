@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td>
-					<div style="margin-top: 15px;font-size: 300%;"><i class="fa fa-jpy"></i> 165.00</div>
+					<div style="margin-top: 15px;font-size: 300%;"><i class="fa fa-jpy"></i> ${order.serviceFee }</div>
 				</td>
 			</tr>
 		</table>
@@ -47,24 +47,24 @@
 		<div style="text-align: center;padding: 8px;
 			border-radius:4px;
 			border: solid 1px #ccc;font-size: 150%;background-color: #eee;letter-spacing: 1px;margin-bottom:5px;">
-			苏F127GN
+			${order.carNo }
 		</div>
 		
 		<div class="park-pay-info">
 			<div class="park-pay-info-left" >入场时间</div>
-			<div class="park-pay-info-right" >2015-11-22 08:00</div>
+			<div class="park-pay-info-right" >${order.startTime }</div>
 			<div class="clear"></div>
 		</div>
 		
 		<div class="park-pay-info">
 			<div class="park-pay-info-left" >停车时长</div>
-			<div class="park-pay-info-right" >8小时49分</div>
+			<div class="park-pay-info-right" >${order.serviceTimed }</div>
 			<div class="clear"></div>
 		</div>
 		
 		<div class="park-pay-info">
 			<div class="park-pay-info-left" >支付费用</div>
-			<div class="park-pay-info-right" >85.00元</div>
+			<div class="park-pay-info-right" >${order.serviceFee }元</div>
 			<div class="clear"></div>
 		</div>
 		

@@ -79,11 +79,11 @@
 				<div class="park-p-item-info bor-top bor-right" >
 				
 					<div class="item">
-						<div class="name" >${park.parkingName }</div>
-						<div class="price">单价：15元/小时</div>
+						<div class="name" >${park.parkName }</div>
+						<div class="price">单价：${park.price }元/小时</div>
 						<div class="note">- 剩余车位 -</div>
 						<div class="num">${park.restSpace }</div>
-						<div class="location" data-code="${park.parkCode }">车库位置  &nbsp;<i class="fa fa-chevron-right"></i></div>
+						<div class="location" data-code="${park.qrCode }">车库位置  &nbsp;<i class="fa fa-chevron-right"></i></div>
 					</div>
 				
 				</div>

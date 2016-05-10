@@ -4,4 +4,6 @@ import com.disney.model.Park;
 
 public interface ParkDao extends BaseDao<Park> {
 
+	Park findByJsCode(String jsCode);
+
 }
