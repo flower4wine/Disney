@@ -122,7 +122,7 @@ public class JieShunServiceImpl implements JieShunService{
 
 	@Override
 	public String createOrderByCarno(String carNo) throws JSApiException {
-		String r = null;
+		
 		JSApiRequestApiBO apiBO = new JSApiRequestApiBO();
 
 		apiBO.setServiceId(jieShunConfigHandler.getConfigValue(JSConfigKey.CREATEORDERBYCARNO));
@@ -148,11 +148,11 @@ public class JieShunServiceImpl implements JieShunService{
 
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
 		Map<String,Object> json =  result.getReturnObject();
-		if(!json.isEmpty() && json.size()>0){
-			r = "创建订单失败";
-		}else{
-			r = (String) json.get("orderNo");
-		}
+		
+		String r = (String) json.get("orderNo");
+		
+		System.out.println(r);
+		
 		return r;
 	}
 
