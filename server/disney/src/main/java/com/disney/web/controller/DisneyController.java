@@ -148,14 +148,15 @@ public class DisneyController {
 	public ModelAndView parkpay(String carNo) throws JSApiException {
 
 		String name = "/parkpay/parkPay";
-		
 		ModelAndView view = ViewUtil.view(name);
 		
-		Map<String, Object> query = parkService.queryOrder(carNo);
-		
-		QueryOrderVO orderVO = MapToVOUtil.mapToQueryOrderVO(query);
-		
-		view.addObject("order", orderVO);
+		if(weChatHandler.isDebug()){
+			view.addObject("order", new QueryOrderVO());
+		}else{
+			Map<String, Object> query = parkService.queryOrder(carNo);
+			QueryOrderVO orderVO = MapToVOUtil.mapToQueryOrderVO(query);
+			view.addObject("order", orderVO);
+		}
 		
 		return view;
 	}
