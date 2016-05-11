@@ -1,6 +1,7 @@
 package com.disney.web.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -20,20 +21,21 @@ import com.disney.bo.LoToLoBO;
 import com.disney.constant.Lo2LoStepType;
 import com.disney.exception.JSApiException;
 import com.disney.handler.config.SessionHelper;
+import com.disney.handler.jieshun.JieShunService;
 import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.Location;
-import com.disney.model.Park;
 import com.disney.model.UserLocation;
 import com.disney.service.Lo2loService;
 import com.disney.service.LocationService;
-import com.disney.service.ParkService;
 import com.disney.util.Ajax;
 import com.disney.util.Base64Util;
 import com.disney.util.DateUtils;
+import com.disney.util.MapToVOUtil;
 import com.disney.util.ViewUtil;
 import com.disney.web.vo.GuideVO;
 import com.disney.web.vo.LocationVO;
+import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
 
 @Controller
 @RequestMapping("/le")
@@ -52,7 +54,7 @@ public class Leave2ParkController {
 	private Lo2loService lo2loService;
 	
 	@Autowired
-	private ParkService parkService;
+	private JieShunService jieShunService;
 
 	
 	@RequestMapping("/lo")
@@ -60,10 +62,6 @@ public class Leave2ParkController {
 		//Validate check error
 		if(StringUtils.isEmpty(co) || co.length()!=12){
 			return ViewUtil.error("10001");
-		}
-		
-		if(co.startsWith("03")){
-			return ViewUtil.error("10003");
 		}
 		
 		Location parent = locationService.find(co.substring(0,7));
@@ -138,7 +136,8 @@ public class Leave2ParkController {
 	@RequestMapping("/checkCarNo")
 	@ResponseBody
 	public Map<String,Object> checkCarNo(@CookieValue(value = "firstCarNo", defaultValue = "") String firstCarNo,
-			@CookieValue(value = "secondCarNo", defaultValue = "") String secondCarNo,String carNo,HttpServletResponse response) throws JSApiException{
+			@CookieValue(value = "secondCarNo", defaultValue = "") 
+			String secondCarNo,String carNo,HttpServletResponse response) throws JSApiException{
 		String parkPlaceCode =  null;
 		if(StringUtils.isEmpty(carNo)){
 			
@@ -156,8 +155,16 @@ public class Leave2ParkController {
 				response.addCookie(second);
 			}
 			
-			Park query = parkService.queryCarInPark(carNo);
-			parkPlaceCode = query.getQrCode();
+			Map<String, Object> query = jieShunService.queryCarStopByCarno(carNo);
+			
+			
+			List<QueryCarByCarnoVO> queryCarStopByCarno = MapToVOUtil.mapToQueryCarByCarnoVO(query);
+			if(queryCarStopByCarno.isEmpty() || queryCarStopByCarno.size() <= 0){
+				return Ajax.buildErrorResult("查找不到对应的车辆位置。");
+			}
+			for (QueryCarByCarnoVO vo : queryCarStopByCarno) {
+				parkPlaceCode = vo.getParkingCode();
+			}
 		}
 		
 		return Ajax.getSuccessReturnMapWithData(parkPlaceCode);
@@ -183,6 +190,12 @@ public class Leave2ParkController {
 			
 			if(StringUtils.isNotEmpty(parkLocation) && parkLocation.length() == 7){
 				parkLocation = parkLocation + "-0001";
+			}
+			
+			//不支持同一个停车场内部的导览
+			if(ul.getLeaveLocation().substring(0,7).equals(parkLocation.substring(0,7))){
+				//未记录位置信息 如何处理  返回首页
+				return ViewUtil.error("10008");
 			}
 			
 			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getLeaveLocation(),parkLocation);
@@ -216,10 +229,16 @@ public class Leave2ParkController {
 				parkLocation = ul.getParkLocation();
 			}
 			
+			//不支持同一个停车场内部的导览
+			if(ul.getLeaveLocation().substring(0,7).equals(parkLocation.substring(0,7))){
+				//未记录位置信息 如何处理  返回首页
+				return ViewUtil.error("10008");
+			}
+			
 			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getLeaveLocation(),parkLocation);
 			
 			if(bo==null){
-				return ViewUtil.error("10004");	
+				return ViewUtil.error("10004");
 			}
 			
 			if(bo!=null){

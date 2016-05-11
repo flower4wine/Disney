@@ -53,39 +53,48 @@ public class DisneyController {
 
 		String name = "/index";
 		ModelAndView view = ViewUtil.view(name);
-
-		//Get WeXin info
-		String url =  weChatHandler.getDomain() + request.getRequestURI();  
-		String queryString = request.getQueryString();
-		String localUrl = url + (StringUtils.isEmpty(queryString) ? "" : "?" + queryString);
-		String jsTicket =  weChatHandler.jsTicket();
-
-		String nonceStr =  WeChatBaseUtil.getNonceStr();
-		String timestamp = WeChatBaseUtil.getTimestamp();
-		String signature = WeChatBaseUtil.getSignature(nonceStr, timestamp, jsTicket, localUrl);
-
-		view.addObject("appId", weChatHandler.appId());
-		view.addObject("timestamp", timestamp);
-		view.addObject("nonceStr", nonceStr);
-		view.addObject("signature", signature);
-
-		String userOpenId = SessionHelper.getLoginUserOpenId(request.getSession());
-		UserLocation ul = locationService.findUserLocation(userOpenId);
-		Date now = DateUtils.getStartDate(new Date());
-
-		if(ul!=null && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
-			view.addObject("parkCode", ul.getParkLocation());
-			view.addObject("leaveCode", ul.getLeaveLocation());
-
+		
+		
+		if(weChatHandler.isDebug()){
+			view.addObject("parkCode", "03-0001-0001");
+			view.addObject("leaveCode", "05-0001-0001");
+			
+			view.addObject("appId", "");
+			view.addObject("timestamp", "");
+			view.addObject("nonceStr", "");
+			view.addObject("signature", "");
+			
 		}else{
 			
-			if(weChatHandler.isDebug()){
-				view.addObject("parkCode", "03-0001-0001");
-				view.addObject("leaveCode", "05-0001-0001");
+			//Get WeXin info
+			String url =  weChatHandler.getDomain() + request.getRequestURI();  
+			String queryString = request.getQueryString();
+			String localUrl = url + (StringUtils.isEmpty(queryString) ? "" : "?" + queryString);
+			String jsTicket =  weChatHandler.jsTicket();
+
+			String nonceStr =  WeChatBaseUtil.getNonceStr();
+			String timestamp = WeChatBaseUtil.getTimestamp();
+			String signature = WeChatBaseUtil.getSignature(nonceStr, timestamp, jsTicket, localUrl);
+
+			view.addObject("appId", weChatHandler.appId());
+			view.addObject("timestamp", timestamp);
+			view.addObject("nonceStr", nonceStr);
+			view.addObject("signature", signature);
+
+			//登录信息
+			String userOpenId = SessionHelper.getLoginUserOpenId(request.getSession());
+			UserLocation ul = locationService.findUserLocation(userOpenId);
+			Date now = DateUtils.getStartDate(new Date());
+			
+			if(ul!=null && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
+				view.addObject("parkCode", ul.getParkLocation());
+				view.addObject("leaveCode", ul.getLeaveLocation());
+
 			}else{
 				view.addObject("parkCode", "");
 				view.addObject("leaveCode", "");
 			}
+			
 		}
 
 		return view;

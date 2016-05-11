@@ -13,10 +13,11 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
+@RequestMapping("/shop")
 public class P1ToShopController extends GenerateBaseController{
 
 	
-	@RequestMapping(value="/p1Generate",method=RequestMethod.GET)
+	@RequestMapping(value="/p1",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> p1Generate(){
 		
@@ -50,7 +51,7 @@ public class P1ToShopController extends GenerateBaseController{
 		//Generate location to location
 		 for(int i=0;i<50;i++){
 			//inner
-			String from = "03-0001-"+getQrCodeSuffix(i+1);
+			String from = parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);
 			String to = viewCode;
 			generateLo2Lo(from,to,parkEntrance,i2o,Lo2LoType.PARKINNER_2_VIEW);
 		}
@@ -58,7 +59,7 @@ public class P1ToShopController extends GenerateBaseController{
 		 for(int i=0;i<50;i++){
 			//inner
 			String from = viewCode;
-			String to = "03-0001-"+getQrCodeSuffix(i+1);
+			String to = parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);
 			generateLo2Lo(from,to,parkEntrance,o2i,Lo2LoType.VIEW_2_PARKINNER);
 		}
 	}

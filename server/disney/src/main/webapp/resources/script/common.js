@@ -8,7 +8,7 @@ function endLoading(){
 }
 
 function domain(){
-	return "http://js.digirogar.com/";
+	return "http://jsdisney.digirogar.com/";
 }
 
 

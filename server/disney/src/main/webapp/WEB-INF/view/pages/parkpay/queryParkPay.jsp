@@ -26,9 +26,11 @@
 						
 	</div>
 	
-	<div style="position: absolute;padding: 15px 0;text-align: center;bottom: 0px;width: 100%;font-size: 130%;letter-spacing: 3px;background-color: black;">
+<!-- 	<div style="position: absolute;padding: 15px 0;text-align: center;bottom: 0px;width: 100%;font-size: 130%;letter-spacing: 3px;background-color: black;">
 		缴费记录   &nbsp;<i class="fa fa-chevron-right"></i>
-	</div>
+	</div> -->
+	
+	<%@ include file="../include/_bottom_footer.jsp" %>
 	
 
 	<script type="text/javascript">
