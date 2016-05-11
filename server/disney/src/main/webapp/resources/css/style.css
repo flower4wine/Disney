@@ -821,3 +821,91 @@ ul,li {
 	width: 80%;
 	color: white;
 }
+
+/****parkpay************/
+.park-pay-info {
+	font-size: 130%;
+	padding: 5px 0;
+}
+
+.park-pay-info-left {
+	float: left;
+	color: #AAA;
+}
+
+.park-pay-info-right {
+	float: right;
+}
+
+.park-pay-top table {
+	text-align: right;
+	width: 100%;
+}
+
+.park-pay-top .title {
+	padding: 8px 20px;
+	border: solid 1px white;
+	border-radius: 4px;
+}
+
+.park-pay-top .amt {
+	margin-top: 15px;
+	font-size: 300%;
+}
+
+.park-pay-content {
+	color: #777;
+	padding: 15px;
+}
+
+.park-pay-content .title {
+	font-size: 150%;
+	padding-bottom: 8px;
+	font-weight: bold;
+}
+
+.park-pay-content .carno {
+	text-align: center;
+	padding: 8px;
+	border-radius: 4px;
+	border: solid 1px #ccc;
+	font-size: 150%;
+	background-color: #eee;
+	letter-spacing: 1px;
+	margin-bottom: 5px;
+}
+
+.park-pay-content .paytitle {
+	font-size: 150%;
+	border-bottom: solid 1px #ccc;
+	padding-bottom: 5px;
+	padding-top: 30px;
+	font-weight: bold;
+}
+
+.park-pay-content .paylist {
+	color: #777;
+	padding: 15px 0px;
+}
+
+.park-pay-content .paylist img {
+	width: 30px;
+}
+
+.park-pay-content .paylist .paystyle {
+	padding: 0 10px;
+}
+
+.park-pay-content .payborder {
+	padding: 10px 0;
+}
+
+.park-pay-content .paybtn {
+	text-align: center;
+	color: white;
+	margin: 0 auto;
+	padding: 12px 0px;
+	border-radius: 4px;
+	font-size: 180%;
+	letter-spacing: 4px;
+}
