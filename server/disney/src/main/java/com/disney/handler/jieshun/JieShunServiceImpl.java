@@ -50,7 +50,7 @@ public class JieShunServiceImpl implements JieShunService{
 				jieShunConfigHandler.getConfigValue(JSConfigKey.PWD),
 				jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION)));
 
-		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo,jieShunConfigHandler.getConfigValue(JSConfigKey.APIURL));
 
 		Map<String,Object> json =  result.getReturnObject();
 		
@@ -81,7 +81,7 @@ public class JieShunServiceImpl implements JieShunService{
 				jieShunConfigHandler.getConfigValue(JSConfigKey.PWD),
 				jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION)));
 
-		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo,jieShunConfigHandler.getConfigValue(JSConfigKey.APIURL));
 		Map<String,Object> json =  result.getReturnObject();
 		return json;
 	}
@@ -146,7 +146,7 @@ public class JieShunServiceImpl implements JieShunService{
 				jieShunConfigHandler.getConfigValue(JSConfigKey.PWD),
 				jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION)));
 
-		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo,jieShunConfigHandler.getConfigValue(JSConfigKey.APIURL));
 		Map<String,Object> json =  result.getReturnObject();
 		
 		String r = (String) json.get("orderNo");
@@ -178,7 +178,7 @@ public class JieShunServiceImpl implements JieShunService{
 				jieShunConfigHandler.getConfigValue(JSConfigKey.PWD),
 				jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION)));
 
-		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo);
+		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo,jieShunConfigHandler.getConfigValue(JSConfigKey.APIURL));
 		Map<String,Object> json =  result.getReturnObject();
 		return json;
 	}

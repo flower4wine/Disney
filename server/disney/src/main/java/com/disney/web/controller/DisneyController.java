@@ -25,7 +25,7 @@ import com.disney.util.DateUtils;
 import com.disney.util.MapToVOUtil;
 import com.disney.util.ViewUtil;
 import com.disney.util.WeChatBaseUtil;
-import com.disney.web.vo.jieshunapivo.QueryOrderVO;
+import com.disney.web.vo.jieshunvo.QueryOrderVO;
 
 @Controller
 public class DisneyController {

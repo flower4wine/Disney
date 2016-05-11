@@ -74,19 +74,17 @@ public class ApiHandler{
 	}
 	
 
-
 	/**
 	 * API执行方法，此方法是一个模板方法，子类无需实现
 	 */
-	public static JSApiResultBO execute(JSApiRequestApiBO apiBO,JSLoginBO loginBo) throws JSApiException {
+	public static JSApiResultBO execute(JSApiRequestApiBO apiBO,JSLoginBO loginBo,String url) throws JSApiException {
 		
-		String url = "http://preapi.jslife.net/jsaims/as";
+		/*String url = "http://preapi.jslife.net/jsaims/as";*/
 		
 		BasicCookieStore cookieStore = new BasicCookieStore();
 		CloseableHttpClient httpclient = HttpClients.custom()
 				.setDefaultCookieStore(cookieStore).build();
 		CloseableHttpResponse response = null;
-
 		
 		try {
 			// 发起请求
