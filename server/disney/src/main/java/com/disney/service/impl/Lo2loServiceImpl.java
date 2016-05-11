@@ -11,9 +11,11 @@ import com.disney.bo.LoToLoBO;
 import com.disney.bo.LoToLoStepBO;
 import com.disney.bo.QrCodeBO;
 import com.disney.constant.Lo2LoStepType;
+import com.disney.constant.QrCodeType;
 import com.disney.dao.LoToLoDao;
 import com.disney.dao.LoToLoStepDao;
 import com.disney.dao.LocationDao;
+import com.disney.dao.QrCodeDao;
 import com.disney.model.LoToLo;
 import com.disney.model.LoToLoStep;
 import com.disney.model.Location;
@@ -31,12 +33,36 @@ public class Lo2loServiceImpl implements Lo2loService {
 
 	@Autowired
 	private LoToLoStepDao loToLoStepDao;
+	
+	@Autowired
+	private QrCodeDao qrCodeDao;
+	
+	//TODO re-factor
+	private String loadStartCode(String from,String to){
+		
+		if(from.startsWith("03-0002") && to.startsWith("03-0001")){
+			return "03-0002-000B";
+		}
+		
+		
+		if(from.startsWith("03-0001") && to.startsWith("03-0002")){
+			return "03-0001-000C";
+		}
+		
+		
+		return from;
+	}
 
 	@Override
 	public LoToLoBO loadLoToLoBO(String from,String to){
-
+		
 		Location locFrom = locationDao.find(from);
 		Location locTo = locationDao.find(to.substring(0,7));
+		
+		//处理Leave Location 如果从停车场内部离开
+		if(qrCodeDao.find(from).getQrCodeType() == QrCodeType.PARK_INNER && qrCodeDao.find(to).getQrCodeType() == QrCodeType.PARK_INNER){
+			from = loadStartCode(from,to);
+		}
 
 		LoToLo lo2lo = loToLoDao.find(from, to);
 
