@@ -13,10 +13,11 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
+@RequestMapping("/shop")
 public class P2ToShopController  extends GenerateBaseController{
 
 	
-	@RequestMapping(value="/p2Generate",method=RequestMethod.GET)
+	@RequestMapping(value="/p2",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> p2Generate(){
 		
