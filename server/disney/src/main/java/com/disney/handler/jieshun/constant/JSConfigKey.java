@@ -8,6 +8,7 @@ public class JSConfigKey {
 	public static String PWD ="js.pwd";
 	public static String VERSION ="js.version";
 	public static String URL = "js.login.url";
+	public static String APIURL = "js.api.url";
 	
 	//请求类型
 	public static String REQUESTTYPE ="js.requestType";
