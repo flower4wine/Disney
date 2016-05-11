@@ -7,7 +7,7 @@ public class JSConfigKey {
 	public static String USER = "js.user";
 	public static String PWD ="js.pwd";
 	public static String VERSION ="js.version";
-	public static String URL = "js.url";
+	public static String URL = "js.login.url";
 	
 	//请求类型
 	public static String REQUESTTYPE ="js.requestType";
