@@ -1,21 +1,22 @@
-package com.disney.web.vo.jieshunapivo;
+package com.disney.web.vo.jieshunvo;
+
 
 public class QueryOrderVO {
 	
 	//订单编号
-	private String orderNo="";
+	private String orderNo="00001";
 	
 	//车牌号
 	private String carNo="测12345";
 	
 	//入场时间
-	private String startTime="";
+	private String startTime="2016-05-11 9:56";
 	
 	//停留时间
-	private String serviceTime="";
+	private String serviceTime="3小时24分钟";
 	
 	//应付费用
-	private double serviceFee=0;
+	private double serviceFee=10;
 
 	public String getOrderNo() {
 		return orderNo;

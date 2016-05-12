@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.disney.web.vo.ParkVO;
-import com.disney.web.vo.jieshunapivo.QueryCarByCarnoVO;
-import com.disney.web.vo.jieshunapivo.QueryOrderVO;
+import com.disney.web.vo.jieshunvo.QueryOrderVO;
 
 public class MapToVOUtil {
 
@@ -25,24 +24,6 @@ public class MapToVOUtil {
 		vo.setServiceFee(Double.valueOf(order.get("serviceFee").toString()));
 
 		return vo;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<QueryCarByCarnoVO> mapToQueryCarByCarnoVO(Map<String, Object> map){
-		List<Map<String,Object>> list = (List<Map<String, Object>>) map.get("dataItems");
-		List<QueryCarByCarnoVO> voList = new ArrayList<QueryCarByCarnoVO>();
-		for(Map<String, Object> car:list){
-			Map<String,Object> attrs = (Map<String,Object>) car.get("attributes");
-			QueryCarByCarnoVO vo = new QueryCarByCarnoVO();
-			if(attrs.isEmpty() || attrs.size() <= 0){
-				continue;
-			}
-			vo.setParkingCode((String) attrs.get("parkPlaceCode"));
-			vo.setCarNo((String) attrs.get("carNo"));
-			vo.setInParkingState(true);
-			voList.add(vo);
-		}
-		return voList;
 	}
 
 	@SuppressWarnings("unchecked")
