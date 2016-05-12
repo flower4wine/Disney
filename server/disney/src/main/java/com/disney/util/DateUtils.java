@@ -33,11 +33,12 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
 		System.out.println(DateUtils.nextMonth(start));*/
 	}
 	
-	//整数(秒数)转换为时分格式(xx小时xx分钟)
+	//整数(秒数)转换为时分格式(xx天xx小时xx分钟)
 	 public static String secToTime(int time) {  
 	        String timeStr = null;  
 	        int hour = 0;  
 	        int minute = 0;  
+	        int day = 0;
 	        if (time <= 0)  
 	            return "0分钟";  
 	        else {  
@@ -46,10 +47,15 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
 	                timeStr = unitFormat(minute) + "分钟";  
 	            } else {  
 	                hour = minute / 60;  
-	                if (hour > 99)  
-	                    return "99:59:59";  
-	                minute = minute % 60;  
-	                timeStr = unitFormat(hour) + "小时" + unitFormat(minute) + "分钟";  
+	                if (hour < 24){
+	                	minute = minute % 60;  
+		                timeStr = unitFormat(hour) + "小时" + unitFormat(minute) + "分钟";
+	                }else{
+	                	day = hour / 24;
+	                	hour = hour % 24;
+	                	minute = minute % 60; 
+		                timeStr = unitFormat(day) + "天" + unitFormat(hour) + "小时" + unitFormat(minute) + "分钟";
+	                }
 	            }  
 	        }  
 	        return timeStr;  
