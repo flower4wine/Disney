@@ -1,6 +1,7 @@
 package com.disney.handler.jieshun;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,11 +99,13 @@ public class JieShunServiceImpl implements JieShunService{
 	@Override
 	public Map<String, Object> queryOrderByCarNo(String carNo) throws JSApiException {
 		Map<String, Object>  queryOrder = new HashMap<String, Object>();
-		Map<String, Object> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
+		/*Map<String, Object> queryCarStopByCarno = this.queryCarStopByCarno(carNo);
 		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size() > 0){
-			String orderNo = this.createOrderByCarno(carNo);
-			queryOrder = this.queryOrder(orderNo);
-		}
+			
+		}*/
+		String orderNo = this.createOrderByCarno(carNo);
+		queryOrder = this.queryOrder(orderNo);
+		System.out.println(orderNo + "-" + queryOrder);
 		return queryOrder;
 	}
 	
@@ -113,13 +116,13 @@ public class JieShunServiceImpl implements JieShunService{
 		if(!queryCarStopByCarno.isEmpty() && queryCarStopByCarno.size()>0){
 			String orderNo = this.createOrderByCarno(carNo);
 			Map<String, Object> queryOrder = this.queryOrder(orderNo);
-			//添加微信支付
 			System.out.println(queryOrder);
 		}
 		
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public String createOrderByCarno(String carNo) throws JSApiException {
 		
@@ -149,9 +152,11 @@ public class JieShunServiceImpl implements JieShunService{
 		JSApiResultBO result = ApiHandler.execute(apiBO, loginBo,jieShunConfigHandler.getConfigValue(JSConfigKey.APIURL));
 		Map<String,Object> json =  result.getReturnObject();
 		
-		String r = (String) json.get("orderNo");
+		List<Map<String,Object>> list = (List<Map<String, Object>>) json.get("dataItems");
 		
-		System.out.println(r);
+		Map<String, Object> rulst = (Map<String, Object>) list.get(0).get("attributes");
+		
+		String r = (String) rulst.get("orderNo");;
 		
 		return r;
 	}

@@ -9,20 +9,15 @@ import com.disney.web.vo.jieshunvo.QueryOrderVO;
 
 public class MapToVOUtil {
 
-	@SuppressWarnings("unchecked")
 	public static QueryOrderVO mapToQueryOrderVO(Map<String, Object> map){
-
-		Map<String,Object> order = (Map<String,Object>) map.get("attributes");
-
 		QueryOrderVO vo = new QueryOrderVO();
 
-		vo.setCarNo((String) order.get("carNo"));
-		vo.setOrderNo((String) order.get("orderNo"));
-		vo.setStartTime((String) order.get("startTime"));
-		Integer serviceTime = Integer.valueOf(order.get("serviceTime").toString());
+		vo.setCarNo((String) map.get("carNo"));
+		vo.setOrderNo((String) map.get("orderNo"));
+		vo.setStartTime((String) map.get("startTime"));
+		Integer serviceTime = Integer.valueOf(map.get("serviceTime").toString());
 		vo.setServiceTime(DateUtils.secToTime(serviceTime));
-		vo.setServiceFee(Double.valueOf(order.get("serviceFee").toString()));
-
+		vo.setServiceFee(Double.valueOf(map.get("serviceFee").toString()));
 		return vo;
 	}
 
