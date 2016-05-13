@@ -160,5 +160,15 @@ public class DisneyController {
 		
 		return view;
 	}
+	
+	@RequestMapping("/introduction")
+	public ModelAndView introduction() throws JSApiException {
+
+		String name = "/introduction";
+		
+		ModelAndView view = ViewUtil.view(name);
+		
+		return view;
+	}
 
 }
