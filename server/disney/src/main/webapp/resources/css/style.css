@@ -909,3 +909,47 @@ ul,li {
 	font-size: 180%;
 	letter-spacing: 4px;
 }
+
+/*introduction*/
+.intro-title{
+	background-image: url(<c:url value='/resources/images/introduction/pic.png'/>);
+	width:100%;
+}
+
+.intro-title img{
+	width: 20%;
+}
+
+.intro-page{
+	text-align: center;
+	line-height:25px;
+	padding-bottom: 30px;
+}
+
+.intro-center-div{
+	margin-top:20px;
+}
+
+.intro-center-div span{
+	color: greenyellow;
+}
+
+.intro-img-div{
+	margin: 5%;
+	width: 90%;
+}
+
+.intro-img-div div{
+	float:left;
+	width:45%;
+	margin: 5px;
+}
+
+.intro-img-div div img{
+	width:100%;
+}
+
+.intro-p{
+	text-align: left;
+	text-indent: 2em;
+}
