@@ -47,7 +47,6 @@ public class FileUtil {
 			System.out.println(l.size());
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

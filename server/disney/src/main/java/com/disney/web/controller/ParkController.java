@@ -27,7 +27,9 @@ public class ParkController {
 	public ModelAndView parks() throws JSApiException {
 		String name = "/park/parks";
 		ModelAndView view = ViewUtil.view(name);
+		
 		List<Map<String, Object>> queryParksInfo = parkService.queryParksInfo();
+		
 		List<ParkVO> mapToParkVO = MapToVOUtil.mapToParkVO(queryParksInfo);
 		for (ParkVO parkVO : mapToParkVO) {
 			Park park = parkService.find(parkVO.getJsCode());
@@ -35,6 +37,7 @@ public class ParkController {
 			parkVO.setStatus(park.getStatus());
 			parkVO.setPrice(park.getPrice());
 		}
+		
 		view.addObject("parks", mapToParkVO);
 		return view;
 	}
