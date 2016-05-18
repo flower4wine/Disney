@@ -953,3 +953,46 @@ ul,li {
 	text-align: left;
 	text-indent: 2em;
 }
+
+
+/**parkpay-query***********/
+.park-info-query {
+	text-align: center;
+	background-color: rgba(7, 7, 7, 0.7);
+	height: 100%;
+}
+
+.park-info-query .park-info-title {
+	font-size: 180%;
+	padding: 30px 0 10px 0;
+	letter-spacing: 2px;
+}
+
+.park-info-query .park-info-remark {
+	color: #CCC;
+	padding-bottom: 20px;
+}
+
+.park-info-query .park-info-input {
+	height: 60px;
+	width: 80%;
+	padding: 15px;
+	font-size: 180%;
+	text-align: center;
+	border-radius: 4px;
+	border: none;
+	letter-spacing: 2px;
+}
+
+.park-info-border {
+	padding: 20px 0;
+}
+
+.park-info-btn {
+	width: 80%;
+	margin: 0 auto;
+	padding: 12px 0px;
+	border-radius: 4px;
+	font-size: 180%;
+	letter-spacing: 4px;
+}
