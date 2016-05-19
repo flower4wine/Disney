@@ -482,6 +482,18 @@ namespace testAStar
             //panelMap.BackgroundImage = null;
             //oldImage.Dispose();
 
+            {
+                // 设置保存终点坐标
+                foreach (Cell goalCell in this._goalCells)
+                {
+                    Cell tempGoalCell = _aPathFind.KeyCells.Find(record => record.Name == goalCell.Name);
+                    if (tempGoalCell != null)
+                    {
+                        goalCell.Location = tempGoalCell.Location;
+                    }
+
+                }
+            }
             if (_imgPath != @".\Data\Map.png"
                 && !string.IsNullOrEmpty(_imgPath))
                 File.Copy(_imgPath, @".\Data\Map.png", true);
@@ -686,6 +698,7 @@ namespace testAStar
                 bitmap.Save(@"./Save/" + textBoxMapName.Text + "/ MapIndex.png", ImageFormat.Png);
             }
             MessageBox.Show(@"导出二维码坐标信息完成");
+            SaveMapInfoButton_Click(sender, e);
         }
 
         private void buttonSetGoalCells_Click(object sender, EventArgs e)
@@ -817,6 +830,7 @@ namespace testAStar
                                                             , Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].Y) + Convert.ToSingle(lineWidth) / 2.0F);
 
                                             PointF lastPoint = point1;
+                                            PointF lastDrawPoint = lastPoint;
 
                                             Point[] pathPoints = _aPathFind.PathPoint.ToArray();
 
@@ -833,12 +847,14 @@ namespace testAStar
                                                     && Math.Abs(nextPoint.Y - nowPoint.Y) <= CELL_WIDTH)
                                                     )
                                                 {
+                                                    lastPoint = nowPoint;
                                                     continue;
                                                 }
                                                 else
                                                 {
-                                                    g.DrawLine(p, lastPoint, nowPoint);
+                                                    g.DrawLine(p, lastDrawPoint, nowPoint);
                                                     lastPoint = nowPoint;
+                                                    lastDrawPoint = nowPoint;
                                                 }
                                             }
                                             g.DrawLine(p, lastPoint, point2);
