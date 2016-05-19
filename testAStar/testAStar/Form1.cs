@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 using Svg;
 using System.IO;
+using System.Linq;
 
 namespace testAStar
 {
@@ -243,14 +244,19 @@ namespace testAStar
         {
             _aPathFind.ReSet();
             _aPathFind.MapControlDraw();
-            this.btnCtStoneHand.Enabled = true;
-            // this.btnCtStoneRodom.Enabled = true;
-            this.btnStartSearch.Enabled = true;
+            this.Invoke(new Action(() =>
+            {
+                this.btnCtStoneHand.Enabled = true;
+                // this.btnCtStoneRodom.Enabled = true;
+                this.btnStartSearch.Enabled = true;
+            }));
 
             if (_svgDoc != null)
             {
-                MAP_WIDTH = Convert.ToInt32(_svgDoc.Width.Value *Convert.ToSingle(numericUpDown3.Value));
-                MAP_HEIGHT = Convert.ToInt32(_svgDoc.Height.Value * Convert.ToSingle(numericUpDown3.Value));
+                //MAP_WIDTH = Convert.ToInt32(_svgDoc.Width.Value * Convert.ToSingle(numericUpDown3.Value));
+                //MAP_HEIGHT = Convert.ToInt32(_svgDoc.Height.Value * Convert.ToSingle(numericUpDown3.Value));
+                MAP_WIDTH = Convert.ToInt32(_svgDoc.Width.Value * 15);
+                MAP_HEIGHT = Convert.ToInt32(_svgDoc.Height.Value * 15);
                 CellWidthNumericUpDown.Maximum = MAP_WIDTH < MAP_HEIGHT ? MAP_WIDTH : MAP_HEIGHT;
                 Image oldBitmap = panelMap.BackgroundImage;
                 panelMap.BackgroundImage = _svgDoc.Draw(MAP_WIDTH, MAP_HEIGHT);
@@ -727,8 +733,24 @@ namespace testAStar
                 #region 库内
                 foreach (Cell goalCell in this._goalCells)
                 {
+                    if (string.IsNullOrWhiteSpace(goalCell.From))
+                    {
+                        continue;
+                    }
+
+                    List<string> fromCellsNames = goalCell.From.Split(';').ToList();
+                    for (int i = 0; i < fromCellsNames.Count; i++)
+                    {
+                        fromCellsNames[i] = fromCellsNames[i].PadLeft(4, '0');
+                    }
+
                     foreach (Cell keyCellTemp in keyCellsTemp)
                     {
+                        string keyCellTempName = keyCellTemp.Name.Substring(keyCellTemp.Name.Length - 4);
+                        if (!fromCellsNames.Contains(keyCellTempName))
+                        {
+                            continue;
+                        }
                         if (this._goalCells.FindIndex(record => record.Location.Equals(keyCellTemp.Location)) > -1)
                         {
                             continue;

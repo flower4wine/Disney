@@ -38,6 +38,14 @@ namespace testAStar
         [DataMember(Name = "r")]
         public string Remark { set; get; }
 
+        /// <summary>
+        /// 起始停车区域尾缀 (;分割)
+        /// </summary>
+        [DataMember(Name = "f")]
+        public string From { set; get; }
+
+
+
 
         /// <summary>
         /// 编号

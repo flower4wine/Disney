@@ -244,6 +244,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.Enabled = false;
             this.SaveButton.Location = new System.Drawing.Point(738, 164);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(95, 23);
@@ -382,6 +383,7 @@
             // buttonSetGoalCells
             // 
             this.buttonSetGoalCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSetGoalCells.Enabled = false;
             this.buttonSetGoalCells.Location = new System.Drawing.Point(738, 413);
             this.buttonSetGoalCells.Name = "buttonSetGoalCells";
             this.buttonSetGoalCells.Size = new System.Drawing.Size(95, 23);
@@ -413,6 +415,7 @@
             // textBoxGoals
             // 
             this.textBoxGoals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxGoals.Enabled = false;
             this.textBoxGoals.Location = new System.Drawing.Point(738, 472);
             this.textBoxGoals.Multiline = true;
             this.textBoxGoals.Name = "textBoxGoals";
