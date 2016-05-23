@@ -25,7 +25,8 @@ public class ParkController {
 
 	@RequestMapping("/carport/parks")
 	public ModelAndView parks() throws JSApiException {
-		String name = "/park/parks";
+		//String name = "/park/parks";
+		String name = "/park/new_parks";
 		ModelAndView view = ViewUtil.view(name);
 		
 		List<Map<String, Object>> queryParksInfo = parkService.queryParksInfo();
