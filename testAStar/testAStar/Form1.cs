@@ -681,7 +681,7 @@ namespace testAStar
                     {
                         Point stringLocation = keyCell.Location;
                         stringLocation.X += CELL_WIDTH + 1;
-                        g.DrawString(keyCell.Name.Substring(keyCell.Name.LastIndexOf('-') + 1).Trim('0'), font, colorBrush,
+                        g.DrawString(keyCell.Name.Substring(keyCell.Name.LastIndexOf('-') + 1).TrimStart('0'), font, colorBrush,
                             stringLocation);
 
                         using (Bitmap bitmap2 = new Bitmap(panelMap.Width, panelMap.Height))
