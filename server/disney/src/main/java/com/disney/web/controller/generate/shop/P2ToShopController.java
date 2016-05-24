@@ -21,16 +21,12 @@ public class P2ToShopController  extends GenerateBaseController{
 	@ResponseBody
 	public Map<String,Object> p2Generate(){
 		
-		//从外到内 有14条路线
-		//P1 03-0001-000C
-		// 05-0001-0001(默认)
-		//P1去购物村 全部从03-0001-000C出入口走  外圈 南公交枢纽 坐2站到购物村站(外圈)
-		
 		String parkEntrance = "03-0002-000B";
 		
 		generate("05-0001-0001",parkEntrance);
 		generate("05-0001-0002",parkEntrance);
 		generate("05-0001-0003",parkEntrance);
+		generate("05-0001-0004",parkEntrance);
 		
 		return Ajax.buildSuccessResult();
 	}
