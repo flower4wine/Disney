@@ -16,6 +16,7 @@ import com.disney.dao.LoToLoDao;
 import com.disney.dao.LoToLoStepDao;
 import com.disney.dao.LocationDao;
 import com.disney.dao.QrCodeDao;
+import com.disney.handler.entrance.EntranceHandler;
 import com.disney.model.LoToLo;
 import com.disney.model.LoToLoStep;
 import com.disney.model.Location;
@@ -37,20 +38,11 @@ public class Lo2loServiceImpl implements Lo2loService {
 	@Autowired
 	private QrCodeDao qrCodeDao;
 	
-	//TODO re-factor
+	@Autowired
+	private EntranceHandler entranceHandler;
+	
 	private String loadStartCode(String from,String to){
-		
-		if(from.startsWith("03-0002") && to.startsWith("03-0001")){
-			return "03-0002-000B";
-		}
-		
-		
-		if(from.startsWith("03-0001") && to.startsWith("03-0002")){
-			return "03-0001-000C";
-		}
-		
-		
-		return from;
+		return entranceHandler.getEntrance(from, to);
 	}
 
 	@Override

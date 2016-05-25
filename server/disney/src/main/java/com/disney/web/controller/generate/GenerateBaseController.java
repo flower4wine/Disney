@@ -52,10 +52,17 @@ public class GenerateBaseController  {
 		lo.setToQrCode(to);
 
 		if(lo2loType == Lo2LoType.PARKINNER_2_VIEW){
-			lo.setOutUrl("/resources/img/lotolo/out/"+parkEntrance+"-"+to+".jpg");
+			
+			lo.setOutUrl("/resources/img/lotolo/out/" +to.substring(0,7)+ "/"+parkEntrance+"-"+to+".jpg");
 			lo.setInnerUrl("/resources/img/lotolo/inner/"+from.substring(0,7)+"/"+from+"-"+parkEntrance+".jpg");
-		}else{
-			lo.setOutUrl("/resources/img/lotolo/out/"+from+"-"+parkEntrance+".jpg");
+			
+		}else if(lo2loType == Lo2LoType.VIEW_2_PARKINNER){
+			
+			lo.setOutUrl("/resources/img/lotolo/out/"+from.substring(0,7)+ "/"+from+"-"+parkEntrance+".jpg");
+			lo.setInnerUrl("/resources/img/lotolo/inner/"+to.substring(0,7)+"/"+parkEntrance+"-"+to+".jpg");
+			
+		}else if(lo2loType == Lo2LoType.PARKINNER_2_PARKINNER){
+			lo.setOutUrl("/resources/img/lotolo/out/"+to.substring(0,7)+ "/"+from+"-"+parkEntrance+".jpg");
 			lo.setInnerUrl("/resources/img/lotolo/inner/"+to.substring(0,7)+"/"+parkEntrance+"-"+to+".jpg");
 		}
 
