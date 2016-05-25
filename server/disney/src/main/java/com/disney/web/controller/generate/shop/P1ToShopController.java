@@ -45,14 +45,14 @@ public class P1ToShopController extends GenerateBaseController{
 		 locationService.addFromTo(o2i);
 		 
 		//Generate location to location
-		 for(int i=0;i<50;i++){
+		 for(int i=0;i<32;i++){
 			//inner
 			String from = parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);
 			String to = viewCode;
 			generateLo2Lo(from,to,parkEntrance,i2o,Lo2LoType.PARKINNER_2_VIEW);
 		}
 		 
-		 for(int i=0;i<50;i++){
+		 for(int i=0;i<32;i++){
 			//inner
 			String from = viewCode;
 			String to = parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);
