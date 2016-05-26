@@ -291,25 +291,25 @@ public class GuideDataGenerateController {
       	
       	//生成停车场内部
       	//03-0001 P1停车场    内部
-      	for(int i=0;i<50;i++){
+      	for(int i=0;i<GenerateFix.P1_QRCODE_NUM;i++){
       		locationService.addQrCode("03-0001-"+getNum(i+1), "P1停车场区域"+getNum(i+1),QrCodeType.PARK_INNER);
       	}
       	
       	
       	//03-0002 P1停车场    内部
-      	for(int i=0;i<118;i++){
+      	for(int i=0;i<GenerateFix.P2_QRCODE_NUM;i++){
       		locationService.addQrCode("03-0002-"+getNum(i+1), "P2停车场区域"+getNum(i+1),QrCodeType.PARK_INNER);
       	}
       	
       	
       	//03-0003 P1停车场    内部
-      	for(int i=0;i<67;i++){
+      	for(int i=0;i<GenerateFix.P3_QRCODE_NUM;i++){
       		locationService.addQrCode("03-0003-"+getNum(i+1), "P3停车场区域"+getNum(i+1),QrCodeType.PARK_INNER);
       	}
       	
       	
       	//03-0004 P1停车场    内部
-      	for(int i=0;i<111;i++){
+      	for(int i=0;i<GenerateFix.P4_QRCODE_NUM;i++){
       		locationService.addQrCode("03-0004-"+getNum(i+1), "P4停车场区域"+getNum(i+1),QrCodeType.PARK_INNER);
       	}
       	
