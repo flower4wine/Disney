@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.p2;
+package com.disney.web.controller.generate.p3;
 
 import java.util.Map;
 
@@ -13,35 +13,33 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
-@RequestMapping("/p2")
-public class ToP2Controller extends GenerateBaseController{
-
+@RequestMapping("/p3")
+public class ToP3Controller extends GenerateBaseController{
+	
 	@RequestMapping(value="/p1",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> p1(){
+		String parkEntrances = "03-0003-000C,03-0003-000D,03-0003-000E,03-0003-000F";
+		//String parkEntrance = "03-0003-000C";
 		
-		String parkEntrance = "03-0002-000B";
-		
-		//从P1 03-0001-000C出入口到   P2出入口03-0002-000B 找到车位
-		
-		generate("03-0001-000C",parkEntrance,true);
+		for (String parkEntrance : parkEntrances.split(",")) {
+			//从P1 03-0001-000C出入口分别到   P3出入口C D E F 找到车位
+			generate("03-0001-000C",parkEntrance,true);
+		}
 		return Ajax.buildSuccessResult();
 		
 	}
 	
-	@RequestMapping(value="/p3",method=RequestMethod.GET)
+	@RequestMapping(value="/p2",method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> p3(){
+	public Map<String,Object> p2(){
+		String parkEntrances = "03-0003-000C,03-0003-000D,03-0003-000E,03-0003-000F";
+		//String parkEntrance = "03-0003-000C";
 		
-		String parkEntrance = "03-0002-000A";
-		
-		//从P3 C D E F出入口到   P2出入口03-0002-000B 找到车位
-		
-		generate("03-0003-000C",parkEntrance,false);
-		generate("03-0003-000D",parkEntrance,false);
-		generate("03-0003-000E",parkEntrance,false);
-		generate("03-0003-000F",parkEntrance,false);
-		
+		for (String parkEntrance : parkEntrances.split(",")) {
+			//从P1 03-0001-000C出入口分别到   P3出入口C D E F 找到车位
+			generate("03-0002-000A",parkEntrance,false);
+		}
 		return Ajax.buildSuccessResult();
 		
 	}
@@ -50,18 +48,17 @@ public class ToP2Controller extends GenerateBaseController{
 	@ResponseBody
 	public Map<String,Object> p4(){
 		
-		String parkEntrance = "03-0002-000A";
+		String parkEntrances = "03-0003-000A,03-0003-000B";
 		
-		//从P4 C D出入口到   P2出入口03-0002-000B 找到车位
-		
-		generate("03-0004-000C",parkEntrance,false);
-		generate("03-0004-000D",parkEntrance,false);
+		for (String parkEntrance : parkEntrances.split(",")) {
+			//从P4 C D 出入口分别到   P3出入口03-0003-000A,03-0003-000B 找到车位
+			generate("03-0004-000C",parkEntrance,false);
+			generate("03-0004-000D",parkEntrance,false);
+		}
 		
 		return Ajax.buildSuccessResult();
 		
 	}
-	
-	
 	
 	private void generate(String viewCode,String parkEntrance,boolean bus){
 		//CHECK
@@ -78,7 +75,7 @@ public class ToP2Controller extends GenerateBaseController{
 		 locationService.addFromTo(o2i);
 		 
 		//Generate location to location
-		 for(int i=0;i<113;i++){
+		 for(int i=0;i<63;i++){
 			//inner
 			String from = viewCode;
 			String to = parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);
