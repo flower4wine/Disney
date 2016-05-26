@@ -23,10 +23,36 @@ public class ToP1Controller extends GenerateBaseController{
 		String parkEntrance = "03-0001-000C";
 		
 		//从P2 03-0002-000B出入口到   P1出入口03-0001-000C 找到车位
-		
 		generate("03-0002-000B",parkEntrance);
+		
 		return Ajax.buildSuccessResult();
 		
+	}
+	
+	@RequestMapping(value="/p3",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> p3(){
+		
+		String parkEntrance = "03-0001-000C";
+		
+		//P3到P1 可以从P3 C D E F出入口 到P1的C出入口
+		generate("03-0003-000C",parkEntrance);
+		generate("03-0003-000D",parkEntrance);
+		generate("03-0003-000E",parkEntrance);
+		generate("03-0003-000F",parkEntrance);
+		
+		return Ajax.buildSuccessResult();
+		
+	}
+
+	@RequestMapping(value="/p4",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> p4(){
+		String parkEntrance = "03-0001-000C";
+		//P4
+		generate("03-0004-000C",parkEntrance);
+		generate("03-0004-000D",parkEntrance);
+		return Ajax.buildSuccessResult();
 	}
 	
 	private void generate(String viewCode,String parkEntrance){
@@ -39,7 +65,7 @@ public class ToP1Controller extends GenerateBaseController{
 		 locationService.addFromTo(o2i);
 		 
 		//Generate location to location
-		 for(int i=0;i<50;i++){
+		 for(int i=0;i<32;i++){
 			//inner
 			String from = viewCode;
 			String to =  parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);
