@@ -1,5 +1,7 @@
 package com.disney.web.controller.generate.p4;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -73,14 +75,40 @@ public class ToP4Controller extends GenerateBaseController{
 		}
 		
 		 locationService.addFromTo(o2i);
-		 
-		//Generate location to location
-		 for(int i=0;i<63;i++){
-			//inner
-			String from = viewCode;
-			String to = parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);
-			generateLo2Lo(from,to,parkEntrance,o2i,Lo2LoType.PARKINNER_2_PARKINNER);
-		}
+		 List<Integer> list= new ArrayList<Integer>();
+			
+			if(parkEntrance.equals("03-0004-000C")){
+				for (int i = 1; i <= 25; i++) {
+					list.add(i);
+				}
+				list.add(64);
+				for (int i = 67; i <= 70; i++) {
+					list.add(i);
+				}
+				list.add(74);
+			}else if(parkEntrance.equals("03-0004-000D")){
+				for (int i = 26; i <= 63; i++) {
+					list.add(i);
+				}
+				list.add(65);
+				list.add(66);
+				for (int i = 71; i <= 73; i++) {
+					list.add(i);
+				}
+			}else{
+				for (int i = 1; i <= 74; i++) {
+					list.add(i);
+				}
+			}
+			 locationService.addFromTo(o2i);
+			 
+			//Generate location to location
+			 for (Integer suffix : list) {
+				//inner
+					String from = viewCode;
+					String to = parkEntrance.substring(0,8) + getQrCodeSuffix(suffix);
+					generateLo2Lo(from,to,parkEntrance,o2i,Lo2LoType.PARKINNER_2_PARKINNER);
+			}
 	}
 	
 }
