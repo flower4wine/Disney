@@ -1,5 +1,7 @@
 package com.disney.web.controller.generate.p3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -37,7 +39,7 @@ public class ToP3Controller extends GenerateBaseController{
 		//String parkEntrance = "03-0003-000C";
 		
 		for (String parkEntrance : parkEntrances.split(",")) {
-			//从P1 03-0001-000C出入口分别到   P3出入口C D E F 找到车位
+			//从P2 03-0002-000A出入口分别到   P3出入口C D E F 找到车位
 			generate("03-0002-000A",parkEntrance,false);
 		}
 		return Ajax.buildSuccessResult();
@@ -72,15 +74,54 @@ public class ToP3Controller extends GenerateBaseController{
 			o2i = geFromTo(viewCode, parkEntrance, false, false, null, null, 0);
 		}
 		
+		List<Integer> list= new ArrayList<Integer>();
+		
+		if(parkEntrance.equals("03-0003-000C")){
+			for (int i = 1; i <= 8; i++) {
+				list.add(i);
+			}
+		}else if(parkEntrance.equals("03-0003-000D")){
+			for (int i = 9; i <= 19; i++) {
+				list.add(i);
+			}
+			list.add(63);
+		}else if(parkEntrance.equals("03-0003-000E")){
+			for (int i = 20; i <= 47; i++) {
+				list.add(i);
+			}
+			list.add(58);
+		}else if(parkEntrance.equals("03-0003-000F")){
+			for (int i = 48; i <= 57; i++) {
+				list.add(i);
+			}
+			for (int i = 59; i <= 62; i++) {
+				list.add(i);
+			}
+		}else if(parkEntrance.equals("03-0003-000A")){
+			for (int i = 1; i <= 35; i++) {
+				list.add(i);
+			}
+			list.add(63);
+			
+		}else if(parkEntrance.equals("03-0003-000B")){
+			for (int i = 36; i <= 62; i++) {
+				list.add(i);
+			}
+		}else{
+			for (int i = 1; i <= 63; i++) {
+				list.add(i);
+			}
+		}
 		 locationService.addFromTo(o2i);
 		 
 		//Generate location to location
-		 for(int i=0;i<63;i++){
+		 for (Integer suffix : list) {
 			//inner
-			String from = viewCode;
-			String to = parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);
-			generateLo2Lo(from,to,parkEntrance,o2i,Lo2LoType.PARKINNER_2_PARKINNER);
+				String from = viewCode;
+				String to = parkEntrance.substring(0,8) + getQrCodeSuffix(suffix);
+				generateLo2Lo(from,to,parkEntrance,o2i,Lo2LoType.PARKINNER_2_PARKINNER);
 		}
+		 
 	}
 	
 }

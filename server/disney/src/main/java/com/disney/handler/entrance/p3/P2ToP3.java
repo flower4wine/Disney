@@ -6,7 +6,7 @@ public class P2ToP3 implements ParkEntranceHandler {
 
 	@Override
 	public String getEntrance(String from) {
-		return "03-0002-000B";
+		return "03-0002-000A";
 	}
 
 }
