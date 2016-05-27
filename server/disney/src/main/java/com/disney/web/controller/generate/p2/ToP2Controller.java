@@ -11,6 +11,7 @@ import com.disney.constant.Lo2LoType;
 import com.disney.model.FromToOptimize;
 import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
+import com.disney.web.controller.generate.GenerateFix;
 
 @Controller
 @RequestMapping("/p2")
@@ -78,7 +79,7 @@ public class ToP2Controller extends GenerateBaseController{
 		 locationService.addFromTo(o2i);
 		 
 		//Generate location to location
-		 for(int i=0;i<113;i++){
+		 for(int i=0;i<GenerateFix.P1_QRCODE_NUM;i++){
 			//inner
 			String from = viewCode;
 			String to = parkEntrance.substring(0,8) + getQrCodeSuffix(i+1);

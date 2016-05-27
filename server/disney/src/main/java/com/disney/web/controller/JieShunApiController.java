@@ -34,9 +34,6 @@ public class JieShunApiController {
 		String password = jieShunConfigHandler.getConfigValue(JSConfigKey.PWD);//"123456";
 
 		String version = jieShunConfigHandler.getConfigValue(JSConfigKey.VERSION);//"2";
-		
-		
-		
 
 		String token = jieShunService.getLoginToken(cid, user, password, version);
 
