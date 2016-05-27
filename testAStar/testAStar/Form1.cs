@@ -863,106 +863,146 @@ namespace testAStar
                                     #endregion
                                 }
                                 #region 正向
-                                Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
-                                using (Graphics g = Graphics.FromImage(bitmapTemp))
-                                {
-                                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
 
-                                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
-                                    PointF startImgPoint = new PointF(point1.X - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F// - 5.0F
-                                                            , point1.Y - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);// - 3.0F);
-                                    PointF endImgPoint = new PointF(point2.X - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F// - 5.0F
-                                                            , point2.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);// - 3.0F);
-                                    g.DrawImage(Properties.Resources.MapStart, startImgPoint);
-                                    g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
-                                }
-                                WayInfo wayInfo = new WayInfo
+                                if (checkBoxPark2Door.Checked)
                                 {
-                                    PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + suffixStr,
-                                    From = _aPathFind.StartCell.Name,
-                                    Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
-                                };
-                                wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
-
-                                if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
-                                {
-                                    Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
-                                }
-                                if (suffixStr == @".jpg")
-                                {
-                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
-                                }
-                                else
-                                {
-                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
-                                }
-                                bitmapTemp.Dispose();
-
-                                if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
-                                {
-                                    string[] toStrs = _aPathFind.GoalCell.Remark.Split(';');
-                                    foreach (string toStr in toStrs)
+                                    Bitmap bitmapTemp = (Bitmap) bitmap.Clone();
+                                    using (Graphics g = Graphics.FromImage(bitmapTemp))
                                     {
-                                        WayInfo newWayInfo = wayInfo.Clone();
-                                        newWayInfo.To = toStr;
-                                        wayInfos.Add(newWayInfo);
+                                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+
+                                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+                                        PointF startImgPoint =
+                                            new PointF(
+                                                point1.X - Convert.ToSingle(Properties.Resources.MapStart.Width)/2.0F -
+                                                Convert.ToSingle(lineWidth)/2.0F // - 5.0F
+                                                ,
+                                                point1.Y - Convert.ToSingle(Properties.Resources.MapStart.Width)/2.0F -
+                                                Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
+                                        PointF endImgPoint =
+                                            new PointF(
+                                                point2.X - Convert.ToSingle(Properties.Resources.MapEnd.Width)/2.0F -
+                                                Convert.ToSingle(lineWidth)/2.0F // - 5.0F
+                                                ,
+                                                point2.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width)/2.0F -
+                                                Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
+                                        g.DrawImage(Properties.Resources.MapStart, startImgPoint);
+                                        g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
                                     }
+                                    WayInfo wayInfo = new WayInfo
+                                    {
+                                        PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + suffixStr,
+                                        From = _aPathFind.StartCell.Name,
+                                        Distance =
+                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length)*ruleWidth/rulePix))
+                                    };
+                                    wayInfo.Time =
+                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance)/numericUpDown2.Value);
+
+                                    if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
+                                    {
+                                        Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text +
+                                                                  wayInfo.InnerDirPath);
+                                    }
+                                    if (suffixStr == @".jpg")
+                                    {
+                                        bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner,
+                                            ImageFormat.Jpeg);
+                                    }
+                                    else
+                                    {
+                                        bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner,
+                                            ImageFormat.Png);
+                                    }
+                                    bitmapTemp.Dispose();
+
+                                    if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
+                                    {
+                                        string[] toStrs = _aPathFind.GoalCell.Remark.Split(';');
+                                        foreach (string toStr in toStrs)
+                                        {
+                                            WayInfo newWayInfo = wayInfo.Clone();
+                                            newWayInfo.To = toStr;
+                                            wayInfos.Add(newWayInfo);
+                                        }
+                                    }
+                                    wayInfo.To = _aPathFind.GoalCell.Name;
+                                    wayInfos.Add(wayInfo);
                                 }
-                                wayInfo.To = _aPathFind.GoalCell.Name;
-                                wayInfos.Add(wayInfo);
+
                                 #endregion 正向
 
                                 #region 反向
-                                bitmapTemp = (Bitmap)bitmap.Clone();
-                                using (Graphics g = Graphics.FromImage(bitmapTemp))
-                                {
-                                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
 
-                                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
-                                    PointF startImgPoint = new PointF(point2.X - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F
-                                                            , point2.Y - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);
-                                    PointF endImgPoint = new PointF(point1.X - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F
-                                                            , point1.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);
-                                    
-                                    g.DrawImage(Properties.Resources.MapStart, startImgPoint);
-                                    g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
-                                }
-                                wayInfo = new WayInfo
+                                if (checkBoxDoor2Park.Checked)
                                 {
-                                    PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + suffixStr,
-                                    To = _aPathFind.StartCell.Name,
-                                    Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
-                                };
-                                wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
-
-                                if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
-                                {
-                                    Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
-                                }
-                                if (suffixStr == @".jpg")
-                                {
-                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
-                                }
-                                else
-                                {
-                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
-                                }
-                                bitmapTemp.Dispose();
-
-                                if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
-                                {
-                                    string[] toStrs = _aPathFind.GoalCell.Remark.Split(';');
-                                    foreach (string toStr in toStrs)
+                                    Bitmap bitmapTemp = (Bitmap) bitmap.Clone();
+                                    using (Graphics g = Graphics.FromImage(bitmapTemp))
                                     {
-                                        WayInfo newWayInfo = wayInfo.Clone();
-                                        newWayInfo.From = toStr;
-                                        wayInfos.Add(newWayInfo);
+                                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+
+                                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+                                        PointF startImgPoint =
+                                            new PointF(
+                                                point2.X - Convert.ToSingle(Properties.Resources.MapStart.Width)/2.0F -
+                                                Convert.ToSingle(lineWidth)/2.0F
+                                                ,
+                                                point2.Y - Convert.ToSingle(Properties.Resources.MapStart.Width)/2.0F -
+                                                Convert.ToSingle(lineWidth)/2.0F);
+                                        PointF endImgPoint =
+                                            new PointF(
+                                                point1.X - Convert.ToSingle(Properties.Resources.MapEnd.Width)/2.0F -
+                                                Convert.ToSingle(lineWidth)/2.0F
+                                                ,
+                                                point1.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width)/2.0F -
+                                                Convert.ToSingle(lineWidth)/2.0F);
+
+                                        g.DrawImage(Properties.Resources.MapStart, startImgPoint);
+                                        g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
                                     }
+                                    WayInfo wayInfo = new WayInfo
+                                    {
+                                        PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + suffixStr,
+                                        To = _aPathFind.StartCell.Name,
+                                        Distance =
+                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length)*ruleWidth/rulePix))
+                                    };
+                                    wayInfo.Time =
+                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance)/numericUpDown2.Value);
+
+                                    if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
+                                    {
+                                        Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text +
+                                                                  wayInfo.InnerDirPath);
+                                    }
+                                    if (suffixStr == @".jpg")
+                                    {
+                                        bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner,
+                                            ImageFormat.Jpeg);
+                                    }
+                                    else
+                                    {
+                                        bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner,
+                                            ImageFormat.Png);
+                                    }
+                                    bitmapTemp.Dispose();
+
+                                    if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
+                                    {
+                                        string[] toStrs = _aPathFind.GoalCell.Remark.Split(';');
+                                        foreach (string toStr in toStrs)
+                                        {
+                                            WayInfo newWayInfo = wayInfo.Clone();
+                                            newWayInfo.From = toStr;
+                                            wayInfos.Add(newWayInfo);
+                                        }
+                                    }
+                                    wayInfo.From = _aPathFind.GoalCell.Name;
+                                    wayInfos.Add(wayInfo);
                                 }
-                                wayInfo.From = _aPathFind.GoalCell.Name;
-                                wayInfos.Add(wayInfo);
+
                                 #endregion 反向
                             }
                         }
