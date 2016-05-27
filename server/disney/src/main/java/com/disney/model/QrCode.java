@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="qr_code",catalog="disney")
+@Table(name="qr_code")
 public class QrCode implements Serializable {
 
 	private static final long serialVersionUID = 6241861776870818281L;
@@ -23,6 +23,8 @@ public class QrCode implements Serializable {
 	private String orderNo;
 	private String qrUrl;
 	private Integer qrCodeType;
+	
+	private Boolean nearEntra = false;
 	
     @Id
   	@GeneratedValue(strategy = IDENTITY)
@@ -62,6 +64,8 @@ public class QrCode implements Serializable {
 	public String getQrUrl() {
 		return qrUrl;
 	}
+	
+
 	public void setQrUrl(String qrUrl) {
 		this.qrUrl = qrUrl;
 	}
@@ -74,5 +78,12 @@ public class QrCode implements Serializable {
 		this.qrCodeType = qrCodeType;
 	}
 	
+	@Column
+	public Boolean getNearEntra() {
+		return nearEntra;
+	}
+	public void setNearEntra(Boolean nearEntra) {
+		this.nearEntra = nearEntra;
+	}
 
 }
