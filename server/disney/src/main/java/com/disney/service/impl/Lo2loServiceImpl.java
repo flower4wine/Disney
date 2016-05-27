@@ -131,21 +131,4 @@ public class Lo2loServiceImpl implements Lo2loService {
 	}
 	
 
-	@Override
-	public void saveLo2Lo(LoToLo lo2lo, List<LoToLoStep> steps) {
-
-		LoToLo orgin = loToLoDao.find(lo2lo.getFromQrCode(), lo2lo.getToQrCode());
-
-		if(orgin!=null){
-			return;
-		}
-
-		loToLoDao.save(lo2lo);
-
-		for(LoToLoStep step:steps){
-			step.setLoToLoId(lo2lo.getId());
-			loToLoStepDao.save(step);
-		}
-
-	}
 }
