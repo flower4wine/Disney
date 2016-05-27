@@ -24,6 +24,8 @@ public class QrCode implements Serializable {
 	private String qrUrl;
 	private Integer qrCodeType;
 	
+	private Boolean nearEntra = false;
+	
     @Id
   	@GeneratedValue(strategy = IDENTITY)
   	@Column(name = "id", unique = true, nullable = false)
@@ -62,6 +64,8 @@ public class QrCode implements Serializable {
 	public String getQrUrl() {
 		return qrUrl;
 	}
+	
+
 	public void setQrUrl(String qrUrl) {
 		this.qrUrl = qrUrl;
 	}
@@ -74,5 +78,12 @@ public class QrCode implements Serializable {
 		this.qrCodeType = qrCodeType;
 	}
 	
+	@Column
+	public Boolean getNearEntra() {
+		return nearEntra;
+	}
+	public void setNearEntra(Boolean nearEntra) {
+		this.nearEntra = nearEntra;
+	}
 
 }

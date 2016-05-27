@@ -13,6 +13,7 @@ import com.disney.constant.Lo2LoType;
 import com.disney.model.FromToOptimize;
 import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
+import com.disney.web.controller.generate.GenerateFix;
 
 @Controller
 @RequestMapping("/p3")
@@ -108,7 +109,7 @@ public class ToP3Controller extends GenerateBaseController{
 				list.add(i);
 			}
 		}else{
-			for (int i = 1; i <= 63; i++) {
+			for (int i = 1; i <= GenerateFix.P3_QRCODE_NUM; i++) {
 				list.add(i);
 			}
 		}

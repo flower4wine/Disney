@@ -237,7 +237,12 @@ public class Leave2ParkController {
 			}
 			
 			if(bo!=null){
-				view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.IN));
+				//TODO 根据 parkLocation判断停车位置是否靠近出入口  如果靠近出入口需要 忽略内部导览。 通过LoToLoBO 返回判断
+				if(bo.isIgnoreInner()){
+					view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.IN,true));
+				}else{
+					view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.IN));
+				}
 			}
 			
 		}else{

@@ -17,6 +17,16 @@ public class LoToLoBO {
 	private String innerUrl;
 	private String outUrl;
 	
+	
+	private boolean ignoreInner = false;
+	
+	
+	public boolean isIgnoreInner() {
+		return ignoreInner;
+	}
+	public void setIgnoreInner(boolean ignoreInner) {
+		this.ignoreInner = ignoreInner;
+	}
 	public QrCodeBO getFrom() {
 		return from;
 	}
