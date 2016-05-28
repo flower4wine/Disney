@@ -44,8 +44,8 @@ public class P4ToShopController extends GenerateBaseController{
 				"58,59,60,61,65,66,74");
 		
 		
-		generate(cList,"03-0003-000C",viewCode);
-		generate(dList,"03-0003-000D",viewCode);
+		generate(cList,"03-0004-000C",viewCode);
+		generate(dList,"03-0004-000D",viewCode);
 
 	}
 
