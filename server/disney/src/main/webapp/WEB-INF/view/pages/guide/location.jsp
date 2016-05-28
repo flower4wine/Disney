@@ -62,15 +62,6 @@
 	</div>
 	
 	
-	<!-- <div  class="btn_handler btn_minus_pos">
-		<i class="fa fa-minus"></i>
-	</div>
-	
-	<div  class="btn_handler btn_plus_pos">
-		<i class="fa fa-plus"></i>
-	</div> -->
-	
-	
 	<form>
 		<input type="hidden" id="timestamp" value="${timestamp}" /> 
 		<input type="hidden" id="nonceStr" value="${nonceStr}" /> 
@@ -82,8 +73,6 @@
 	<script type="text/javascript">
 		window.onload = function() {
 			resetGuideMap();
-			/* $(".btn_minus_pos").on('click',minGuideMapImg);
-			$(".btn_plus_pos").on('click',maxGuideMapImg); */
 			
 			var timestamp = $("#timestamp").val();//时间戳
 			var nonceStr = $("#nonceStr").val();//随机串

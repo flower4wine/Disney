@@ -20,6 +20,7 @@ import com.disney.handler.entrance.EntranceHandler;
 import com.disney.model.LoToLo;
 import com.disney.model.LoToLoStep;
 import com.disney.model.Location;
+import com.disney.model.QrCode;
 import com.disney.service.Lo2loService;
 
 @Service
@@ -48,17 +49,25 @@ public class Lo2loServiceImpl implements Lo2loService {
 	@Override
 	public LoToLoBO loadLoToLoBO(String from,String to){
 		
+		
 		Location locFrom = locationDao.find(from);
 		Location locTo = locationDao.find(to.substring(0,7));
 		
+		Location locToCode = locationDao.find(to);
+		
+		
+		QrCode fromQrcode = qrCodeDao.find(from);
+		QrCode toQrcode = qrCodeDao.find(to);
+		
+		
 		//处理Leave Location 如果从停车场内部离开
-		if(qrCodeDao.find(from).getQrCodeType() == QrCodeType.PARK_INNER && qrCodeDao.find(to).getQrCodeType() == QrCodeType.PARK_INNER){
+		if(fromQrcode.getQrCodeType() == QrCodeType.PARK_INNER && toQrcode.getQrCodeType() == QrCodeType.PARK_INNER){
 			from = loadStartCode(from,to);
 		}
 
 		LoToLo lo2lo = loToLoDao.find(from, to);
 
-		if(lo2lo!=null && locFrom != null && locTo != null){
+		if(lo2lo!=null && locFrom != null && locTo != null && locToCode != null){
 			LoToLoBO bo = new LoToLoBO();
 
 			bo.setFrom(getQrCodeBO(locFrom.getName()));
@@ -76,6 +85,22 @@ public class Lo2loServiceImpl implements Lo2loService {
 			bo.setInnerSteps(getStepList(ins));
 			bo.setOutSteps(getStepList(outs));
 
+			
+			/*
+			 * TODO 增加判断 是否忽略内部导览
+			 * 1. 如果停车场内部 到 景点   且from 靠近停车场出入口  需要忽略内部导览
+			 * 2. 如果景点到停车场内部    且to靠近停车场出入口 需要忽略内部导览
+			 * 3. 如果停车场内部到停车场内部  如果to靠近停车场出入口  需要忽略内部导览
+			 */
+			if(fromQrcode.getQrCodeType() == QrCodeType.PARK_INNER && toQrcode.getQrCodeType() == QrCodeType.VIEW_ENTRANCE){
+				if(fromQrcode.getNearEntra()){
+					bo.setIgnoreInner(true);
+				}
+			}else{
+				if(toQrcode.getNearEntra()){
+					bo.setIgnoreInner(true);
+				}
+			}
 
 			return bo;
 		}
@@ -106,21 +131,4 @@ public class Lo2loServiceImpl implements Lo2loService {
 	}
 	
 
-	@Override
-	public void saveLo2Lo(LoToLo lo2lo, List<LoToLoStep> steps) {
-
-		LoToLo orgin = loToLoDao.find(lo2lo.getFromQrCode(), lo2lo.getToQrCode());
-
-		if(orgin!=null){
-			return;
-		}
-
-		loToLoDao.save(lo2lo);
-
-		for(LoToLoStep step:steps){
-			step.setLoToLoId(lo2lo.getId());
-			loToLoStepDao.save(step);
-		}
-
-	}
 }

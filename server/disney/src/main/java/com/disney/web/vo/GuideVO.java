@@ -110,7 +110,12 @@ public class GuideVO {
 		vo.setTime(bo.getTime());
 		vo.setDistince(bo.getDistince());
 		vo.setOutPic(bo.getOutUrl());
-		vo.setInnerPic(bo.getInnerUrl());
+		
+		if(ignoreInner){
+			vo.setInnerPic(null);
+		}else{
+			vo.setInnerPic(bo.getInnerUrl());
+		}
 		
 		return vo;
 		
