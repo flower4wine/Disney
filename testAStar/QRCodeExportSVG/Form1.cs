@@ -26,7 +26,7 @@ namespace WindowsFormsApplication1
             {
                 Description = @"请选择保存输出图件的文件夹",
                 ShowNewFolderButton = true,
-                RootFolder = Environment.SpecialFolder.MyComputer
+                SelectedPath = Environment.CurrentDirectory,
             };
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
@@ -36,17 +36,39 @@ namespace WindowsFormsApplication1
                 {
                     qRCodeUrlInfos = JsonConvert.DeserializeObject<List<QRCodeUrlInfo>>(textBox1.Text);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    
+                    MessageBox.Show(ex.Message);
                 }
-                foreach (QRCodeUrlInfo qRCodeUrlInfo in qRCodeUrlInfos)
+                try
                 {
-                    WebClient wc = new WebClient();
-                    string xxx = System.Web.HttpUtility.UrlEncode(qRCodeUrlInfo.Url, Encoding.UTF8);
-                    string url = "http://liantu.com/savevector.php?text=" + xxx + "&el=Q&m=15&vt=svg";
-                    wc.DownloadFile(url, fileDialog.SelectedPath + "\\" + qRCodeUrlInfo.Name+".svg");
+                    foreach (QRCodeUrlInfo qRCodeUrlInfo in qRCodeUrlInfos)
+                    {
+                        WebClient wc = new WebClient();
+                        string xxx = System.Web.HttpUtility.UrlEncode(qRCodeUrlInfo.Url, Encoding.UTF8);
+                        string url = "http://www.liantu.com/savevector.php?text=" + xxx + "&el=Q&m=15&vt=svg";
+                        wc.DownloadFile(url, fileDialog.SelectedPath + "\\" + qRCodeUrlInfo.Name + ".svg");
+                    }
+                    MessageBox.Show("导出完成");
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Multiselect = false;
+            fileDialog.Title = "请选择数据文件";
+            fileDialog.Filter = "所有文件(*.*)|*.*";
+            
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string file = fileDialog.FileName;
+                textBox1.Text = System.IO.File.ReadAllText(file);
             }
         }
     }

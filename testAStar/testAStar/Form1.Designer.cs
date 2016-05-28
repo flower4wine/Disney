@@ -74,9 +74,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.checkBoxPark2Door = new System.Windows.Forms.CheckBox();
-            this.checkBoxDoor2Park = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CellWidthNumericUpDown)).BeginInit();
@@ -85,7 +82,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMap
@@ -650,46 +646,11 @@
             0,
             0});
             // 
-            // panel3
-            // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.checkBoxDoor2Park);
-            this.panel3.Controls.Add(this.checkBoxPark2Door);
-            this.panel3.Location = new System.Drawing.Point(742, 581);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(219, 71);
-            this.panel3.TabIndex = 49;
-            // 
-            // checkBoxPark2Door
-            // 
-            this.checkBoxPark2Door.AutoSize = true;
-            this.checkBoxPark2Door.Checked = true;
-            this.checkBoxPark2Door.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPark2Door.Location = new System.Drawing.Point(14, 16);
-            this.checkBoxPark2Door.Name = "checkBoxPark2Door";
-            this.checkBoxPark2Door.Size = new System.Drawing.Size(84, 16);
-            this.checkBoxPark2Door.TabIndex = 0;
-            this.checkBoxPark2Door.Text = "车位到出口";
-            this.checkBoxPark2Door.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDoor2Park
-            // 
-            this.checkBoxDoor2Park.AutoSize = true;
-            this.checkBoxDoor2Park.Checked = true;
-            this.checkBoxDoor2Park.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDoor2Park.Location = new System.Drawing.Point(14, 42);
-            this.checkBoxDoor2Park.Name = "checkBoxDoor2Park";
-            this.checkBoxDoor2Park.Size = new System.Drawing.Size(84, 16);
-            this.checkBoxDoor2Park.TabIndex = 1;
-            this.checkBoxDoor2Park.Text = "出口到车位";
-            this.checkBoxDoor2Park.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(966, 748);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -742,8 +703,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -794,9 +753,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.CheckBox checkBoxDoor2Park;
-        private System.Windows.Forms.CheckBox checkBoxPark2Door;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;

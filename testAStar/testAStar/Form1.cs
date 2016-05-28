@@ -864,7 +864,7 @@ namespace testAStar
                                 }
                                 #region 正向
 
-                                if (checkBoxPark2Door.Checked)
+                                if (goalCell.ExportType != "in")
                                 {
                                     Bitmap bitmapTemp = (Bitmap) bitmap.Clone();
                                     using (Graphics g = Graphics.FromImage(bitmapTemp))
@@ -935,7 +935,7 @@ namespace testAStar
 
                                 #region 反向
 
-                                if (checkBoxDoor2Park.Checked)
+                                if (goalCell.ExportType!="out")
                                 {
                                     Bitmap bitmapTemp = (Bitmap) bitmap.Clone();
                                     using (Graphics g = Graphics.FromImage(bitmapTemp))

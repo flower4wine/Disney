@@ -44,6 +44,12 @@ namespace testAStar
         [DataMember(Name = "f")]
         public string From { set; get; }
 
+        /// <summary>
+        /// 导出模式 in:出入口到停车区域 out:停车区域到出入口 其它:全部导出
+        /// </summary>
+        [DataMember(Name = "export_type")]
+        public string ExportType { set; get; }
+
 
 
 
