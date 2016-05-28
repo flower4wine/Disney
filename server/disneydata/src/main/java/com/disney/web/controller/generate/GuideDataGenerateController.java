@@ -1,6 +1,7 @@
 package com.disney.web.controller.generate;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.disney.constant.QrCodeType;
-import com.disney.handler.wechat.WeChatHandler;
-import com.disney.model.FromToOptimize;
 import com.disney.model.Location;
-import com.disney.model.QrCode;
 import com.disney.service.LocationService;
-import com.disney.util.WeChatCreateQrCodeUtil;
+import com.disney.util.Ajax;
 
 @Controller
 public class GuideDataGenerateController {
@@ -24,10 +22,7 @@ public class GuideDataGenerateController {
 	@Autowired
 	private LocationService locationService;
 	
-	@Autowired
-	private WeChatHandler weChatHandler;
-	
-	@RequestMapping(value="/batchUpdateQrCode",method=RequestMethod.GET)
+/*	@RequestMapping(value="/batchUpdateQrCode",method=RequestMethod.GET)
 	@ResponseBody
 	public String batchUpdateQrCode() throws Exception {
 		
@@ -49,13 +44,11 @@ public class GuideDataGenerateController {
 	@RequestMapping(value="/cleanBeforeGenerate",method=RequestMethod.GET)
 	@ResponseBody
 	public String cleanBeforeGenerate() throws IOException {
-		
     	return "OK";
-    	
-	}
+	}*/
 	
 	
-	@RequestMapping(value="/reset",method=RequestMethod.GET)
+	/*@RequestMapping(value="/reset",method=RequestMethod.GET)
 	@ResponseBody
 	public String reset() throws IOException {
 		cleanBeforeGenerate();
@@ -66,36 +59,36 @@ public class GuideDataGenerateController {
 		
     	return "OK";
     	
-	}
+	}*/
 
 	@RequestMapping(value="/generateParentLocation",method=RequestMethod.GET)
 	@ResponseBody
-	public String generateParentLocation() throws IOException {
+	public  Map<String,Object>  generateParentLocation() throws IOException {
 		
 		createParentLoc();
-    	return "OK";
+    	return Ajax.buildSuccessResult();
     	
 	}
 	
 	@RequestMapping(value="/generateQrCode",method=RequestMethod.GET)
 	@ResponseBody
-	public String generateQrCode() throws IOException {
+	public  Map<String,Object>  generateQrCode() throws IOException {
 		
 		createQrCodeData();
-    	return "OK";
+		return Ajax.buildSuccessResult();
     	
 	}
 	
-	@RequestMapping(value="/generateFromToData",method=RequestMethod.GET)
+/*	@RequestMapping(value="/generateFromToData",method=RequestMethod.GET)
 	@ResponseBody
 	public String generateFromToData() throws IOException {
 		createFromToData();
     	return "OK";
     	
-	}
+	}*/
 	
 	
-	private void createFromToData(){
+	/*private void createFromToData(){
     	//从外到内 有14条路线
 		//P1 03-0001-000C
     	// 05-0001-0001(默认)
@@ -152,7 +145,7 @@ public class GuideDataGenerateController {
     	ft.setBusStationNum(busStationNum);
     	
     	locationService.addFromTo(ft);
-    }
+    }*/
 	
     private Location getLocation(String name,String code,Integer type){
     	Location l = new Location();
