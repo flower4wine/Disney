@@ -13,6 +13,7 @@ import com.disney.constant.Lo2LoType;
 import com.disney.model.FromToOptimize;
 import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
+import com.disney.web.controller.generate.GenerateFix;
 
 @Controller
 @RequestMapping("/p4")
@@ -96,7 +97,7 @@ public class ToP4Controller extends GenerateBaseController{
 					list.add(i);
 				}
 			}else{
-				for (int i = 1; i <= 74; i++) {
+				for (int i = 1; i <= GenerateFix.P4_QRCODE_NUM; i++) {
 					list.add(i);
 				}
 			}
