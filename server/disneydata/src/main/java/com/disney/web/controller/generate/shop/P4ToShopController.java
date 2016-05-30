@@ -36,12 +36,9 @@ public class P4ToShopController extends GenerateBaseController{
 		List<Integer> cList = new ArrayList<Integer>();
 		List<Integer> dList = new ArrayList<Integer>();
 
-		addCodeToList(cList,"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19," +
-				"56,57,62,63,64,67,68,69,70,71,72,73");
+		addCodeToList(cList,"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,64,67,68,69,70,74");
 		
-		addCodeToList(cList,"20,21,22," +
-				"30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56," +
-				"58,59,60,61,65,66,74");
+		addCodeToList(dList,"26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,65,66,71,72,73");
 		
 		
 		generate(cList,"03-0004-000C",viewCode);
