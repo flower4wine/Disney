@@ -14,3 +14,4 @@ server/*/.project
 server/*/.myumldata
 server/disneydata/src/main/webapp/WEB-INF/lib/
 server/disneydata/src/main/webapp/META-INF/MANIFEST.MF
+*.jpg
