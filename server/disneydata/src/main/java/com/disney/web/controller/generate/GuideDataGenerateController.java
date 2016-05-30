@@ -246,6 +246,8 @@ public class GuideDataGenerateController {
       	//03-0002 P2停车场
       	locationService.addQrCode("03-0002-000A", "P2停车场出入口A",QrCodeType.PARK_ENTRANCE);
       	locationService.addQrCode("03-0002-000B", "P2停车场出入口B",QrCodeType.PARK_ENTRANCE);
+      	locationService.addQrCode("03-0002-000C", "P2停车场出入口C",QrCodeType.PARK_ENTRANCE);
+      	locationService.addQrCode("03-0002-000D", "P2停车场出入口D",QrCodeType.PARK_ENTRANCE);
       	
       	//03-0003 P3停车场
       	locationService.addQrCode("03-0003-000A", "P3停车场出入口A",QrCodeType.PARK_ENTRANCE);
