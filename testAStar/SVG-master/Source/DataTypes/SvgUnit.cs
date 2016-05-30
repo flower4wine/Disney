@@ -49,6 +49,7 @@ namespace Svg
         public float Value
         {
             get { return this._value; }
+            set { this._value = value; }
         }
 
         /// <summary>
