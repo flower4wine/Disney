@@ -135,7 +135,7 @@ namespace WindowsFormsApplication1
                         SvgUnitType svgUnitType = minX.Type;
                         #endregion
 
-
+                        #region 进行位置计算
                         foreach (SvgElement element in svgDoc.Children)
                         {
                             if (element is SvgRectangle)
@@ -158,14 +158,17 @@ namespace WindowsFormsApplication1
                                 }
                             }
                         }
+                        #endregion
+
                         svgDoc.Width = maxX;
                         svgDoc.Height = maxY;
                         svgDoc.ViewBox =new SvgViewBox(0,0, maxX.Value, maxY.Value);
 
                         var svgXml = svgDoc.GetXML();
                         File.WriteAllText(svgFileFullName, svgXml);
+                        File.Delete(svgTempFileFullName);
                     }
-                    MessageBox.Show("导出完成");
+                    MessageBox.Show(@"导出完成");
                 }
                 catch(Exception ex)
                 {
