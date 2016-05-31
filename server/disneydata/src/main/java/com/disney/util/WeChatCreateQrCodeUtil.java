@@ -24,7 +24,7 @@ public class WeChatCreateQrCodeUtil {
 
 		if (null != jsonObject) {
 			result = jsonObject.get("url").toString();
-			System.out.println(result);
+			System.out.println(sceneStr+":"+result);
 		}
 
 		return result;

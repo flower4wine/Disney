@@ -86,6 +86,13 @@ public interface LocationService {
 	 */
 	public QrCode findQrCode(String qrCodeUrl);
 	
+	/**
+	 * 根据场景二维码URL 查找二维码
+	 * @param qrCodeUrl
+	 * @return
+	 */
+	public QrCode findQrCodeByCode(String code);
+	
 	
 	void updateQrCode(QrCode code);
 

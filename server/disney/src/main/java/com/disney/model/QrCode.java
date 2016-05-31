@@ -26,6 +26,11 @@ public class QrCode implements Serializable {
 	
 	private Boolean nearEntra = false;
 	
+	private String region;
+	private String codeRange;
+	private String size;
+	private String style;
+	
     @Id
   	@GeneratedValue(strategy = IDENTITY)
   	@Column(name = "id", unique = true, nullable = false)
@@ -85,5 +90,36 @@ public class QrCode implements Serializable {
 	public void setNearEntra(Boolean nearEntra) {
 		this.nearEntra = nearEntra;
 	}
-
+	
+	@Column
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	
+	@Column
+	public String getCodeRange() {
+		return codeRange;
+	}
+	public void setCodeRange(String codeRange) {
+		this.codeRange = codeRange;
+	}
+	
+	@Column
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	
+	@Column
+	public String getStyle() {
+		return style;
+	}
+	public void setStyle(String style) {
+		this.style = style;
+	}
 }

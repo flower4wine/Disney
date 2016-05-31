@@ -6,6 +6,12 @@
 
 <body class="bg-color-black">
 
+	<div style="position:fixed;top: 30px;right: 20px;background-color: #ccc;padding:8px;border-radius: 50%;font-size: 150%;">
+		<a href="<c:url value= '/scanTool.html' />">
+			<i class="fa fa-wrench" aria-hidden="true"></i>
+		</a>
+	</div>
+
 	<div class="idx_top">
 
 		<div>

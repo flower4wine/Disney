@@ -40,6 +40,12 @@ public interface LocationService {
 	 */
 	public QrCode findQrCode(String qrCodeUrl);
 	
+	/**
+	 * 根据场景二维码code 查找二维码
+	 * @param code
+	 * @return
+	 */
+	public QrCode findQrCodeByCode(String code);
 	
 	
 	
