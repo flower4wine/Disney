@@ -25,6 +25,7 @@ import com.disney.util.DateUtils;
 import com.disney.util.MapToVOUtil;
 import com.disney.util.ViewUtil;
 import com.disney.util.WeChatBaseUtil;
+import com.disney.web.vo.QrCodeVerifyVO;
 import com.disney.web.vo.jieshunvo.QueryOrderVO;
 
 @Controller
@@ -41,12 +42,62 @@ public class DisneyController {
 	
 	@Autowired
 	private ParkService parkService;
-
-
+	
 	@RequestMapping("/disney")
 	public String index() {
 		return "redirect:index.html";
 	}
+	
+	@RequestMapping("/scanTool")
+	public ModelAndView scanTool(HttpServletRequest request) throws Exception {
+		
+		ModelAndView view = ViewUtil.view("/scan");
+		
+		//Get WeXin info
+		String url =  weChatHandler.getDomain() + request.getRequestURI();  
+		String queryString = request.getQueryString();
+		String localUrl = url + (StringUtils.isEmpty(queryString) ? "" : "?" + queryString);
+		String jsTicket =  weChatHandler.jsTicket();
+
+		String nonceStr =  WeChatBaseUtil.getNonceStr();
+		String timestamp = WeChatBaseUtil.getTimestamp();
+		String signature = WeChatBaseUtil.getSignature(nonceStr, timestamp, jsTicket, localUrl);
+
+		view.addObject("appId", weChatHandler.appId());
+		view.addObject("timestamp", timestamp);
+		view.addObject("nonceStr", nonceStr);
+		view.addObject("signature", signature);
+		
+		return view;
+	}
+	
+	@RequestMapping("/scanVerify")
+	@ResponseBody
+	public Map<String,Object> scanVerify(String url) {
+		
+		QrCode code = locationService.findQrCode(url);
+		String returnCode = "";
+
+		if(code != null){
+			returnCode = code.getQrCode();
+		}
+		
+		//根据二维码号牌 解析内容
+		if(StringUtils.isNotEmpty(returnCode)){
+			//二维码核验VO
+			QrCode map = locationService.findQrCodeByCode(returnCode);
+			QrCodeVerifyVO vo = QrCodeVerifyVO.getVO(map);
+			
+			if(vo!=null){
+				return Ajax.getSuccessReturnMapWithData(vo);
+			}
+			
+		}
+
+		return Ajax.buildErrorResult("未找到二维码信息。");
+		
+	}
+	
 
 	@RequestMapping("/index")
 	public ModelAndView index(HttpServletRequest request) throws Exception {

@@ -215,4 +215,10 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 
+	@Override
+	public QrCode findQrCodeByCode(String code) {
+		return qrCodeDao.find(code);
+	}
+
+
 }

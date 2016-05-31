@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.disney.constant.QrCodeType;
+import com.disney.handler.codecheck.ExcelCodeLoader;
 import com.disney.model.Location;
+import com.disney.model.QrCode;
 import com.disney.service.LocationService;
 import com.disney.util.Ajax;
+import com.disney.web.vo.QrCodeVerifyVO;
 
 @Controller
 public class GuideDataGenerateController {
@@ -22,44 +25,40 @@ public class GuideDataGenerateController {
 	@Autowired
 	private LocationService locationService;
 	
-/*	@RequestMapping(value="/batchUpdateQrCode",method=RequestMethod.GET)
+	@Autowired
+	private ExcelCodeLoader excelCodeLoader;
+	
+	
+	
+	@RequestMapping(value="/batchUpdateQrCode",method=RequestMethod.GET)
 	@ResponseBody
-	public String batchUpdateQrCode() throws Exception {
+	public  Map<String,Object> batchUpdateQrCode() throws Exception {
 		
-		String accessToken = weChatHandler.accessToken();
+		QrCodeVerifyVO vo = null;
 		
-		for(QrCode code: locationService.allQrCodes()){
+		for(Map<String,String> map:excelCodeLoader.getAllQrCode()){
+			vo = QrCodeVerifyVO.getVO(map);
 			
-			String qrUrl = WeChatCreateQrCodeUtil.createQrCode(accessToken, code.getQrCode());
-			code.setQrUrl(qrUrl);
-			
-			locationService.updateQrCode(code);
+			if(vo!=null){
+				QrCode qc = locationService.findQrCodeByCode(vo.getCode());
+				
+				if(qc!=null){
+					
+					qc.setRegion(vo.getRegion());
+					qc.setSize(vo.getSize());
+					qc.setStyle(vo.getStyle());
+					qc.setCodeRange(vo.getRange());
+					
+					locationService.updateQrCode(qc);
+				}
+			}
 		}
 		
-    	return "OK";
+		return Ajax.buildSuccessResult();
     	
 	}
 	
 	
-	@RequestMapping(value="/cleanBeforeGenerate",method=RequestMethod.GET)
-	@ResponseBody
-	public String cleanBeforeGenerate() throws IOException {
-    	return "OK";
-	}*/
-	
-	
-	/*@RequestMapping(value="/reset",method=RequestMethod.GET)
-	@ResponseBody
-	public String reset() throws IOException {
-		cleanBeforeGenerate();
-		
-		generateParentLocation();
-		generateQrCode();
-		generateFromToData();
-		
-    	return "OK";
-    	
-	}*/
 
 	@RequestMapping(value="/generateParentLocation",method=RequestMethod.GET)
 	@ResponseBody
@@ -78,74 +77,6 @@ public class GuideDataGenerateController {
 		return Ajax.buildSuccessResult();
     	
 	}
-	
-/*	@RequestMapping(value="/generateFromToData",method=RequestMethod.GET)
-	@ResponseBody
-	public String generateFromToData() throws IOException {
-		createFromToData();
-    	return "OK";
-    	
-	}*/
-	
-	
-	/*private void createFromToData(){
-    	//从外到内 有14条路线
-		//P1 03-0001-000C
-    	// 05-0001-0001(默认)
-    	//P1去购物村 全部从03-0001-000C出入口走  外圈 南公交枢纽 坐2站到购物村站(外圈)
-    	addFromTo("03-0001-000C", "05-0001-0001", true, false, "02-0001-0011", "02-0001-0008", 2);
-    	addFromTo("05-0001-0001", "03-0001-000C", true, true, "02-0001-0001", "02-0001-0003", 2);
-    	
-    	
-    	//P2 03-0002-000B
-    	// 05-0001-0001(默认)
-    	//P2去购物村 全部从03-0002-000B 出入口走  到 购物村对应出入口
-    	addFromTo("03-0002-000B", "05-0001-0001", false, false, null, null, 0);
-    	addFromTo("05-0001-0001", "03-0002-000B", false, false, null, null, 0);
-    	
-    	
-    	//P3  03-0003-000D 03-0003-000E 03-0003-000F
-    	// 05-0001-0001(默认) 
-    	//P3去购物村  有三种方案
-    	//A.   03-0003-000D   1-25车位                                                                 05-0001-0003
-    	//B.   03-0003-000E  26-54 61 62 65 66 67	   05-0001-0003
-    	//C.   03-0003-000F  55-60 63 64 68 			05-0001-0002
-    	 //出入口走  到 购物村对应出入口
-    	addFromTo("03-0003-000D", "05-0001-0003", false, false, null, null, 0);
-    	addFromTo("03-0003-000E", "05-0001-0003", false, false, null, null, 0);
-    	addFromTo("03-0003-000F", "05-0001-0002", false, false, null, null, 0);
-    	
-    	addFromTo("05-0001-0003", "03-0003-000D", false, false, null, null, 0);
-    	addFromTo("05-0001-0003", "03-0003-000E", false, false, null, null, 0);
-    	addFromTo("05-0001-0002", "03-0003-000F", false, false, null, null, 0);
-    	
-
-    	//P4 03-0004-000C       03-0004-000D
-    	//1.  03-0004-000C 05-0001-0003
-    	//2.  03-0004-000D 05-0001-0003
-    	// 出入口走  到 购物村对应出入口
-    	addFromTo("03-0004-000C", "05-0001-0003", false, false, null, null, 0);
-    	addFromTo("03-0004-000D", "05-0001-0003", false, false, null, null, 0);
-    	
-    	addFromTo("05-0001-0003", "03-0004-000C", false, false, null, null, 0);
-    	addFromTo("05-0001-0003", "03-0004-000D", false, false, null, null, 0);
-    	
-    }
-    
-    private void addFromTo(String from,String to,boolean bus,boolean inside,String fromBus,String toBus,int busStationNum){
-    	
-    	FromToOptimize ft = new FromToOptimize();
-    	
-    	ft.setFromCode(from);
-    	ft.setToCode(to);
-    	ft.setFromBus(fromBus);
-    	ft.setToBus(toBus);
-    	ft.setBus(bus);
-    	ft.setInside(inside);
-    	ft.setBusStationNum(busStationNum);
-    	
-    	locationService.addFromTo(ft);
-    }*/
 	
     private Location getLocation(String name,String code,Integer type){
     	Location l = new Location();

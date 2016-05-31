@@ -5,6 +5,23 @@
 <script type="text/javascript"
 	src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
+<style>
+<!--
+.weui_cell .left {
+	width: 40%;
+	text-align: right;
+	padding-right: 10px;
+	font-weight:bold;
+	font-size:80%;
+}
+
+.weui_cell .right {
+	width: 60%;
+	text-align: left;;
+}
+-->
+</style>
+
 </head>
 
 <body>
@@ -20,7 +37,7 @@
 	<div class="scan-wechat" >
 	
 		<div class="bg-color_red scan-remark" >
-			* 微信公众号打开微信扫一扫进行扫码
+			* 二维码号牌检验工具
 		</div>
 		
 		<div class="scan-img" >
@@ -32,6 +49,63 @@
 		</div>
 			
 	</div>
+	
+	<div id="dialog2" class="weui_dialog_alert" style="display:none;">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd" style="color: #777;"><strong class="weui_dialog_title">二维码信息展示</strong></div>
+            <div class="weui_dialog_bd code-info" >
+
+				<div class="weui_cells">
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary left">
+							<p>名称:&nbsp;</p>
+						</div>
+						<div class="weui_cell_ft right"><span class="name"></span></div>
+					</div>
+					
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary left">
+							<p>区域:&nbsp;</p>
+						</div>
+						<div class="weui_cell_ft right"><span class="region"></span></div>
+					</div>
+					
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary left">
+							<p>车位范围:&nbsp;</p>
+						</div>
+						<div class="weui_cell_ft right"><span class="range"></span></div>
+					</div>
+					
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary left">
+							<p>号牌编号:&nbsp;</p>
+						</div>
+						<div class="weui_cell_ft right"><span class="code"></span></div>
+					</div>
+					
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary left">
+							<p>号牌尺寸:&nbsp;</p>
+						</div>
+						<div class="weui_cell_ft right"><span class="size"></span></div>
+					</div>
+					
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary left">
+							<p>安装方式:&nbsp;</p>
+						</div>
+						<div class="weui_cell_ft right"><span class="style"></span></div>
+					</div>
+				</div>
+
+			</div>
+            <div class="weui_dialog_ft">
+                <a class="weui_btn_dialog primary" href="javascript:;">确定</a>
+            </div>
+        </div>
+    </div>
 	
 
 
@@ -59,33 +133,67 @@
 					$(".weui_btn").addClass("weui_btn_disabled");
 					console.log('微信配置出错。');
 				});
+				
 			}
+		}
+		
+		
+		function showInfo(data){
+		 	var dig = $('#dialog2');
+		 	
+		 	 dig.find('.code-info .name').html(data.name);
+		 	 dig.find('.code-info .region').html(data.region);
+		 	 dig.find('.code-info .range').html(data.range);
+		 	 dig.find('.code-info .code').html(data.code);
+		 	 dig.find('.code-info .size').html(data.size);
+		 	 dig.find('.code-info .style').html(data.style);
+		 	
+            dig.show();
+            
+            dig.find('.weui_btn_dialog').one('click', function () {
+            	$(".weui_btn").removeClass("weui_btn_disabled");
+                dig.hide();
+            });
+		}
+		
+		function scanResultHandler(result){
+			//扫描
+			tmsAsynchGet('/scanVerify.html?url='+result, function(response){
+				if(response.data && response.data!=''){
+					showInfo(response.data);
+				}else{
+					tmsError('二维码格式不正确，无法正确解析。');
+				}
+			});
 		}
 		
 		
 		$(".weui_btn").on("click",function(){
 			if(!isWeiXin() || $(this).hasClass("weui_btn_disabled")){
-				window.location = '/disney/pg/lo.html?co=03-0001-0001';
 				return;
 			}
-			
 			wx.ready(function(){
+			
+				$(".weui_btn").addClass("weui_btn_disabled");
+			
 				//点击扫描按钮，扫描二维码并返回结果
 				wx.scanQRCode({
 					needResult : 1,
 					desc : 'scanQRCode desc',
 					success : function(res) {
-						//扫码后获取结果参数:htpp://xxx.com/c/?6123，截取到url中的防伪码后，赋值给Input
-						window.location = '/disney/pg/lo.html?co='+res.resultStr;
+						//扫描结果处理
+						if(res.resultStr){
+							//扫描
+							scanResultHandler(res.resultStr);
+						}
 					},
+					
 					fail:function(res){
 						tmsError('执行扫码出错。');
 					}
 				});
 			});
 		});
-		
-		
 	</script>
 
 
