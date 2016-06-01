@@ -18,8 +18,30 @@ public class P2ToP4 implements ParkEntranceHandler {
 		if( inbList(index) ){
 			return "03-0002-000D";
 		}
+		if(inaList(index)){
+			return "03-0002-000A";
+		}
 
-		return "03-0002-000A";
+		return null;
+	}
+	
+	private boolean inaList(int index){
+		List<Integer> aList = new ArrayList<Integer>();
+				
+		for (int i = 1; i <= 48; i++) {
+			aList.add(i);
+		}
+		aList.add(111);
+		aList.add(112);
+		
+		for (Integer num : aList) {
+			if(index == num){
+				return true;
+			}
+		}
+		
+		return false;
+		
 	}
 	
 	private boolean incList(int index){

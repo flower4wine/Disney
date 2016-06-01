@@ -34,6 +34,7 @@ public class P2ToP1 implements ParkEntranceHandler {
 		cList.add(82);
 		cList.add(84);
 		cList.add(87);
+		cList.add(111);
 		cList.add(112);
 		
 		for (Integer num : cList) {

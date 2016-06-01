@@ -90,6 +90,7 @@ public class ToP2Controller extends GenerateBaseController{
 				for (int i = 1; i <= 48; i++) {
 					list.add(i);
 				}
+				list.add(111);
 				list.add(112);
 			}else if(parkEntrance.equals("03-0002-000C")){
 				for (int i = 49; i <= 71; i++) {
