@@ -31,6 +31,8 @@ public class P2ToP3 implements ParkEntranceHandler {
 		for (int i = 1; i <= 48; i++) {
 			aList.add(i);
 		}
+		aList.add(111);
+		aList.add(112);
 		
 		for (Integer num : aList) {
 			if(index == num){
