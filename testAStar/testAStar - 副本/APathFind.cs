@@ -506,9 +506,8 @@ namespace testAStar
         {
             if (cell.Location.X >= 0 && cell.Location.X < MAP_WIDTH && cell.Location.Y >= 0 && cell.Location.Y < MAP_HEIGHT)
             {
-                for(int i=0;i< this.StoneCells.Count;i++)
+                foreach (Cell stoneCell in this.StoneCells)
                 {
-                    Cell stoneCell = this.StoneCells[i];
                     if (Cell.IsSampleCell(cell, stoneCell))
                     {
                         return false;

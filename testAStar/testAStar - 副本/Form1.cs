@@ -426,11 +426,8 @@ namespace testAStar
                 wayInfos.Add(wayInfo);
                 #endregion 反向
             }
-            if (wayInfos.Count > 0)
-            {
-                File.WriteAllText(@"./Save/" + textBoxMapName.Text + "/ Data.json", JsonConvert.SerializeObject(wayInfos, Formatting.Indented,
-                                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
-            }
+            File.WriteAllText(@"./Save/" + textBoxMapName.Text + "/ Data.json", JsonConvert.SerializeObject(wayInfos, Formatting.Indented,
+                            new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
             GC.Collect();
         }
 
@@ -500,31 +497,16 @@ namespace testAStar
             if (_imgPath != @".\Data\Map.png"
                 && !string.IsNullOrEmpty(_imgPath))
                 File.Copy(_imgPath, @".\Data\Map.png", true);
-            if (_aPathFind.StoneCells.Count > 0)
-            {
-                File.WriteAllText(StoneCells_SAVE_PATH, JsonConvert.SerializeObject(_aPathFind.StoneCells, Formatting.Indented,
-                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
-            }
-            if (_aPathFind.KeyCells.Count > 0)
-            {
-                File.WriteAllText(KeyCells_SAVE_PATH, JsonConvert.SerializeObject(_aPathFind.KeyCells, Formatting.Indented,
-                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
-            }
-            if (this._goalCells.Count > 0)
-            {
-                File.WriteAllText(GoalCells_SAVE_PATH, JsonConvert.SerializeObject(this._goalCells, Formatting.Indented,
+            File.WriteAllText(StoneCells_SAVE_PATH, JsonConvert.SerializeObject(_aPathFind.StoneCells, Formatting.Indented,
       new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
-            }
-            if (_aPathFind.SceneryCells.Count > 0)
-            {
-                File.WriteAllText(@".\Data\SceneryCells.json", JsonConvert.SerializeObject(_aPathFind.SceneryCells, Formatting.Indented,
-                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
-            }
-            if (_aPathFind.StationCells.Count > 0)
-            {
-                File.WriteAllText(@".\Data\StationCells.json", JsonConvert.SerializeObject(_aPathFind.StationCells, Formatting.Indented,
-                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
-            }
+            File.WriteAllText(KeyCells_SAVE_PATH, JsonConvert.SerializeObject(_aPathFind.KeyCells, Formatting.Indented,
+      new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            File.WriteAllText(GoalCells_SAVE_PATH, JsonConvert.SerializeObject(this._goalCells, Formatting.Indented,
+      new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            File.WriteAllText(@".\Data\SceneryCells.json", JsonConvert.SerializeObject(_aPathFind.SceneryCells, Formatting.Indented,
+      new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            File.WriteAllText(@".\Data\StationCells.json", JsonConvert.SerializeObject(_aPathFind.StationCells, Formatting.Indented,
+      new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
 
             //panelMap.BackgroundImage = new Bitmap(@".\Data\Map.png");
         }
@@ -672,10 +654,51 @@ namespace testAStar
         }
         private void buttonAddName_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBoxMapName.Text))
+            {
+                MessageBox.Show(@"输入地图名称");
+                return;
+            }
             _aPathFind.SetKeyCellSuffix();
 
+            if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + "/QRLocation/"))
+            {
+                Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + "/QRLocation/");
+            }
+            using (Bitmap bitmap = new Bitmap(panelMap.Width, panelMap.Height))
+            {
+                panelMap.DrawToBitmap(bitmap, panelMap.Bounds);
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    Font font = new Font("Times New Roman", 9);
+                    SolidBrush colorPointBrush = new SolidBrush(Color.Chartreuse);
+                    SolidBrush colorBrush = new SolidBrush(Color.Black);
+                    foreach (Cell keyCell in _aPathFind.KeyCells)
+                    {
+                        g.FillEllipse(colorPointBrush, new Rectangle(keyCell.Location, new Size(CELL_WIDTH, CELL_WIDTH)));
+                    }
+                    foreach (Cell keyCell in _aPathFind.KeyCells)
+                    {
+                        Point stringLocation = keyCell.Location;
+                        stringLocation.X += CELL_WIDTH + 1;
+                        g.DrawString(keyCell.Name.Substring(keyCell.Name.LastIndexOf('-') + 1).Trim('0'), font, colorBrush,
+                            stringLocation);
+
+                        using (Bitmap bitmap2 = new Bitmap(panelMap.Width, panelMap.Height))
+                        {
+                            panelMap.DrawToBitmap(bitmap2, panelMap.Bounds);
+                            using (Graphics g2 = Graphics.FromImage(bitmap2))
+                            {
+                                g2.DrawImage(Properties.Resources.star, keyCell.Location - new Size(16,16));
+                            }
+                            bitmap2.Save(@"./Save/" + textBoxMapName.Text + "/QRLocation/" + keyCell.Name + ".jpg", ImageFormat.Jpeg);
+                        }
+                    }
+                }
+                bitmap.Save(@"./Save/" + textBoxMapName.Text + "/ MapIndex.png", ImageFormat.Png);
+            }
+            MessageBox.Show(@"导出二维码坐标信息完成");
             SaveMapInfoButton_Click(sender, e);
-            MessageBox.Show(@"整理完成");
         }
 
         private void buttonSetGoalCells_Click(object sender, EventArgs e)
@@ -807,7 +830,6 @@ namespace testAStar
                                                             , Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].Y) + Convert.ToSingle(lineWidth) / 2.0F);
 
                                             PointF lastPoint = point1;
-                                            PointF lastDrawPoint = lastPoint;
 
                                             Point[] pathPoints = _aPathFind.PathPoint.ToArray();
 
@@ -824,14 +846,12 @@ namespace testAStar
                                                     && Math.Abs(nextPoint.Y - nowPoint.Y) <= CELL_WIDTH)
                                                     )
                                                 {
-                                                    lastPoint = nowPoint;
                                                     continue;
                                                 }
                                                 else
                                                 {
-                                                    g.DrawLine(p, lastDrawPoint, nowPoint);
+                                                    g.DrawLine(p, lastPoint, nowPoint);
                                                     lastPoint = nowPoint;
-                                                    lastDrawPoint = nowPoint;
                                                 }
                                             }
                                             g.DrawLine(p, lastPoint, point2);
@@ -840,146 +860,106 @@ namespace testAStar
                                     #endregion
                                 }
                                 #region 正向
-
-                                if (goalCell.ExportType != "in")
+                                Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
+                                using (Graphics g = Graphics.FromImage(bitmapTemp))
                                 {
-                                    Bitmap bitmapTemp = (Bitmap) bitmap.Clone();
-                                    using (Graphics g = Graphics.FromImage(bitmapTemp))
-                                    {
-                                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+                                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
 
-                                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
-                                        PointF startImgPoint =
-                                            new PointF(
-                                                point1.X - Convert.ToSingle(Properties.Resources.MapStart.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F // - 5.0F
-                                                ,
-                                                point1.Y - Convert.ToSingle(Properties.Resources.MapStart.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
-                                        PointF endImgPoint =
-                                            new PointF(
-                                                point2.X - Convert.ToSingle(Properties.Resources.MapEnd.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F // - 5.0F
-                                                ,
-                                                point2.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
-                                        g.DrawImage(Properties.Resources.MapStart, startImgPoint);
-                                        g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
-                                    }
-                                    WayInfo wayInfo = new WayInfo
-                                    {
-                                        PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + suffixStr,
-                                        From = _aPathFind.StartCell.Name,
-                                        Distance =
-                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length)*ruleWidth/rulePix))
-                                    };
-                                    wayInfo.Time =
-                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance)/numericUpDown2.Value);
-
-                                    if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
-                                    {
-                                        Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text +
-                                                                  wayInfo.InnerDirPath);
-                                    }
-                                    if (suffixStr == @".jpg")
-                                    {
-                                        bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner,
-                                            ImageFormat.Jpeg);
-                                    }
-                                    else
-                                    {
-                                        bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner,
-                                            ImageFormat.Png);
-                                    }
-                                    bitmapTemp.Dispose();
-
-                                    if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
-                                    {
-                                        string[] toStrs = _aPathFind.GoalCell.Remark.Split(';');
-                                        foreach (string toStr in toStrs)
-                                        {
-                                            WayInfo newWayInfo = wayInfo.Clone();
-                                            newWayInfo.To = toStr;
-                                            wayInfos.Add(newWayInfo);
-                                        }
-                                    }
-                                    wayInfo.To = _aPathFind.GoalCell.Name;
-                                    wayInfos.Add(wayInfo);
+                                    PointF startImgPoint = new PointF(point1.X - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F// - 5.0F
+                                                            , point1.Y - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);// - 3.0F);
+                                    PointF endImgPoint = new PointF(point2.X - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F// - 5.0F
+                                                            , point2.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);// - 3.0F);
+                                    g.DrawImage(Properties.Resources.MapStart, startImgPoint);
+                                    g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
                                 }
+                                WayInfo wayInfo = new WayInfo
+                                {
+                                    PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + suffixStr,
+                                    From = _aPathFind.StartCell.Name,
+                                    Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
+                                };
+                                wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
 
+                                if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
+                                {
+                                    Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
+                                }
+                                if (suffixStr == @".jpg")
+                                {
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
+                                }
+                                else
+                                {
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
+                                }
+                                bitmapTemp.Dispose();
+
+                                if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
+                                {
+                                    string[] toStrs = _aPathFind.GoalCell.Remark.Split(';');
+                                    foreach (string toStr in toStrs)
+                                    {
+                                        WayInfo newWayInfo = wayInfo.Clone();
+                                        newWayInfo.To = toStr;
+                                        wayInfos.Add(newWayInfo);
+                                    }
+                                }
+                                wayInfo.To = _aPathFind.GoalCell.Name;
+                                wayInfos.Add(wayInfo);
                                 #endregion 正向
 
                                 #region 反向
-
-                                if (goalCell.ExportType!="out")
+                                bitmapTemp = (Bitmap)bitmap.Clone();
+                                using (Graphics g = Graphics.FromImage(bitmapTemp))
                                 {
-                                    Bitmap bitmapTemp = (Bitmap) bitmap.Clone();
-                                    using (Graphics g = Graphics.FromImage(bitmapTemp))
-                                    {
-                                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+                                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
 
-                                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
-                                        PointF startImgPoint =
-                                            new PointF(
-                                                point2.X - Convert.ToSingle(Properties.Resources.MapStart.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F
-                                                ,
-                                                point2.Y - Convert.ToSingle(Properties.Resources.MapStart.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F);
-                                        PointF endImgPoint =
-                                            new PointF(
-                                                point1.X - Convert.ToSingle(Properties.Resources.MapEnd.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F
-                                                ,
-                                                point1.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F);
-
-                                        g.DrawImage(Properties.Resources.MapStart, startImgPoint);
-                                        g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
-                                    }
-                                    WayInfo wayInfo = new WayInfo
-                                    {
-                                        PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + suffixStr,
-                                        To = _aPathFind.StartCell.Name,
-                                        Distance =
-                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length)*ruleWidth/rulePix))
-                                    };
-                                    wayInfo.Time =
-                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance)/numericUpDown2.Value);
-
-                                    if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
-                                    {
-                                        Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text +
-                                                                  wayInfo.InnerDirPath);
-                                    }
-                                    if (suffixStr == @".jpg")
-                                    {
-                                        bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner,
-                                            ImageFormat.Jpeg);
-                                    }
-                                    else
-                                    {
-                                        bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner,
-                                            ImageFormat.Png);
-                                    }
-                                    bitmapTemp.Dispose();
-
-                                    if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
-                                    {
-                                        string[] toStrs = _aPathFind.GoalCell.Remark.Split(';');
-                                        foreach (string toStr in toStrs)
-                                        {
-                                            WayInfo newWayInfo = wayInfo.Clone();
-                                            newWayInfo.From = toStr;
-                                            wayInfos.Add(newWayInfo);
-                                        }
-                                    }
-                                    wayInfo.From = _aPathFind.GoalCell.Name;
-                                    wayInfos.Add(wayInfo);
+                                    PointF startImgPoint = new PointF(point2.X - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F
+                                                            , point2.Y - Convert.ToSingle(Properties.Resources.MapStart.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);
+                                    PointF endImgPoint = new PointF(point1.X - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F
+                                                            , point1.Y - Convert.ToSingle(Properties.Resources.MapEnd.Width) / 2.0F - Convert.ToSingle(lineWidth) / 2.0F);
+                                    
+                                    g.DrawImage(Properties.Resources.MapStart, startImgPoint);
+                                    g.DrawImage(Properties.Resources.MapEnd, endImgPoint);
                                 }
+                                wayInfo = new WayInfo
+                                {
+                                    PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + suffixStr,
+                                    To = _aPathFind.StartCell.Name,
+                                    Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
+                                };
+                                wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
 
+                                if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
+                                {
+                                    Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath);
+                                }
+                                if (suffixStr == @".jpg")
+                                {
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Jpeg);
+                                }
+                                else
+                                {
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Inner, ImageFormat.Png);
+                                }
+                                bitmapTemp.Dispose();
+
+                                if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
+                                {
+                                    string[] toStrs = _aPathFind.GoalCell.Remark.Split(';');
+                                    foreach (string toStr in toStrs)
+                                    {
+                                        WayInfo newWayInfo = wayInfo.Clone();
+                                        newWayInfo.From = toStr;
+                                        wayInfos.Add(newWayInfo);
+                                    }
+                                }
+                                wayInfo.From = _aPathFind.GoalCell.Name;
+                                wayInfos.Add(wayInfo);
                                 #endregion 反向
                             }
                         }
@@ -1452,11 +1432,8 @@ namespace testAStar
 
             if (!Directory.Exists(@"./Save/" + textBoxMapName.Text))
                 Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text);
-            if (wayInfos.Count > 0)
-            {
-                File.WriteAllText(@"./Save/" + textBoxMapName.Text + "/ Data.json", JsonConvert.SerializeObject(wayInfos, Formatting.Indented,
-                                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
-            }
+            File.WriteAllText(@"./Save/" + textBoxMapName.Text + "/ Data.json", JsonConvert.SerializeObject(wayInfos, Formatting.Indented,
+                            new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
             MessageBox.Show(@"生成完成");
         }
 
@@ -1544,57 +1521,6 @@ namespace testAStar
             buttonName.Text = @"停车区域起名";
             button4.Text = @"站点起名/r/n(有序)";
             button3.Text = @"景点起名";
-        }
-
-        private void buttonExportQRCodeLocation_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(textBoxMapName.Text))
-            {
-                MessageBox.Show(@"输入地图名称");
-                return;
-            }
-            if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + "/QRLocation/"))
-            {
-                Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + "/QRLocation/");
-            }
-            using (Bitmap bitmap = new Bitmap(panelMap.Width, panelMap.Height))
-            {
-                panelMap.DrawToBitmap(bitmap, panelMap.Bounds);
-                using (Graphics g = Graphics.FromImage(bitmap))
-                {
-                    g.CompositingQuality = CompositingQuality.HighQuality;
-                    g.SmoothingMode = SmoothingMode.HighQuality;
-                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                    Font font = new Font("Times New Roman", 9);
-                    SolidBrush colorPointBrush = new SolidBrush(Color.Chartreuse);
-                    SolidBrush colorBrush = new SolidBrush(Color.Black);
-                    foreach (Cell keyCell in _aPathFind.KeyCells)
-                    {
-                        g.FillEllipse(colorPointBrush, new Rectangle(keyCell.Location, new Size(CELL_WIDTH, CELL_WIDTH)));
-                    }
-                    foreach (Cell keyCell in _aPathFind.KeyCells)
-                    {
-                        Point stringLocation = keyCell.Location;
-                        stringLocation.X += CELL_WIDTH + 1;
-                        g.DrawString(keyCell.Name.Substring(keyCell.Name.LastIndexOf('-') + 1).TrimStart('0'), font, colorBrush,
-                            stringLocation);
-
-                        using (Bitmap bitmap2 = new Bitmap(panelMap.Width, panelMap.Height))
-                        {
-                            panelMap.DrawToBitmap(bitmap2, panelMap.Bounds);
-                            using (Graphics g2 = Graphics.FromImage(bitmap2))
-                            {
-                                g2.DrawImage(Properties.Resources.star, keyCell.Location - new Size(16, 16));
-                            }
-                            bitmap2.Save(@"./Save/" + textBoxMapName.Text + "/QRLocation/" + keyCell.Name + ".jpg", ImageFormat.Jpeg);
-                        }
-                    }
-                }
-                bitmap.Save(@"./Save/" + textBoxMapName.Text + "/ MapIndex.png", ImageFormat.Png);
-                MessageBox.Show(@"导出完成");
-
-            }
         }
     }
     enum CommandType
