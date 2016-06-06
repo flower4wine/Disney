@@ -86,7 +86,7 @@
 		<input type="hidden" id="signature" value="${signature}" /> 
 		<input type="hidden" id="appId" value="${appId}" />
 		
-		<input type="hidden" id="parkCode" value="${parkCode}" />
+		<input type="hidden" id="guideCode" value="${guideCode}" />
 		<input type="hidden" id="leaveCode" value="${leaveCode}" />
 	</form>
 
@@ -110,14 +110,19 @@ window.onload = function() {
 	
 	
 	$(".item-parkguide").on("click",function(){
-		var code = $("#parkCode").val();
+	
+		var code = $("#guideCode").val();
+		
 		if(code!='' && code.length==12){
 			window.location = '/disney/pg/lo.html?co='+code;
 			return;
 		}
+		
+		//扫码返回处理
 		wxOnScan(function(code){
-					window.location = '/disney/pg/lo.html?co='+code;
-				});
+			window.location = '/disney/pg/lo.html?co='+code;
+		});
+		
 	});
 	
 	
@@ -129,8 +134,9 @@ window.onload = function() {
 			return;
 		}
 		wxOnScan(function(code){
-					window.location = '/disney/le/lo.html?co='+code;
-				});
+			window.location = '/disney/le/lo.html?co='+code;
+		});
+		
 	});
 	
 	

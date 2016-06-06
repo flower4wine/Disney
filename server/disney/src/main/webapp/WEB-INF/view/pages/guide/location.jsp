@@ -37,12 +37,14 @@
 							${location.remark }
 						</td>
 					</tr>
-					<tr class="note">
-						<td class="left"><i class="fa fa-asterisk" aria-hidden="true"></i></td>
-						<td>记录停车位置,离园寻车</td>
-					</tr>
+					
+					<c:if test="${lcoation.isParkLocation }">
+						<tr class="note">
+							<td class="left"><i class="fa fa-asterisk" aria-hidden="true"></i></td>
+							<td>记录停车位置,离园寻车</td>
+						</tr>
+					</c:if>
 				</table>
-				
 			</div>
 			
 			<div class="guide-loc-info-right" >

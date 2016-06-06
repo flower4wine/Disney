@@ -147,6 +147,7 @@ public class WeChatServerController {
 
 		//判断最后一次生成时间 是不是今天
 		if(DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) != 0){
+			ul.setScanLocation("");
 			ul.setParkLocation("");
 			ul.setLeaveLocation("");
 			ul.setCreatedAt(now);

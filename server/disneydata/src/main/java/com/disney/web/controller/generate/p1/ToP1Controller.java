@@ -62,7 +62,7 @@ public class ToP1Controller extends GenerateBaseController{
 			return;
 		}
 		
-		 FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, true, "02-0001-0001", "02-0001-0003", 2);
+		 FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "2路", "02-0001-0001", "02-0001-0003", 2);
 		 locationService.addFromTo(o2i);
 		 
 		//Generate location to location

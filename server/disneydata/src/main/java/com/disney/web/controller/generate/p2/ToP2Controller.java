@@ -77,9 +77,9 @@ public class ToP2Controller extends GenerateBaseController{
 		}
 		FromToOptimize o2i = new FromToOptimize();
 		if(bus){
-			o2i = geFromTo(viewCode, parkEntrance, true, true, "02-0001-0011", "02-0001-0008", 2);
+			o2i = geFromTo(viewCode, parkEntrance, true, "3路", "02-0001-0011", "02-0001-0008", 2);
 		}else{
-			o2i = geFromTo(viewCode, parkEntrance, false, false, null, null, 0);
+			o2i = geFromTo(viewCode, parkEntrance, false, "", null, null, 0);
 		}
 		
 		 locationService.addFromTo(o2i);

@@ -36,7 +36,7 @@ public class ObjectMapUtil {
 				met = "set" + met;
 			}
 			Class types[] = new Class[1];
-			types[0] = value.getClass(); //Class.forName("java.lang.String");
+			types[0] = value.getClass(); 
 
 			Method m = null;
 			try{
@@ -54,7 +54,6 @@ public class ObjectMapUtil {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -91,13 +90,11 @@ public class ObjectMapUtil {
 						key = key.substring(0, 1).toLowerCase() + key.substring(1);
 						map.put(key, value);
 					} catch (Exception e) {
-						// TODO: handle exception
 						System.out.println("error:" + method);
 					}
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return map;

@@ -21,8 +21,6 @@ public class ExcelCodeLoaderImpl implements ExcelCodeLoader {
 	@PostConstruct  
 	public void init() throws Exception {
 		
-		System.setProperty("file.encoding","UTF-8");
-		 
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("target.csv");
 		BufferedReader reader=new BufferedReader(new InputStreamReader(inputStream));
           
@@ -31,8 +29,6 @@ public class ExcelCodeLoaderImpl implements ExcelCodeLoader {
 		while((line=reader.readLine())!=null){//一行一行读
 
 			if(StringUtils.isNotEmpty(line)){
-
-				System.out.println(System.getProperty("file.encoding")+":"+line);
 
 				String[] items = line.split(",");
 

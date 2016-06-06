@@ -73,10 +73,10 @@ public class P2ToShopController extends GenerateBaseController{
 		}
 
 		//Generate from to
-		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, false, false, null, null, 0);
+		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, false, "", null, null, 0);
 		locationService.addFromTo(i2o);
 
-		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, false, false, null, null, 0);
+		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, false, "", null, null, 0);
 		locationService.addFromTo(o2i);
 
 		
