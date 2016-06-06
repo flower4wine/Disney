@@ -20,6 +20,7 @@ public class UserLocation implements Serializable {
 	private String openId;
 	
 	private String scanLocation = "";
+	private String confirmLocation = "";
 	
 	private String parkLocation = "";
 	private String leaveLocation = "";
@@ -77,5 +78,15 @@ public class UserLocation implements Serializable {
 	public void setScanLocation(String scanLocation) {
 		this.scanLocation = scanLocation;
 	}
+	
+	@Column
+	public String getConfirmLocation() {
+		return confirmLocation;
+	}
+	public void setConfirmLocation(String confirmLocation) {
+		this.confirmLocation = confirmLocation;
+	}
+	
+	
 
 }

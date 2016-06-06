@@ -16,6 +16,7 @@ import com.disney.exception.JSApiException;
 import com.disney.handler.config.SessionHelper;
 import com.disney.handler.message.MessageHandler;
 import com.disney.handler.wechat.WeChatHandler;
+import com.disney.model.Location;
 import com.disney.model.QrCode;
 import com.disney.model.UserLocation;
 import com.disney.service.LocationService;
@@ -86,7 +87,9 @@ public class DisneyController {
 		if(StringUtils.isNotEmpty(returnCode)){
 			//二维码核验VO
 			QrCode map = locationService.findQrCodeByCode(returnCode);
-			QrCodeVerifyVO vo = QrCodeVerifyVO.getVO(map);
+			Location loc = locationService.find(returnCode);
+			
+			QrCodeVerifyVO vo = QrCodeVerifyVO.getVO(map,loc);
 			
 			if(vo!=null){
 				return Ajax.getSuccessReturnMapWithData(vo);
@@ -107,7 +110,7 @@ public class DisneyController {
 		
 		
 		if(weChatHandler.isDebug()){
-			view.addObject("parkCode", "03-0001-0001");
+			view.addObject("guideCode", "03-0001-0001");
 			view.addObject("leaveCode", "05-0001-0001");
 			
 			view.addObject("appId", "");
@@ -138,11 +141,10 @@ public class DisneyController {
 			Date now = DateUtils.getStartDate(new Date());
 			
 			if(ul!=null && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
-				view.addObject("parkCode", ul.getParkLocation());
-				view.addObject("leaveCode", ul.getLeaveLocation());
-
+				view.addObject("guideCode", ul.getScanLocation());
+				view.addObject("leaveCode", ul.getScanLocation());
 			}else{
-				view.addObject("parkCode", "");
+				view.addObject("guideCode", "");
 				view.addObject("leaveCode", "");
 			}
 			

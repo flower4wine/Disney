@@ -23,7 +23,11 @@ public class FromToOptimize  implements java.io.Serializable {
 	private Boolean bus;
 	private String fromBus;
 	private String toBus;
-	private Boolean inside;
+	
+	/*private Boolean inside;*/
+	private String line;
+	
+	
 	private int busStationNum = 0;
 	
     @Id
@@ -76,20 +80,32 @@ public class FromToOptimize  implements java.io.Serializable {
 		this.toBus = toBus;
 	}
 	
-	@Column
+	/*@Column
 	public Boolean getInside() {
 		return inside;
 	}
 	public void setInside(Boolean inside) {
 		this.inside = inside;
-	}
+	}*/
+	
+	
 	
 	@Column
 	public int getBusStationNum() {
 		return busStationNum;
 	}
+
 	public void setBusStationNum(int busStationNum) {
 		this.busStationNum = busStationNum;
+	}
+	
+	@Column
+	public String getLine() {
+		return line;
+	}
+	
+	public void setLine(String line) {
+		this.line = line;
 	}
 
 }

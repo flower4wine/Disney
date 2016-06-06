@@ -31,7 +31,15 @@ public class GenerateDataMain {
 		generate(prefix,"/p4/p2.html");
 		generate(prefix,"/p4/p3.html");
 		
-
+		
+		generate(prefix,"/bus/shop.html");
+		
+		generate(prefix,"/bus/p1.html");
+		generate(prefix,"/bus/p2.html");
+		generate(prefix,"/bus/p3.html");
+		generate(prefix,"/bus/p4.html");
+		
+		generate(prefix,"/batchUpdateQrCode.html");
 	}
 	
 	

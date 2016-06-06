@@ -2,6 +2,7 @@ package com.disney.web.vo;
 
 import java.util.Map;
 
+import com.disney.model.Location;
 import com.disney.model.QrCode;
 import com.disney.util.ObjectMapUtil;
 
@@ -63,22 +64,12 @@ public class QrCodeVerifyVO {
 
 	}
 
-	public static QrCodeVerifyVO getVO(QrCode code){
+	public static QrCodeVerifyVO getVO(QrCode code,Location loc){
 
 		if(code!=null){
 			QrCodeVerifyVO vo = new QrCodeVerifyVO();
 			
-			String qrCode = code.getQrCode();
-			
-			if(qrCode.startsWith("03-0001")){
-				vo.setName("P1");
-			}else if(qrCode.startsWith("03-0002")){
-				vo.setName("P2");
-			}else if(qrCode.startsWith("03-0003")){
-				vo.setName("P3");
-			}else{
-				vo.setName("P4");
-			}
+			vo.setName(loc.getName());
 			
 			vo.setCode(code.getQrCode());
 			vo.setRange(code.getCodeRange());

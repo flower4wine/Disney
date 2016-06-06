@@ -39,10 +39,10 @@ public class P1ToShopController extends GenerateBaseController{
 		}
 		
 		//Generate from to
-		 FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, false, "02-0001-0011", "02-0001-0008", 2);
+		 FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "3路", "02-0001-0011", "02-0001-0008", 2);
 		 locationService.addFromTo(i2o);
 		 
-		 FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, true, "02-0001-0001", "02-0001-0003", 2);
+		 FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "2路", "02-0001-0001", "02-0001-0003", 2);
 		 locationService.addFromTo(o2i);
 		 
 		//Generate location to location
