@@ -46,7 +46,8 @@ public class ParkGuideController {
 			return ViewUtil.error("10001");
 		}
 		
-		if(!co.startsWith("03")){
+		//增加接驳车站的导览
+		if(!(co.startsWith("03") || co.startsWith("02")) ){
 			return ViewUtil.error("10002");
 		}
 		
@@ -68,6 +69,10 @@ public class ParkGuideController {
 		vo.setCode(co);
 		vo.setRemark(child.getName());
 		vo.setLocationImg(child.getLocationImg());
+		
+		if(co.startsWith("02")){
+			vo.setParkLocation(false);
+		}
 	
 		//Get WeXin info
 		ViewUtil.getWeChatInfo(view, weChatHandler, request);
@@ -89,9 +94,18 @@ public class ParkGuideController {
 		
 		ul.setCreatedAt(new Date());
 		
+		//TODO 支持接驳车站二维码
 		if(StringUtils.isNotEmpty(code) && code.length() == 12){
-			ul.setParkLocation(code);
+			
+			ul.setConfirmLocation(code);
+			
+			if(code.startsWith("03")){
+				ul.setParkLocation(code);
+			}
 		}
+		
+		
+		
 		locationService.saveUserLocation(ul);
 		
 		String name = "redirect:/pg/locations.html";
@@ -108,6 +122,13 @@ public class ParkGuideController {
 	}
 	
 	
+	/**
+	 * 停车导览  停车场 到 奕欧来购物村的导览    接驳车站导览  到 奕欧来购物村的导览
+	 * @param request
+	 * @param toLocation
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/toLocation")
 	public ModelAndView outlet(HttpServletRequest request,String toLocation) throws Exception {
 		String name = "/guide/toLocation";
@@ -123,13 +144,14 @@ public class ParkGuideController {
 		
 		if(ul!=null && StringUtils.isNotEmpty(ul.getParkLocation()) && ul.getParkLocation().length()==12){
 			
-			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getParkLocation(),toLocation);
+			//TODO 需要增加接驳车站导览到目标位置
+			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getConfirmLocation(),toLocation);
 			
 			if(bo == null){
 				return ViewUtil.error("10004");
 			}
 			
-			//TODO 根据 parkLocation判断停车位置是否靠近出入口  如果靠近出入口需要 忽略内部导览。 通过LoToLoBO 返回判断
+			// 根据 parkLocation判断停车位置是否靠近出入口  如果靠近出入口需要 忽略内部导览。 通过LoToLoBO 返回判断
 			if(bo.isIgnoreInner()){
 				view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.OUT,true));
 			}else{

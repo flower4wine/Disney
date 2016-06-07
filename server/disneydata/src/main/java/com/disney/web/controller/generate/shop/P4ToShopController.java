@@ -46,12 +46,6 @@ public class P4ToShopController extends GenerateBaseController{
 
 	}
 
-	private void addCodeToList(List<Integer> list,String str){
-		for(String s:str.split(",")){
-			list.add(Integer.valueOf(s));
-		}
-	}
-
 
 	private void generate(List<Integer> qrCodes,String parkEntrance,String viewCode){
 		//CHECK
@@ -60,10 +54,10 @@ public class P4ToShopController extends GenerateBaseController{
 		}
 
 		//Generate from to
-		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, false, false, null, null, 0);
+		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, false, "", null, null, 0);
 		locationService.addFromTo(i2o);
 
-		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, false, false, null, null, 0);
+		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, false, "", null, null, 0);
 		locationService.addFromTo(o2i);
 
 		

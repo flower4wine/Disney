@@ -6,7 +6,14 @@ public class LocationVO {
 	private String code;
 	private String remark;
 	private String locationImg;
+	private boolean isParkLocation = true;
 	
+	public boolean isParkLocation() {
+		return isParkLocation;
+	}
+	public void setParkLocation(boolean isParkLocation) {
+		this.isParkLocation = isParkLocation;
+	}
 	public String getName() {
 		return name;
 	}

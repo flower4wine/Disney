@@ -23,7 +23,13 @@ public class GenerateBaseController  {
 	protected LocationService locationService;
 
 
-	protected FromToOptimize geFromTo(String from,String to,boolean bus,boolean inside,String fromBus,String toBus,int busStationNum){
+	protected void addCodeToList(List<Integer> list,String str){
+		for(String s:str.split(",")){
+			list.add(Integer.valueOf(s));
+		}
+	}
+	
+	protected FromToOptimize geFromTo(String from,String to,boolean bus,String line,String fromBus,String toBus,int busStationNum){
 
 		FromToOptimize ft = new FromToOptimize();
 
@@ -32,7 +38,8 @@ public class GenerateBaseController  {
 		ft.setFromBus(fromBus);
 		ft.setToBus(toBus);
 		ft.setBus(bus);
-		ft.setInside(inside);
+		ft.setLine(line);
+		
 		ft.setBusStationNum(busStationNum);
 
 		return ft;
@@ -43,7 +50,15 @@ public class GenerateBaseController  {
 		String str = "0000"+num;
 		return str.substring(str.length()-4, str.length());
 	}
-
+	
+	/**
+	 * 跟停车场相关的 导览
+	 * @param from
+	 * @param to
+	 * @param parkEntrance
+	 * @param ft
+	 * @param lo2loType
+	 */
 	protected void generateLo2Lo(String from,String to,String parkEntrance,FromToOptimize ft,Integer lo2loType){
 
 		LoToLo lo = new LoToLo();
@@ -62,7 +77,17 @@ public class GenerateBaseController  {
 			lo.setInnerUrl("/resources/img/lotolo/inner/"+to.substring(0,7)+"/"+parkEntrance+"-"+to+".jpg");
 			
 		}else if(lo2loType == Lo2LoType.PARKINNER_2_PARKINNER){
+			
 			lo.setOutUrl("/resources/img/lotolo/out/"+to.substring(0,7)+ "/"+from+"-"+parkEntrance+".jpg");
+			lo.setInnerUrl("/resources/img/lotolo/inner/"+to.substring(0,7)+"/"+parkEntrance+"-"+to+".jpg");
+			
+		}else if( lo2loType == Lo2LoType.BUSSTATION_2_VIEW){
+			
+			lo.setOutUrl("/resources/img/lotolo/out/" +from.substring(0,7)+ "/"+from+"-"+to+".jpg");
+			
+		}else if(lo2loType == Lo2LoType.BUSSTATION_2_PARKINNER){
+			//同 景点到停车场内部
+			lo.setOutUrl("/resources/img/lotolo/out/"+from.substring(0,7)+ "/"+from+"-"+parkEntrance+".jpg");
 			lo.setInnerUrl("/resources/img/lotolo/inner/"+to.substring(0,7)+"/"+parkEntrance+"-"+to+".jpg");
 		}
 
@@ -84,11 +109,15 @@ public class GenerateBaseController  {
 	}
 
 	private List<LoToLoStep> getInnerStep(String startCode,FromToOptimize fromTo,Integer lo2loType){
+		List<LoToLoStep> list = new ArrayList<LoToLoStep>();
+		
+		if(lo2loType == Lo2LoType.BUSSTATION_2_VIEW){
+			return list;
+		}
+		
 		LoToLoStep s = new LoToLoStep();
-
 		s.setStep(1);
 		s.setType(Lo2LoStepType.IN);
-		
 				
 		if(lo2loType == Lo2LoType.PARKINNER_2_VIEW || lo2loType == Lo2LoType.PARKINNER_2_BUSSTATION){
 			//停车导览
@@ -102,11 +131,12 @@ public class GenerateBaseController  {
 		
 		s.setStepType(Lo2LoStepType.WALK);
 
-		List<LoToLoStep> list = new ArrayList<LoToLoStep>();
 		list.add(s);
+		
 		return list;
 	}
-
+	
+	
 	private List<LoToLoStep> getOutStep(FromToOptimize fromTo){
 
 		List<LoToLoStep>  list = new ArrayList<LoToLoStep> ();
@@ -119,29 +149,37 @@ public class GenerateBaseController  {
 			Location fromBus = locationService.find(fromTo.getFromBus());
 			Location toBus = locationService.find(fromTo.getToBus());
 
-			LoToLoStep s = new LoToLoStep();
-			s.setStep(1);
-			s.setType(Lo2LoStepType.OUT);
-			s.setRemark("从"+from.getName()+"步行到"+fromBus.getName());
-			s.setStepType(Lo2LoStepType.WALK);
-
-			list.add(s);
+			LoToLoStep s = null;
+			int i=1;
+			
+			if( !fromTo.getFromCode().equals(fromTo.getFromBus())){
+				s = new LoToLoStep();
+				s.setStep(i);
+				s.setType(Lo2LoStepType.OUT);
+				s.setRemark("从"+from.getName()+"步行到"+fromBus.getName());
+				s.setStepType(Lo2LoStepType.WALK);
+				i++;
+				list.add(s);
+			}
 
 			s = new LoToLoStep();
-			s.setStep(2);
+			s.setStep(i);
 			s.setType(Lo2LoStepType.OUT);
-			s.setRemark("乘坐接驳车"+(fromTo.getInside()?"内圈":"外圈")+"环线" +
-					"从"+fromBus.getName()+"上车,到"+toBus.getName()+"下车");
+			s.setRemark("乘坐接驳车"+fromTo.getLine()+fromTo.getBusStationNum()+"站," +"从"+fromBus.getName()+"上车,到"+toBus.getName()+"下车");
 			s.setStepType(Lo2LoStepType.BUS);
+			i++;
 
 			list.add(s);
-
-			s = new LoToLoStep();
-			s.setStep(3);
-			s.setType(Lo2LoStepType.OUT);
-			s.setRemark("从"+toBus.getName()+"步行到"+to.getName());
-			s.setStepType(Lo2LoStepType.WALK);
-			list.add(s);
+			
+			
+			if( !fromTo.getToCode().equals(fromTo.getToBus())){
+				s = new LoToLoStep();
+				s.setStep(i);
+				s.setType(Lo2LoStepType.OUT);
+				s.setRemark("从"+toBus.getName()+"步行到"+to.getName());
+				s.setStepType(Lo2LoStepType.WALK);
+				list.add(s);
+			}
 
 		}else{
 			LoToLoStep s = new LoToLoStep();
@@ -156,8 +194,5 @@ public class GenerateBaseController  {
 
 		return list;
 	}
-
-
-
 
 }

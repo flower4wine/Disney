@@ -54,7 +54,6 @@ public class ObjectMapUtil {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -91,13 +90,11 @@ public class ObjectMapUtil {
 						key = key.substring(0, 1).toLowerCase() + key.substring(1);
 						map.put(key, value);
 					} catch (Exception e) {
-						// TODO: handle exception
 						System.out.println("error:" + method);
 					}
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return map;

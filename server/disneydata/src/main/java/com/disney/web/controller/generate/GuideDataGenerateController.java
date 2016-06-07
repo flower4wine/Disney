@@ -1,6 +1,7 @@
 package com.disney.web.controller.generate;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,10 @@ public class GuideDataGenerateController {
 					qc.setStyle(vo.getStyle());
 					qc.setCodeRange(vo.getRange());
 					
+					if( isNearEntrance(qc.getQrCode()) ){
+						qc.setNearEntra(true);
+					}
+					
 					locationService.updateQrCode(qc);
 				}
 			}
@@ -58,6 +63,34 @@ public class GuideDataGenerateController {
     	
 	}
 	
+	
+	private boolean isNearEntrance(String code){
+		Map<String,String> map = new HashMap<String,String>();
+		
+		map.put("03-0001-0016", "");
+		map.put("03-0001-0028", "");
+		map.put("03-0001-0032", "");
+		
+		map.put("03-0002-0086", "");
+		map.put("03-0002-0087", "");
+		map.put("03-0002-0092", "");
+		map.put("03-0002-0112", "");
+		
+		map.put("03-0003-0001", "");
+		map.put("03-0003-0019", "");
+		map.put("03-0003-0058", "");
+		map.put("03-0003-0059", "");
+		map.put("03-0003-0063", "");
+		
+		map.put("03-0004-0068", "");
+		map.put("03-0004-0070", "");
+		map.put("03-0004-0071", "");
+		map.put("03-0004-0074", "");
+		
+		
+		return map.containsKey(code);
+		
+	}
 	
 
 	@RequestMapping(value="/generateParentLocation",method=RequestMethod.GET)
@@ -97,7 +130,7 @@ public class GuideDataGenerateController {
     	
     	
     	//02 行：接驳站点、MINI PTH、东PTC、西PTC、西PTH、南PTH
-    	locationService.save(getLocation("接驳站点","02-0001",2));
+    	locationService.save(getLocation("接驳车站","02-0001",2));
     	locationService.save(getLocation("MINI PTH","02-0002",2));
     	locationService.save(getLocation("东公交枢纽","02-0003",2));
     	locationService.save(getLocation("西公交枢纽","02-0004",2));
