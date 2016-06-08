@@ -82,12 +82,13 @@ public class GenerateBaseController  {
 			lo.setInnerUrl("/resources/img/lotolo/inner/"+to.substring(0,7)+"/"+parkEntrance+"-"+to+".jpg");
 			
 		}else if( lo2loType == Lo2LoType.BUSSTATION_2_VIEW){
-			
-			lo.setOutUrl("/resources/img/lotolo/out/" +from.substring(0,7)+ "/"+from+"-"+to+".jpg");
+			//接驳站为一个目录
+			lo.setOutUrl("/resources/img/lotolo/out/" +from+ "/"+from+"-"+to+".jpg");
 			
 		}else if(lo2loType == Lo2LoType.BUSSTATION_2_PARKINNER){
-			//同 景点到停车场内部
-			lo.setOutUrl("/resources/img/lotolo/out/"+from.substring(0,7)+ "/"+from+"-"+parkEntrance+".jpg");
+			//同 景点到停车场内部   接驳站为一个目录
+			lo.setOutUrl("/resources/img/lotolo/out/"+from+ "/"+from+"-"+parkEntrance+".jpg");
+			
 			lo.setInnerUrl("/resources/img/lotolo/inner/"+to.substring(0,7)+"/"+parkEntrance+"-"+to+".jpg");
 		}
 
