@@ -354,10 +354,10 @@ namespace testAStar
                 Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                 {
-                    Point startImgPoint = new Point(point1.X - Properties.Resources.mark_start_42x42.Width / 2, point1.Y - Properties.Resources.mark_start_42x42.Height - CELL_WIDTH);
-                    Point endImgPoint = new Point(point2.X - Properties.Resources.mark_end_42x42.Width / 2 , point2.Y - Properties.Resources.mark_end_42x42.Height - CELL_WIDTH);
-                    g.DrawImage(Properties.Resources.mark_start_42x42, startImgPoint);
-                    g.DrawImage(Properties.Resources.mark_end_42x42, endImgPoint);
+                    Point startImgPoint = new Point(point1.X - Properties.Resources.mark_start_42x42_2.Width / 2, point1.Y - Properties.Resources.mark_start_42x42_2.Height - CELL_WIDTH);
+                    Point endImgPoint = new Point(point2.X - Properties.Resources.mark_end_42x42_2.Width / 2 , point2.Y - Properties.Resources.mark_end_42x42_2.Height - CELL_WIDTH);
+                    g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
+                    g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                 }
                 WayInfo wayInfo = new WayInfo
                 {
@@ -392,10 +392,10 @@ namespace testAStar
                 bitmapTemp = (Bitmap)bitmap.Clone();
                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                 {
-                    Point startImgPoint = new Point(point2.X - Properties.Resources.mark_start_42x42.Width / 2, point2.Y - Properties.Resources.mark_start_42x42.Height - CELL_WIDTH);
-                    Point endImgPoint = new Point(point1.X - Properties.Resources.mark_end_42x42.Width / 2, point1.Y - Properties.Resources.mark_end_42x42.Height - CELL_WIDTH);
-                    g.DrawImage(Properties.Resources.mark_start_42x42, startImgPoint);
-                    g.DrawImage(Properties.Resources.mark_end_42x42, endImgPoint);
+                    Point startImgPoint = new Point(point2.X - Properties.Resources.mark_start_42x42_2.Width / 2, point2.Y - Properties.Resources.mark_start_42x42_2.Height - CELL_WIDTH);
+                    Point endImgPoint = new Point(point1.X - Properties.Resources.mark_end_42x42_2.Width / 2, point1.Y - Properties.Resources.mark_end_42x42_2.Height - CELL_WIDTH);
+                    g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
+                    g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                 }
                 wayInfo = new WayInfo
                 {
@@ -864,20 +864,20 @@ namespace testAStar
 
                                         PointF startImgPoint =
                                             new PointF(
-                                                point1.X - Convert.ToSingle(Properties.Resources.mark_start_42x42.Width)/2.0F -
+                                                point1.X - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F // - 5.0F
                                                 ,
-                                                point1.Y - Convert.ToSingle(Properties.Resources.mark_start_42x42.Width)/2.0F -
+                                                point1.Y - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
                                         PointF endImgPoint =
                                             new PointF(
-                                                point2.X - Convert.ToSingle(Properties.Resources.mark_end_42x42.Width)/2.0F -
+                                                point2.X - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F // - 5.0F
                                                 ,
-                                                point2.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42.Width)/2.0F -
+                                                point2.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
-                                        g.DrawImage(Properties.Resources.mark_start_42x42, startImgPoint);
-                                        g.DrawImage(Properties.Resources.mark_end_42x42, endImgPoint);
+                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
+                                        g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                                     }
                                     WayInfo wayInfo = new WayInfo
                                     {
@@ -935,21 +935,21 @@ namespace testAStar
 
                                         PointF startImgPoint =
                                             new PointF(
-                                                point2.X - Convert.ToSingle(Properties.Resources.mark_start_42x42.Width)/2.0F -
+                                                point2.X - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F
                                                 ,
-                                                point2.Y - Convert.ToSingle(Properties.Resources.mark_start_42x42.Width)/2.0F -
+                                                point2.Y - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F);
                                         PointF endImgPoint =
                                             new PointF(
-                                                point1.X - Convert.ToSingle(Properties.Resources.mark_end_42x42.Width)/2.0F -
+                                                point1.X - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F
                                                 ,
-                                                point1.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42.Width)/2.0F -
+                                                point1.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F);
 
-                                        g.DrawImage(Properties.Resources.mark_start_42x42, startImgPoint);
-                                        g.DrawImage(Properties.Resources.mark_end_42x42, endImgPoint);
+                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
+                                        g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                                     }
                                     WayInfo wayInfo = new WayInfo
                                     {
@@ -1175,10 +1175,10 @@ namespace testAStar
                                     Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
                                     using (Graphics g = Graphics.FromImage(bitmapTemp))
                                     {
-                                        Point startImgPoint = new Point(point1.X - Properties.Resources.mark_start_42x42.Width / 2, point1.Y - Properties.Resources.mark_start_42x42.Height - CELL_WIDTH);
-                                        Point endImgPoint = new Point(point2.X - Properties.Resources.mark_end_42x42.Width / 2, point2.Y - Properties.Resources.mark_end_42x42.Height - CELL_WIDTH);
-                                        g.DrawImage(Properties.Resources.mark_start_42x42, startImgPoint);
-                                        g.DrawImage(Properties.Resources.mark_end_42x42, endImgPoint);
+                                        Point startImgPoint = new Point(point1.X - Properties.Resources.mark_start_42x42_2.Width / 2, point1.Y - Properties.Resources.mark_start_42x42_2.Height - CELL_WIDTH);
+                                        Point endImgPoint = new Point(point2.X - Properties.Resources.mark_end_42x42_2.Width / 2, point2.Y - Properties.Resources.mark_end_42x42_2.Height - CELL_WIDTH);
+                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
+                                        g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                                     }
                                     WayInfo wayInfo = new WayInfo
                                     {
@@ -1214,10 +1214,10 @@ namespace testAStar
                                     bitmapTemp = (Bitmap)bitmap.Clone();
                                     using (Graphics g = Graphics.FromImage(bitmapTemp))
                                     {
-                                        Point startImgPoint = new Point(point2.X - Properties.Resources.mark_start_42x42.Width / 2, point2.Y - Properties.Resources.mark_start_42x42.Height - CELL_WIDTH);
-                                        Point endImgPoint = new Point(point1.X - Properties.Resources.mark_end_42x42.Width / 2, point1.Y - Properties.Resources.mark_end_42x42.Height - CELL_WIDTH);
-                                        g.DrawImage(Properties.Resources.mark_start_42x42, startImgPoint);
-                                        g.DrawImage(Properties.Resources.mark_end_42x42, endImgPoint);
+                                        Point startImgPoint = new Point(point2.X - Properties.Resources.mark_start_42x42_2.Width / 2, point2.Y - Properties.Resources.mark_start_42x42_2.Height - CELL_WIDTH);
+                                        Point endImgPoint = new Point(point1.X - Properties.Resources.mark_end_42x42_2.Width / 2, point1.Y - Properties.Resources.mark_end_42x42_2.Height - CELL_WIDTH);
+                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
+                                        g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                                     }
                                     wayInfo = new WayInfo
                                     {
@@ -1374,13 +1374,13 @@ namespace testAStar
                                 Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
                                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                                 {
-                                    Point startImgPoint = new Point(sceneryCell.Location.X - Properties.Resources.mark_start_42x42.Width / 2
-                                                                  , sceneryCell.Location.Y - Properties.Resources.mark_start_42x42.Height - CELL_WIDTH);
-                                    Point endImgPoint = new Point(parkingCell.Location.X - Properties.Resources.mark_end_42x42.Width / 2
-                                                                , parkingCell.Location.Y - Properties.Resources.mark_end_42x42.Height - CELL_WIDTH);
+                                    Point startImgPoint = new Point(sceneryCell.Location.X - Properties.Resources.mark_start_42x42_2.Width / 2
+                                                                  , sceneryCell.Location.Y - Properties.Resources.mark_start_42x42_2.Height - CELL_WIDTH);
+                                    Point endImgPoint = new Point(parkingCell.Location.X - Properties.Resources.mark_end_42x42_2.Width / 2
+                                                                , parkingCell.Location.Y - Properties.Resources.mark_end_42x42_2.Height - CELL_WIDTH);
 
-                                    g.DrawImage(Properties.Resources.mark_start_42x42, startImgPoint);
-                                    g.DrawImage(Properties.Resources.mark_end_42x42, endImgPoint);
+                                    g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
+                                    g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                                 }
                                 WayInfo wayInfo = new WayInfo
                                 {
@@ -1416,12 +1416,12 @@ namespace testAStar
                                 bitmapTemp = (Bitmap)bitmap.Clone();
                                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                                 {
-                                    Point startImgPoint = new Point(parkingCell.Location.X - Properties.Resources.mark_start_42x42.Width / 2
-                                                                  , parkingCell.Location.Y - Properties.Resources.mark_start_42x42.Height - CELL_WIDTH);
-                                    Point endImgPoint = new Point(sceneryCell.Location.X - Properties.Resources.mark_end_42x42.Width / 2
-                                                                , sceneryCell.Location.Y - Properties.Resources.mark_end_42x42.Height - CELL_WIDTH);
-                                    g.DrawImage(Properties.Resources.mark_start_42x42, startImgPoint);
-                                    g.DrawImage(Properties.Resources.mark_end_42x42, endImgPoint);
+                                    Point startImgPoint = new Point(parkingCell.Location.X - Properties.Resources.mark_start_42x42_2.Width / 2
+                                                                  , parkingCell.Location.Y - Properties.Resources.mark_start_42x42_2.Height - CELL_WIDTH);
+                                    Point endImgPoint = new Point(sceneryCell.Location.X - Properties.Resources.mark_end_42x42_2.Width / 2
+                                                                , sceneryCell.Location.Y - Properties.Resources.mark_end_42x42_2.Height - CELL_WIDTH);
+                                    g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
+                                    g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                                 }
                                 wayInfo = new WayInfo
                                 {
