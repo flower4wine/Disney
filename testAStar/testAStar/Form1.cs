@@ -876,8 +876,8 @@ namespace testAStar
                                                 ,
                                                 point2.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
-                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
-                                        g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
+                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, endImgPoint); 
+                                        g.DrawImage(Properties.Resources.mark_end_42x42_2, startImgPoint);
                                     }
                                     WayInfo wayInfo = new WayInfo
                                     {
@@ -948,8 +948,8 @@ namespace testAStar
                                                 point1.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
                                                 Convert.ToSingle(lineWidth)/2.0F);
 
-                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
-                                        g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
+                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, endImgPoint); 
+                                        g.DrawImage(Properties.Resources.mark_end_42x42_2, startImgPoint);
                                     }
                                     WayInfo wayInfo = new WayInfo
                                     {
