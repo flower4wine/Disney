@@ -5,8 +5,9 @@
 		<table >
 			<tr>
 				<td>
-					<img class="pre-view" alt="" data-out-url="<c:url value= '${guide.outPic }' />"  
-						data-in-url="<c:url value= '${guide.innerPic }' />"  src="<c:url value= '${guide.outPic }' />" 	  > 
+					<img class="pre-view" alt="" data-out-url="<c:out value='${staticFileUrl }${guide.outPic }' />"  
+						data-in-url="<c:out value='${staticFileUrl }${guide.innerPic }' />"  
+						src="<c:out value='${staticFileUrl }${guide.outPic }' />" 	  > 
 				</td>
 			</tr>
 		</table>
@@ -28,13 +29,13 @@
 		</div>
 		
 		<div class="guide-detail-info" >当前位置  -> ${guide.destName }</div>
-		<div class="guide-detail-time" >${guide.time }分钟 | ${guide.distince }米</div>
+		<div class="guide-detail-time" >约${guide.time }分钟 | 约${guide.distince }米</div>
 	</div>
 	
 	
 	<div id="detailStep" class="guide-step-detail" >
 		
-		<div class="guide-step-time" >运营时段： 6:00 ~ 22:30</div>
+		<div class="guide-step-time" >运营时段： 8:00 ~ 21:30</div>
 		
 		<ul class="txt-color-gray">
 			

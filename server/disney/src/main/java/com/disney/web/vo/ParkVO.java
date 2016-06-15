@@ -4,17 +4,22 @@ public class ParkVO {
 	
 	private String qrCode;
 	
-	private Integer totalSpace;
-	
-	private Integer restSpace;
+	private Integer totalSpace = 0;
+	private Integer restSpace =0;
 	
 	private String parkName;
-	
 	private String jsCode;
-	
 	private Integer status;
 	
-	private Integer price;
+	private Integer price=0;
+	
+	public ParkVO(){
+		
+	}
+	
+	public ParkVO(String name){
+		this.parkName = name;
+	}
 	
 	public Integer getTotalSpace() {
 		return totalSpace;

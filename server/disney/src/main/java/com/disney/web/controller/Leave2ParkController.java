@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.disney.bo.LoToLoBO;
+import com.disney.bo.QrCodeBO;
 import com.disney.constant.Lo2LoStepType;
 import com.disney.exception.JSApiException;
 import com.disney.handler.config.SessionHelper;
@@ -62,26 +63,40 @@ public class Leave2ParkController {
 			return ViewUtil.error("10001");
 		}
 		
-		Location parent = locationService.find(co.substring(0,7));
-		Location child = locationService.find(co);
-		
 		String name = "/leave/location";
 		ModelAndView view = ViewUtil.view(name);
 		LocationVO vo = new LocationVO();
 		
-		if(parent==null || child==null){
+		QrCodeBO bo = locationService.queryQrCodeInfo(co);
+		Location parentLoc = locationService.find(co.substring(0,7));
+		
+		if(bo==null || parentLoc==null){
 			//位置信息不存在
 			return ViewUtil.error("10005");
 		}
 		
-		vo.setCode(co);
-		vo.setRemark(parent.getName());
-		vo.setLocationImg(parent.getLocationImg());
-
+		vo.setCode(bo.getQrode());
+		vo.setLocationImg(bo.getLocationImg());
+		vo.setName(parentLoc.getName());
+		
+		if(co.startsWith("03")){
+			String region = StringUtils.isEmpty(bo.getRegion()) ? "" : bo.getRegion()+"  ";
+			String range = StringUtils.isEmpty(bo.getCodeRange()) ? "" : (bo.getCodeRange()+"  附近");
+			vo.setRemark(region + range);
+			vo.setParkLocation(true);
+		}else if(co.startsWith("02")){
+			vo.setParkLocation(false);
+			vo.setRemark(bo.getQrLocationName());
+		}else if(co.startsWith("05")){
+			vo.setParkLocation(false);
+			vo.setLocationImg(parentLoc.getLocationImg());
+			vo.setRemark(parentLoc.getName());
+		}
+		
 		//Get WeXin info
 		ViewUtil.getWeChatInfo(view, weChatHandler, request);
-				
 		view.addObject("location", vo);
+		
 		return view;
 	}
 	
@@ -104,7 +119,9 @@ public class Leave2ParkController {
 		
 		if(StringUtils.isNotEmpty(code) && code.length() == 12){
 			ul.setLeaveLocation(code);
+			ul.setScanLocation(code);
 		}
+		
 		locationService.saveUserLocation(ul);
 		
 		String name = "redirect:/le/queryPark.html";

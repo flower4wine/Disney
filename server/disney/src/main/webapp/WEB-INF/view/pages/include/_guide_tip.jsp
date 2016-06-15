@@ -4,7 +4,7 @@
 	<table >
 		<tr>
 			<td>
-				<img class="loc-mark-img" src="<c:url value= '/resources/images/mark-start.png' />" >
+				<img class="loc-mark-img" src="<c:out value='${staticFileUrl }/resources/images/mark-start.png' />" >
 			</td>
 			<td class="loc-mark-text" >
 				 导览起点
@@ -12,7 +12,7 @@
 		</tr>
 		<tr>
 			<td>
-				<img class="loc-mark-img"   src="<c:url value= '/resources/images/mark-bus.png' />" >
+				<img class="loc-mark-img"   src="<c:out value='${staticFileUrl }/resources/images/mark-bus.png' />" >
 			</td>
 			<td class="loc-mark-text" >
 				 接驳车站
@@ -20,7 +20,7 @@
 		</tr>
 		<tr>
 			<td>
-				<img class="loc-mark-img"   src="<c:url value= '/resources/images/mark-end.png' />" >
+				<img class="loc-mark-img"   src="<c:out value='${staticFileUrl }/resources/images/mark-end.png' />" >
 			</td>
 			<td class="loc-mark-text" >
 				 导览终点

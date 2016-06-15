@@ -4,7 +4,7 @@
 <c:if test="${not empty guide.innerPic }">
 	<div class="guide-toggle" >
 		<div>
-			<img alt="" src="<c:url value= '${guide.innerPic }' />">
+			<img alt="" src="<c:out value='${staticFileUrl }${guide.innerPic }' />">
 		</div>
 	</div>
 </c:if>

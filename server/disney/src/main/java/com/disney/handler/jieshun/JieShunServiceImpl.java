@@ -188,4 +188,10 @@ public class JieShunServiceImpl implements JieShunService{
 		return json;
 	}
 
+
+	@Override
+	public Boolean isApiLive() {
+		return new Boolean(jieShunConfigHandler.getConfigValue(JSConfigKey.LIVE));
+	}
+
 }

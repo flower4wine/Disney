@@ -108,7 +108,7 @@ public class WeChatServerController {
 	private String generateLandscapeBridgeXml(Map<String, String> requestMap){
 		
 		String desc = "欢迎您访问迪斯尼智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。";
-		String picUrl = wxHandler.getDomain()+"/disney/resources/images/landscape.jpg";
+		String picUrl = wxHandler.getDomain()+"/disney-static/resources/images/landscape.jpg";
 		String title = "景观桥介绍测试";
 		String url = wxHandler.getDomain()+"/disney";
 		
@@ -118,7 +118,7 @@ public class WeChatServerController {
 	
 	private String generateQrCodeScanXml(Map<String, String> requestMap,String key){
 		String desc = qrCodeScan(requestMap, key);
-		String picUrl = wxHandler.getDomain()+"/disney/resources/images/userop.jpg";
+		String picUrl = wxHandler.getDomain()+"/disney-static/resources/images/userop.jpg";
 		String title = "迪斯尼导览指南";
 		String url = wxHandler.getDomain()+"/disney";
 		return getNewsMessageXML(requestMap,desc,picUrl,title,url);
@@ -155,20 +155,13 @@ public class WeChatServerController {
 
 		if(StringUtils.isNotEmpty(key) && key.length() == 12){
 			ul.setScanLocation(key);
-
-			if(key.startsWith("03-")){
-				ul.setParkLocation(key);
-			}else{
-				ul.setLeaveLocation(key);
-			}
 		}
 
 		locationService.saveUserLocation(ul);
 
 		Location parent = locationService.find(key.substring(0,7));
-		Location location = locationService.find(key);
 
-		return "欢迎您访问迪斯尼智慧停车平台,您扫描的二维码为："+parent.getName()+"," +location.getName()+"点击查看全文获取详情。";
+		return "欢迎您访问迪斯尼智慧停车平台,您扫描的二维码为："+parent.getName()+"内部二维码,点击查看全文获取详情。";
 	}
 
 

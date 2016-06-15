@@ -11,7 +11,7 @@
 			<table >
 				<tr>
 					<td>
-						<img class="pre-view"  alt="" src="<c:url value= '${location.locationImg }' />" > 
+						<img class="pre-view"  alt="" src="<c:out value='${staticFileUrl }${location.locationImg }' />" > 
 					</td>
 				</tr>
 			</table>
@@ -31,14 +31,14 @@
 					</tr>
 					<tr>
 						<td class="left">
-							<img  alt="" src="<c:url value= '/resources/images/mark-xing.png' />" >
+							<img  alt="" src="<c:out value='${staticFileUrl }/resources/images/mark-xing.png' />" >
 						</td>
 						<td class="loc-mark-single-txt">
 							${location.remark }
 						</td>
 					</tr>
 					
-					<c:if test="${lcoation.isParkLocation }">
+					<c:if test="${location.parkLocation }">
 						<tr class="note">
 							<td class="left"><i class="fa fa-asterisk" aria-hidden="true"></i></td>
 							<td>记录停车位置,离园寻车</td>
@@ -50,7 +50,7 @@
 			<div class="guide-loc-info-right" >
 				<div class="rescan-border" >
 					<div class="rescan">
-						<img  alt="" src="<c:url value='/resources/images/scan.gif' />">
+						<img  alt="" src="<c:out value='${staticFileUrl }/resources/images/scan.gif' />">
 					</div>
 					<div class="rescan-note" >重新定位</div>
 				</div>

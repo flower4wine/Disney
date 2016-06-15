@@ -4,18 +4,13 @@
 </head>
 
 
-<body class="bg-color-black">
 
-	<div style="position:fixed;top: 30px;right: 20px;background-color: #ccc;padding:8px;border-radius: 50%;font-size: 150%;">
-		<a href="<c:url value= '/scanTool.html' />">
-			<i class="fa fa-wrench" aria-hidden="true"></i>
-		</a>
-	</div>
+<body class="bg-color-black">
 
 	<div class="idx_top">
 
 		<div>
-			<img alt="" src="<c:url value= '/resources/images/index_bg.jpg' />">
+			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/index_bg.jpg' />">
 		</div>
 
 		<div class="items">
@@ -23,7 +18,7 @@
 			<div class="item item-parkguide">
 				<div class="item_circle item_col1">
 					<img alt="" class="item_img"
-						src="<c:url value= '/resources/images/item_1.png' />">
+						src="<c:out value='${staticFileUrl }/resources/images/item_1.png' />">
 				</div>
 				<div class="item_text item_bot_col1">
 					<span>停车导览</span>
@@ -33,7 +28,7 @@
 			<div class="item item-parkleave">
 				<div class="item_circle item_col2">
 					<img alt="" class="item_img"
-						src="<c:url value= '/resources/images/item_2.png' />">
+						src="<c:out value='${staticFileUrl }/resources/images/item_2.png' />">
 				</div>
 				<div class="item_text item_bot_col2">
 					<span>离园寻车</span>
@@ -43,7 +38,7 @@
 			<div class="item item-parkpay">
 				<div class="item_circle item_col3">
 					<img alt="" class="item_img"
-						src="<c:url value= '/resources/images/item_3.png' />">
+						src="<c:out value='${staticFileUrl }/resources/images/item_3.png' />">
 				</div>
 				<div class="item_text item_bot_col3">
 					<span>停车缴费</span>
@@ -54,7 +49,7 @@
 
 				<div class="item_circle item_col4">
 					<img alt="" class="item_img"
-						src="<c:url value= '/resources/images/item_4.png' />">
+						src="<c:out value='${staticFileUrl }/resources/images/item_4.png' />">
 				</div>
 
 				<div class="item_text item_bot_col4">
@@ -89,8 +84,7 @@
 		<input type="hidden" id="guideCode" value="${guideCode}" />
 		<input type="hidden" id="leaveCode" value="${leaveCode}" />
 	</form>
-
-
+	
 
 </body>
 

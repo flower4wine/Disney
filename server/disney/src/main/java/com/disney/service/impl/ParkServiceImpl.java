@@ -37,20 +37,12 @@ public class ParkServiceImpl implements ParkService {
 	@Override
 	public Park queryCarInPark(String carNo) throws JSApiException {
 		
-		/*Map<String, Object> queryCarStopByCarno = jieShunService.queryCarStopByCarno(carNo);
-		List<Map<String,Object>> list = (List<Map<String, Object>>) queryCarStopByCarno.get("dataItems");
-		for (Map<String, Object> map : list) {
-			Map<String,Object> attrs = (Map<String,Object>) map.get("attributes");
-			park.setJsCode((String) attrs.get("parkCode"));
-			park =parkDao.findByJsCode(park.getJsCode());
-		}*/
 		Park park = new Park();
 		Map<String, Object> queryOrderByCarNo = jieShunService.queryOrderByCarNo(carNo);
 		List<Map<String,Object>> list = (List<Map<String, Object>>) queryOrderByCarNo.get("dataItems");
 		Map<String, Object> rulst = (Map<String, Object>) list.get(0).get("attributes");
 		String jsCode = (String) rulst.get("parkCode");
 		park =parkDao.findByJsCode(jsCode);
-		
 		
 		return park;
 	}

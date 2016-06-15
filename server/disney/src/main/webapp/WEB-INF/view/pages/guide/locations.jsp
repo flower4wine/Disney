@@ -18,43 +18,26 @@
 		<div class="lov-view-title">奕欧来购物村</div>
 		
 		<div class="loc-view-img" data-code="05-0001-0001">
-			<img alt="" src="<c:url value = '/resources/images/shop1.jpg'/>">
+			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/shop1.jpg'/>">
 			<div class="txt" >奕欧来购物村入口01</div>
 		</div>
 		
 		<div class="loc-view-img" data-code="05-0001-0002">
-			<img alt="" src="<c:url value = '/resources/images/shop2.jpg'/>">
+			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/shop2.jpg'/>">
 			<div class="txt" >奕欧来购物村入口02</div>
 		</div>
 		
 		<div class="loc-view-img" data-code="05-0001-0003">
-			<img alt="" src="<c:url value = '/resources/images/shop3.jpg'/>">
+			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/shop3.jpg'/>">
 			<div class="txt" >奕欧来购物村入口03</div>
 		</div>
 	
 		<div class="loc-view-img" data-code="05-0001-0004">
-			<img alt="" src="<c:url value = '/resources/images/shop4.jpg'/>">
+			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/shop4.jpg'/>">
 			<div class="txt" >奕欧来购物村入口04</div>
 		</div>
 		
-		
 	</div>
-	
-	
-	
-	<%-- <div class="loc-view-info" >
-		<div class="lov-view-title">其他景点</div>
-		
-		<div class="loc-view-img" data-code="01-0001-0002">
-			<img alt="" src="<c:url value = '/resources/images/shop3.jpg'/>">
-			<div class="txt" >迪斯尼酒店入口</div>
-		</div>
-		
-		<div class="loc-view-img" data-code="01-0002-0001">
-			<img alt="" src="<c:url value = '/resources/images/shop4.jpg'/>">
-			<div class="txt" >玩具总动员酒店入口</div>
-		</div>
-	</div> --%>
 	
 
 	<script type="text/javascript">

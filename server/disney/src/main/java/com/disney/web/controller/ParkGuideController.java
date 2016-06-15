@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.disney.bo.LoToLoBO;
+import com.disney.bo.QrCodeBO;
 import com.disney.constant.Lo2LoStepType;
 import com.disney.handler.config.SessionHelper;
 import com.disney.handler.wechat.WeChatHandler;
@@ -51,33 +52,40 @@ public class ParkGuideController {
 			return ViewUtil.error("10002");
 		}
 		
-		Location parent = locationService.find(co.substring(0,7));
-		Location child = locationService.find(co);
 		
 		String name = "/guide/location";
 		
 		ModelAndView view = ViewUtil.view(name);
 		LocationVO vo = new LocationVO();
 		
-		if(parent==null || child==null){
+		
+		QrCodeBO bo = locationService.queryQrCodeInfo(co);
+		Location parentLoc = locationService.find(co.substring(0,7));
+		
+		if(bo==null || parentLoc==null){
 			//位置信息不存在
 			return ViewUtil.error("10005");
 		}
 		
 		
-		vo.setName(parent.getName());
-		vo.setCode(co);
-		vo.setRemark(child.getName());
-		vo.setLocationImg(child.getLocationImg());
+		vo.setCode(bo.getQrode());
+		vo.setLocationImg(bo.getLocationImg());
+		vo.setName(parentLoc.getName());
 		
-		if(co.startsWith("02")){
+		if(co.startsWith("03")){
+			String region = StringUtils.isEmpty(bo.getRegion()) ? "" : bo.getRegion()+"  ";
+			String range = StringUtils.isEmpty(bo.getCodeRange()) ? "" : (bo.getCodeRange()+"  附近");
+			vo.setRemark(region + range);
+			vo.setParkLocation(true);
+		}else if(co.startsWith("02")){
 			vo.setParkLocation(false);
+			vo.setRemark(bo.getQrLocationName());
 		}
-	
+		
 		//Get WeXin info
 		ViewUtil.getWeChatInfo(view, weChatHandler, request);
-
 		view.addObject("location", vo);
+
 		return view;
 	}
 	
@@ -94,17 +102,15 @@ public class ParkGuideController {
 		
 		ul.setCreatedAt(new Date());
 		
-		//TODO 支持接驳车站二维码
 		if(StringUtils.isNotEmpty(code) && code.length() == 12){
 			
 			ul.setConfirmLocation(code);
+			ul.setScanLocation(code);
 			
 			if(code.startsWith("03")){
 				ul.setParkLocation(code);
 			}
 		}
-		
-		
 		
 		locationService.saveUserLocation(ul);
 		

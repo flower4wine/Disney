@@ -5,7 +5,6 @@ import java.util.List;
 import com.disney.model.FromToOptimize;
 import com.disney.model.Location;
 import com.disney.model.QrCode;
-import com.disney.model.UserLocation;
 
 public interface LocationService {
 	
@@ -66,18 +65,6 @@ public interface LocationService {
 	 */
 	public FromToOptimize getFromToInfo(String from,String to);
 	
-	/**
-	 * 
-	 * @param userOpenId
-	 * @return
-	 */
-	public UserLocation findUserLocation(String userOpenId);
-	
-	/**
-	 * 
-	 * @param userLocation
-	 */
-	public void saveUserLocation(UserLocation userLocation);
 
 	/**
 	 * 根据场景二维码URL 查找二维码
