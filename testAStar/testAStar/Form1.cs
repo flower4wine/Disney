@@ -42,7 +42,6 @@ namespace testAStar
         private static int MAP_HEIGHT = 300;
         private Thread _shThread = null;
 
-        private bool _isFirst = true;
         private SvgDocument _svgDoc;
         private bool _isMouseDown = false;
         private string _imgPath = string.Empty;
@@ -71,7 +70,6 @@ namespace testAStar
         {
             //if (_isFirst)
             //{
-            _isFirst = false;
             //    _aPathFind.DrawMapGrid();
             //}
             //_aPathFind.MapControlDraw();
@@ -160,6 +158,22 @@ namespace testAStar
                 _lastNameCell = new Cell(e.X / CELL_WIDTH * CELL_WIDTH, e.Y / CELL_WIDTH * CELL_WIDTH,
                     //textBoxName.Text + "-" + numericUpDownName.Value.ToString().PadLeft(4, '0'));
                     textBoxName.Text);
+                if(radioButton1.Checked)
+                {
+                    _lastNameCell.Toward = CellToward.Up;
+                }
+                else if (radioButton2.Checked)
+                {
+                    _lastNameCell.Toward = CellToward.Down;
+                }
+                else if (radioButton3.Checked)
+                {
+                    _lastNameCell.Toward = CellToward.Left;
+                }
+                else if (radioButton4.Checked)
+                {
+                    _lastNameCell.Toward = CellToward.Right;
+                }
                 _aPathFind.SetKeyCell(_lastNameCell);
             }
             else if (_aPathFind.IsInStone(e.X, e.Y))
@@ -1585,14 +1599,32 @@ namespace testAStar
                     SolidBrush colorBrush = new SolidBrush(Color.Black);
                     foreach (Cell keyCell in _aPathFind.KeyCells)
                     {
-                        g.FillEllipse(colorPointBrush, new Rectangle(keyCell.Location, new Size(CELL_WIDTH, CELL_WIDTH)));
+                        Point ellipsePoint = new Point(keyCell.Location.X - CELL_WIDTH, keyCell.Location.Y - CELL_WIDTH);
+                        switch(keyCell.Toward)
+                        {
+                            case CellToward.Up:
+                                g.DrawImage(Properties.Resources.up, ellipsePoint);
+                                break;
+                            case CellToward.Down:
+                                g.DrawImage(Properties.Resources.down, ellipsePoint);
+                                break;
+                            case CellToward.Left:
+                                g.DrawImage(Properties.Resources.left, ellipsePoint);
+                                break;
+                            case CellToward.Right:
+                                g.DrawImage(Properties.Resources.right, ellipsePoint);
+                                break;
+                            default:
+                                g.FillEllipse(colorPointBrush, new Rectangle(ellipsePoint, new Size(CELL_WIDTH * 2, CELL_WIDTH * 2)));
+                                break;
+                        }
                     }
                     foreach (Cell keyCell in _aPathFind.KeyCells)
                     {
                         string str = keyCell.Name.Substring(keyCell.Name.LastIndexOf('-') + 1);
                         Point stringLocation = keyCell.Location;
                         stringLocation.Y += CELL_WIDTH ;
-                        //stringLocation.X += CELL_WIDTH + 1;
+                        stringLocation.X -= CELL_WIDTH ;
 
                         SizeF sizeF = g.MeasureString(str, font);
                         // 去除边距

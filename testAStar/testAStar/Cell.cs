@@ -50,9 +50,6 @@ namespace testAStar
         [DataMember(Name = "export_type")]
         public string ExportType { set; get; }
 
-
-
-
         /// <summary>
         /// 编号
         /// </summary>
@@ -112,6 +109,55 @@ namespace testAStar
         [IgnoreDataMember]
         public Color CellColor { get; set; }
 
+        [IgnoreDataMember]
+        public CellToward Toward { set; get; }
+
+        [DataMember(Name = "toward")]
+        public string TowardStr
+        {
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    Toward = CellToward.None;
+                }
+                else if ("u" == value)
+                {
+                    Toward = CellToward.Up;
+                }
+                else if ("d" == value)
+                {
+                    Toward = CellToward.Down;
+                }
+                else if ("l" == value)
+                {
+                    Toward = CellToward.Left;
+                }
+                else if ("r" == value)
+                {
+                    Toward = CellToward.Right;
+                }
+            }
+            get
+            {
+                switch(Toward)
+                {
+                    case CellToward.None:
+                        return null;
+                    case CellToward.Up:
+                        return "u";
+                    case CellToward.Down:
+                        return "d";
+                    case CellToward.Left:
+                        return "l";
+                    case CellToward.Right:
+                        return "r";
+                    default:
+                        return null;
+                }
+            }
+        }
+
         /// <summary>
         /// 判断是否有Cell
         /// </summary>
@@ -148,5 +194,14 @@ namespace testAStar
                 , string.IsNullOrEmpty(this.Name) ? string.Empty : "Name:"+this.Name, this.Location.X, this.Location.Y
                 , this.ParentCell == null ? string.Empty : " Parent:{" + this.ParentCell + "}");
         }
+    }
+    
+    public enum CellToward
+    {
+        None = 0,
+        Up = 1,
+        Down = 2,
+        Left = 3,
+        Right = 4
     }
 }

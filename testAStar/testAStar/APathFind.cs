@@ -229,9 +229,9 @@ namespace testAStar
             this.StoneCells.AddRange(stoneCells);
             MapBmpFillRectangles(stoneCells.ToList(), this._red);
         }
-        public void SetKeyCell(int mouseX, int mouseY, string name = "")
+        public void SetKeyCell(int mouseX, int mouseY, CellToward cellToward, string name = "")
         {
-            SetKeyCell(new Cell(mouseX / CELL_WIDTH * CELL_WIDTH, mouseY / CELL_WIDTH * CELL_WIDTH, name));
+            SetKeyCell(new Cell(mouseX / CELL_WIDTH * CELL_WIDTH, mouseY / CELL_WIDTH * CELL_WIDTH, name) {  Toward= cellToward });
         }
 
         public void SetKeyCell(Cell cell)
