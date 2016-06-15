@@ -1604,15 +1604,15 @@ namespace testAStar
                         g.DrawString(str, font, colorBrush,
                             stringLocation);
 
-                        using (Bitmap bitmap2 = new Bitmap(panelMap.Width, panelMap.Height))
+                        Bitmap bitmap2 = new Bitmap(panelMap.Width, panelMap.Height);
+                        panelMap.DrawToBitmap(bitmap2, panelMap.Bounds);
+                        using (Graphics g2 = Graphics.FromImage(bitmap2))
                         {
-                            panelMap.DrawToBitmap(bitmap2, panelMap.Bounds);
-                            using (Graphics g2 = Graphics.FromImage(bitmap2))
-                            {
-                                g2.DrawImage(Properties.Resources.star_42x42, keyCell.Location - new Size(21, 21));
-                            }
-                            bitmap2.Save(@"./Save/" + textBoxMapName.Text + "/QRLocation/" + keyCell.Name + ".jpg", ImageFormat.Jpeg);
+                            g2.DrawImage(Properties.Resources.star_42x42, keyCell.Location - new Size(21, 21));
                         }
+                        bitmap2.Save(@"./Save/" + textBoxMapName.Text + "/QRLocation/" + keyCell.Name + ".jpg", ImageFormat.Jpeg);
+                        bitmap2.Dispose();
+                        GC.Collect();
                     }
                 }
                 bitmap.Save(@"./Save/" + textBoxMapName.Text + "/ MapIndex.png", ImageFormat.Png);
