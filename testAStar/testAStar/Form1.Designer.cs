@@ -75,10 +75,14 @@
             this.label12 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.radioButton7 = new System.Windows.Forms.RadioButton();
+            this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CellWidthNumericUpDown)).BeginInit();
@@ -654,6 +658,10 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.radioButton5);
+            this.groupBox1.Controls.Add(this.radioButton6);
+            this.groupBox1.Controls.Add(this.radioButton7);
+            this.groupBox1.Controls.Add(this.radioButton8);
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.radioButton4);
             this.groupBox1.Controls.Add(this.radioButton2);
@@ -665,28 +673,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "二维码标牌朝向";
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 18);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(53, 16);
-            this.radioButton1.TabIndex = 4;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "上 ↑";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 40);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(53, 16);
-            this.radioButton2.TabIndex = 5;
-            this.radioButton2.Text = "下 ↓";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
@@ -694,7 +680,6 @@
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(53, 16);
             this.radioButton3.TabIndex = 6;
-            this.radioButton3.TabStop = true;
             this.radioButton3.Text = "左 ←";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
@@ -707,6 +692,67 @@
             this.radioButton4.TabIndex = 50;
             this.radioButton4.Text = "右 →";
             this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(6, 40);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(53, 16);
+            this.radioButton2.TabIndex = 5;
+            this.radioButton2.Text = "下 ↓";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 18);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(53, 16);
+            this.radioButton1.TabIndex = 4;
+            this.radioButton1.Text = "上 ↑";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(64, 67);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(59, 16);
+            this.radioButton5.TabIndex = 53;
+            this.radioButton5.Text = "左上↖";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Location = new System.Drawing.Point(64, 92);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(59, 16);
+            this.radioButton6.TabIndex = 54;
+            this.radioButton6.Text = "左下↙";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // radioButton7
+            // 
+            this.radioButton7.AutoSize = true;
+            this.radioButton7.Location = new System.Drawing.Point(64, 40);
+            this.radioButton7.Name = "radioButton7";
+            this.radioButton7.Size = new System.Drawing.Size(59, 16);
+            this.radioButton7.TabIndex = 52;
+            this.radioButton7.Text = "右下↘";
+            this.radioButton7.UseVisualStyleBackColor = true;
+            // 
+            // radioButton8
+            // 
+            this.radioButton8.AutoSize = true;
+            this.radioButton8.Location = new System.Drawing.Point(64, 18);
+            this.radioButton8.Name = "radioButton8";
+            this.radioButton8.Size = new System.Drawing.Size(59, 16);
+            this.radioButton8.TabIndex = 51;
+            this.radioButton8.Text = "右上↗";
+            this.radioButton8.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -826,6 +872,10 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton radioButton7;
+        private System.Windows.Forms.RadioButton radioButton8;
     }
 }
 

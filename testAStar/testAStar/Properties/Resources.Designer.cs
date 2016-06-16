@@ -143,6 +143,26 @@ namespace testAStar.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap left_down {
+            get {
+                object obj = ResourceManager.GetObject("left_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap left_up {
+            get {
+                object obj = ResourceManager.GetObject("left_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap MapEnd {
             get {
                 object obj = ResourceManager.GetObject("MapEnd", resourceCulture);
@@ -226,6 +246,26 @@ namespace testAStar.Properties {
         internal static System.Drawing.Bitmap right {
             get {
                 object obj = ResourceManager.GetObject("right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap right_down {
+            get {
+                object obj = ResourceManager.GetObject("right_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap right_up {
+            get {
+                object obj = ResourceManager.GetObject("right_up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

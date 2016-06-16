@@ -174,6 +174,22 @@ namespace testAStar
                 {
                     _lastNameCell.Toward = CellToward.Right;
                 }
+                else if (radioButton5.Checked)
+                {
+                    _lastNameCell.Toward = CellToward.LeftUp;
+                }
+                else if (radioButton6.Checked)
+                {
+                    _lastNameCell.Toward = CellToward.LeftDown;
+                }
+                else if (radioButton7.Checked)
+                {
+                    _lastNameCell.Toward = CellToward.RightDown;
+                }
+                else if (radioButton8.Checked)
+                {
+                    _lastNameCell.Toward = CellToward.RightUp;
+                }
                 _aPathFind.SetKeyCell(_lastNameCell);
             }
             else if (_aPathFind.IsInStone(e.X, e.Y))
@@ -1613,6 +1629,18 @@ namespace testAStar
                                 break;
                             case CellToward.Right:
                                 g.DrawImage(Properties.Resources.right, ellipsePoint);
+                                break;
+                            case CellToward.LeftDown:
+                                g.DrawImage(Properties.Resources.left_down, ellipsePoint);
+                                break;
+                            case CellToward.LeftUp:
+                                g.DrawImage(Properties.Resources.left_up, ellipsePoint);
+                                break;
+                            case CellToward.RightDown:
+                                g.DrawImage(Properties.Resources.right_down, ellipsePoint);
+                                break;
+                            case CellToward.RightUp:
+                                g.DrawImage(Properties.Resources.right_up, ellipsePoint);
                                 break;
                             default:
                                 g.FillEllipse(colorPointBrush, new Rectangle(ellipsePoint, new Size(CELL_WIDTH * 2, CELL_WIDTH * 2)));

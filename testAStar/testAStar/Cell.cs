@@ -137,6 +137,22 @@ namespace testAStar
                 {
                     Toward = CellToward.Right;
                 }
+                else if ("ld" == value)
+                {
+                    Toward = CellToward.LeftDown;
+                }
+                else if ("lu" == value)
+                {
+                    Toward = CellToward.LeftUp;
+                }
+                else if ("rd" == value)
+                {
+                    Toward = CellToward.RightDown;
+                }
+                else if ("ru" == value)
+                {
+                    Toward = CellToward.RightUp;
+                }
             }
             get
             {
@@ -152,6 +168,14 @@ namespace testAStar
                         return "l";
                     case CellToward.Right:
                         return "r";
+                    case CellToward.LeftDown:
+                        return "ld";
+                    case CellToward.LeftUp:
+                        return "lu";
+                    case CellToward.RightDown:
+                        return "rd";
+                    case CellToward.RightUp:
+                        return "ru";
                     default:
                         return null;
                 }
@@ -195,13 +219,17 @@ namespace testAStar
                 , this.ParentCell == null ? string.Empty : " Parent:{" + this.ParentCell + "}");
         }
     }
-    
+
     public enum CellToward
     {
         None = 0,
         Up = 1,
         Down = 2,
         Left = 3,
-        Right = 4
+        Right = 4,
+        LeftUp = 5,
+        LeftDown = 6,
+        RightDown = 7,
+        RightUp = 8
     }
 }
