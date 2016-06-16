@@ -8,7 +8,7 @@ function endLoading(){
 }
 
 function domain(){
-	return "http://jsdisney.digirogar.com/";
+	return "http://disney.inesa-btfq.com/";
 }
 
 
@@ -103,7 +103,7 @@ function wxPreViewImg(imgsrc){
 	var src = imgsrc.attr('src');
 	
     if(src) {
-       src = domain() + src;
+       //src = domain() + src;
        srcList.push(src);
        
 	   wx.previewImage({

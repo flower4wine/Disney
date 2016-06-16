@@ -25,4 +25,8 @@ public class JSConfigKey {
 	public static String BUSINESSERCODE="js.service.businesserCode";
 	public static String ORDERTYPE="js.service.orderType";
 	
+	
+	//是否真实环境
+	public static String LIVE = "js.live";
+	
 }

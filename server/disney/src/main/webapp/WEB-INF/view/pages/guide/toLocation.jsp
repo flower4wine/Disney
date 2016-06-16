@@ -3,7 +3,6 @@
 
 <%@ include file="../include/_common_header.jsp"%>
 
-<script type="text/javascript" src="<c:url value= '/resources/script/jquery.touchSwipe.min.js'/>"></script>
 
 </head>
 

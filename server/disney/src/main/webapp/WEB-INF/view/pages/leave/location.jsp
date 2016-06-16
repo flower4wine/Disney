@@ -6,25 +6,13 @@
 
 <body>
 
-	<%-- <div class="loc-mark-single">
-		<table >
-			<tr>
-				<td>
-					<img class="loc-mark-img" alt="" src="<c:url value= '/resources/images/mark-xing.png' />" >
-				</td>
-				<td class="loc-mark-single-txt">
-					 景点位置
-				</td>
-			</tr>
-		</table>
-	</div> --%>
 	
 	<div class="guide-map" >
 		<div class="guide-map-container" >
 			<table >
 				<tr>
 					<td>
-						<img class="pre-view"  alt="" src="<c:url value= '${location.locationImg }' />" 	  > 
+						<img class="pre-view"  alt="" src="<c:out value='${staticFileUrl }${location.locationImg }' />" 	  > 
 					</td>
 				</tr>
 			</table>
@@ -35,9 +23,6 @@
 		<div class="guide-loc-info" >
 		
 			<div class="guide-loc-info-left" >
-				<%-- <div class="title" >位置信息</div>
-				<div class="position" ><i class="fa fa-map-marker"></i> ${location.remark }</div>
-				<div class="note" >确认当前位置,便于寻车导览</div> --%>
 				
 				<table>
 					<tr class="title" >
@@ -46,7 +31,7 @@
 					</tr>
 					<tr>
 						<td class="left">
-							<img  alt="" src="<c:url value= '/resources/images/mark-xing.png' />" >
+							<img  alt="" src="<c:out value='${staticFileUrl }/resources/images/mark-xing.png' />" >
 						</td>
 						<td class="loc-mark-single-txt">
 							${location.remark }
@@ -61,16 +46,10 @@
 			</div>
 			
 			
-			
-			
-			
-			
-			
-			
 			<div class="guide-loc-info-right" >
 				<div class="rescan-border" >
 					<div class="rescan">
-						<img alt="" src="<c:url value='/resources/images/scan.gif' />">
+						<img alt="" src="<c:out value='${staticFileUrl }/resources/images/scan.gif' />">
 					</div>
 					<div class="rescan-note" >重新定位</div>
 				</div>
@@ -82,13 +61,6 @@
 		</div>
 	</div>
 	
-<!-- 	<div  class="btn_handler btn_minus_pos">
-		<i class="fa fa-minus"></i>
-	</div>
-	
-	<div  class="btn_handler btn_plus_pos">
-		<i class="fa fa-plus"></i>
-	</div> -->
 	
 	<form>
 		<input type="hidden" id="timestamp" value="${timestamp}" /> 
@@ -104,9 +76,6 @@
 		
 			resetGuideMap();
 			
-		/* 	$(".btn_minus_pos").on('click',minGuideMapImg);
-			$(".btn_plus_pos").on('click',maxGuideMapImg);
-			 */
 			var timestamp = $("#timestamp").val();//时间戳
 			var nonceStr = $("#nonceStr").val();//随机串
 			var signature = $("#signature").val();//签名

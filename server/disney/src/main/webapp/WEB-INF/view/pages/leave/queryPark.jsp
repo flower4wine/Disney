@@ -17,7 +17,7 @@
 			<div class="leave-tip-info" >以便于我们对您的车辆进行定位</div>
 			
 			<div>
-				<input class="leave-input">
+				<input class="leave-input" placeholder="功能测试,敬请期待!" disabled="disabled">
 			</div>
 			
 			<div class="leave-btn-border">
@@ -56,6 +56,22 @@
 		
 		</div>
 	</div>
+	
+	<div id="dialog" class="weui_dialog_alert" style="display:none;">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd" style="color: #777;"><strong class="weui_dialog_title">提示信息</strong></div>
+            
+            <div class="weui_dialog_bd" >
+				请选择停车场后，点击确认！
+			</div>
+			
+            <div class="weui_dialog_ft">
+                <a class="weui_btn_dialog primary" href="javascript:;">确定</a>
+            </div>
+        </div>
+    </div>
+    
 
 	<script type="text/javascript">
 		$(".leave-park li").on("click",function(){
@@ -66,6 +82,17 @@
 			$(this).addClass("selected");
 		});
 		
+		function showInfo(){
+		 	var dig = $('#dialog');
+		 	
+		    dig.show();
+		    
+		    dig.find('.weui_btn_dialog').one('click', function () {
+		        dig.hide();
+		    });
+		    
+		}
+	
 		$(".leave-btn-border").on("click",function(){
 			var car = $(".leave-input").val();
 			
@@ -85,6 +112,9 @@
 				if(selected.length>0){
 					var code = $(selected).data("code");
 					window.location = '/disney/le/toParkEntrance.html?parkLocation='+code;
+				}else{
+					//alert("请选择停车场后，点击确定！");
+					showInfo();
 				}
 			}
 		});

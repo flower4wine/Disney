@@ -1,4 +1,4 @@
-package com.disney.web.vo;
+package com.disney.main;
 
 import com.disney.util.HttpClientUtil;
 
@@ -21,12 +21,15 @@ public class GenerateDataMain {
 		generate(prefix,"/p1/p2.html");
 		generate(prefix,"/p1/p3.html");
 		generate(prefix,"/p1/p4.html");
+		
 		generate(prefix,"/p2/p1.html");
 		generate(prefix,"/p2/p3.html");
 		generate(prefix,"/p2/p4.html");
+		
 		generate(prefix,"/p3/p1.html");
 		generate(prefix,"/p3/p2.html");
 		generate(prefix,"/p3/p4.html");
+		
 		generate(prefix,"/p4/p1.html");
 		generate(prefix,"/p4/p2.html");
 		generate(prefix,"/p4/p3.html");

@@ -453,11 +453,11 @@ ul,li {
 }
 
 .guide-step-detail .step-walk {
-	color:#777;
+	color:red;
 }
 
 .guide-step-detail .step-bus {
-	color:green;
+	color:#04BE02;
 }
 
 .guide-detail {

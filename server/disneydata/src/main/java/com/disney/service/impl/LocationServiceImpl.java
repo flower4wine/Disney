@@ -13,14 +13,12 @@ import com.disney.dao.LoToLoDao;
 import com.disney.dao.LoToLoStepDao;
 import com.disney.dao.LocationDao;
 import com.disney.dao.QrCodeDao;
-import com.disney.dao.UserLocationDao;
 import com.disney.handler.wechat.WeChatHandler;
 import com.disney.model.FromToOptimize;
 import com.disney.model.LoToLo;
 import com.disney.model.LoToLoStep;
 import com.disney.model.Location;
 import com.disney.model.QrCode;
-import com.disney.model.UserLocation;
 import com.disney.service.LocationService;
 import com.disney.util.WeChatCreateQrCodeUtil;
 
@@ -44,8 +42,6 @@ public class LocationServiceImpl implements LocationService {
 	@Autowired
 	private FromToOptimizeDao fromToOptimizeDao;
 
-	@Autowired
-	private UserLocationDao userLocationDao;
 
 	@Autowired
 	private WeChatHandler weChatHandler; 
@@ -131,15 +127,6 @@ public class LocationServiceImpl implements LocationService {
 
 	}
 
-	@Override
-	public UserLocation findUserLocation(String userOpenId) {
-		return userLocationDao.find(userOpenId);
-	}
-
-	@Override
-	public void saveUserLocation(UserLocation userLocation) {
-		userLocationDao.saveOrUpdate(userLocation);
-	}
 
 	@Override
 	public void save(Location location) {

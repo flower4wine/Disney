@@ -1,11 +1,13 @@
 package com.disney.service.impl;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.disney.bo.QrCodeBO;
 import com.disney.dao.LocationDao;
 import com.disney.dao.QrCodeDao;
 import com.disney.dao.UserLocationDao;
@@ -28,20 +30,66 @@ public class LocationServiceImpl implements LocationService {
 
 	@Autowired
 	private UserLocationDao userLocationDao;
-
-
+	
+	/**
+	 * 缓存查询结果
+	 */
+	private Map<String,QrCodeBO> qrCodeMap = new HashMap<String,QrCodeBO>();
+	
+	/**
+	 * 缓存位置
+	 */
+	private Map<String,Location> locationMap = new HashMap<String,Location>();
+	
 	@Override
-	public List<Location> findAll() {
-		return locationDao.findAll();
+	public Location find(String code) {
+		
+		if(locationMap.containsKey(code)){
+			return locationMap.get(code);
+		}
+		
+		Location loc = locationDao.find(code);
+		
+		if(loc!=null){
+			locationMap.put(code, loc);
+		}
+		
+		return loc;
 	}
-
-
+	
+	
 	@Override
-	public Location find(String qrCode) {
-		return locationDao.find(qrCode);
+	public QrCodeBO queryQrCodeInfo(String code) {
+		
+		if(qrCodeMap.containsKey(code)){
+			return qrCodeMap.get(code);
+		}
+		
+		
+		QrCode qrCode = qrCodeDao.find(code);
+		
+		if(qrCode==null){
+			return null;
+		}
+		
+		Location loc = find(code);
+		
+		if(loc==null){
+			return null;
+		}
+		
+		QrCodeBO bo = new QrCodeBO();
+		
+		bo.setQrode(code);
+		bo.setQrLocationName(loc.getName());
+		bo.setRegion(qrCode.getRegion());
+		bo.setCodeRange(qrCode.getCodeRange());
+		bo.setLocationImg(loc.getLocationImg());
+		
+		qrCodeMap.put(code, bo);
+		
+		return bo;
 	}
-
-
 
 	@Override
 	public UserLocation findUserLocation(String userOpenId) {
@@ -63,6 +111,4 @@ public class LocationServiceImpl implements LocationService {
 	public QrCode findQrCodeByCode(String code) {
 		return qrCodeDao.find(code);
 	}
-
-
 }

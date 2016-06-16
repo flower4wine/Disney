@@ -41,7 +41,7 @@
 		</div>
 		
 		<div class="scan-img" >
-			<img alt="" src="<c:url value='/resources/images/scan.gif' />" >
+			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/scan.gif' />" >
 		</div>
 		
 		<div  class="scan-btn" >

@@ -3,23 +3,52 @@ package com.disney.bo;
 
 public class QrCodeBO {
 	
-	private String codeTypeName;
-	private String codeLocationName;
-	
 	private String qrode;
 	private String qrLocationName;
 	
-	public String getCodeTypeName() {
-		return codeTypeName;
+	private String region;
+	private String codeRange;
+	private boolean nearEntra=false;
+	private String size;
+	private String style;
+	
+	private String locationImg;
+	
+	public String getLocationImg() {
+		return locationImg;
 	}
-	public void setCodeTypeName(String codeTypeName) {
-		this.codeTypeName = codeTypeName;
+	public void setLocationImg(String locationImg) {
+		this.locationImg = locationImg;
 	}
-	public String getCodeLocationName() {
-		return codeLocationName;
+	public String getRegion() {
+		return region;
 	}
-	public void setCodeLocationName(String codeLocationName) {
-		this.codeLocationName = codeLocationName;
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	public String getCodeRange() {
+		return codeRange;
+	}
+	public void setCodeRange(String codeRange) {
+		this.codeRange = codeRange;
+	}
+	public boolean isNearEntra() {
+		return nearEntra;
+	}
+	public void setNearEntra(boolean nearEntra) {
+		this.nearEntra = nearEntra;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public String getStyle() {
+		return style;
+	}
+	public void setStyle(String style) {
+		this.style = style;
 	}
 	public String getQrode() {
 		return qrode;

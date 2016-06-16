@@ -6,7 +6,7 @@
 <body>
 
 	<div>
-		<img src="<c:url value= '${bgImg }' />" class="park-map-img" />
+		<img src="<c:out value='${staticFileUrl }${bgImg }' />" class="park-map-img" />
 		
 		<div class="park-info">
 			<div class="bg-color-blue park-info-name">P1停车场</div>

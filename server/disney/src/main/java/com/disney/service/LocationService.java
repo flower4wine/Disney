@@ -1,15 +1,18 @@
 package com.disney.service;
 
-import java.util.List;
-
+import com.disney.bo.QrCodeBO;
 import com.disney.model.Location;
 import com.disney.model.QrCode;
 import com.disney.model.UserLocation;
 
 public interface LocationService {
 	
-	
-	public List<Location> findAll();
+	/**
+	 * 查询二维码信息
+	 * @param code
+	 * @return
+	 */
+	public QrCodeBO queryQrCodeInfo(String code);
 	
 	
 	/**

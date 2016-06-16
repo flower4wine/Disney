@@ -47,15 +47,14 @@
 			<div class="clear"></div>
 		</div>
 		
-		
 		<div class="paytitle" >支付方式</div>
 		
 		<div>
 			<table class="paylist" >
 				<tr>
-					<td><img alt="" src="<c:url value= '/resources/images/pay-wx.jpg' />" ></td>
+					<td><img alt="" src="<c:out value='${staticFileUrl }/resources/images/pay-wx.jpg' />" ></td>
 					<td class="paystyle" style="padding: 0 10px;">微信支付</td>
-					<td><img alt="" src="<c:url value= '/resources/images/pay-ali.jpg' />" ></td>
+					<td><img alt="" src="<c:out value='${staticFileUrl }/resources/images/pay-ali.jpg' />" ></td>
 					<td  class="paystyle" >支付宝支付</td>
 				</tr>
 				
@@ -63,19 +62,11 @@
 			<div class="clear"></div>
 		</div>
 		
-		
-		
 		<div class="payborder"  >
 			<div class="bg-color_red paybtn" >
 				支付
 			</div>
 		</div>
-		
-		<!-- <div class="payborder">
-			<div class="park-pay-query" >
-				缴费记录   &nbsp;<i class="fa fa-chevron-right"></i>
-			</div>
-		</div> -->
 		
 	</div>
 
