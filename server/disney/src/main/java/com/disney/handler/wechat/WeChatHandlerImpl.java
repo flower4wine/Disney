@@ -135,9 +135,38 @@ public class WeChatHandlerImpl extends ConfigHelper implements WeChatHandler {
 		return WeChatAuthUtil.getOauth2AccessToken(this.config.getAppId(), this.config.getAppSecret(), code);
 	}
 
+	/**
+	 * 是否测试环境
+	 */
 	@Override
 	public boolean isDebug() {
 		return this.config.isDebug();
+	}
+
+
+	/**
+	 * 导览扫码跳转URL
+	 */
+	@Override
+	public String guideForwardUrl() {
+		return value("weixin.guide.url");
+	}
+
+	/**
+	 * 景观桥介绍 扫码 跳转URL
+	 */
+	@Override
+	public String landBridgeForwardUrl() {
+		return value("weixin.landbridge.url");
+	}
+
+
+	/**
+	 * 图文消息   图片URL
+	 */
+	@Override
+	public String newsPicUrl() {
+		return value("weixin.newsPic.url");
 	}
 
 }
