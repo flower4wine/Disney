@@ -15,4 +15,9 @@ public interface WeChatHandler {
 	public boolean isDebug();
 	
 	public String getDomain();
+	
+	public String newsPicUrl();
+	public String guideForwardUrl();
+	public String landBridgeForwardUrl();
+	
 }

@@ -150,7 +150,6 @@ public class ParkGuideController {
 		
 		if(ul!=null && StringUtils.isNotEmpty(ul.getParkLocation()) && ul.getParkLocation().length()==12){
 			
-			//TODO 需要增加接驳车站导览到目标位置
 			LoToLoBO bo = lo2loService.loadLoToLoBO(ul.getConfirmLocation(),toLocation);
 			
 			if(bo == null){
