@@ -96,7 +96,7 @@ namespace testAStar
         {
             _isMouseDown = false;
         }
-        
+
         private void panelMap_MouseMove(object sender, MouseEventArgs e)
         {
 
@@ -158,7 +158,7 @@ namespace testAStar
                 _lastNameCell = new Cell(e.X / CELL_WIDTH * CELL_WIDTH, e.Y / CELL_WIDTH * CELL_WIDTH,
                     //textBoxName.Text + "-" + numericUpDownName.Value.ToString().PadLeft(4, '0'));
                     textBoxName.Text);
-                if(radioButton1.Checked)
+                if (radioButton1.Checked)
                 {
                     _lastNameCell.Toward = CellToward.Up;
                 }
@@ -338,8 +338,8 @@ namespace testAStar
         private void SaveSvgButton_Click(object sender, EventArgs e)
         {
             List<WayInfo> wayInfos = new List<WayInfo>();
-            Bitmap bitmap  = (Bitmap)panelMap.BackgroundImage.Clone();
-            using(bitmap)
+            Bitmap bitmap = (Bitmap)panelMap.BackgroundImage.Clone();
+            using (bitmap)
             {
                 double length = 0d;
                 Point point1 = Point.Empty;
@@ -347,7 +347,7 @@ namespace testAStar
                 using (Graphics g = Graphics.FromImage(bitmap))
                 {
                     #region 绘制路线
-                    using (Pen p = new Pen(Color.FromArgb(0xff,0x48, 0xA2, 0x7C), CELL_WIDTH))
+                    using (Pen p = new Pen(Color.FromArgb(0xff, 0x48, 0xA2, 0x7C), CELL_WIDTH))
                     {
                         p.StartCap = LineCap.Round;
                         p.EndCap = LineCap.Round;
@@ -358,7 +358,7 @@ namespace testAStar
                             if (startPoint.HasValue)
                             {
                                 length += GetPointLength(startPoint.Value, location);
-                                Point p1 = new Point(startPoint.Value.X + CELL_WIDTH / 2, startPoint.Value.Y + CELL_WIDTH / 2); 
+                                Point p1 = new Point(startPoint.Value.X + CELL_WIDTH / 2, startPoint.Value.Y + CELL_WIDTH / 2);
                                 Point p2 = new Point(location.X + CELL_WIDTH / 2, location.Y + CELL_WIDTH / 2);
                                 if (startPoint.Value.Y - location.Y > CELL_WIDTH * 2
                                     || startPoint.Value.X - location.X > CELL_WIDTH * 2)
@@ -385,7 +385,7 @@ namespace testAStar
                 using (Graphics g = Graphics.FromImage(bitmapTemp))
                 {
                     Point startImgPoint = new Point(point1.X - Properties.Resources.mark_start_42x42_2.Width / 2, point1.Y - Properties.Resources.mark_start_42x42_2.Height - CELL_WIDTH);
-                    Point endImgPoint = new Point(point2.X - Properties.Resources.mark_end_42x42_2.Width / 2 , point2.Y - Properties.Resources.mark_end_42x42_2.Height - CELL_WIDTH);
+                    Point endImgPoint = new Point(point2.X - Properties.Resources.mark_end_42x42_2.Width / 2, point2.Y - Properties.Resources.mark_end_42x42_2.Height - CELL_WIDTH);
                     g.DrawImage(Properties.Resources.mark_start_42x42_2, startImgPoint);
                     g.DrawImage(Properties.Resources.mark_end_42x42_2, endImgPoint);
                 }
@@ -563,7 +563,7 @@ namespace testAStar
 
         private void UseSavedMapInfoButton_Click(object sender, EventArgs e)
         {
-            string path=String.Empty;
+            string path = String.Empty;
 
             if (File.Exists(@".\Data\Map.png"))
             {
@@ -817,7 +817,7 @@ namespace testAStar
                                         p.StartCap = LineCap.Round;
                                         p.EndCap = LineCap.Round;
                                         p.LineJoin = LineJoin.Round;
-                                        
+
 
                                         if (_aPathFind.PathPoint.Count == 0)
                                         {
@@ -830,6 +830,7 @@ namespace testAStar
                                             point2 = new PointF(Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].X) + Convert.ToSingle(lineWidth) / 2.0F
                                                             , Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].Y) + Convert.ToSingle(lineWidth) / 2.0F);
 
+
                                             g.FillEllipse(Brushes.Green, new RectangleF(point1, new Size(lineWidth, lineWidth)));
                                         }
                                         else if (_aPathFind.PathPoint.Count == 2)
@@ -839,6 +840,7 @@ namespace testAStar
                                             point2 = new PointF(Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].X) + Convert.ToSingle(lineWidth) / 2.0F
                                                             , Convert.ToSingle(_aPathFind.PathPoint[_aPathFind.PathPoint.Count - 1].Y) + Convert.ToSingle(lineWidth) / 2.0F);
 
+                                            length += Math.Sqrt(Math.Abs(point1.X - point2.X) * Math.Abs(point1.X - point2.X) + Math.Abs(point1.Y - point2.Y) * Math.Abs(point1.Y - point2.Y));
                                             g.DrawLine(p, point1, point2);
                                         }
                                         else if (_aPathFind.PathPoint.Count >= 3)
@@ -856,7 +858,7 @@ namespace testAStar
                                             for (int i = 2; i < pathPoints.Length; i++)
                                             {
                                                 PointF nowPoint = new PointF(Convert.ToSingle(pathPoints[i - 1].X) + Convert.ToSingle(lineWidth) / 2.0F
-                                                                    , Convert.ToSingle(pathPoints[i - 1].Y) + Convert.ToSingle(lineWidth )/ 2.0F);
+                                                                    , Convert.ToSingle(pathPoints[i - 1].Y) + Convert.ToSingle(lineWidth) / 2.0F);
                                                 PointF nextPoint = new PointF(Convert.ToSingle(pathPoints[i].X) + Convert.ToSingle(lineWidth) / 2.0F
                                                                     , Convert.ToSingle(pathPoints[i].Y) + Convert.ToSingle(lineWidth) / 2.0F);
 
@@ -871,6 +873,7 @@ namespace testAStar
                                                 }
                                                 else
                                                 {
+                                                    length += Math.Sqrt(Math.Abs(lastDrawPoint.X - nowPoint.X) * Math.Abs(lastDrawPoint.X - nowPoint.X) + Math.Abs(lastDrawPoint.Y - nowPoint.Y) * Math.Abs(lastDrawPoint.Y - nowPoint.Y));
                                                     g.DrawLine(p, lastDrawPoint, nowPoint);
                                                     lastPoint = nowPoint;
                                                     lastDrawPoint = nowPoint;
@@ -885,7 +888,7 @@ namespace testAStar
 
                                 if (goalCell.ExportType != "in")
                                 {
-                                    Bitmap bitmapTemp = (Bitmap) bitmap.Clone();
+                                    Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
                                     using (Graphics g = Graphics.FromImage(bitmapTemp))
                                     {
                                         g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
@@ -894,19 +897,19 @@ namespace testAStar
 
                                         PointF startImgPoint =
                                             new PointF(
-                                                point1.X - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F // - 5.0F
+                                                point1.X - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width) / 2.0F -
+                                                Convert.ToSingle(lineWidth) / 2.0F // - 5.0F
                                                 ,
-                                                point1.Y - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
+                                                point1.Y - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width) / 2.0F -
+                                                Convert.ToSingle(lineWidth) / 2.0F); // - 3.0F);
                                         PointF endImgPoint =
                                             new PointF(
-                                                point2.X - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F // - 5.0F
+                                                point2.X - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width) / 2.0F -
+                                                Convert.ToSingle(lineWidth) / 2.0F // - 5.0F
                                                 ,
-                                                point2.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F); // - 3.0F);
-                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, endImgPoint); 
+                                                point2.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width) / 2.0F -
+                                                Convert.ToSingle(lineWidth) / 2.0F); // - 3.0F);
+                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, endImgPoint);
                                         g.DrawImage(Properties.Resources.mark_end_42x42_2, startImgPoint);
                                     }
                                     WayInfo wayInfo = new WayInfo
@@ -914,10 +917,10 @@ namespace testAStar
                                         PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + suffixStr,
                                         From = _aPathFind.StartCell.Name,
                                         Distance =
-                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length)*ruleWidth/rulePix))
+                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                                     };
                                     wayInfo.Time =
-                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance)/numericUpDown2.Value);
+                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
 
                                     if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
                                     {
@@ -954,9 +957,9 @@ namespace testAStar
 
                                 #region 反向
 
-                                if (goalCell.ExportType!="out")
+                                if (goalCell.ExportType != "out")
                                 {
-                                    Bitmap bitmapTemp = (Bitmap) bitmap.Clone();
+                                    Bitmap bitmapTemp = (Bitmap)bitmap.Clone();
                                     using (Graphics g = Graphics.FromImage(bitmapTemp))
                                     {
                                         g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
@@ -965,20 +968,20 @@ namespace testAStar
 
                                         PointF startImgPoint =
                                             new PointF(
-                                                point2.X - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F
+                                                point2.X - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width) / 2.0F -
+                                                Convert.ToSingle(lineWidth) / 2.0F
                                                 ,
-                                                point2.Y - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F);
+                                                point2.Y - Convert.ToSingle(Properties.Resources.mark_start_42x42_2.Width) / 2.0F -
+                                                Convert.ToSingle(lineWidth) / 2.0F);
                                         PointF endImgPoint =
                                             new PointF(
-                                                point1.X - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F
+                                                point1.X - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width) / 2.0F -
+                                                Convert.ToSingle(lineWidth) / 2.0F
                                                 ,
-                                                point1.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width)/2.0F -
-                                                Convert.ToSingle(lineWidth)/2.0F);
+                                                point1.Y - Convert.ToSingle(Properties.Resources.mark_end_42x42_2.Width) / 2.0F -
+                                                Convert.ToSingle(lineWidth) / 2.0F);
 
-                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, endImgPoint); 
+                                        g.DrawImage(Properties.Resources.mark_start_42x42_2, endImgPoint);
                                         g.DrawImage(Properties.Resources.mark_end_42x42_2, startImgPoint);
                                     }
                                     WayInfo wayInfo = new WayInfo
@@ -986,10 +989,10 @@ namespace testAStar
                                         PicName = _aPathFind.GoalCell.Name + "-" + _aPathFind.StartCell.Name + suffixStr,
                                         To = _aPathFind.StartCell.Name,
                                         Distance =
-                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length)*ruleWidth/rulePix))
+                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                                     };
                                     wayInfo.Time =
-                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance)/numericUpDown2.Value);
+                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
 
                                     if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
                                     {
@@ -1223,7 +1226,7 @@ namespace testAStar
                                     {
                                         Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                     }
-                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Jpeg);
+                                    bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out, ImageFormat.Jpeg);
                                     bitmapTemp.Dispose();
 
                                     if (!string.IsNullOrEmpty(_aPathFind.GoalCell.Remark))
@@ -1388,7 +1391,7 @@ namespace testAStar
                                     using (Graphics g = Graphics.FromImage(bitmap))
                                     {
                                         //Properties.Resources._0
-                                        g.DrawImage(roadBitmaps[startIndex], new Point(23,13) );
+                                        g.DrawImage(roadBitmaps[startIndex], new Point(23, 13));
                                     }
 
                                     startIndex++;
@@ -1396,7 +1399,7 @@ namespace testAStar
                                     {
                                         startIndex = 0;
                                     }
-                                } while (startIndex!= endIndex);
+                                } while (startIndex != endIndex);
 
                                 #endregion 站点 - 下一站点
 
@@ -1425,7 +1428,7 @@ namespace testAStar
                                 {
                                     Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Jpeg);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out, ImageFormat.Jpeg);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(parkingCell.Remark))
@@ -1466,7 +1469,7 @@ namespace testAStar
                                 {
                                     Directory.CreateDirectory(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath);
                                 }
-                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out,ImageFormat.Jpeg);
+                                bitmapTemp.Save(@"./Save/" + textBoxMapName.Text + wayInfo.Out, ImageFormat.Jpeg);
                                 bitmapTemp.Dispose();
 
                                 if (!string.IsNullOrEmpty(parkingCell.Remark))
@@ -1610,13 +1613,13 @@ namespace testAStar
                     g.SmoothingMode = SmoothingMode.HighQuality;
                     g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-                    Font font = new Font("Times New Roman", 10,FontStyle.Bold);
+                    Font font = new Font("Times New Roman", 10, FontStyle.Bold);
                     SolidBrush colorPointBrush = new SolidBrush(Color.Chartreuse);
                     SolidBrush colorBrush = new SolidBrush(Color.Black);
                     foreach (Cell keyCell in _aPathFind.KeyCells)
                     {
                         Point ellipsePoint = new Point(keyCell.Location.X - CELL_WIDTH, keyCell.Location.Y - CELL_WIDTH);
-                        switch(keyCell.Toward)
+                        switch (keyCell.Toward)
                         {
                             case CellToward.Up:
                                 g.DrawImage(Properties.Resources.up, ellipsePoint);
@@ -1651,14 +1654,14 @@ namespace testAStar
                     {
                         string str = keyCell.Name.Substring(keyCell.Name.LastIndexOf('-') + 1);
                         Point stringLocation = keyCell.Location;
-                        stringLocation.Y += CELL_WIDTH ;
-                        stringLocation.X -= CELL_WIDTH ;
+                        stringLocation.Y += CELL_WIDTH;
+                        stringLocation.X -= CELL_WIDTH;
 
                         SizeF sizeF = g.MeasureString(str, font);
                         // 去除边距
                         sizeF.Height -= 6;
                         sizeF.Width -= 6;
-                        Point rectangle = new Point(stringLocation.X+3, stringLocation.Y+3);
+                        Point rectangle = new Point(stringLocation.X + 3, stringLocation.Y + 3);
                         g.FillRectangle(Brushes.White, new RectangleF(rectangle, sizeF));
 
                         g.DrawString(str, font, colorBrush,
