@@ -156,12 +156,23 @@ public class ParkGuideController {
 				return ViewUtil.error("10004");
 			}
 			
+			GuideVO vo = null;
+			
 			// 根据 parkLocation判断停车位置是否靠近出入口  如果靠近出入口需要 忽略内部导览。 通过LoToLoBO 返回判断
 			if(bo.isIgnoreInner()){
-				view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.OUT,true));
+				vo = GuideVO.boToVo(bo,Lo2LoStepType.OUT,true);
 			}else{
-				view.addObject("guide", GuideVO.boToVo(bo,Lo2LoStepType.OUT));
+				vo = GuideVO.boToVo(bo,Lo2LoStepType.OUT);
 			}
+			
+			//导览先看内部 后看外部
+			String inner = vo.getInnerPic();
+			String out = vo.getOutPic();
+			
+			vo.setInnerPic(out);
+			vo.setOutPic(inner);
+			
+			view.addObject("guide", vo);
 			
 		}else{
 			//未记录位置信息 如何处理  

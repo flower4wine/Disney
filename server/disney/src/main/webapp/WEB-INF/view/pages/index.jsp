@@ -82,7 +82,7 @@
 		<input type="hidden" id="appId" value="${appId}" />
 		
 		<input type="hidden" id="guideCode" value="${guideCode}" />
-		<input type="hidden" id="leaveCode" value="${leaveCode}" />
+		<input type="hidden" id="leaveCode" value="" />
 	</form>
 	
 
@@ -121,12 +121,12 @@ window.onload = function() {
 	
 	
 	$(".item-parkleave").on("click",function(){
-		var code = $("#leaveCode").val();
+		/* var code = $("#leaveCode").val();
 		
 		if(code!='' && code.length==12){
 			window.location = '/disney/le/lo.html?co='+code;
 			return;
-		}
+		} */
 		wxOnScan(function(code){
 			window.location = '/disney/le/lo.html?co='+code;
 		});

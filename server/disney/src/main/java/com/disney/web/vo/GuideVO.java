@@ -112,7 +112,7 @@ public class GuideVO {
 		vo.setOutPic(bo.getOutUrl());
 		
 		if(ignoreInner){
-			vo.setInnerPic(null);
+			vo.setInnerPic(bo.getOutUrl());
 		}else{
 			vo.setInnerPic(bo.getInnerUrl());
 		}

@@ -27,7 +27,7 @@
 				<table>
 					<tr class="title" >
 						<td class="left"><i class="fa fa-map-marker"></i></td>
-						<td>位置信息</td>
+						<td>${location.name }</td>
 					</tr>
 					<tr>
 						<td class="left">
