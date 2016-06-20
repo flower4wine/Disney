@@ -53,6 +53,12 @@
 					<li data-code="03-0004"><div class="bor-left-none leave-park-last" >P4</div></li>
 				</ul>
 			</div>
+			
+			<div class="leave-select-remark">
+				<div>
+					您之前没有使用【停车导览】功能记录过停车位置，系统暂时只能将您导引到爱车停放的停车场！
+				</div>
+			</div>
 		
 		</div>
 	</div>

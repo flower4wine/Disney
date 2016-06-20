@@ -80,10 +80,12 @@ public class Leave2ParkController {
 		vo.setName(parentLoc.getName());
 		
 		if(co.startsWith("03")){
+			
 			String region = StringUtils.isEmpty(bo.getRegion()) ? "" : bo.getRegion()+"  ";
 			String range = StringUtils.isEmpty(bo.getCodeRange()) ? "" : (bo.getCodeRange()+"  附近");
 			vo.setRemark(region + range);
 			vo.setParkLocation(true);
+			
 		}else if(co.startsWith("02")){
 			vo.setParkLocation(false);
 			vo.setRemark(bo.getQrLocationName());
@@ -91,6 +93,7 @@ public class Leave2ParkController {
 			vo.setParkLocation(false);
 			vo.setLocationImg(parentLoc.getLocationImg());
 			vo.setRemark(parentLoc.getName());
+			vo.setName("位置信息");
 		}
 		
 		//Get WeXin info

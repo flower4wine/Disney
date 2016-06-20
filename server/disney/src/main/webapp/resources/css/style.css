@@ -7,18 +7,19 @@ html,body {
 	font-size: 14px;
 }
 
-body {
-	/* background-color: #1A1F35; */
+body { /* background-color: #1A1F35; */
 	background-color: #FFF;
 	height: 100%;
 	color: white;
 }
 
-img{
-	width:100%;
- }
- 
-input{outline:none} 
+img {
+	width: 100%;
+}
+
+input {
+	outline: none
+}
 
 * {
 	font-family: Arial, Microsoft YaHei, tahoma, serif, simsun, fantasy;
@@ -31,7 +32,6 @@ ul,li {
 .bg-color-black {
 	background-color: #1A1F35;
 }
-
 
 .disney-bg-full {
 	height: 100%;
@@ -56,16 +56,13 @@ ul,li {
 }
 
 .bg-color_red {
-	background-color: #D23F5A!important;
+	background-color: #D23F5A !important;
 }
 
 .bg-color_gray {
 	background-color: #777;
 }
 /**************index****************/
-
-
- 
 .clear {
 	clear: both;
 }
@@ -139,9 +136,8 @@ ul,li {
 	background-color: #13AD68;
 }
 
-.idx_center .unslider .next,
-.idx_center .unslider .prev,
-.idx_center .unslider-nav {
+.idx_center .unslider .next,.idx_center .unslider .prev,.idx_center .unslider-nav
+	{
 	display: none;
 }
 
@@ -163,9 +159,9 @@ ul,li {
 
 .idx_bot {
 	background-color: #AE2A03;
-	position:absolute;
-	bottom:0;
-	width:100%;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }
 
 .idx_bot .img {
@@ -174,12 +170,13 @@ ul,li {
 	text-align: center;
 }
 
-.idx_bot .english{
+.idx_bot .english {
 	font-size: 90%;
-	letter-spacing 0.5px; 
+	letter-spacing
+	0.5px;
 }
 
-.idx_bot .zh{
+.idx_bot .zh {
 	font-size: 110%;
 }
 
@@ -358,7 +355,7 @@ ul,li {
 	border-bottom: solid 1px #CCC;
 }
 
-.park-map{
+.park-map {
 	height: 70%;
 	width: 100%;
 }
@@ -372,20 +369,20 @@ ul,li {
 	height: 100%;
 	background-color: white;
 	margin: 0 auto;
-	overflow:auto;
+	overflow: auto;
 	text-align: center;;
 }
 
 .guide-map-remark {
 	color: whitesmoke;
 	position: relative;
-	bottom: 42px;
+	bottom: 40px;
 	text-align: right;
-	right: 10px;
 	padding: 5px 8px;
 	border: solid 1px #eee;
 	width: 130px;
-	float: right;
+	float: left;
+	left: 10px;
 	background-color: rgba(250, 63, 90, 0.8);
 }
 
@@ -397,8 +394,8 @@ ul,li {
 	padding: 12px;
 	font-size: 150%;
 	border-radius: 50%;
-	width:18px;
-	height:18px;
+	width: 18px;
+	height: 18px;
 }
 
 .btn_minus_pos {
@@ -409,7 +406,7 @@ ul,li {
 	left: 20px;
 }
 
-.guide-map-container{
+.guide-map-container {
 	overflow: auto;
 }
 
@@ -421,7 +418,6 @@ ul,li {
 	background-color: #eee;
 	overflow: auto;
 }
-
 
 .guide-ab-bottom {
 	position: absolute;
@@ -445,7 +441,7 @@ ul,li {
 .guide-step-detail ul {
 	padding: 15px 0;
 	height: 120px;
-	overflow:auto;
+	overflow: auto;
 }
 
 .guide-step-detail ul li {
@@ -453,11 +449,11 @@ ul,li {
 }
 
 .guide-step-detail .step-walk {
-	color:red;
+	color: red;
 }
 
 .guide-step-detail .step-bus {
-	color:#04BE02;
+	color: #04BE02;
 }
 
 .guide-detail {
@@ -522,18 +518,16 @@ ul,li {
 	top: 12px;
 	right: 18px;
 	padding: 3px 5px;
-	background-color: rgba(256,256,256,0.5);
-	border:solid 1px #ccc;
+	background-color: rgba(256, 256, 256, 0.5);
+	border: solid 1px #ccc;
 	color: white;
 	border-radius: 4px;
-	opacity:0.8;
+	opacity: 0.8;
 }
 
-.guide-toggle img{
-	width:80px;
+.guide-toggle img {
+	width: 80px;
 }
-
-
 
 .loc-mark {
 	position: fixed;
@@ -572,7 +566,6 @@ ul,li {
 	font-size: 90%;
 }
 
-
 /***********guide location***************/
 .guide-loc-info {
 	background-color: white;
@@ -607,20 +600,18 @@ ul,li {
 	padding: 2px 10px;
 }
 
-.guide-loc-info-left tr{
-	line-height: 180%;	
+.guide-loc-info-left tr {
+	line-height: 180%;
 }
 
-.guide-loc-info-left td.left{
+.guide-loc-info-left td.left {
 	text-align: center;
-	width:25px;
+	width: 25px;
 }
 
-.guide-loc-info-left td img{
+.guide-loc-info-left td img {
 	width: 16px;
 }
-
-
 
 .guide-loc-info-right {
 	float: left;
@@ -630,7 +621,7 @@ ul,li {
 .guide-loc-info-right .rescan-border {
 	border: solid 1px #CCC;
 	text-align: center;
-	margin-top:6px;
+	margin-top: 6px;
 }
 
 .guide-loc-info-right .rescan {
@@ -653,13 +644,12 @@ ul,li {
 	font-size: 140%;
 }
 
-
 /*******************pay******************/
-.park-pay-top{
+.park-pay-top {
 	padding: 15px;
-	background: url(../images/pay-bg-top.jpg) no-repeat; 
+	background: url(../images/pay-bg-top.jpg) no-repeat;
 	background-size: cover;
-	color:white;
+	color: white;
 }
 
 .park-pay-query {
@@ -670,11 +660,9 @@ ul,li {
 	border-radius: 4px;
 	font-size: 180%;
 	letter-spacing: 4px;
-	background: url(../images/pay-bg-bot.jpg) no-repeat; 
+	background: url(../images/pay-bg-bot.jpg) no-repeat;
 	background-size: cover;
 }
-
-
 
 /****leave***/
 .leave-page-bg {
@@ -730,6 +718,15 @@ ul,li {
 	margin: 10px auto;
 }
 
+.leave-select-remark {
+	clear: both;
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 45px;
+	font-size: 120%;
+	text-align: left;
+}
+
 .leave-select-tip {
 	padding-bottom: 15px;
 }
@@ -748,7 +745,6 @@ ul,li {
 	text-align: center;
 }
 
-
 .leave-park .bor-left-none {
 	border-left: none;
 }
@@ -759,10 +755,9 @@ ul,li {
 	background-color: rgba(240, 240, 240, 0.5)
 }
 
-.leave-park li.selected div{
+.leave-park li.selected div {
 	background-color: #D23F5A;
 }
-
 
 /**********scan************/
 .scan-wechat {
@@ -799,19 +794,18 @@ ul,li {
 	text-align: left;
 	padding-top: 5px;
 	padding-left: 5px;
-	height:60px;
+	height: 60px;
 }
 
-.his-cookies ul{
-	width:80%;
-	margin:8px auto;	
+.his-cookies ul {
+	width: 80%;
+	margin: 8px auto;
 }
 
-.his-cookies li{
-	float:left;
-	width:50%;
+.his-cookies li {
+	float: left;
+	width: 50%;
 }
-
 
 .his-title {
 	padding-top: 5px;
@@ -822,7 +816,7 @@ ul,li {
 	padding: 5px 20px;
 	margin: 10px 0px;
 	border-radius: 4px;
-	width:70px;
+	width: 70px;
 	background-color: #eee;
 }
 
@@ -977,49 +971,48 @@ ul,li {
 }
 
 /*introduction*/
-.intro-title{
-	background-image: url(<c:url value='/resources/images/introduction/pic.png'/>);
-	width:100%;
+.intro-title {
+	background-image: url(< c : url value = '/resources/images/introduction/pic.png'/ >);
+	width: 100%;
 }
 
-.intro-title img{
+.intro-title img {
 	width: 20%;
 }
 
-.intro-page{
+.intro-page {
 	text-align: center;
-	line-height:25px;
+	line-height: 25px;
 	padding-bottom: 30px;
 }
 
-.intro-center-div{
-	margin-top:20px;
+.intro-center-div {
+	margin-top: 20px;
 }
 
-.intro-center-div span{
+.intro-center-div span {
 	color: greenyellow;
 }
 
-.intro-img-div{
+.intro-img-div {
 	margin: 5%;
 	width: 90%;
 }
 
-.intro-img-div div{
-	float:left;
-	width:45%;
+.intro-img-div div {
+	float: left;
+	width: 45%;
 	margin: 5px;
 }
 
-.intro-img-div div img{
-	width:100%;
+.intro-img-div div img {
+	width: 100%;
 }
 
-.intro-p{
+.intro-p {
 	text-align: left;
 	text-indent: 2em;
 }
-
 
 /**parkpay-query***********/
 .park-info-query {
