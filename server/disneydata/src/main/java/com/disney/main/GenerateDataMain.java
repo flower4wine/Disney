@@ -10,13 +10,25 @@ public class GenerateDataMain {
 	public static void main(String[] args) {
 		String prefix = "http://localhost:8080/disneydata";
 		
+		
+		
+		
 		generate(prefix,"/generateParentLocation.html");
 		generate(prefix,"/generateQrCode.html");
+		
+		generate(prefix,"/generateLocationTimeDistance.html");
 		
 		generate(prefix,"/shop/p1.html");
 		generate(prefix,"/shop/p2.html");
 		generate(prefix,"/shop/p3.html");
 		generate(prefix,"/shop/p4.html");
+		
+		generate(prefix,"/town/p1.html");
+		generate(prefix,"/town/p2.html");
+		generate(prefix,"/town/p3.html");
+		generate(prefix,"/town/p4.html");
+		
+		generate(prefix,"/town/bus.html");
 		
 		generate(prefix,"/p1/p2.html");
 		generate(prefix,"/p1/p3.html");
