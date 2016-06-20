@@ -12,6 +12,7 @@ BaseDaoImpl<LocationTimeDistance> implements LocationTimeDistanceDao {
 	@Override
 	public LocationTimeDistance getLocationTimeDistance(String from, String to) {
 
+		String hql = "from LocationTimeDistance where fromCode = :from and toCode = :to";
 
 		Object obj =  this.getCurrentSession()
 				.createQuery(hql)
