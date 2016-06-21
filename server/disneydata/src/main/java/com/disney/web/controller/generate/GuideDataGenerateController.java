@@ -64,12 +64,12 @@ public class GuideDataGenerateController {
 		
 
 		//外部停车场到景点
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "05-0001-0001", 1600, 100);
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "05-0001-0002", 1600, 200);
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "05-0001-0003", 1600, 400);
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "05-0001-0004", 1600, 500);
+		lo2loService.saveLocationDistance("03-0001-000C", "05-0001-0001", 1600, 100);
+		lo2loService.saveLocationDistance("03-0001-000C", "05-0001-0002", 1600, 200);
+		lo2loService.saveLocationDistance("03-0001-000C", "05-0001-0003", 1600, 400);
+		lo2loService.saveLocationDistance("03-0001-000C", "05-0001-0004", 1600, 500);
 		
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0001-000C", "04-0001-0001", 1600, 550);
 		
 		
 		lo2loService.saveLocationDistance("03-0002-000C", "05-0001-0001", 100);
@@ -77,14 +77,14 @@ public class GuideDataGenerateController {
 		lo2loService.saveLocationDistance("03-0002-000C", "05-0001-0003", 400);
 		lo2loService.saveLocationDistance("03-0002-000C", "05-0001-0004", 500);
 		
-		lo2loService.saveLocationTimeDistance("03-0002-000C", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0002-000C", "04-0001-0001", 2400, 1200);
 		
 		lo2loService.saveLocationDistance("03-0002-000D", "05-0001-0001",150);
 		lo2loService.saveLocationDistance("03-0002-000D", "05-0001-0002",250);
 		lo2loService.saveLocationDistance("03-0002-000D", "05-0001-0003",450);
 		lo2loService.saveLocationDistance("03-0002-000D", "05-0001-0004",550);
 		
-		lo2loService.saveLocationTimeDistance("03-0002-000D", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0002-000D", "04-0001-0001", 2400, 1100);
 		
 		
 		lo2loService.saveLocationDistance("03-0003-000C", "05-0001-0001",580);
@@ -92,176 +92,175 @@ public class GuideDataGenerateController {
 		lo2loService.saveLocationDistance("03-0003-000C", "05-0001-0003",180);
 		lo2loService.saveLocationDistance("03-0003-000C", "05-0001-0004",80);
 		
-		lo2loService.saveLocationTimeDistance("03-0003-000C", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0003-000C", "04-0001-0001", 3000, 700);
 		
 		lo2loService.saveLocationDistance("03-0003-000D", "05-0001-0001",550);
 		lo2loService.saveLocationDistance("03-0003-000D", "05-0001-0002",450);
 		lo2loService.saveLocationDistance("03-0003-000D", "05-0001-0003",150);
 		lo2loService.saveLocationDistance("03-0003-000D", "05-0001-0004",50);
 		
-		lo2loService.saveLocationTimeDistance("03-0003-000D", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0003-000D", "04-0001-0001", 3000, 750);
 		
 		lo2loService.saveLocationDistance("03-0003-000E", "05-0001-0001",580);
 		lo2loService.saveLocationDistance("03-0003-000E", "05-0001-0002",480);
 		lo2loService.saveLocationDistance("03-0003-000E", "05-0001-0003",180);
 		lo2loService.saveLocationDistance("03-0003-000E", "05-0001-0004",80);
 		
-		lo2loService.saveLocationTimeDistance("03-0003-000E", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0003-000E", "04-0001-0001", 3000, 850);
 		
 		lo2loService.saveLocationDistance("03-0003-000F", "05-0001-0001",550);
 		lo2loService.saveLocationDistance("03-0003-000F", "05-0001-0002",450);
 		lo2loService.saveLocationDistance("03-0003-000F", "05-0001-0003",150);
 		lo2loService.saveLocationDistance("03-0003-000F", "05-0001-0004",50);
 		
-		lo2loService.saveLocationTimeDistance("03-0003-000F", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0003-000F", "04-0001-0001", 3000, 950);
 		
 		lo2loService.saveLocationDistance("03-0004-000C", "05-0001-0001",650);
 		lo2loService.saveLocationDistance("03-0004-000C", "05-0001-0002",550);
 		lo2loService.saveLocationDistance("03-0004-000C", "05-0001-0003",250);
 		lo2loService.saveLocationDistance("03-0004-000C", "05-0001-0004",150);
 		
-		lo2loService.saveLocationTimeDistance("03-0004-000C", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0004-000C", "04-0001-0001", 3000, 900);
 		
 		lo2loService.saveLocationDistance("03-0004-000D", "05-0001-0001",700);
 		lo2loService.saveLocationDistance("03-0004-000D", "05-0001-0002",600);
 		lo2loService.saveLocationDistance("03-0004-000D", "05-0001-0003",400);
 		lo2loService.saveLocationDistance("03-0004-000D", "05-0001-0004",300);
 		
-		lo2loService.saveLocationTimeDistance("03-0004-000D", "04-0001-0001", 0, 0);
+		lo2loService.saveLocationDistance("03-0004-000D", "04-0001-0001", 3000, 1000);
 		
 		//接驳车站到购物村
-		lo2loService.saveLocationDistance("02-0001-0001", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0001", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0001", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0001", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0001", "05-0001-0001",320);
+		lo2loService.saveLocationDistance("02-0001-0001", "05-0001-0002",170);
+		lo2loService.saveLocationDistance("02-0001-0001", "05-0001-0003",360);
+		lo2loService.saveLocationDistance("02-0001-0001", "05-0001-0004",630);
 		
-		lo2loService.saveLocationDistance("02-0001-0001", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0001", "04-0001-0001",3000,500);
 		
-		lo2loService.saveLocationDistance("02-0001-0002", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0002", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0002", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0002", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0002", "05-0001-0001",1000,100);
+		lo2loService.saveLocationDistance("02-0001-0002", "05-0001-0002",1000,100);
+		lo2loService.saveLocationDistance("02-0001-0002", "05-0001-0003",1000,250);
+		lo2loService.saveLocationDistance("02-0001-0002", "05-0001-0004",1000,360);
 		
-		lo2loService.saveLocationDistance("02-0001-0002", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0002", "04-0001-0001",2100,500);
 		
-		lo2loService.saveLocationDistance("02-0001-0003", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0003", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0003", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0003", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0003", "05-0001-0001",1800,300);
+		lo2loService.saveLocationDistance("02-0001-0003", "05-0001-0002",1800,300);
+		lo2loService.saveLocationDistance("02-0001-0003", "05-0001-0003",1800,450);
+		lo2loService.saveLocationDistance("02-0001-0003", "05-0001-0004",1800,560);
 		
-		lo2loService.saveLocationDistance("02-0001-0003", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0003", "04-0001-0001",1600,500);
 		
-		lo2loService.saveLocationDistance("02-0001-0004", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0004", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0004", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0004", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0004", "05-0001-0001",3700,100);
+		lo2loService.saveLocationDistance("02-0001-0004", "05-0001-0002",3700,100);
+		lo2loService.saveLocationDistance("02-0001-0004", "05-0001-0003",3700,250);
+		lo2loService.saveLocationDistance("02-0001-0004", "05-0001-0004",3700,360);
 		
-		lo2loService.saveLocationDistance("02-0001-0004", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0004", "04-0001-0001",500);
 		
-		lo2loService.saveLocationDistance("02-0001-0005", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0005", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0005", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0005", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0005", "05-0001-0001",3400,120);
+		lo2loService.saveLocationDistance("02-0001-0005", "05-0001-0002",3400,120);
+		lo2loService.saveLocationDistance("02-0001-0005", "05-0001-0003",3400,270);
+		lo2loService.saveLocationDistance("02-0001-0005", "05-0001-0004",3400,380);
 		
-		lo2loService.saveLocationDistance("02-0001-0005", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0005", "04-0001-0001",2700,820);
 		
-		lo2loService.saveLocationDistance("02-0001-0006", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0006", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0006", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0006", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0006", "05-0001-0001",2800,180);
+		lo2loService.saveLocationDistance("02-0001-0006", "05-0001-0002",2800,440);
+		lo2loService.saveLocationDistance("02-0001-0006", "05-0001-0003",2800,350);
+		lo2loService.saveLocationDistance("02-0001-0006", "05-0001-0004",2800,610);
 		
-		lo2loService.saveLocationDistance("02-0001-0006", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0006", "04-0001-0001",1300,800);
 		
-		lo2loService.saveLocationDistance("02-0001-0007", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0007", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0007", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0007", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0007", "05-0001-0001",1500,180);
+		lo2loService.saveLocationDistance("02-0001-0007", "05-0001-0002",1500,440);
+		lo2loService.saveLocationDistance("02-0001-0007", "05-0001-0003",1500,350);
+		lo2loService.saveLocationDistance("02-0001-0007", "05-0001-0004",1500,610);
 		
-		lo2loService.saveLocationDistance("02-0001-0007", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0007", "04-0001-0001",800);
 		
-		lo2loService.saveLocationDistance("02-0001-0008", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0008", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0008", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0008", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0008", "05-0001-0001",100);
+		lo2loService.saveLocationDistance("02-0001-0008", "05-0001-0002",100);
+		lo2loService.saveLocationDistance("02-0001-0008", "05-0001-0003",250);
+		lo2loService.saveLocationDistance("02-0001-0008", "05-0001-0004",360);
 		
-		lo2loService.saveLocationDistance("02-0001-0008", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0008", "04-0001-0001",2400,800);
 		
-		lo2loService.saveLocationDistance("02-0001-0009", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0009", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0009", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0009", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0009", "05-0001-0001",2800,200);
+		lo2loService.saveLocationDistance("02-0001-0009", "05-0001-0002",2800,460);
+		lo2loService.saveLocationDistance("02-0001-0009", "05-0001-0003",2800,370);
+		lo2loService.saveLocationDistance("02-0001-0009", "05-0001-0004",2800,630);
 		
-		lo2loService.saveLocationDistance("02-0001-0009", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0009", "04-0001-0001",1300,820);
 		
-		lo2loService.saveLocationDistance("02-0001-0010", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0010", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0010", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0010", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0010", "05-0001-0001",3400,140);
+		lo2loService.saveLocationDistance("02-0001-0010", "05-0001-0002",3400,140);
+		lo2loService.saveLocationDistance("02-0001-0010", "05-0001-0003",3400,290);
+		lo2loService.saveLocationDistance("02-0001-0010", "05-0001-0004",3400,400);
 		
-		lo2loService.saveLocationDistance("02-0001-0010", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0010", "04-0001-0001",2700,800);
 		
-		lo2loService.saveLocationDistance("02-0001-0011", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0011", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0011", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0011", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0011", "05-0001-0001",1800,100);
+		lo2loService.saveLocationDistance("02-0001-0011", "05-0001-0002",1800,100);
+		lo2loService.saveLocationDistance("02-0001-0011", "05-0001-0003",1800,250);
+		lo2loService.saveLocationDistance("02-0001-0011", "05-0001-0004",1800,360);
 		
-		lo2loService.saveLocationDistance("02-0001-0011", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0011", "04-0001-0001",1600,700);
 		
-		lo2loService.saveLocationDistance("02-0001-0012", "05-0001-0001",0);
-		lo2loService.saveLocationDistance("02-0001-0012", "05-0001-0002",0);
-		lo2loService.saveLocationDistance("02-0001-0012", "05-0001-0003",0);
-		lo2loService.saveLocationDistance("02-0001-0012", "05-0001-0004",0);
+		lo2loService.saveLocationDistance("02-0001-0012", "05-0001-0001",1000,100);
+		lo2loService.saveLocationDistance("02-0001-0012", "05-0001-0002",1000,100);
+		lo2loService.saveLocationDistance("02-0001-0012", "05-0001-0003",1000,250);
+		lo2loService.saveLocationDistance("02-0001-0012", "05-0001-0004",1000,360);
 		
-		lo2loService.saveLocationDistance("02-0001-0012", "04-0001-0001",0,0);
+		lo2loService.saveLocationDistance("02-0001-0012", "04-0001-0001",2100,520);
 		
 		//停车场到停车场
-		lo2loService.saveLocationTimeDistance("03-0002-000C", "03-0001-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0002-000D", "03-0001-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0003-000C", "03-0001-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0003-000D", "03-0001-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0003-000E", "03-0001-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0003-000F", "03-0001-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0004-000C", "03-0001-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0004-000D", "03-0001-000C",0,0);
+		lo2loService.saveLocationDistance("03-0002-000C", "03-0001-000C",1350,760);
+		lo2loService.saveLocationDistance("03-0002-000D", "03-0001-000C",1350,665);
+		lo2loService.saveLocationDistance("03-0003-000C", "03-0001-000C",1350,340);
+		lo2loService.saveLocationDistance("03-0003-000D", "03-0001-000C",1350,440);
+		lo2loService.saveLocationDistance("03-0003-000E", "03-0001-000C",1350,590);
+		lo2loService.saveLocationDistance("03-0003-000F", "03-0001-000C",1350,700);
+		lo2loService.saveLocationDistance("03-0004-000C", "03-0001-000C",1350,780);
+		lo2loService.saveLocationDistance("03-0004-000D", "03-0001-000C",1350,930);
 		
+		lo2loService.saveLocationDistance("03-0001-000C", "03-0002-000C",1800,340);
+		lo2loService.saveLocationDistance("03-0001-000C", "03-0002-000D",1800,240);
+		lo2loService.saveLocationDistance("03-0001-000C", "03-0003-000C",1800,530);
+		lo2loService.saveLocationDistance("03-0001-000C", "03-0003-000D",1800,590);
+		lo2loService.saveLocationDistance("03-0001-000C", "03-0003-000E",1800,740);
+		lo2loService.saveLocationDistance("03-0001-000C", "03-0003-000F",1800,860);
+		lo2loService.saveLocationDistance("03-0001-000C", "03-0004-000C",1800,780);
+		lo2loService.saveLocationDistance("03-0001-000C", "03-0004-000D",1800,930);
 		
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "03-0002-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "03-0002-000D",0,0);
+		lo2loService.saveLocationDistance("03-0003-000C", "03-0002-000A",750);
+		lo2loService.saveLocationDistance("03-0003-000D", "03-0002-000A",810);
+		lo2loService.saveLocationDistance("03-0003-000E", "03-0002-000A",1000);
+		lo2loService.saveLocationDistance("03-0003-000F", "03-0002-000A",1100);
 		
-		lo2loService.saveLocationDistance("03-0003-000C", "03-0002-000A",0);
-		lo2loService.saveLocationDistance("03-0003-000D", "03-0002-000A",0);
-		lo2loService.saveLocationDistance("03-0003-000E", "03-0002-000A",0);
-		lo2loService.saveLocationDistance("03-0003-000F", "03-0002-000A",0);
+		lo2loService.saveLocationDistance("03-0003-000C", "03-0002-000C",840);
+		lo2loService.saveLocationDistance("03-0003-000D", "03-0002-000C",900);
+		lo2loService.saveLocationDistance("03-0003-000E", "03-0002-000C",1100);
+		lo2loService.saveLocationDistance("03-0003-000F", "03-0002-000C",1200);
 		
-		lo2loService.saveLocationDistance("03-0003-000C", "03-0002-000C",0);
-		lo2loService.saveLocationDistance("03-0003-000D", "03-0002-000C",0);
-		lo2loService.saveLocationDistance("03-0003-000E", "03-0002-000C",0);
-		lo2loService.saveLocationDistance("03-0003-000F", "03-0002-000C",0);
+		lo2loService.saveLocationDistance("03-0003-000C", "03-0002-000D",740);
+		lo2loService.saveLocationDistance("03-0003-000D", "03-0002-000D",800);
+		lo2loService.saveLocationDistance("03-0003-000E", "03-0002-000D",1000);
+		lo2loService.saveLocationDistance("03-0003-000F", "03-0002-000D",1100);
 		
-		lo2loService.saveLocationDistance("03-0003-000C", "03-0002-000D",0);
-		lo2loService.saveLocationDistance("03-0003-000D", "03-0002-000D",0);
-		lo2loService.saveLocationDistance("03-0003-000E", "03-0002-000D",0);
-		lo2loService.saveLocationDistance("03-0003-000F", "03-0002-000D",0);
+		lo2loService.saveLocationDistance("03-0004-000C", "03-0002-000A",1050);
+		lo2loService.saveLocationDistance("03-0004-000D", "03-0002-000A",1150);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "03-0002-000A",0);
-		lo2loService.saveLocationDistance("03-0004-000D", "03-0002-000A",0);
+		lo2loService.saveLocationDistance("03-0004-000C", "03-0002-000C",1100);
+		lo2loService.saveLocationDistance("03-0004-000D", "03-0002-000C",1200);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "03-0002-000C",0);
-		lo2loService.saveLocationDistance("03-0004-000D", "03-0002-000C",0);
+		lo2loService.saveLocationDistance("03-0004-000C", "03-0002-000D",1000);
+		lo2loService.saveLocationDistance("03-0004-000D", "03-0002-000D",1100);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "03-0002-000D",0);
-		lo2loService.saveLocationDistance("03-0004-000D", "03-0002-000D",0);
-		
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "03-0003-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "03-0003-000D",0,0);
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "03-0003-000E",0,0);
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "03-0003-000F",0,0);
-		
-		
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "03-0004-000C",0,0);
-		lo2loService.saveLocationTimeDistance("03-0001-000C", "03-0004-000D",0,0);
-		
-		
+		lo2loService.saveLocationDistance("03-0004-000C", "03-0003-000A",30);
+		lo2loService.saveLocationDistance("03-0004-000D", "03-0003-000A",150);
+		lo2loService.saveLocationDistance("03-0004-000C", "03-0003-000B",130);
+		lo2loService.saveLocationDistance("03-0004-000D", "03-0003-000B",30);
 		
 		return Ajax.buildSuccessResult();
 	}
