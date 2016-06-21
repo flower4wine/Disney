@@ -49,8 +49,11 @@
 	</div>
 
 	<script type="text/javascript">
+	
+		
 		 $(".loc-view-img").on('click',function(){
 		 	var code = $(this).data("code");
+		 	
 			var url = '/disney/pg/toLocation.html?toLocation='+code;
 			window.location = url;
 		});
