@@ -24,7 +24,9 @@ public class ToP1Controller extends GenerateBaseController{
 		String parkEntrance = "03-0001-000C";
 		
 		//从P2 03-0002-000B出入口到   P1出入口03-0001-000C 找到车位
-		generate("03-0002-000B",parkEntrance);
+		//generate("03-0002-000B",parkEntrance);
+		generate("03-0002-000C",parkEntrance);
+		generate("03-0002-000D",parkEntrance);
 		
 		return Ajax.buildSuccessResult();
 		
