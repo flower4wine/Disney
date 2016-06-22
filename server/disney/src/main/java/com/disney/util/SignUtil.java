@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import org.springframework.util.StringUtils;
+
 /**
  * 请求校验工具类
  * 
@@ -23,6 +25,12 @@ public class SignUtil {
 	 * @return
 	 */
 	public static boolean checkSignature(String signature, String timestamp, String nonce) {
+		
+		//校验
+		if(StringUtils.isEmpty(signature) || StringUtils.isEmpty(timestamp) || StringUtils.isEmpty(nonce)){
+			return false;
+		}
+		
 		// 对token、timestamp和nonce按字典排序
 		String[] paramArr = new String[] { token, timestamp, nonce };
 		Arrays.sort(paramArr);

@@ -10,9 +10,6 @@ public class GenerateDataMain {
 	public static void main(String[] args) {
 		String prefix = "http://localhost:8080/disneydata";
 		
-		
-		
-		
 		generate(prefix,"/generateParentLocation.html");
 		generate(prefix,"/generateQrCode.html");
 		

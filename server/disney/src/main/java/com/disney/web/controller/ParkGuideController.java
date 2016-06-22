@@ -169,8 +169,10 @@ public class ParkGuideController {
 			String inner = vo.getInnerPic();
 			String out = vo.getOutPic();
 			
-			vo.setInnerPic(out);
-			vo.setOutPic(inner);
+			if(StringUtils.isNotEmpty(inner) && StringUtils.isNotEmpty(out)){
+				vo.setInnerPic(out);
+				vo.setOutPic(inner);
+			}
 			
 			view.addObject("guide", vo);
 			

@@ -29,7 +29,7 @@ public interface Lo2loService {
 	/**
 	 * 增加导览路线基础距离 时间数据
 	 */
-	public void saveLocationTimeDistance(String from,String to,Integer time,Integer distance);
+	/*public void saveLocationTimeDistance(String from,String to,Integer time,Integer distance);*/
 	
 	/**
 	 * 增加导览路线基础距离 时间数据

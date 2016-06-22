@@ -129,8 +129,7 @@ public class Lo2loServiceImpl implements Lo2loService {
 
 	}
 
-	@Override
-	public void saveLocationTimeDistance(String from, String to, Integer time,Integer distance) {
+	private void saveLocationTimeDistance(String from, String to, Integer time,Integer distance) {
 		
 		if(getLocationTimeDistance(from, to)!=null){
 			return;
