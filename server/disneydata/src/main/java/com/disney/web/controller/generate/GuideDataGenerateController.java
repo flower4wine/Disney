@@ -367,18 +367,18 @@ public class GuideDataGenerateController {
 		lo2loService.saveLocationDistance("02-0001-0011", "03-0004-000C",1800,715);
 		lo2loService.saveLocationDistance("02-0001-0012", "03-0004-000C",1000,715);
 		
-		lo2loService.saveLocationDistance("02-0001-0001", "03-0004-000C",590);
-		lo2loService.saveLocationDistance("02-0001-0002", "03-0004-000C",1000,765);
-		lo2loService.saveLocationDistance("02-0001-0003", "03-0004-000C",1800,1015);
-		lo2loService.saveLocationDistance("02-0001-0004", "03-0004-000C",3700,855);
-		lo2loService.saveLocationDistance("02-0001-0005", "03-0004-000C",3400,875);
-		lo2loService.saveLocationDistance("02-0001-0006", "03-0004-000C",2800,590);
-		lo2loService.saveLocationDistance("02-0001-0007", "03-0004-000C",1500,590);
-		lo2loService.saveLocationDistance("02-0001-0008", "03-0004-000C",855);
-		lo2loService.saveLocationDistance("02-0001-0009", "03-0004-000C",2800,750);
-		lo2loService.saveLocationDistance("02-0001-0010", "03-0004-000C",3400,855);
-		lo2loService.saveLocationDistance("02-0001-0011", "03-0004-000C",1800,855);
-		lo2loService.saveLocationDistance("02-0001-0012", "03-0004-000C",1000,855);
+		lo2loService.saveLocationDistance("02-0001-0001", "03-0004-000D",590);
+		lo2loService.saveLocationDistance("02-0001-0002", "03-0004-000D",1000,765);
+		lo2loService.saveLocationDistance("02-0001-0003", "03-0004-000D",1800,1015);
+		lo2loService.saveLocationDistance("02-0001-0004", "03-0004-000D",3700,855);
+		lo2loService.saveLocationDistance("02-0001-0005", "03-0004-000D",3400,875);
+		lo2loService.saveLocationDistance("02-0001-0006", "03-0004-000D",2800,590);
+		lo2loService.saveLocationDistance("02-0001-0007", "03-0004-000D",1500,590);
+		lo2loService.saveLocationDistance("02-0001-0008", "03-0004-000D",855);
+		lo2loService.saveLocationDistance("02-0001-0009", "03-0004-000D",2800,750);
+		lo2loService.saveLocationDistance("02-0001-0010", "03-0004-000D",3400,855);
+		lo2loService.saveLocationDistance("02-0001-0011", "03-0004-000D",1800,855);
+		lo2loService.saveLocationDistance("02-0001-0012", "03-0004-000D",1000,855);
 		
 		return Ajax.buildSuccessResult();
 	}
