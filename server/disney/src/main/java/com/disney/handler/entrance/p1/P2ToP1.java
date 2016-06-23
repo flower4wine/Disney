@@ -9,48 +9,69 @@ public class P2ToP1 implements ParkEntranceHandler {
 
 	@Override
 	public String getEntrance(String from) {
-		
 		int index = Integer.valueOf(from.substring(from.length()-4));
-		List<Integer> clist= new ArrayList<Integer>();
-		for (int i = 1; i <= 71; i++) {
-			clist.add(i);
-		}
-		clist.add(77);
-		clist.add(78);
-		clist.add(81);
-		clist.add(82);
-		clist.add(84);
-		clist.add(87);
-		clist.add(111);
-		clist.add(112);
-		for (Integer c : clist) {
-			if( index == c ){
-				return "03-0003-000C";
-			}
+		
+		if( incList(index) ){
+			return "03-0002-000C";
 		}
 		
-		List<Integer> dlist= new ArrayList<Integer>();
-		for (int i = 72; i <= 76; i++) {
-			dlist.add(i);
+		if( inbList(index) ){
+			return "03-0002-000D";
 		}
-		dlist.add(79);
-		dlist.add(80);
-		dlist.add(83);
-		dlist.add(85);
-		dlist.add(86);
-		dlist.add(113);
-		for (int i = 88; i <= 110; i++) {
-			dlist.add(i);
-		}
-		
-		for (Integer d : dlist) {
-			if( index == d){
-				return "03-0003-000D";
-			}
-		}
-		
 
 		return null;
 	}
+	
+	private boolean incList(int index){
+		List<Integer> cList = new ArrayList<Integer>();
+				
+		for (int i = 1; i <= 71; i++) {
+			cList.add(i);
+		}
+		cList.add(77);
+		cList.add(78);
+		cList.add(81);
+		cList.add(82);
+		cList.add(84);
+		cList.add(87);
+		cList.add(111);
+		cList.add(112);
+		
+		for (Integer num : cList) {
+			if(index == num){
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	private boolean inbList(int index){
+		
+		List<Integer> dList = new ArrayList<Integer>();
+		for (int i = 72; i <= 76; i++) {
+			dList.add(i);
+		}
+		dList.add(79);
+		dList.add(80);
+		dList.add(83);
+		dList.add(85);
+		dList.add(86);
+		dList.add(113);
+		for (int i = 88; i <= 110; i++) {
+			dList.add(i);
+		}
+		
+		for (Integer num : dList) {
+			if(index == num){
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
 
 }
