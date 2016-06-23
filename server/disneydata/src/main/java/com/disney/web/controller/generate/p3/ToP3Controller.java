@@ -41,6 +41,8 @@ public class ToP3Controller extends GenerateBaseController{
 		for (String parkEntrance : parkEntrances.split(",")) {
 			//从P2 03-0002-000A出入口分别到   P3出入口C D E F 找到车位
 			generate("03-0002-000A",parkEntrance,false);
+			generate("03-0002-000C",parkEntrance,false);
+			generate("03-0002-000D",parkEntrance,false);
 		}
 		return Ajax.buildSuccessResult();
 		
