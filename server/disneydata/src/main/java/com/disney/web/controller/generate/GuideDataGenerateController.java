@@ -262,6 +262,8 @@ public class GuideDataGenerateController {
 		lo2loService.saveLocationDistance("03-0004-000C", "03-0003-000B",130);
 		lo2loService.saveLocationDistance("03-0004-000D", "03-0003-000B",30);
 		
+		
+		
 		return Ajax.buildSuccessResult();
 	}
 	
