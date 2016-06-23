@@ -43,6 +43,8 @@ public class ToP4Controller extends GenerateBaseController{
 		
 		for (String parkEntrance : parkEntrances.split(",")) {
 			generate("03-0002-000A",parkEntrance,false);
+			generate("03-0002-000C",parkEntrance,false);
+			generate("03-0002-000D",parkEntrance,false);
 		}
 		
 		return Ajax.buildSuccessResult();
