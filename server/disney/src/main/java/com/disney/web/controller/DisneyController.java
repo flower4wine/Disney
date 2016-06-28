@@ -143,23 +143,24 @@ public class DisneyController {
 			if(ul!=null && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
 				
 				if(StringUtils.isNotEmpty(ul.getScanLocation())){
-					view.addObject("leaveCode", ul.getScanLocation());
-					
-					if(ul.getScanLocation().startsWith("02-0001")){
-						view.addObject("guideCode", ul.getParkLocation());
-					}else{
+					//停车导览 只取停车场内部
+					if(ul.getScanLocation().startsWith("03")||ul.getScanLocation().startsWith("02-0001")){
 						view.addObject("guideCode", ul.getScanLocation());
+					}else{
+						view.addObject("guideCode", ul.getParkLocation());
 					}
 					
 				}else{
 					view.addObject("guideCode", ul.getParkLocation());
-					view.addObject("leaveCode", ul.getLeaveLocation());
 				}
+				
 				
 			}else{
 				view.addObject("guideCode", "");
-				view.addObject("leaveCode", "");
 			}
+			
+			
+			view.addObject("leaveCode", "");
 			
 		}
 

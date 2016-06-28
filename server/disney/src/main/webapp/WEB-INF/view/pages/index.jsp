@@ -102,7 +102,6 @@ window.onload = function() {
 
 	wxConfig(timestamp, nonceStr, signature, appId);
 	
-	
 	$(".item-parkguide").on("click",function(){
 	
 		var code = $("#guideCode").val();
@@ -111,38 +110,29 @@ window.onload = function() {
 			window.location = '/disney/pg/lo.html?co='+code;
 			return;
 		}
-		
+
 		//扫码返回处理
-		wxOnScan(function(code){
-			window.location = '/disney/pg/lo.html?co='+code;
+		wxOnScan(function(code) {
+			window.location = '/disney/pg/lo.html?co=' + code;
 		});
 		
 	});
-	
-	
-	$(".item-parkleave").on("click",function(){
-		/* var code = $("#leaveCode").val();
-		
-		if(code!='' && code.length==12){
-			window.location = '/disney/le/lo.html?co='+code;
-			return;
-		} */
-		wxOnScan(function(code){
-			window.location = '/disney/le/lo.html?co='+code;
+
+	$(".item-parkleave").on("click", function() {
+		wxOnScan(function(code) {
+			window.location = '/disney/le/lo.html?co=' + code;
 		});
-		
+
 	});
-	
-	
-	$(".item-carport").on("click",function(){
+
+	$(".item-carport").on("click", function() {
 		window.location = '/disney/carport/parks.html';
 	});
-	
-	$(".item-parkpay").on("click",function(){
+
+	$(".item-parkpay").on("click", function() {
 		window.location = '/disney/parkpay/queryParkPay.html';
 	});
-	
-	
+
 }
 </script>
 
