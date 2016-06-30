@@ -213,6 +213,16 @@ namespace testAStar.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap mark_end_64x64_2 {
+            get {
+                object obj = ResourceManager.GetObject("mark_end_64x64_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap mark_start_42x42 {
             get {
                 object obj = ResourceManager.GetObject("mark_start_42x42", resourceCulture);
@@ -236,6 +246,16 @@ namespace testAStar.Properties {
         internal static System.Drawing.Bitmap mark_start_64x64 {
             get {
                 object obj = ResourceManager.GetObject("mark_start_64x64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap mark_start_64x64_2 {
+            get {
+                object obj = ResourceManager.GetObject("mark_start_64x64_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
