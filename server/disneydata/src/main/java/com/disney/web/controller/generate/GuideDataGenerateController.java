@@ -588,10 +588,10 @@ public class GuideDataGenerateController {
       	
       	
       	//05-0001 奕欧来上海购物村
-      	locationService.addQrCode("05-0001-0001", "奕欧来上海购物村入口A",QrCodeType.VIEW_ENTRANCE);
-      	locationService.addQrCode("05-0001-0002", "奕欧来上海购物村入口B",QrCodeType.VIEW_ENTRANCE);
-      	locationService.addQrCode("05-0001-0003", "奕欧来上海购物村入口C",QrCodeType.VIEW_ENTRANCE);
-    	locationService.addQrCode("05-0001-0004", "奕欧来上海购物村入口D",QrCodeType.VIEW_ENTRANCE);
+      	locationService.addQrCode("05-0001-0001", "奕欧来上海购物村东南门",QrCodeType.VIEW_ENTRANCE);
+      	locationService.addQrCode("05-0001-0002", "奕欧来上海购物村西北门",QrCodeType.VIEW_ENTRANCE);
+      	locationService.addQrCode("05-0001-0003", "奕欧来上海购物村戈什门",QrCodeType.VIEW_ENTRANCE);
+    	locationService.addQrCode("05-0001-0004", "奕欧来上海购物村米莱门",QrCodeType.VIEW_ENTRANCE);
       	
       	//06商：申迪中心、迪士尼小镇
       	locationService.addQrCode("06-0001-0001", "申迪中心出入口A",QrCodeType.VIEW_ENTRANCE);
