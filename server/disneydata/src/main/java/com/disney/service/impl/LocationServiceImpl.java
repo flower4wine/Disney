@@ -73,9 +73,7 @@ public class LocationServiceImpl implements LocationService {
 				child.setQrCodeLocation(true);
 				child.setType(parent.getType());
 				
-				if(qrCodeType == QrCodeType.PARK_INNER || qrCodeType == QrCodeType.BUS_STATION ){
-					child.setLocationImg("/resources/img/location/"+code.substring(0,7)+"/"+code+".jpg");
-				}
+				child.setLocationImg("/resources/img/location/"+code.substring(0,7)+"/"+code+".jpg");
 
 				locationDao.save(child);
 

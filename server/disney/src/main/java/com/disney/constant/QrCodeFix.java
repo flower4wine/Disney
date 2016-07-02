@@ -9,7 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 public class QrCodeFix {
 	
 	public static String LANDSCAPE_BRIDGE = "04-0005-000A";
-	public static String LANDSCAPE_BRIDGE_QR_CODE_URL = "http://weixin.qq.com/q/PkQcuBvlwCO50poD8Wz3";
+	/*public static String LANDSCAPE_BRIDGE_QR_CODE_URL = "http://weixin.qq.com/q/PkQcuBvlwCO50poD8Wz3";*/
 	
 	public static void getUrl() throws Exception{
 		
@@ -25,6 +25,15 @@ public class QrCodeFix {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static void main(String argc[]){
+		try {
+			getUrl();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -89,10 +89,10 @@ public class Leave2ParkController {
 		}else if(co.startsWith("02")){
 			vo.setParkLocation(false);
 			vo.setRemark(bo.getQrLocationName());
-		}else if(co.startsWith("05")){
+			
+		}else{
 			vo.setParkLocation(false);
-			vo.setLocationImg(parentLoc.getLocationImg());
-			vo.setRemark(parentLoc.getName());
+			vo.setRemark(bo.getQrLocationName());
 			vo.setName("位置信息");
 		}
 		

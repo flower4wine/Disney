@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.disney.constant.QrCodeFix;
 import com.disney.constant.QrCodeType;
 import com.disney.handler.codecheck.ExcelCodeLoader;
 import com.disney.model.Location;
@@ -501,16 +502,18 @@ public class GuideDataGenerateController {
     	locationService.save(getLocation("管理中心停车场","03-0008",3));
     	
     	//04 娱：奇想花园、香草园、生态园、星愿湖公园、景观桥
-    	locationService.save(getLocation("奇想花园","04-0001",4));
+    	locationService.save(getLocation("迪斯尼乐园","04-0001",4));
     	locationService.save(getLocation("香草园","04-0002",4));
     	locationService.save(getLocation("生态园","04-0003",4));
     	locationService.save(getLocation("星愿湖公园","04-0004",4));
     	
-    	locationService.save(getLocation("绿地生态公园二期","04-0005",4));
+    	locationService.save(getLocation("景观桥",QrCodeFix.LANDSCAPE_BRIDGE.substring(0, 7),4));
+    	
     	locationService.save(getLocation("香草小街","04-0006",4));
+    	locationService.save(getLocation("绿地生态公园二期","04-0007",4));
     	
     	
-    	locationService.save(getLocation("景观桥","04-0001",4));
+    	
     	
     	
     	//05购：奕欧来上海购物村
@@ -532,20 +535,20 @@ public class GuideDataGenerateController {
       	
       	
       	//02-0001 接泊车站点
-      	locationService.addQrCode("02-0001-0001", "购物村站(内圈)",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0002", "申迪中心站(内圈)",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0003", "迪斯尼乐园酒店站",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0004", "西公交枢纽站",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0005", "玩具总动员酒店站(内圈)",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0006", "申迪北路站(内圈)",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0007", "奇妙路地铁站",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0001", "购物村站(1/2路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0002", "申迪南路站(1/2路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0003", "迪斯尼乐园酒店站(1/2路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0004", "西公交枢纽站(1/2路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0005", "玩具总动员酒店站(2路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0006", "申迪北路站(2路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0007", "地铁站(1/2路/3路)",QrCodeType.BUS_STATION);
       	
       	
-      	locationService.addQrCode("02-0001-0008", "购物村站(外圈)",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0009", "申迪北路站(外圈)",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0010", "玩具总动员酒店站(外圈)",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0011", "南公交枢纽站",QrCodeType.BUS_STATION);
-      	locationService.addQrCode("02-0001-0012", "申迪中心站(外圈)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0008", "购物村站(1/3路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0009", "申迪北路站(3路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0010", "玩具总动员酒店站(3路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0011", "南公交枢纽站(1/3路)",QrCodeType.BUS_STATION);
+      	locationService.addQrCode("02-0001-0012", "申迪南路站(1/3路)",QrCodeType.BUS_STATION);
       	
       	//02-0004 西公交枢纽
       	locationService.addQrCode("02-0004-0001", "西公交枢纽出入口A",QrCodeType.VIEW_ENTRANCE);
@@ -581,10 +584,13 @@ public class GuideDataGenerateController {
       	locationService.addQrCode("03-0004-000D", "P4停车场出入口D",QrCodeType.PARK_ENTRANCE);
       	
       	//04 娱：奇想花园、香草园、生态园、星愿湖公园、景观桥
-      	locationService.addQrCode("04-0001-0001", "奇想花园出入口A",QrCodeType.VIEW_ENTRANCE);
+      	locationService.addQrCode("04-0001-0001", "迪斯尼乐园出入口",QrCodeType.VIEW_ENTRANCE);
       	locationService.addQrCode("04-0002-0001", "香草园出入口A",QrCodeType.VIEW_ENTRANCE);
       	locationService.addQrCode("04-0003-0001", "生态园出入口A",QrCodeType.VIEW_ENTRANCE);
       	locationService.addQrCode("04-0004-0001", "星愿湖公园出入口A",QrCodeType.VIEW_ENTRANCE);
+      	
+      	
+      	locationService.addQrCode(QrCodeFix.LANDSCAPE_BRIDGE, "景观桥景点二维码",QrCodeType.VIEW_ENTRANCE);
       	
       	
       	//05-0001 奕欧来上海购物村
