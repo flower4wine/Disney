@@ -1671,7 +1671,7 @@ namespace testAStar
                         panelMap.DrawToBitmap(bitmap2, panelMap.Bounds);
                         using (Graphics g2 = Graphics.FromImage(bitmap2))
                         {
-                            g2.DrawImage(Properties.Resources.star_42x42, keyCell.Location - new Size(21, 21));
+                            g2.DrawImage(Properties.Resources.star_64x64, keyCell.Location - new Size(32, 32));
                         }
                         bitmap2.Save(@"./Save/" + textBoxMapName.Text + "/QRLocation/" + keyCell.Name + ".jpg", ImageFormat.Jpeg);
                         bitmap2.Dispose();

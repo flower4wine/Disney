@@ -395,7 +395,6 @@
             // buttonSetGoalCells
             // 
             this.buttonSetGoalCells.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSetGoalCells.Enabled = false;
             this.buttonSetGoalCells.Location = new System.Drawing.Point(738, 413);
             this.buttonSetGoalCells.Name = "buttonSetGoalCells";
             this.buttonSetGoalCells.Size = new System.Drawing.Size(95, 23);
@@ -427,7 +426,6 @@
             // textBoxGoals
             // 
             this.textBoxGoals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxGoals.Enabled = false;
             this.textBoxGoals.Location = new System.Drawing.Point(738, 472);
             this.textBoxGoals.Multiline = true;
             this.textBoxGoals.Name = "textBoxGoals";
@@ -565,6 +563,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Enabled = false;
             this.button3.Location = new System.Drawing.Point(738, 340);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(95, 23);
