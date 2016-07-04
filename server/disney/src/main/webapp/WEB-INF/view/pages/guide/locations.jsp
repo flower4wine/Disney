@@ -15,7 +15,7 @@
 	</div>
 	
 	<div class="loc-view-info" >
-		<div class="lov-view-title">迪斯尼景点</div>
+		<div class="lov-view-title">迪士尼景点</div>
 		<div class="loc-view-img" data-code="04-0001-0001">
 			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/disney-town.jpg'/>">
 			<div class="txt" >迪士尼乐园入口 / 迪士尼小镇</div>

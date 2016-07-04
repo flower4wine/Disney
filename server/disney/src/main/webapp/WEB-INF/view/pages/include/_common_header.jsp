@@ -28,4 +28,4 @@
 <script type="text/javascript" src="<c:out value='${staticFileUrl }/resources/script/jquery.touchSwipe.min.js'/>"></script>
 
 
-<title>迪斯尼导览</title>
+<title>迪士尼导览</title>
