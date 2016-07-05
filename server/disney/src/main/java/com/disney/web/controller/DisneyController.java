@@ -140,7 +140,7 @@ public class DisneyController {
 			UserLocation ul = locationService.findUserLocation(userOpenId);
 			Date now = DateUtils.getStartDate(new Date());
 			
-			if(ul!=null && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
+			if(ul!=null &&  ul.getCreatedAt()!=null  && DateUtils.getStartDate(ul.getCreatedAt()).compareTo(now) == 0 ){
 				
 				if(StringUtils.isNotEmpty(ul.getScanLocation())){
 					//停车导览 只取停车场内部
