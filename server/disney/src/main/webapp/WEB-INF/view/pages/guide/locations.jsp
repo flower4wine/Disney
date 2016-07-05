@@ -28,22 +28,22 @@
 		
 		<div class="loc-view-img" data-code="05-0001-0001">
 			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/shop1.jpg'/>">
-			<div class="txt" >奕欧来购物村入口01</div>
+			<div class="txt" >奕欧来购物村东南出入口</div>
 		</div>
 		
 		<div class="loc-view-img" data-code="05-0001-0002">
 			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/shop2.jpg'/>">
-			<div class="txt" >奕欧来购物村入口02</div>
+			<div class="txt" >奕欧来购物村西北出入口</div>
 		</div>
 		
 		<div class="loc-view-img" data-code="05-0001-0003">
 			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/shop3.jpg'/>">
-			<div class="txt" >奕欧来购物村入口03</div>
+			<div class="txt" >奕欧来购物村米莱门</div>
 		</div>
 	
 		<div class="loc-view-img" data-code="05-0001-0004">
 			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/shop4.jpg'/>">
-			<div class="txt" >奕欧来购物村入口04</div>
+			<div class="txt" >奕欧来上海购物村戈什门</div>
 		</div>
 		
 	</div>
