@@ -114,7 +114,7 @@ public class WeChatServerController {
 		
 		String desc = "欢迎您访问迪士尼智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。";
 		String picUrl = wxHandler.newsPicUrl();
-		String title = "景观桥介绍测试";
+		String title = "景观桥详情介绍";
 		String url = wxHandler.landBridgeForwardUrl();
 		
 		return getNewsMessageXML(requestMap,desc,picUrl,title,url);
