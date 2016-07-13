@@ -67,7 +67,11 @@ public class WeChatServerController {
 			if(key.equals(QrCodeFix.LANDSCAPE_BRIDGE)){
 				respXml = generateLandscapeBridgeXml(requestMap);
 			}else{
-				//TODO  增加对 扫描二维码的校验 
+				//标准二维码长度为12 例如03-0001-0001
+				if(StringUtils.isEmpty(key) || key.length()!= 12){
+					return;
+				}
+				
 				respXml = generateQrCodeScanXml(requestMap, key);
 			}
 			
@@ -108,9 +112,9 @@ public class WeChatServerController {
 	
 	private String generateLandscapeBridgeXml(Map<String, String> requestMap){
 		
-		String desc = "欢迎您访问迪斯尼智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。";
+		String desc = "欢迎您访问迪士尼智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。";
 		String picUrl = wxHandler.newsPicUrl();
-		String title = "景观桥介绍测试";
+		String title = "景观桥详情介绍";
 		String url = wxHandler.landBridgeForwardUrl();
 		
 		return getNewsMessageXML(requestMap,desc,picUrl,title,url);
@@ -120,7 +124,7 @@ public class WeChatServerController {
 	private String generateQrCodeScanXml(Map<String, String> requestMap,String key){
 		String desc = qrCodeScan(requestMap, key);
 		String picUrl =  wxHandler.newsPicUrl();
-		String title = "迪斯尼导览指南";
+		String title = "迪士尼导览指南";
 		String url = wxHandler.guideForwardUrl();
 		return getNewsMessageXML(requestMap,desc,picUrl,title,url);
 	}
@@ -170,7 +174,7 @@ public class WeChatServerController {
 			name = parent.getName();
 		}
 
-		return "欢迎您访问度假区智慧停车平台！您扫描的二维码是"+name+"点击底部的【停车导览】菜单畅游度假区！点击【阅读全文】查看《导览指南》！";
+		return "欢迎您访问度假区智慧停车平台！您扫描的二维码是"+name+"。点击底部的【停车导览】菜单畅游度假区！点击【阅读全文】查看《导览指南》！";
 	}
 
 
