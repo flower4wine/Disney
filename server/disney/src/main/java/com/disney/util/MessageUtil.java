@@ -158,7 +158,7 @@ public class MessageUtil {
 		NewsMessage msg = new NewsMessage();
 		
 		Article article = new Article();
-		article.setDescription("欢迎您访问迪士尼智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。");
+		article.setDescription("欢迎您访问上海国际旅游度假区智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。");
 		article.setPicUrl("");
 		article.setTitle("景观桥介绍测试");
 		article.setUrl("http://localhost/disney");

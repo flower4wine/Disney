@@ -112,7 +112,7 @@ public class WeChatServerController {
 	
 	private String generateLandscapeBridgeXml(Map<String, String> requestMap){
 		
-		String desc = "欢迎您访问迪士尼智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。";
+		String desc = "欢迎您访问上海国际旅游度假区智慧停车平台,您扫描的二维码 可以进入景观桥景观介绍，点击查看详情。";
 		String picUrl = wxHandler.newsPicUrl();
 		String title = "景观桥详情介绍";
 		String url = wxHandler.landBridgeForwardUrl();
@@ -124,7 +124,7 @@ public class WeChatServerController {
 	private String generateQrCodeScanXml(Map<String, String> requestMap,String key){
 		String desc = qrCodeScan(requestMap, key);
 		String picUrl =  wxHandler.newsPicUrl();
-		String title = "迪士尼导览指南";
+		String title = "上海国际旅游度假区导览指南";
 		String url = wxHandler.guideForwardUrl();
 		return getNewsMessageXML(requestMap,desc,picUrl,title,url);
 	}
