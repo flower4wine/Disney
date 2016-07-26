@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Collections;
 
 namespace AddWaterMark
 {
@@ -33,12 +27,7 @@ namespace AddWaterMark
     public partial class Form1 : Form
     {
         private Paring _parking = Paring.P1;
-        private WarterMarkLocation _warterMarkLocation= WarterMarkLocation.Right| WarterMarkLocation.Top;
-
-        private int _warterMarkWidth = 0;
-        private Size _warterMarkSize= Size.Empty;
-
-        private Bitmap _warterMarkBitmap = null;
+        
         private Size _padding = new Size(10,10);
         public Form1()
         {
@@ -51,13 +40,13 @@ namespace AddWaterMark
             #region 判定路径合法性
             if (textBoxFromDir.Text == textBoxSaveDir.Text)
             {
-                MessageBox.Show("请换一个输出路径");
+                MessageBox.Show(@"请换一个输出路径");
                 return;
             }
 
             if (!Directory.Exists(textBoxFromDir.Text))
             {
-                MessageBox.Show("起始目录不存在");
+                MessageBox.Show(@"起始目录不存在");
                 return;
             }
 
@@ -70,7 +59,7 @@ namespace AddWaterMark
                 catch (Exception)
                 {
 
-                    MessageBox.Show("无法创建输出目录");
+                    MessageBox.Show(@"无法创建输出目录");
                     return;
                 }
             }
@@ -146,9 +135,16 @@ namespace AddWaterMark
 
             try
             {
-                if (!Directory.Exists(saveFileInfo.DirectoryName))
+                if (saveFileInfo.DirectoryName != null)
                 {
-                    Directory.CreateDirectory(saveFileInfo.DirectoryName);
+                    if ( !Directory.Exists(saveFileInfo.DirectoryName))
+                    {
+                        Directory.CreateDirectory(saveFileInfo.DirectoryName);
+                    }
+                }
+                else
+                {
+                    return;
                 }
             }
             catch (Exception)
@@ -167,7 +163,6 @@ namespace AddWaterMark
             }
             DisposeBitmap(ref bitmap);
             bitmap = bmp;
-            bmp = null;
 
             Point warterMarkLocationPoint  = Point.Empty;
 
@@ -196,8 +191,6 @@ namespace AddWaterMark
                         case Paring.P4:
                             g.DrawImage(Properties.Resources.scale, bitmap.Width - Properties.Resources.scale.Width - _padding.Width, _padding.Height);
                             g.DrawImage(Properties.Resources.P4, _padding.Width, _padding.Height);
-                            break;
-                        default:
                             break;
                     }
 
