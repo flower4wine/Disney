@@ -14,16 +14,7 @@ namespace AddWaterMark
         P3,
         P4
     }
-
-    [Flags]
-    public enum WarterMarkLocation
-    {
-        Middel = 0x0,
-        Top = 0x1,
-        Right = 0x2,
-        Bottom = 0x4,
-        Left = 0x8,
-    }
+    
     public partial class Form1 : Form
     {
         private Paring _parking = Paring.P1;
@@ -37,6 +28,7 @@ namespace AddWaterMark
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
+            SaveParkingxx();
             #region 判定路径合法性
             if (textBoxFromDir.Text == textBoxSaveDir.Text)
             {
@@ -189,7 +181,7 @@ namespace AddWaterMark
                             g.DrawImage(Properties.Resources.P3, _padding.Width, bitmap.Height - Properties.Resources.P3.Height-  _padding.Height);
                             break;
                         case Paring.P4:
-                            g.DrawImage(Properties.Resources.scale, bitmap.Width - Properties.Resources.scale.Width - _padding.Width, _padding.Height);
+                            g.DrawImage(Properties.Resources.scale,  _padding.Width, bitmap.Height - Properties.Resources.scale.Height - _padding.Height);
                             g.DrawImage(Properties.Resources.P4, _padding.Width, _padding.Height);
                             break;
                     }
@@ -198,6 +190,56 @@ namespace AddWaterMark
 
                 bitmap.Save(saveFulPath);
             }
+        }
+
+        /// <summary>
+        /// 用于重置保存刚从AI导出的指南针图片
+        /// </summary>
+        private void SaveParkingxx()
+        {
+            Bitmap bmp = new Bitmap(400, 400, PixelFormat.Format32bppArgb);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                g.DrawImage(Properties.Resources.P1, 0, 0);
+            }
+            bmp.Save(textBoxSaveDir.Text+"\\P1.png");
+            DisposeBitmap(ref bmp);
+
+            bmp = new Bitmap(400, 400, PixelFormat.Format32bppArgb);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                g.DrawImage(Properties.Resources.P2, 0, 0);
+            }
+            bmp.Save(textBoxSaveDir.Text + "\\P2.png");
+            DisposeBitmap(ref bmp);
+
+            bmp = new Bitmap(400, 400, PixelFormat.Format32bppArgb);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                g.DrawImage(Properties.Resources.P3, 0, 0);
+            }
+            bmp.Save(textBoxSaveDir.Text + "\\P3.png");
+            DisposeBitmap(ref bmp);
+
+            bmp = new Bitmap(400, 400, PixelFormat.Format32bppArgb);
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                g.DrawImage(Properties.Resources.P4, 0, 0);
+            }
+            bmp.Save(textBoxSaveDir.Text + "\\P4.png");
+            DisposeBitmap(ref bmp);
         }
     }
 }
