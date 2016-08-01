@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.town;
+package com.disney.web.controller.generate.ecological;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,53 +15,38 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
-@RequestMapping("/town")
-public class P2ToTownController extends GenerateBaseController{
+@RequestMapping("/ecological")
+public class P3ToEcologicalController  extends GenerateBaseController{
 
-	@RequestMapping(value="/p2",method=RequestMethod.GET)
+	@RequestMapping(value="/p3",method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> p4Generate(){
+	public Map<String,Object> p3Generate(){
 
 
-		generate("06-0002-0001");
+		generate("04-0003-0001");
 
 		return Ajax.buildSuccessResult();
 	}
 
 	private void generate(String viewCode){
 
-		List<Integer> cList = new ArrayList<Integer>();
+		List<Integer> aList = new ArrayList<Integer>();
+		List<Integer> bList = new ArrayList<Integer>();
 		
-		for (int i = 1; i <= 71; i++) {
-			cList.add(i);
+		for (int i = 1; i <= 35; i++) {
+			aList.add(i);
 		}
-		cList.add(77);
-		cList.add(78);
-		cList.add(81);
-		cList.add(82);
-		cList.add(84);
-		cList.add(87);
-		cList.add(111);
-		cList.add(112);
+		aList.add(63);
 		
-		List<Integer> dList = new ArrayList<Integer>();
-		for (int i = 72; i <= 76; i++) {
-			dList.add(i);
+		for (int i = 36; i <= 62; i++) {
+			bList.add(i);
 		}
-		dList.add(79);
-		dList.add(80);
-		dList.add(83);
-		dList.add(85);
-		dList.add(86);
-		dList.add(113);
-		for (int i = 88; i <= 110; i++) {
-			dList.add(i);
-		}
-		
-		generate(cList,"03-0002-000C",viewCode);
-		generate(dList,"03-0002-000D",viewCode);
+
+		generate(aList,"03-0003-000A",viewCode);
+		generate(bList,"03-0003-000B",viewCode);
 
 	}
+	
 
 	private void generate(List<Integer> qrCodes,String parkEntrance,String viewCode){
 		//CHECK
@@ -70,10 +55,10 @@ public class P2ToTownController extends GenerateBaseController{
 		}
 
 		//Generate from to
-		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "1路", "02-0001-0008", "02-0001-0007", 1);
+		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, false, "", "", "", 0);
 		locationService.addFromTo(i2o);
 
-		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "1路", "02-0001-0004", "02-0001-0008", 3);
+		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, false, "", "", "", 0);
 		locationService.addFromTo(o2i);
 
 		

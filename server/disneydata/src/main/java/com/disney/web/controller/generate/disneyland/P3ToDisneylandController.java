@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.town;
+package com.disney.web.controller.generate.disneyland;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +15,15 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
-@RequestMapping("/town")
-public class P2ToTownController extends GenerateBaseController{
+@RequestMapping("/disneyland")
+public class P3ToDisneylandController  extends GenerateBaseController{
 
-	@RequestMapping(value="/p2",method=RequestMethod.GET)
+	@RequestMapping(value="/p3",method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> p4Generate(){
+	public Map<String,Object> p3Generate(){
 
 
-		generate("06-0002-0001");
+		generate("04-0001-0001");
 
 		return Ajax.buildSuccessResult();
 	}
@@ -31,37 +31,23 @@ public class P2ToTownController extends GenerateBaseController{
 	private void generate(String viewCode){
 
 		List<Integer> cList = new ArrayList<Integer>();
-		
-		for (int i = 1; i <= 71; i++) {
-			cList.add(i);
-		}
-		cList.add(77);
-		cList.add(78);
-		cList.add(81);
-		cList.add(82);
-		cList.add(84);
-		cList.add(87);
-		cList.add(111);
-		cList.add(112);
-		
 		List<Integer> dList = new ArrayList<Integer>();
-		for (int i = 72; i <= 76; i++) {
-			dList.add(i);
-		}
-		dList.add(79);
-		dList.add(80);
-		dList.add(83);
-		dList.add(85);
-		dList.add(86);
-		dList.add(113);
-		for (int i = 88; i <= 110; i++) {
-			dList.add(i);
-		}
+		List<Integer> eList = new ArrayList<Integer>();
+		List<Integer> fList = new ArrayList<Integer>();
+
+
+		addCodeToList(cList,"1,2,3,4,5,6,7,8");
+		addCodeToList(dList,"9,10,11,12,13,14,15,16,17,18,19,63");
+		addCodeToList(eList,"20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,58");
+		addCodeToList(fList,"48,49,50,51,52,53,54,55,56,57,59,60,61,62");
 		
-		generate(cList,"03-0002-000C",viewCode);
-		generate(dList,"03-0002-000D",viewCode);
+		generate(cList,"03-0003-000C",viewCode);
+		generate(dList,"03-0003-000D",viewCode);
+		generate(eList,"03-0003-000E",viewCode);
+		generate(fList,"03-0003-000F",viewCode);
 
 	}
+	
 
 	private void generate(List<Integer> qrCodes,String parkEntrance,String viewCode){
 		//CHECK
@@ -70,10 +56,10 @@ public class P2ToTownController extends GenerateBaseController{
 		}
 
 		//Generate from to
-		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "1路", "02-0001-0008", "02-0001-0007", 1);
+		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "2路", "02-0001-0001", "02-0001-0004", 3);
 		locationService.addFromTo(i2o);
 
-		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "1路", "02-0001-0004", "02-0001-0008", 3);
+		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "2路", "02-0001-0007", "02-0001-0001", 1);
 		locationService.addFromTo(o2i);
 
 		
