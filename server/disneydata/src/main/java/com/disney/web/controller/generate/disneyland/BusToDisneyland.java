@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.town;
+package com.disney.web.controller.generate.disneyland;
 
 import java.util.Map;
 
@@ -13,8 +13,8 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
-@RequestMapping("/town")
-public class BusToTown extends GenerateBaseController{
+@RequestMapping("/disneyland")
+public class BusToDisneyland extends GenerateBaseController{
 
 	@RequestMapping(value="/bus",method=RequestMethod.GET)
 	@ResponseBody
@@ -41,7 +41,7 @@ public class BusToTown extends GenerateBaseController{
 
 	private void generate(String from,boolean bus,String line,String fromBus,String toBus,int busNum){
 
-		String to = "06-0002-0001";
+		String to = "04-0001-0001";
 		//CHECK
 		if(locationService.find(from) == null || locationService.find(to) == null ){
 			return;

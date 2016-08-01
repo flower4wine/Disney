@@ -27,7 +27,7 @@ public class GenerateDataMain {
 		
 		generate(prefix,"/disneyland/bus.html");
 		
-		/*generate(prefix,"/ecological/p1.html");
+		generate(prefix,"/ecological/p1.html");
 		generate(prefix,"/ecological/p2.html");
 		generate(prefix,"/ecological/p3.html");
 		generate(prefix,"/ecological/p4.html");
@@ -74,7 +74,7 @@ public class GenerateDataMain {
 		generate(prefix,"/wishingstar/p3.html");
 		generate(prefix,"/wishingstar/p4.html");
 		
-		generate(prefix,"/wishingstar/bus.html");*/
+		generate(prefix,"/wishingstar/bus.html");
 		
 		generate(prefix,"/p1/p2.html");
 		generate(prefix,"/p1/p3.html");

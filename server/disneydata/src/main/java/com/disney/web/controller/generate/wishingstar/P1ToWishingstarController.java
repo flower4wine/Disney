@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.town;
+package com.disney.web.controller.generate.wishingstar;
 
 import java.util.Map;
 
@@ -14,8 +14,8 @@ import com.disney.web.controller.generate.GenerateBaseController;
 import com.disney.web.controller.generate.GenerateFix;
 
 @Controller
-@RequestMapping("/town")
-public class P1ToTownController extends GenerateBaseController{
+@RequestMapping("/wishingstar")
+public class P1ToWishingstarController extends GenerateBaseController{
 
 	
 	@RequestMapping(value="/p1",method=RequestMethod.GET)
@@ -24,7 +24,8 @@ public class P1ToTownController extends GenerateBaseController{
 		
 		String parkEntrance = "03-0001-000C";
 		
-		generate("06-0002-0001",parkEntrance);
+		generate("04-0004-0001",parkEntrance);
+		generate("04-0004-0002",parkEntrance);
 		
 		return Ajax.buildSuccessResult();
 	}
@@ -35,12 +36,24 @@ public class P1ToTownController extends GenerateBaseController{
 			return;
 		}
 		
-		//Generate from to
-		 FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "2路", "02-0001-0003", "02-0001-0004", 1);
-		 locationService.addFromTo(i2o);
-		 
-		 FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "1路", "02-0001-0004", "02-0001-0011", 1);
-		 locationService.addFromTo(o2i);
+		FromToOptimize i2o = new FromToOptimize();
+		FromToOptimize o2i = new FromToOptimize();
+		
+		if(viewCode.equals("04-0004-0001")){
+			//Generate from to
+			 i2o = geFromTo(parkEntrance, viewCode, true, "2路", "02-0001-0003", "02-0001-0004", 1);
+			 locationService.addFromTo(i2o);
+			 
+			 o2i = geFromTo(viewCode, parkEntrance, true, "1路", "02-0001-0004", "02-0001-0011", 1);
+			 locationService.addFromTo(o2i);
+		}else{
+			//Generate from to
+			 i2o = geFromTo(parkEntrance, viewCode, true, "3路", "02-0001-0011", "02-0001-0007", 3);
+			 locationService.addFromTo(i2o);
+			 
+			 o2i = geFromTo(viewCode, parkEntrance, true, "2路", "02-0001-0007", "02-0001-0004", 3);
+			 locationService.addFromTo(o2i);
+		}
 		 
 		//Generate location to location
 		 for(int i=0;i<GenerateFix.P1_QRCODE_NUM;i++){

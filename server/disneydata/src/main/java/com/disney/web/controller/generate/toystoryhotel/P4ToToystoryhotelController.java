@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.town;
+package com.disney.web.controller.generate.toystoryhotel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +15,15 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
-@RequestMapping("/town")
-public class P2ToTownController extends GenerateBaseController{
+@RequestMapping("/toystoryhotel")
+public class P4ToToystoryhotelController extends GenerateBaseController{
 
-	@RequestMapping(value="/p2",method=RequestMethod.GET)
+	@RequestMapping(value="/p4",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> p4Generate(){
 
 
-		generate("06-0002-0001");
+		generate("01-0002-0001");
 
 		return Ajax.buildSuccessResult();
 	}
@@ -31,37 +31,18 @@ public class P2ToTownController extends GenerateBaseController{
 	private void generate(String viewCode){
 
 		List<Integer> cList = new ArrayList<Integer>();
-		
-		for (int i = 1; i <= 71; i++) {
-			cList.add(i);
-		}
-		cList.add(77);
-		cList.add(78);
-		cList.add(81);
-		cList.add(82);
-		cList.add(84);
-		cList.add(87);
-		cList.add(111);
-		cList.add(112);
-		
 		List<Integer> dList = new ArrayList<Integer>();
-		for (int i = 72; i <= 76; i++) {
-			dList.add(i);
-		}
-		dList.add(79);
-		dList.add(80);
-		dList.add(83);
-		dList.add(85);
-		dList.add(86);
-		dList.add(113);
-		for (int i = 88; i <= 110; i++) {
-			dList.add(i);
-		}
+
+		addCodeToList(cList,"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,64,67,68,69,70,74");
 		
-		generate(cList,"03-0002-000C",viewCode);
-		generate(dList,"03-0002-000D",viewCode);
+		addCodeToList(dList,"26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,65,66,71,72,73");
+		
+		
+		generate(cList,"03-0004-000C",viewCode);
+		generate(dList,"03-0004-000D",viewCode);
 
 	}
+
 
 	private void generate(List<Integer> qrCodes,String parkEntrance,String viewCode){
 		//CHECK
@@ -70,10 +51,10 @@ public class P2ToTownController extends GenerateBaseController{
 		}
 
 		//Generate from to
-		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "1路", "02-0001-0008", "02-0001-0007", 1);
+		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "2路", "02-0001-0001", "02-0001-0005", 4);
 		locationService.addFromTo(i2o);
 
-		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "1路", "02-0001-0004", "02-0001-0008", 3);
+		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "3路", "02-0001-0010", "02-0001-0008", 3);
 		locationService.addFromTo(o2i);
 
 		

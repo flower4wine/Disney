@@ -138,6 +138,16 @@ public class GuideDataGenerateController {
 		
 		
 		
+		lo2loService.saveLocationDistance("03-0003-000A", "04-0002-0001", 630);
+		lo2loService.saveLocationDistance("03-0003-000B", "04-0002-0001", 750);
+		
+		lo2loService.saveLocationDistance("03-0003-000A", "04-0003-0001", 770);
+		lo2loService.saveLocationDistance("03-0003-000B", "04-0003-0001", 890);
+		
+		lo2loService.saveLocationDistance("03-0003-000A", "04-0004-0002", 1100);
+		lo2loService.saveLocationDistance("03-0003-000B", "04-0004-0002", 1220);
+		
+		
 		lo2loService.saveLocationDistance("03-0003-000C", "05-0001-0001",580);
 		lo2loService.saveLocationDistance("03-0003-000C", "05-0001-0002",480);
 		lo2loService.saveLocationDistance("03-0003-000C", "05-0001-0003",180);
@@ -237,6 +247,13 @@ public class GuideDataGenerateController {
 		
 		
 		
+		
+		lo2loService.saveLocationDistance("03-0004-000B", "04-0002-0001", 350);
+		
+		lo2loService.saveLocationDistance("03-0004-000B", "04-0003-0001", 500);
+		
+		lo2loService.saveLocationDistance("03-0004-000B", "04-0004-0002", 800);
+		
 		lo2loService.saveLocationDistance("03-0004-000C", "05-0001-0001",650);
 		lo2loService.saveLocationDistance("03-0004-000C", "05-0001-0002",550);
 		lo2loService.saveLocationDistance("03-0004-000C", "05-0001-0003",250);
@@ -269,21 +286,21 @@ public class GuideDataGenerateController {
 		
 		lo2loService.saveLocationDistance("03-0004-000D", "04-0001-0001", 3000, 1000);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "01-0001-0001", 1350, 670);
+		lo2loService.saveLocationDistance("03-0004-000D", "01-0001-0001", 1350, 670);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "01-0002-0001", 3850, 675);
+		lo2loService.saveLocationDistance("03-0004-000D", "01-0002-0001", 3850, 675);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "04-0002-0001", 700);
-		lo2loService.saveLocationDistance("03-0004-000C", "04-0002-0002", 520);
+		lo2loService.saveLocationDistance("03-0004-000D", "04-0002-0001", 700);
+		lo2loService.saveLocationDistance("03-0004-000D", "04-0002-0002", 520);
 		
 		lo2loService.saveLocationDistance("03-0004-000C", "04-0003-0001", 760);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "04-0004-0001", 3850, 680);
-		lo2loService.saveLocationDistance("03-0004-000C", "04-0004-0002", 2400, 895);
+		lo2loService.saveLocationDistance("03-0004-000D", "04-0004-0001", 3850, 680);
+		lo2loService.saveLocationDistance("03-0004-000D", "04-0004-0002", 2400, 895);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "05-0002-0001", 800, 660);
+		lo2loService.saveLocationDistance("03-0004-000D", "05-0002-0001", 800, 660);
 		
-		lo2loService.saveLocationDistance("03-0004-000C", "06-0002-0001", 2950, 670);
+		lo2loService.saveLocationDistance("03-0004-000D", "06-0002-0001", 2950, 670);
 		
 		
 		
@@ -451,12 +468,12 @@ public class GuideDataGenerateController {
 		
 		lo2loService.saveLocationDistance("02-0001-0007", "04-0003-0001", 580);
 		
-		lo2loService.saveLocationDistance("02-0001-0007", "04-0004-0001", 4450, 170);
+		lo2loService.saveLocationDistance("02-0001-0007", "04-0004-0001", 900 );
 		lo2loService.saveLocationDistance("02-0001-0007", "04-0004-0002", 280);
 		
 		lo2loService.saveLocationDistance("02-0001-0007", "05-0002-0001", 2300, 130);
 		
-		lo2loService.saveLocationDistance("02-0001-0007", "06-0002-0001", 4450, 145);
+		lo2loService.saveLocationDistance("02-0001-0007", "06-0002-0001", 880 );
 		
 		
 		
@@ -502,7 +519,7 @@ public class GuideDataGenerateController {
 		
 		lo2loService.saveLocationDistance("02-0001-0009", "04-0003-0001", 1300, 770);
 		
-		lo2loService.saveLocationDistance("02-0001-0009", "04-0004-0001", 1300, 900);
+		lo2loService.saveLocationDistance("02-0001-0009", "04-0004-0001", 920);
 		lo2loService.saveLocationDistance("02-0001-0009", "04-0004-0002", 1300, 470);
 		
 		lo2loService.saveLocationDistance("02-0001-0009", "05-0002-0001", 3600, 300);

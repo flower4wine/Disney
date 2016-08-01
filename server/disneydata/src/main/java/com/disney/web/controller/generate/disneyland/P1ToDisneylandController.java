@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.town;
+package com.disney.web.controller.generate.disneyland;
 
 import java.util.Map;
 
@@ -14,8 +14,8 @@ import com.disney.web.controller.generate.GenerateBaseController;
 import com.disney.web.controller.generate.GenerateFix;
 
 @Controller
-@RequestMapping("/town")
-public class P1ToTownController extends GenerateBaseController{
+@RequestMapping("/disneyland")
+public class P1ToDisneylandController extends GenerateBaseController{
 
 	
 	@RequestMapping(value="/p1",method=RequestMethod.GET)
@@ -24,7 +24,7 @@ public class P1ToTownController extends GenerateBaseController{
 		
 		String parkEntrance = "03-0001-000C";
 		
-		generate("06-0002-0001",parkEntrance);
+		generate("04-0001-0001",parkEntrance);
 		
 		return Ajax.buildSuccessResult();
 	}

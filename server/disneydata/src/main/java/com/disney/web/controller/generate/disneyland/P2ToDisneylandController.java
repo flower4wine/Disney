@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.town;
+package com.disney.web.controller.generate.disneyland;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +15,15 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
-@RequestMapping("/town")
-public class P2ToTownController extends GenerateBaseController{
+@RequestMapping("/disneyland")
+public class P2ToDisneylandController extends GenerateBaseController{
 
 	@RequestMapping(value="/p2",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> p4Generate(){
 
 
-		generate("06-0002-0001");
+		generate("04-0001-0001");
 
 		return Ajax.buildSuccessResult();
 	}

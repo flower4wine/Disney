@@ -1,4 +1,4 @@
-package com.disney.web.controller.generate.town;
+package com.disney.web.controller.generate.maxus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +15,15 @@ import com.disney.util.Ajax;
 import com.disney.web.controller.generate.GenerateBaseController;
 
 @Controller
-@RequestMapping("/town")
-public class P2ToTownController extends GenerateBaseController{
+@RequestMapping("/maxus")
+public class P2ToMaxusController extends GenerateBaseController{
 
 	@RequestMapping(value="/p2",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> p4Generate(){
 
 
-		generate("06-0002-0001");
+		generate("05-0002-0001");
 
 		return Ajax.buildSuccessResult();
 	}
@@ -70,10 +70,10 @@ public class P2ToTownController extends GenerateBaseController{
 		}
 
 		//Generate from to
-		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "1路", "02-0001-0008", "02-0001-0007", 1);
+		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "2路", "02-0001-0001", "02-0001-0002", 1);
 		locationService.addFromTo(i2o);
 
-		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "1路", "02-0001-0004", "02-0001-0008", 3);
+		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "1路", "02-0001-0012", "02-0001-0008", 1);
 		locationService.addFromTo(o2i);
 
 		
