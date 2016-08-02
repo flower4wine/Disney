@@ -23,7 +23,7 @@ public class P4ToHotelController extends GenerateBaseController{
 	public Map<String,Object> p4Generate(){
 
 
-		generate("05-0002-0001");
+		generate("01-0001-0001");
 
 		return Ajax.buildSuccessResult();
 	}

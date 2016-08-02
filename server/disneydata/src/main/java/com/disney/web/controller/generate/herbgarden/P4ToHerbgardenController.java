@@ -22,7 +22,8 @@ public class P4ToHerbgardenController extends GenerateBaseController{
 	public Map<String,Object> p4Generate(){
 
 		generate("03-0004-000B","04-0002-0001");
-		generate("03-0004-000B","04-0002-0002");
+		generate("03-0004-000C","04-0002-0002");
+		generate("03-0004-000D","04-0002-0002");
 
 		return Ajax.buildSuccessResult();
 	}
@@ -32,7 +33,7 @@ public class P4ToHerbgardenController extends GenerateBaseController{
 		if(locationService.find(viewCode) == null || locationService.find(parkEntrance) == null ){
 			return;
 		}
-
+		 
 		//Generate from to
 		 FromToOptimize i2o = geFromTo(parkEntrance, viewCode, false, "", "", "", 0);
 		 locationService.addFromTo(i2o);
