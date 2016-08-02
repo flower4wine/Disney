@@ -70,7 +70,7 @@ public class P2ToTownController extends GenerateBaseController{
 		}
 
 		//Generate from to
-		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "1路", "02-0001-0008", "02-0001-0007", 1);
+		FromToOptimize i2o = geFromTo(parkEntrance, viewCode, true, "2路", "02-0001-0001", "02-0001-0004", 3);
 		locationService.addFromTo(i2o);
 
 		FromToOptimize o2i = geFromTo(viewCode, parkEntrance, true, "1路", "02-0001-0004", "02-0001-0008", 3);
