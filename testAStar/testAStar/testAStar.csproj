@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="APathFind.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="DecimalFormatJsonConverter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

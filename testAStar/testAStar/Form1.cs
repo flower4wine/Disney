@@ -395,7 +395,7 @@ namespace testAStar
                     From = _aPathFind.StartCell.Name,
                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                 };
-                wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
+                wayInfo.Time = Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value;
 
                 if (!Directory.Exists(@"./Save" + wayInfo.InnerDirPath))
                 {
@@ -433,7 +433,7 @@ namespace testAStar
                     To = _aPathFind.StartCell.Name,
                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                 };
-                wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
+                wayInfo.Time = Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value;
 
                 if (!Directory.Exists(@"./Save" + wayInfo.InnerDirPath))
                 {
@@ -916,11 +916,9 @@ namespace testAStar
                                     {
                                         PicName = _aPathFind.StartCell.Name + "-" + _aPathFind.GoalCell.Name + suffixStr,
                                         From = _aPathFind.StartCell.Name,
-                                        Distance =
-                                            Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
+                                        Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                                     };
-                                    wayInfo.Time =
-                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
+                                    wayInfo.Time = Convert.ToDecimal(wayInfo.Distance)/numericUpDown2.Value;
 
                                     if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
                                     {
@@ -991,8 +989,7 @@ namespace testAStar
                                         Distance =
                                             Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix))
                                     };
-                                    wayInfo.Time =
-                                        Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
+                                    wayInfo.Time = Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value;
 
                                     if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.InnerDirPath))
                                     {
@@ -1220,7 +1217,7 @@ namespace testAStar
                                         Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix)),
                                         IsOut = true
                                     };
-                                    wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
+                                    wayInfo.Time = Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value;
 
                                     if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath))
                                     {
@@ -1259,7 +1256,7 @@ namespace testAStar
                                         Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix)),
                                         IsOut = true
                                     };
-                                    wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value);
+                                    wayInfo.Time = Convert.ToDecimal(wayInfo.Distance) / numericUpDown2.Value;
 
                                     if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath))
                                     {
@@ -1422,7 +1419,7 @@ namespace testAStar
                                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix / 10 * 3)),
                                     IsOut = true
                                 };
-                                wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown1.Value);
+                                wayInfo.Time = Convert.ToDecimal(wayInfo.Distance) / numericUpDown1.Value;
 
                                 if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath))
                                 {
@@ -1463,7 +1460,7 @@ namespace testAStar
                                     Distance = Convert.ToInt32(Math.Floor(Convert.ToDecimal(length) * ruleWidth / rulePix)),
                                     IsOut = true
                                 };
-                                wayInfo.Time = Convert.ToInt32(Convert.ToDecimal(wayInfo.Distance) / numericUpDown1.Value);
+                                wayInfo.Time = Convert.ToDecimal(wayInfo.Distance) / numericUpDown1.Value;
 
                                 if (!Directory.Exists(@"./Save/" + textBoxMapName.Text + wayInfo.OutDirPath))
                                 {

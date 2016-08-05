@@ -28,7 +28,7 @@ namespace AddWaterMark
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            SaveParkingxx();
+            // SaveParkingxx();
             #region 判定路径合法性
             if (textBoxFromDir.Text == textBoxSaveDir.Text)
             {

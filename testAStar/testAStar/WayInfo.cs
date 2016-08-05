@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace testAStar
 {
@@ -77,8 +78,17 @@ namespace testAStar
                 }
             }
         }
+
+        /// <summary>
+        /// 分钟
+        /// </summary>
         [DataMember(Name = "time")]
-        public int Time { set; get; }
+        [JsonConverter(typeof(DecimalFormatJsonConverter))]
+        public decimal Time { set; get; }
+
+        /// <summary>
+        /// 米
+        /// </summary>
         [DataMember(Name = "distance")]
         public int Distance { set; get; }
 
