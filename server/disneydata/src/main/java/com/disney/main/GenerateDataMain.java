@@ -41,6 +41,13 @@ public class GenerateDataMain {
 		
 		generate(prefix,"/herbgarden/bus.html");
 		
+		generate(prefix,"/bifrost/p1.html");
+		generate(prefix,"/bifrost/p2.html");
+		generate(prefix,"/bifrost/p3.html");
+		generate(prefix,"/bifrost/p4.html");
+		
+		generate(prefix,"/bifrost/bus.html");
+		
 		generate(prefix,"/hotel/p1.html");
 		generate(prefix,"/hotel/p2.html");
 		generate(prefix,"/hotel/p3.html");
