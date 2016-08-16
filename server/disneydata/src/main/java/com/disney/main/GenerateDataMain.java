@@ -107,7 +107,7 @@ public class GenerateDataMain {
 		generate(prefix,"/bus/p3.html");
 		generate(prefix,"/bus/p4.html");
 		
-		generate(prefix,"/batchUpdateQrCode.html");
+		//generate(prefix,"/batchUpdateQrCode.html");
 	}
 	
 	
