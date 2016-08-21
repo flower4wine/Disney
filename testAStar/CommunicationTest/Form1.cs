@@ -177,6 +177,7 @@ namespace CommunicationTest
             {
                 Thread t = new Thread(new ParameterizedThreadStart(WebListenThread));
                 t.Start(mateWeb);
+                _threadList.Add(t);
             }
         }
         private void StopListen()
