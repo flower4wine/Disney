@@ -226,6 +226,7 @@ namespace CommunicationTest.DB.Sqlite
             return obj;
         }
 
+
         protected string ObjToString(object obj)
         {
             return obj == null ? string.Empty : obj.ToString();

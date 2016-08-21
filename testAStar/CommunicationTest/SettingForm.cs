@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommunicationTest.DB.Sqlite;
 
@@ -24,28 +17,21 @@ namespace CommunicationTest
         {
             if (_sqliteHelper != null)
             {
-                MateAdmin admin = new MateAdmin()
-                {
-                    SslEnable = checkBoxSsl.Checked,
-                    Server = textBoxServer.Text,
-                    Email = textBoxSendEmail.Text,
-                    PassWord = textBoxSendpassword.Text,
-                    UserName = textBoxSendUsername.Text
-                };
-                int tempInt;
+                _sqliteHelper.SaveAdmin(GetAdminEmail());
+            }
+            Close();
+        }
 
-                if (int.TryParse(textBoxDetectionInterval.Text, out tempInt))
-                {
-                    admin.Port = tempInt;
-                }
-                TimeSpan tempTimeSpan;
-
-                if (TimeSpan.TryParse(textBoxDetectionInterval.Text, out tempTimeSpan))
-                {
-                    admin.DetectionInterval = tempTimeSpan;
-                }
-
-                _sqliteHelper.SaveAdmin(admin);
+        private void  SendEmail(MateAdmin admin)
+        {
+            string ret = EmailHelper.SendTestMail(admin);
+            if(string.IsNullOrEmpty(ret))
+            {
+                MessageBox.Show("发送成功，请查看发件箱 ");
+            }
+            else
+            {
+                MessageBox.Show(ret);
             }
         }
 
@@ -65,6 +51,37 @@ namespace CommunicationTest
                     textBoxDetectionInterval.Text = admin.DetectionInterval.ToString();
                 }
             }
+        }
+
+        private void buttonConnTest_Click(object sender, EventArgs e)
+        {
+            SendEmail(GetAdminEmail());
+        }
+
+        private MateAdmin GetAdminEmail()
+        {
+            MateAdmin admin = new MateAdmin()
+            {
+                SslEnable = checkBoxSsl.Checked,
+                Server = textBoxServer.Text,
+                Email = textBoxSendEmail.Text,
+                PassWord = textBoxSendpassword.Text,
+                UserName = textBoxSendUsername.Text
+            };
+            int tempInt;
+
+            if (int.TryParse(textBoxPort.Text, out tempInt))
+            {
+                admin.Port = tempInt;
+            }
+            long tempTimeSpan;
+
+            if (long.TryParse(textBoxDetectionInterval.Text, out tempTimeSpan))
+            {
+                admin.DetectionInterval = tempTimeSpan;
+            }
+
+            return admin;
         }
     }
 }

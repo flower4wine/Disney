@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,6 +43,7 @@
             this.textBoxSendUsername = new System.Windows.Forms.TextBox();
             this.textBoxDetectionInterval = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.buttonConnTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -76,9 +78,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(11, 188);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 12);
+            this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 3;
-            this.label4.Text = "发件箱用户名";
+            this.label4.Text = "发件密码";
             // 
             // label5
             // 
@@ -132,14 +134,14 @@
             // 
             // textBoxSendpassword
             // 
-            this.textBoxSendpassword.Location = new System.Drawing.Point(133, 141);
+            this.textBoxSendpassword.Location = new System.Drawing.Point(133, 185);
             this.textBoxSendpassword.Name = "textBoxSendpassword";
             this.textBoxSendpassword.Size = new System.Drawing.Size(263, 21);
             this.textBoxSendpassword.TabIndex = 10;
             // 
             // textBoxSendUsername
             // 
-            this.textBoxSendUsername.Location = new System.Drawing.Point(133, 185);
+            this.textBoxSendUsername.Location = new System.Drawing.Point(133, 141);
             this.textBoxSendUsername.Name = "textBoxSendUsername";
             this.textBoxSendUsername.Size = new System.Drawing.Size(263, 21);
             this.textBoxSendUsername.TabIndex = 11;
@@ -161,11 +163,23 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // buttonConnTest
+            // 
+            this.buttonConnTest.Location = new System.Drawing.Point(224, 321);
+            this.buttonConnTest.Name = "buttonConnTest";
+            this.buttonConnTest.Size = new System.Drawing.Size(75, 23);
+            this.buttonConnTest.TabIndex = 14;
+            this.buttonConnTest.Text = "Conn Test";
+            this.buttonConnTest.UseVisualStyleBackColor = true;
+            this.buttonConnTest.Click += new System.EventHandler(this.buttonConnTest_Click);
+            // 
             // SettingForm
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(409, 356);
+            this.Controls.Add(this.buttonConnTest);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.textBoxDetectionInterval);
             this.Controls.Add(this.textBoxSendUsername);
@@ -180,6 +194,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(425, 395);
             this.MinimizeBox = false;
@@ -208,5 +223,6 @@
         private System.Windows.Forms.TextBox textBoxSendUsername;
         private System.Windows.Forms.TextBox textBoxDetectionInterval;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button buttonConnTest;
     }
 }

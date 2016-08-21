@@ -32,7 +32,7 @@ namespace CommunicationTest.DB.Sqlite
     [Id] INTEGER PRIMARY KEY AUTOINCREMENT, 
     [WebName] VARCHAR(100), 
     [WebUrl] TEXT, 
-    [DetectionInterval] TIMESTAMP, 
+    [DetectionInterval] BIGINT, 
     [LastCommunicationTime] DATETIME);");
                 }
                 // wacom本子方向 0 正竖 90 右转90度， 180 倒 270 左转90度， 
@@ -58,7 +58,7 @@ namespace CommunicationTest.DB.Sqlite
     [WebId] INTEGER, 
     [StateCode] TEXT, 
     [ErrorTime] DATETIME, 
-    [DetectionInterval] TIMESTAMP);");
+    [DetectionInterval] BIGINT);");
                 }
 
                 #endregion
@@ -74,7 +74,7 @@ namespace CommunicationTest.DB.Sqlite
     [PassWord] TEXT, 
     [Port] INT, 
     [SslEnable] BOOLEAN, 
-    [DetectionInterval] TIMESTAMP);");
+    [DetectionInterval] BIGINT);");
                 }
 
                 #endregion
@@ -149,7 +149,7 @@ namespace CommunicationTest.DB.Sqlite
             _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@PassWord", DbType = DbType.String, Value = admin.PassWord });
             _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@Port", DbType = DbType.Int32, Value = admin.Port });
             _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@SslEnable", DbType = DbType.Boolean, Value = admin.SslEnable });
-            _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@DetectionInterval", DbType = DbType.Object, Value = admin.DetectionInterval });
+            _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@DetectionInterval", DbType = DbType.Int64, Value = admin.DetectionInterval });
 
             _cmd.CommandText = sql;
             _cmd.ExecuteNonQuery();
@@ -176,8 +176,8 @@ namespace CommunicationTest.DB.Sqlite
                     PassWord = ObjToString(read["PassWord"]),
                     Port = int.Parse(ObjToString(read["Port"])),
                     SslEnable = bool.Parse(ObjToString(read["SslEnable"])),
-                    DetectionInterval = TimeSpan.Parse(ObjToString(read["DetectionInterval"]))
                 };
+                result.DetectionInterval = long.Parse(ObjToString(read["DetectionInterval"]));
             }
             return result; 
         }
@@ -204,7 +204,7 @@ namespace CommunicationTest.DB.Sqlite
             _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@WebId", DbType = DbType.String, Value = errorLog.WebId });
             _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@StateCode", DbType = DbType.String, Value = errorLog.StateCode });
             _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@ErrorTime", DbType = DbType.DateTime, Value = errorLog.ErrorTime });
-            _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@DetectionInterval", DbType = DbType.Object, Value = errorLog.DetectionInterval });
+            _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@DetectionInterval", DbType = DbType.Int64, Value = errorLog.DetectionInterval });
 
             _cmd.CommandText = sql;
             _cmd.ExecuteNonQuery();
@@ -250,7 +250,7 @@ namespace CommunicationTest.DB.Sqlite
                 WebId = int.Parse(ObjToString(read["WebId"])),
                 StateCode = ObjToString(read["StateCode"]),
                 ErrorTime = DateTime.Parse(ObjToString(read["ErrorTime"])),
-                DetectionInterval = TimeSpan.Parse(ObjToString(read["DetectionInterval"]))
+                DetectionInterval = long.Parse(ObjToString(read["DetectionInterval"]))
             };
         }
 
@@ -283,7 +283,7 @@ namespace CommunicationTest.DB.Sqlite
                 Id = int.Parse(ObjToString(read["Id"])),
                 WebName = ObjToString(read["WebName"]),
                 WebUrl = ObjToString(read["WebUrl"]),
-                DetectionInterval = TimeSpan.Parse(ObjToString(read["DetectionInterval"])),
+                DetectionInterval = long.Parse(ObjToString(read["DetectionInterval"])),
                 LastCommunicationTime = DateTime.Parse(ObjToString(read["LastCommunicationTime"]))
             };
 
@@ -327,6 +327,22 @@ namespace CommunicationTest.DB.Sqlite
             };
         }
 
+        public void SaveWebs(IEnumerable<MateWeb> mateWebs, bool isSaveNoticeUser = false)
+        {
+            IEnumerable<MateWeb> dbWebs = GetWebs(false);
+            IEnumerable<MateWeb> deleteWebs = dbWebs.Where(record => !mateWebs.Contains(record));
+
+            OpenTransaction();
+            foreach(MateWeb deleteWeb in deleteWebs)
+            {
+                DeleteWebsite(deleteWeb.Id);
+            }
+            CloseTransaction();
+            foreach (MateWeb saveWeb in mateWebs)
+            {
+                SaveWeb(saveWeb, isSaveNoticeUser);
+            }
+        }
         public int SaveWeb(MateWeb mateWeb, bool isSaveNoticeUser = false)
         {
             if (string.IsNullOrWhiteSpace(mateWeb.WebUrl))
@@ -347,7 +363,7 @@ namespace CommunicationTest.DB.Sqlite
             if (isSaveNoticeUser)
             {
                 mateWeb.Id = result;
-                DeleteNoticeUser(mateWeb);
+                DeleteWebAllNoticeUser(mateWeb);
 
                 foreach (MateNoticeUser noticeUser in mateWeb.NoticeUsers)
                 {
@@ -365,11 +381,11 @@ namespace CommunicationTest.DB.Sqlite
             {
                 OpenCon();
 
-                string sql = "INSERT INTO [NoticeUser] ([WebId],[UserEmailAddress] ) "
-                    + " VALUES (@WebId,@UserEmailAddress);";
+                string sql = "INSERT INTO [NoticeUser] ([WebId],[EmailAddress] ) "
+                    + " VALUES (@WebId,@EmailAddress);";
                 _cmd = new SQLiteCommand(_conn);
                 _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@WebId", DbType = DbType.String, Value = webId });
-                _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@UserEmailAddress", DbType = DbType.String, Value = noticeUser.EmailAddress });
+                _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@EmailAddress", DbType = DbType.String, Value = noticeUser.EmailAddress });
 
                 _cmd.CommandText = sql;
                 _cmd.ExecuteNonQuery();
@@ -380,12 +396,12 @@ namespace CommunicationTest.DB.Sqlite
             }
         }
 
-        private void DeleteNoticeUser(MateWeb mateWeb)
+        private void DeleteWebAllNoticeUser(MateWeb mateWeb)
         {
             try
             {
                 OpenCon();
-                string sql = "DELETE FROM [NoticeUser] WHERE [WebId] = @WebId";
+                string sql = "DELETE FROM [NoticeUser] WHERE [WebId] = @WebId;";
 
                 _cmd = new SQLiteCommand(_conn);
                 _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@WebId", DbType = DbType.Int32, Value = mateWeb.Id });
@@ -414,7 +430,7 @@ namespace CommunicationTest.DB.Sqlite
                 _cmd = new SQLiteCommand(_conn);
                 _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@WebName", DbType = DbType.String, Value = mateWeb.WebName });
                 _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@WebUrl", DbType = DbType.String, Value = mateWeb.WebUrl });
-                _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@DetectionInterval", DbType = DbType.Object, Value = mateWeb.DetectionInterval });
+                _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@DetectionInterval", DbType = DbType.Int64, Value = mateWeb.DetectionInterval });
                 _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@LastCommunicationTime", DbType = DbType.DateTime, Value = DateTime.MinValue });
 
                 _cmd.CommandText = sql;
@@ -441,7 +457,7 @@ namespace CommunicationTest.DB.Sqlite
                 _cmd = new SQLiteCommand(_conn);
                 _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@Id", DbType = DbType.Int32, Value = mateWeb.Id });
                 _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@WebName", DbType = DbType.String, Value = mateWeb.WebName });
-                _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@DetectionInterval", DbType = DbType.Object, Value = mateWeb.DetectionInterval });
+                _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@DetectionInterval", DbType = DbType.Int64, Value = mateWeb.DetectionInterval });
                 _cmd.CommandText = sql;
                 _cmd.ExecuteNonQuery();
             }
@@ -473,6 +489,29 @@ namespace CommunicationTest.DB.Sqlite
             catch (Exception ex)
             {
                 Debug.WriteLine("获取监听网站Id失败 : {0} \t{1}", webUrl, ex);
+            }
+            return result;
+        }
+
+
+        public bool DeleteWebsite(int webId)
+        {
+            bool result = true;
+            try
+            {
+                OpenCon();
+                string sql = "DELETE FROM [NoticeUser] WHERE [WebId] = @WebId;"
+                    + "DELETE FROM [Web] WHERE [Id] = @WebId;";
+
+                _cmd = new SQLiteCommand(_conn);
+                _cmd.Parameters.Add(new SQLiteParameter { ParameterName = "@WebId", DbType = DbType.Int32, Value = webId });
+                _cmd.CommandText = sql;
+                _cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                Debug.WriteLine("删除监听网站失败 : {0} \t{1}", webId, ex);
             }
             return result;
         }
