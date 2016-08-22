@@ -9,13 +9,15 @@
 	
 	<div class="loc-search">
 		<div class="loc-search-bg">
-			<i class="fa fa-search" ></i> 
-			<input placeholder="搜索景点" >
+			<input placeholder="搜索景点" class="search-name" onchange="search();" >
+			<i class="fa fa-search" onclick="search();" ></i> 
 		</div>
 	</div>
 	
 	<div class="loc-view-info" >
+	
 		<div class="lov-view-title">景点</div>
+		
 		<div class="loc-view-img" data-code="04-0008-0001">
 			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/bifrost.jpg'/>">
 			<div class="txt" >彩虹桥</div>
@@ -44,6 +46,7 @@
 			<img alt="" src="<c:out value='${staticFileUrl }/resources/images/herb-garden2.jpg'/>">
 			<div class="txt" >香草园南出入口</div>
 		</div>
+		
 	</div>
 	
 	<div class="loc-view-info" >
@@ -98,14 +101,44 @@
 	</div>
 
 	<script type="text/javascript">
-	
-		
 		 $(".loc-view-img").on('click',function(){
 		 	var code = $(this).data("code");
 		 	
 			var url = '/disney/pg/toLocation.html?toLocation='+code;
 			window.location = url;
+			
 		});
+		
+		function search(){
+		
+			var condition = $('.search-name').val();
+			
+			$(".loc-view-info").each(function(){
+				var show = false;
+				
+				$(this).find(".loc-view-img div.txt").each(function(){
+				
+					var txt = $(this).html();
+				
+					if(condition && condition != '' &&txt.indexOf(condition) == -1){
+						$(this).parent().hide();
+					}else{
+						$(this).parent().show();
+						show = true;
+					}
+				});
+				
+				if(show){
+					$(this).show();
+				}else{
+					$(this).hide();
+				}
+				
+			});
+			
+			
+		}
+		
 	</script>
 
 </body>

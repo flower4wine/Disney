@@ -93,11 +93,16 @@
 window.onload = function() {
 	//首页页面自动调整
 	idxUIFit();
+	
+	$(window).resize(function() {
+	 	idxUIFit();
+	});
 
 	//微信扫一扫配置
 	var timestamp = $("#timestamp").val();//时间戳
 	var nonceStr = $("#nonceStr").val();//随机串
 	var signature = $("#signature").val();//签名
+	
 	var appId = $("#appId").val();
 
 	wxConfig(timestamp, nonceStr, signature, appId);
