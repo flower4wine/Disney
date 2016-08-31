@@ -1,5 +1,7 @@
 package com.disney.web.controller.generate.wishingstar;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,32 @@ public class P4ToWishingstarController extends GenerateBaseController{
 		if(locationService.find(viewCode) == null || locationService.find(parkEntrance) == null ){
 			return;
 		}
+		
+		List<Integer> list= new ArrayList<Integer>();
+		
+		if(parkEntrance.equals("03-0004-000C")){
+			for (int i = 1; i <= 25; i++) {
+				list.add(i);
+			}
+			list.add(64);
+			for (int i = 67; i <= 70; i++) {
+				list.add(i);
+			}
+			list.add(74);
+		}else if(parkEntrance.equals("03-0004-000D")){
+			for (int i = 26; i <= 63; i++) {
+				list.add(i);
+			}
+			list.add(65);
+			list.add(66);
+			for (int i = 71; i <= 73; i++) {
+				list.add(i);
+			}
+		}else{
+			for (int i = 1; i <= GenerateFix.P4_QRCODE_NUM; i++) {
+				list.add(i);
+			}
+		}
 
 		FromToOptimize i2o = new FromToOptimize();
 		FromToOptimize o2i = new FromToOptimize();
@@ -53,17 +81,17 @@ public class P4ToWishingstarController extends GenerateBaseController{
 		}
 
 		
-		for(int i = 1; i <= GenerateFix.P4_QRCODE_NUM; i++){
+		for (Integer suffix : list) {
 			//停车场内部到景点
-			String from = parkEntrance.substring(0,8)+getQrCodeSuffix(i);
+			String from = parkEntrance.substring(0,8)+getQrCodeSuffix(suffix);
 			String to = viewCode;
 			generateLo2Lo(from,to,parkEntrance,i2o,Lo2LoType.PARKINNER_2_VIEW);
 		}
 		
-		for(int i = 1; i <= GenerateFix.P4_QRCODE_NUM; i++){
+		for (Integer suffix : list) {
 			//景点到停车场内部
 			String from = viewCode;
-			String to = parkEntrance.substring(0,8)+getQrCodeSuffix(i);
+			String to = parkEntrance.substring(0,8)+getQrCodeSuffix(suffix);
 			generateLo2Lo(from,to,parkEntrance,o2i,Lo2LoType.VIEW_2_PARKINNER);
 		}
 
