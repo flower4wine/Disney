@@ -42,7 +42,7 @@ public class P4ToEcologicalController extends GenerateBaseController{
 		
 		for(int i=0;i<GenerateFix.P4_QRCODE_NUM;i++){
 			//停车场内部到景点
-			String from = parkEntrance.substring(0,8)+getQrCodeSuffix(i);
+			String from = parkEntrance.substring(0,8)+getQrCodeSuffix(i+1);
 			String to = viewCode;
 			generateLo2Lo(from,to,parkEntrance,i2o,Lo2LoType.PARKINNER_2_VIEW);
 		}
@@ -50,7 +50,7 @@ public class P4ToEcologicalController extends GenerateBaseController{
 		for(int i=0;i<GenerateFix.P4_QRCODE_NUM;i++){
 			//景点到停车场内部
 			String from = viewCode;
-			String to = parkEntrance.substring(0,8)+getQrCodeSuffix(i);
+			String to = parkEntrance.substring(0,8)+getQrCodeSuffix(i+1);
 			generateLo2Lo(from,to,parkEntrance,o2i,Lo2LoType.VIEW_2_PARKINNER);
 		}
 
