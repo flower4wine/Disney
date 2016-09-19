@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 
 
-<c:set var="staticFileUrl" value="http://disney.inesa-btfq.com/disney-static/" scope="application" />
+<c:set var="staticFileUrl" value="http://www.shsdxg.com/disney-static/" scope="application" />
 
 
 <link rel="shortcut icon" href="<c:out value='${staticFileUrl }/resources/images/favicon.ico' />" />
