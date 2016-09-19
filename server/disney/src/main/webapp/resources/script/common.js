@@ -8,7 +8,7 @@ function endLoading(){
 }
 
 function domain(){
-	return "http://disney.inesa-btfq.com/";
+	return "http://www.shsdxg.com/";
 }
 
 
